@@ -1,0 +1,15 @@
+.head {
+    position: fixed;
+    left: 0%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+    height: 60px;
+    background: radial-gradient(50% 28800% at 50% 68.33%, #4E86E4 0%, #2F68C8 100%);
+    box-shadow: 0px 1px 5px #C1CEDE;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 236px;
+}

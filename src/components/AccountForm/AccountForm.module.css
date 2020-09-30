@@ -1,0 +1,33 @@
+.form input {
+    display: block;
+
+    width: 400px;
+    height: 40px;
+
+    background: #FFFFFF;
+    border: 1px solid #C1CFE0;
+    box-sizing: border-box;
+}
+
+.form label:first-child{
+    padding-top: 0;
+}
+.form label {
+    display: block;
+    padding-top: 24px;
+}
+.form span {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 16px;
+
+    color: #657C9A;
+}
+
+.button {
+    display: flex;
+    margin-top: 248px;
+    justify-content: flex-end;
+}

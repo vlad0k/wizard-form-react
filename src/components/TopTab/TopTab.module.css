@@ -1,0 +1,21 @@
+.tab {
+    width: 25%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: Roboto;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 28px;
+    letter-spacing: 0em;
+    text-align: center;
+    color: #9BB0CB;
+}
+
+.active {
+    color: #fff;
+    background: #4E86E4;
+}

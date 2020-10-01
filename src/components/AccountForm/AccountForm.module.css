@@ -32,3 +32,9 @@
     margin-top: 248px;
     justify-content: flex-end;
 }
+
+.error {
+    color: red;
+    font-size: 9px;
+    padding-left: 16px;
+}

@@ -1,7 +1,11 @@
 import React from "react";
 import classNames from "./AccountForm.module.css";
-import { Formik, Field, Form, ErrorMessage } from "formik";
+import { Formik, Field, Form, ErrorMessage, FormikValues } from "formik";
 import * as Yup from "yup";
+
+import { useDispatch, useSelector } from "react-redux";
+import { forwardToStep2 } from "../../redux/addFormReducer";
+
 import Button from "../Button/Button";
 
 interface Values {
@@ -20,6 +24,12 @@ const validateScema = Yup.object({
 });
 
 const AccountForm = () => {
+  const dispatch = useDispatch();
+
+  const formSubmit = ({ username, password }: Values) => {
+    dispatch(forwardToStep2(username, password));
+  };
+
   return (
     <Formik
       initialValues={{
@@ -28,7 +38,7 @@ const AccountForm = () => {
         passwordRepeat: "",
       }}
       validationSchema={validateScema}
-      onSubmit={(values) => console.log(values)}
+      onSubmit={formSubmit}
     >
       <Form className={classNames.form}>
         <label>

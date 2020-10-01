@@ -13,6 +13,9 @@ function App() {
         <Route path={"/new"}>
           <AddUserPage />
         </Route>
+        <Route path={"/users"}>
+          <p style={{ margin: 100 }}>Hello!</p>
+        </Route>
       </Router>
     </div>
   );

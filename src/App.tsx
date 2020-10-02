@@ -6,15 +6,15 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import "./db/db";
 import store from "./redux/store";
 
-import Index from "./components/Header";
-import AddUserPage from "./pages/AddUserPage/AddUserPage";
+import Header from "./components/Header";
+import AddUserPage from "./pages/AddUserPage";
 
 function App() {
   return (
     <div className="App">
       <Router>
         <Provider store={store}>
-          <Index />
+          <Header />
           <Route path={"/new"}>
             <AddUserPage />
           </Route>

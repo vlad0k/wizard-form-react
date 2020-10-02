@@ -1,5 +1,5 @@
 import React from "react";
-import classNames from "./ProfileForm.module.css";
+import classNames from "./index.module.css";
 import { Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 import TextField from "../../form/TextField";
@@ -23,7 +23,7 @@ const validateScema = Yup.object({
   email: Yup.string().required("required field"),
 });
 
-const ProfileForm = () => {
+const Index = () => {
   const dispatch = useDispatch();
 
   const backButtonClickHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -83,4 +83,4 @@ const ProfileForm = () => {
   );
 };
 
-export default ProfileForm;
+export default Index;

@@ -1,5 +1,5 @@
 import React from "react";
-import classNames from "./AccountForm.module.css";
+import classNames from "./index.module.css";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 
@@ -24,7 +24,7 @@ const validateScema = Yup.object({
   ),
 });
 
-const AccountForm = () => {
+const Index = () => {
   const dispatch = useDispatch();
 
   const formSubmit = ({ username, password }: Values) => {
@@ -57,4 +57,4 @@ const AccountForm = () => {
   );
 };
 
-export default AccountForm;
+export default Index;

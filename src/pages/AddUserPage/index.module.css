@@ -12,23 +12,7 @@
     color: #475666;
 }
 
-.upload {
-    color: #9BB0CB;
-    background: none;
-    display: flex;
-    align-items: center;
-    margin-top: 12px;
-    transition: 0.2s;
-    font-size: 14px;
-}
 
-.upload:hover {
-    color: #7c8da3;;
-}
-
-.upload input {
-    display: none;
-}
 
 .rectangle {
     padding: 65px 0 ;
@@ -50,8 +34,4 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-}
-
-.pressed {
-    transform: scale(0.95);
 }

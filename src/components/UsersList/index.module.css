@@ -1,0 +1,40 @@
+.table {
+    width: 970px;
+
+}
+
+.table th {
+    height: 45px;
+    background: #4E86E4;
+    padding: 0;
+    margin: 0;
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+
+    color: white;
+}
+
+.empty {
+    display: flex;
+    height: 430px;
+    width: 970px;
+    background-color: #EAF1FD;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.empty span {
+    font-weight: bold;
+    font-size: 35px;
+    line-height: 41px;
+
+    color: #9BB0CB;
+
+    padding-bottom: 64px;
+}

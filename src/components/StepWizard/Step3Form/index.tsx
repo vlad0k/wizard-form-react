@@ -1,12 +1,12 @@
 import React from "react";
 import classNames from "./index.module.css";
-import { Form, Formik, FieldArray, Field, FieldArrayRenderProps } from "formik";
+import { Form, Formik, FieldArray, FieldArrayRenderProps } from "formik";
 import InputField from "../../form/InputField";
 import Button from "../../ui/Button";
 import addIcon from "../../../assets/icons/add.svg";
 import minusIcon from "../../../assets/icons/minus.svg";
 import { useDispatch } from "react-redux";
-import { goBack, profileFormForward } from "../../../redux/addFormReducer";
+import { goBack } from "../../../redux/addFormReducer";
 
 interface Values {
   company: string;
@@ -31,11 +31,11 @@ const phoneInputs = (props: FieldArrayRenderProps) => {
   const phoneNumbers = form.values.phoneNumbers;
 
   const phN = phoneNumbers.map((p: string, i: number) => (
-    <div className={classNames.phones}>
+    <div className={classNames.phones} key={i}>
       <InputField name={`phoneNumbers[${i}]`} label={`Phone #${i + 1}`} />
       {i > 0 && (
         <Button type={"text"} onClick={() => remove(i)}>
-          <img src={minusIcon} />
+          <img src={minusIcon} alt={"remove phone number input"} />
         </Button>
       )}
     </div>
@@ -47,7 +47,7 @@ const phoneInputs = (props: FieldArrayRenderProps) => {
 
       {phoneNumbers.length < 3 && (
         <Button type={"text"} onClick={() => push("")}>
-          <img src={addIcon} />
+          <img src={addIcon} alt={"add phone number"} />
           add phone number
         </Button>
       )}
@@ -62,11 +62,11 @@ const Step3Form = () => {
     dispatch(goBack());
   };
 
-  const submitForm = (values: Values) => {
-    const { company, facebook, github, mainLang, fax, phoneNumbers } = values;
-    // dispatch();
-    // profileFormForward(adress, birthdate, email, firstname, gender, lastname)
-  };
+  // const submitForm = (values: Values) => {
+  //   // const { company, facebook, github, mainLang, fax, phoneNumbers } = values;
+  //   // dispatch();
+  //   // profileFormForward(adress, birthdate, email, firstname, gender, lastname)
+  // };
 
   return (
     <Formik

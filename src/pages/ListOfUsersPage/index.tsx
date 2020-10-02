@@ -1,11 +1,12 @@
 import React from "react";
 import PageHeader from "../../components/ui/PageHeader";
-
+import UsersList from "../../components/UsersList";
 const ListOfUsersPage = () => {
   return (
-    <div>
+    <>
       <PageHeader>List of users</PageHeader>
-    </div>
+      <UsersList />
+    </>
   );
 };
 

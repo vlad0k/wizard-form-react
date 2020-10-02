@@ -24,7 +24,7 @@ const StepWizard = () => {
             <div className={classNames.addUserPhoto}>
               <Avatar />
               <FilePicker>
-                <img src={addIcon} />
+                <img src={addIcon} alt={"add avatar"} />
                 add avatar
               </FilePicker>
             </div>

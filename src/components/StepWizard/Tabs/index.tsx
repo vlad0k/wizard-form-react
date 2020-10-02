@@ -14,7 +14,7 @@ const Tabs = ({ value }: TabsPropsType) => {
     "Capabilities",
   ].map((tabName, i) => (
     <TabPanel
-      key={"tabName"}
+      key={tabName}
       value={i + 1}
       name={tabName}
       active={value === i + 1}

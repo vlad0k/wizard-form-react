@@ -15,7 +15,8 @@
     padding-bottom: 24px;
 }
 
-.InputField span {
+.inputField span {
+    display: inline-block;
     font-family: Roboto;
     font-style: normal;
     font-weight: normal;
@@ -23,6 +24,7 @@
     line-height: 16px;
 
     color: #657C9A;
+    padding-bottom: 4px;
 }
 
 .error {

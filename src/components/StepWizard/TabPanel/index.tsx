@@ -19,7 +19,7 @@ const Tab = ({ active, name, value }: TopTabProps) => {
   const dispatch = useDispatch();
 
   const tabClickHandler = () => {
-    if (value < currentStep) dispatch(selectStep(value));
+    dispatch(selectStep(value));
   };
 
   const tabClassName = classNamesCombine({

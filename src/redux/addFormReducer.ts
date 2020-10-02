@@ -36,7 +36,7 @@ type AddFormActionsType =
   | SelectStepAction;
 
 const initialState = {
-  currentStep: 3,
+  currentStep: 1,
   username: "",
   password: "",
   firstname: "",

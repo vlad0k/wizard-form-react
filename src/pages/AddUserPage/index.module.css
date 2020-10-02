@@ -5,33 +5,3 @@
     align-items: center;
     justify-content: flex-start;
 }
-
-.addUserPage h1 {
-    margin: 0;
-    padding: 82px 0 24px 0;
-    color: #475666;
-}
-
-
-
-.rectangle {
-    padding: 65px 0 ;
-    width: 970px;
-    height: 412px;
-    background: #FAFCFF;
-}
-
-.twoColumns {
-    display: inline-grid;
-    grid-template-columns: 1fr 1fr;
-    justify-content: space-around;
-    align-items: start;
-    justify-items: center;
-}
-
-.addUserPhoto {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}

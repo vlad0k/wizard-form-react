@@ -1,5 +1,5 @@
 import React from "react";
-import classNames from "./NavLink.module.css";
+import classNames from "./index.module.css";
 import { NavLink as ReactRouterNavLink } from "react-router-dom";
 
 type NavLinkProps = {

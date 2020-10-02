@@ -4,10 +4,10 @@ import { Formik, Form } from "formik";
 import * as Yup from "yup";
 
 import { useDispatch } from "react-redux";
-import { accountFormForward } from "../../redux/addFormReducer";
+import { accountFormForward } from "../../../redux/addFormReducer";
 
-import Button from "../Button/Button";
-import TextField from "../TextField/TextField";
+import Button from "../../ui/Button";
+import TextField from "../../form/TextField";
 
 interface Values {
   username: string;

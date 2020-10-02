@@ -1,6 +1,6 @@
 import React from "react";
-import classNames from "./Avatar.module.css";
-import noPhotoIcon from "../../assets/icons/empty avatar.svg";
+import classNames from "./index.module.css";
+import noPhotoIcon from "../../../assets/icons/empty avatar.svg";
 
 type AvatarProp = {
   image?: string;

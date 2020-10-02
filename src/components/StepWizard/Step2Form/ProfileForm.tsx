@@ -2,11 +2,11 @@ import React from "react";
 import classNames from "./ProfileForm.module.css";
 import { Field, Form, Formik } from "formik";
 import * as Yup from "yup";
-import TextField from "../TextField/TextField";
-import Button from "../Button/Button";
+import TextField from "../../form/TextField";
+import Button from "../../ui/Button";
 
 import { useDispatch } from "react-redux";
-import { goBack, profileFormForward } from "../../redux/addFormReducer";
+import { goBack, profileFormForward } from "../../../redux/addFormReducer";
 
 interface Values {
   firstname: string;

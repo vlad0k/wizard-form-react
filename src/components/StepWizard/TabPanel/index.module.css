@@ -14,10 +14,15 @@
     text-align: center;
     color: #9BB0CB;
 
+    cursor: pointer;
     transition: 0.4s;
 }
 
 .active {
     color: #fff;
     background: #4E86E4;
+}
+
+.visited {
+    color: #475666;
 }

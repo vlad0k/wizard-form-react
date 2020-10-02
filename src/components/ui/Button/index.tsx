@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import classNames from "./Button.module.css";
+import classNames from "./index.module.css";
 import classNamesCombine from "classnames";
 
 type ButtonProps = {

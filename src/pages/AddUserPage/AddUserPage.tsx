@@ -3,12 +3,12 @@ import classNames from "./AddUserPage.module.css";
 
 import cn from "classnames";
 
-import TopOfTheForm from "../../components/TopOfTheForm/TopOfTheForm";
-import Avatar from "../../components/Avatar/Avatar";
-import AccountForm from "../../components/AccountForm/AccountForm";
+import Tabs from "../../components/StepWizard/Tabs";
+import Avatar from "../../components/ui/Avatar";
+import AccountForm from "../../components/StepWizard/Step1Form/AccountForm";
 import { useSelector, useDispatch } from "react-redux";
 import { StateType } from "../../redux/store";
-import ProfileForm from "../../components/ProfileForm/ProfileForm";
+import ProfileForm from "../../components/StepWizard/Step2Form/ProfileForm";
 import { selectStep } from "../../redux/addFormReducer";
 
 const AddUserPage = () => {
@@ -28,7 +28,7 @@ const AddUserPage = () => {
   return (
     <div className={classNames.addUserPage}>
       <h1>Adding new user</h1>
-      <TopOfTheForm value={currentStep} />
+      <Tabs value={currentStep} />
 
       {currentStep === 1 && (
         <div

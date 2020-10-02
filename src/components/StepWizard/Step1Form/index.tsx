@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import { accountFormForward } from "../../../redux/addFormReducer";
 
 import Button from "../../ui/Button";
-import TextField from "../../form/TextField";
+import InputField from "../../form/InputField";
 
 interface Values {
   username: string;
@@ -42,9 +42,9 @@ const Index = () => {
       onSubmit={formSubmit}
     >
       <Form className={classNames.form}>
-        <TextField name={"username"} label={"User Name"} />
-        <TextField name={"password"} label={"Password"} type={"password"} />
-        <TextField
+        <InputField name={"username"} label={"User Name"} />
+        <InputField name={"password"} label={"Password"} type={"password"} />
+        <InputField
           name={"passwordRepeat"}
           label={"Repeat Password"}
           type={"password"}

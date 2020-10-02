@@ -7,6 +7,8 @@ import Step1Form from "./Step1Form";
 import Step2Form from "./Step2Form";
 import { useSelector } from "react-redux";
 import { StateType } from "../../redux/store";
+import Step3Form from "./Step3Form";
+import addIcon from "../../assets/icons/add.svg";
 
 const StepWizard = () => {
   let currentStep: number = useSelector(
@@ -21,7 +23,10 @@ const StepWizard = () => {
           <div className={classNames.twoColumns}>
             <div className={classNames.addUserPhoto}>
               <Avatar />
-              <FilePicker>+add avatar</FilePicker>
+              <FilePicker>
+                <img src={addIcon} />
+                add avatar
+              </FilePicker>
             </div>
 
             <div style={{ height: "100%" }}>
@@ -31,6 +36,7 @@ const StepWizard = () => {
         )}
 
         {currentStep === 2 && <Step2Form />}
+        {currentStep === 3 && <Step3Form />}
       </div>
     </>
   );

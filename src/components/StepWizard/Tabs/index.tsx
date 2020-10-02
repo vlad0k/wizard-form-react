@@ -13,7 +13,12 @@ const Tabs = ({ value }: TabsPropsType) => {
     "Contacts",
     "Capabilities",
   ].map((tabName, i) => (
-    <TabPanel value={i + 1} name={tabName} active={value === i + 1} />
+    <TabPanel
+      key={"tabName"}
+      value={i + 1}
+      name={tabName}
+      active={value === i + 1}
+    />
   ));
 
   return <div className={classNames.wrapper}>{tabs}</div>;

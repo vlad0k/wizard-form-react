@@ -2,7 +2,7 @@ import React from "react";
 import classNames from "./index.module.css";
 import { Field, Form, Formik } from "formik";
 import * as Yup from "yup";
-import TextField from "../../form/TextField";
+import InputField from "../../form/InputField";
 import Button from "../../ui/Button";
 
 import { useDispatch } from "react-redux";
@@ -51,13 +51,13 @@ const Index = () => {
     >
       <Form className={classNames.form}>
         <div className={classNames.column}>
-          <TextField name={"firstname"} label={"First Name"} />
-          <TextField name={"lastname"} label={"Last Name"} />
-          <TextField name={"birthdate"} label={"Birth Date"} type={"date"} />
+          <InputField name={"firstname"} label={"First Name"} />
+          <InputField name={"lastname"} label={"Last Name"} />
+          <InputField name={"birthdate"} label={"Birth Date"} type={"date"} />
         </div>
         <div className={classNames.column}>
-          <TextField name={"email"} label={"Email"} />
-          <TextField name={"adress"} label={"Adress"} />
+          <InputField name={"email"} label={"Email"} />
+          <InputField name={"adress"} label={"Adress"} />
           <div className={classNames.radioGroup}>
             <label>
               <Field type={"radio"} name={"gender"} value={"male"} />

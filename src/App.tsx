@@ -8,6 +8,7 @@ import store from "./redux/store";
 
 import Header from "./components/Header";
 import AddUserPage from "./pages/AddUserPage";
+import ListOfUsersPage from "./pages/ListOfUsersPage";
 
 function App() {
   return (
@@ -19,7 +20,7 @@ function App() {
             <AddUserPage />
           </Route>
           <Route path={"/users"}>
-            <p style={{ margin: 100 }}>Hello!</p>
+            <ListOfUsersPage />
           </Route>
         </Provider>
       </Router>

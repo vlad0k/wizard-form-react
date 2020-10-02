@@ -1,4 +1,4 @@
-.textField input {
+.inputField input {
     display: block;
 
     width: 400px;
@@ -7,15 +7,15 @@
     background: #FFFFFF;
     border: 1px solid #C1CFE0;
     box-sizing: border-box;
-    padding: 0 8px;
+    padding:  8px;
 }
 
-.textField {
+.inputField {
     display: block;
-    padding-top: 24px;
+    padding-bottom: 24px;
 }
 
-.textField span {
+.InputField span {
     font-family: Roboto;
     font-style: normal;
     font-weight: normal;

@@ -2,15 +2,15 @@ import React from "react";
 import classNames from "./index.module.css";
 import { ErrorMessage, Field } from "formik";
 
-type TextFieldPropsType = {
+type InputFieldPropsType = {
   name: string;
   label: string;
   type?: string;
 };
 
-const TextField = ({ name, label, type }: TextFieldPropsType) => {
+const InputField = ({ name, label, type }: InputFieldPropsType) => {
   return (
-    <label className={classNames.textField}>
+    <label className={classNames.inputField}>
       <span>{label}</span>
       <Field name={name} id={name} type={type} />
       <div className={classNames.error}>
@@ -20,4 +20,4 @@ const TextField = ({ name, label, type }: TextFieldPropsType) => {
   );
 };
 
-export default TextField;
+export default InputField;

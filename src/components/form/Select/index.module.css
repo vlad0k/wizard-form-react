@@ -1,0 +1,19 @@
+
+
+.select span {
+    display: inline-block;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 16px;
+
+    color: #657C9A;
+    padding-bottom: 4px;
+}
+
+.error {
+    color: red;
+    font-size: 9px;
+    padding-left: 16px;
+}

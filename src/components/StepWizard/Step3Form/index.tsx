@@ -7,6 +7,7 @@ import addIcon from "../../../assets/icons/add.svg";
 import minusIcon from "../../../assets/icons/minus.svg";
 import { useDispatch } from "react-redux";
 import { goBack } from "../../../redux/addFormReducer";
+import Select from "../../form/Select";
 
 interface Values {
   company: string;
@@ -21,7 +22,7 @@ const initialValues: Values = {
   company: "",
   facebook: "",
   github: "",
-  mainLang: "Eng",
+  mainLang: "eng",
   fax: "",
   phoneNumbers: [""],
 };
@@ -78,7 +79,7 @@ const Step3Form = () => {
           <InputField name={"company"} label={"Company"} />
           <InputField name={"github"} label={"GitHub Link"} />
           <InputField name={"facebook"} label={"Facebook Link"} />
-          <InputField name={"mainLang"} label={"Main Language"} />
+          <Select name={"mainLang"} />
         </div>
 
         <div className={classNames.column}>

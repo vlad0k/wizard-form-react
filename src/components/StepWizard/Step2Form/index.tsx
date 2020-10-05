@@ -7,6 +7,8 @@ import Button from "../../ui/Button";
 
 import { useDispatch } from "react-redux";
 import { goBack, profileFormForward } from "../../../redux/addFormReducer";
+import DatePicker from "../../form/DatePicker";
+import Select from "../../form/Select";
 
 interface Values {
   firstname: string;
@@ -53,7 +55,7 @@ const Index = () => {
         <div className={classNames.column}>
           <InputField name={"firstname"} label={"First Name"} />
           <InputField name={"lastname"} label={"Last Name"} />
-          <InputField name={"birthdate"} label={"Birth Date"} type={"date"} />
+          <DatePicker name={"birthdate"} />
         </div>
         <div className={classNames.column}>
           <InputField name={"email"} label={"Email"} />

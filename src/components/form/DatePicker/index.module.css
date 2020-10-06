@@ -9,10 +9,7 @@
     font-weight: bold;
     font-size: 9px;
     line-height: 11px;
-    /* identical to box height */
-
     text-align: center;
-
     color: #475666;
 }
 
@@ -22,12 +19,8 @@
     font-weight: 500;
     font-size: 9px;
     line-height: 11px;
-    /* identical to box height */
-
     text-align: right;
-
     color: #475666;
     background-color: #FAFCFF;
     margin: 0
-
 }

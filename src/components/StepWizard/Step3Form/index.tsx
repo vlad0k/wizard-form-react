@@ -36,7 +36,7 @@ const phoneInputs = (props: FieldArrayRenderProps) => {
     },
   } = props;
 
-  const phN = phoneNumbers.map((p: string, i: number) => (
+  const phoneNumberFields = phoneNumbers.map((p: string, i: number) => (
     <div className={classNames.phones} key={i}>
       <InputField name={`phoneNumbers[${i}]`} label={`Phone #${i + 1}`} />
       {i > 0 && (
@@ -47,11 +47,13 @@ const phoneInputs = (props: FieldArrayRenderProps) => {
     </div>
   ));
 
+  const maxNumberOfPhoneInputs = 3;
+
   return (
     <>
-      {phN}
+      {phoneNumberFields}
 
-      {phoneNumbers.length < 3 && (
+      {phoneNumbers.length < maxNumberOfPhoneInputs && (
         <Button type="text" onClick={() => push("")}>
           <img src={addIcon} alt="add phone number" />
           add phone number

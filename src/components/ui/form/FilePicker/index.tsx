@@ -3,13 +3,13 @@ import cn from "classnames";
 import classNames from "./index.module.css";
 
 const FilePicker = ({ name, children }: FilePickerProps) => {
-  const [pressed, setPressed] = useState(false);
+  const [pressed, isPressed] = useState(false);
 
   const mouseDownHandler = () => {
-    setPressed(true);
+    isPressed(true);
   };
   const mouseUpHandler = () => {
-    setPressed(false);
+    isPressed(false);
   };
 
   return (

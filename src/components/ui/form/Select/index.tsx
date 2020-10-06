@@ -1,6 +1,7 @@
 import React from "react";
 import Select from "react-select";
 import { Field, FieldProps } from "formik";
+import { ValueType } from "react-select/src/types";
 
 const options = [
   { value: "en", label: "English" },
@@ -61,7 +62,6 @@ const customStyles = {
 };
 
 const MySelect = ({ name }: { name: string }) => {
-  // const [selected, setSelected] = useState(null);
   return (
     <>
       <Field name={name}>
@@ -74,7 +74,9 @@ const MySelect = ({ name }: { name: string }) => {
             <Select
               options={options}
               value={value}
-              onChange={(selected) => setFieldValue(name, selected.value)}
+              onChange={(
+                selected: ValueType<{ value: string; label: string }>
+              ) => setFieldValue(name, selected)}
               styles={customStyles}
             />
           );

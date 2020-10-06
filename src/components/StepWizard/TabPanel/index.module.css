@@ -12,7 +12,7 @@
     line-height: 28px;
     letter-spacing: 0em;
     text-align: center;
-    color: #9BB0CB;
+    color: var(var(--primary-text-color));
 
     cursor: pointer;
     transition: 0.4s;
@@ -24,5 +24,5 @@
 }
 
 .visited {
-    color: #475666;
+    color: var(--primary-text-color);
 }

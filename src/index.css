@@ -1,7 +1,12 @@
 :root {
   --primary-color: #4E86E4;
   --secondary-color: #C1CFE0;
-  --background-color: #E7F0FF;
+  --select-color: #E7F0FF;
+  --finish-color: #4EE4A5;
+  --action-text-color: #9BB0CB;
+  --form-label-color: #657C9A;
+  --primary-text-color: #475666;
+  --background-color: #FAFCFF;
 }
 
 html, body, #root {

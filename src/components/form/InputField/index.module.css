@@ -23,7 +23,7 @@
     font-size: 14px;
     line-height: 16px;
 
-    color: #657C9A;
+    color: var(--form-label-color);
     padding-bottom: 4px;
 }
 

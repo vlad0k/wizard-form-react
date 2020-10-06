@@ -21,7 +21,7 @@
     display: flex;
     height: 430px;
     width: 970px;
-    background-color: #FAFCFF;
+    background-color: var(--background-color);
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -33,7 +33,7 @@
     font-size: 35px;
     line-height: 41px;
 
-    color: #9BB0CB;
+    color: var(var(--primary-text-color));
 
     padding-bottom: 64px;
 }

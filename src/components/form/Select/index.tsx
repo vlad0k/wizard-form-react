@@ -18,9 +18,9 @@ const options = [
 const customStyles = {
   option: (provided: any, state: any) => ({
     ...provided,
-    color: "#657C9A",
+    color: "var(--form-label-color)",
     backgroundColor:
-      state.isSelected || state.isFocused ? "var(--background-color)" : "white",
+      state.isSelected || state.isFocused ? "var(--select-color)" : "white",
     paddingLeft: 8,
     fontSize: 14,
   }),
@@ -47,16 +47,16 @@ const customStyles = {
     paddingBottom: 24,
   }),
   multiValue: () => ({
-    backgroundColor: "var(--background-color)",
+    backgroundColor: "var(--select-color)",
     fontSize: 12,
-    color: "#9BB0CB",
+    color: "var(var(--primary-text-color))",
     display: "flex",
     alignItems: "center",
     padding: 4,
     marginLeft: 4,
   }),
   multiValueLabel: () => ({
-    color: "#9BB0CB",
+    color: "var(var(--primary-text-color))",
   }),
 };
 

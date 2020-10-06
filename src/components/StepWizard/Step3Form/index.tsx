@@ -71,7 +71,7 @@ const Step3Form = () => {
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={() => console.log("submit")}
+      onSubmit={(values) => console.log(values)}
     >
       <Form className={classNames.form}>
         <div className={classNames.column}>

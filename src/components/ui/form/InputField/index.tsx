@@ -2,12 +2,6 @@ import React from "react";
 import classNames from "./index.module.css";
 import { ErrorMessage, Field } from "formik";
 
-type InputFieldPropsType = {
-  name: string;
-  label: string;
-  type?: "text" | "password" | "email";
-};
-
 const InputField = ({ name, label, type = "text" }: InputFieldPropsType) => {
   return (
     <label className={classNames.inputField}>
@@ -21,3 +15,9 @@ const InputField = ({ name, label, type = "text" }: InputFieldPropsType) => {
 };
 
 export default InputField;
+
+type InputFieldPropsType = {
+  name: string;
+  label: string;
+  type?: "text" | "password" | "email";
+};

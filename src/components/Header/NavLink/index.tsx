@@ -2,12 +2,6 @@ import React from "react";
 import classNames from "./index.module.css";
 import { NavLink as ReactRouterNavLink } from "react-router-dom";
 
-type NavLinkProps = {
-  to: string;
-  name: string;
-  icon: string;
-};
-
 const NavLink = ({ to, name, icon }: NavLinkProps) => {
   return (
     <ReactRouterNavLink
@@ -22,3 +16,9 @@ const NavLink = ({ to, name, icon }: NavLinkProps) => {
 };
 
 export default NavLink;
+
+type NavLinkProps = {
+  to: string;
+  name: string;
+  icon: string;
+};

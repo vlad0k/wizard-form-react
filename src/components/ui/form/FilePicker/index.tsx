@@ -2,11 +2,6 @@ import React, { ReactNode, useState } from "react";
 import cn from "classnames";
 import classNames from "./index.module.css";
 
-type FilePickerProps = {
-  children: ReactNode;
-  name: string;
-};
-
 const FilePicker = ({ name, children }: FilePickerProps) => {
   const [pressed, setPressed] = useState(false);
 
@@ -33,3 +28,8 @@ const FilePicker = ({ name, children }: FilePickerProps) => {
 };
 
 export default FilePicker;
+
+type FilePickerProps = {
+  children: ReactNode;
+  name: string;
+};

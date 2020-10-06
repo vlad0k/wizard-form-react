@@ -4,10 +4,6 @@ import "react-datepicker/dist/react-datepicker.css";
 import classNames from "./index.module.css";
 import Button from "../../Button";
 
-type DatePickerProps = {
-  name: string;
-};
-
 const DatePicker = ({ name }: DatePickerProps) => {
   const [date, setDate] = useState<Date | null>(null);
   return (
@@ -38,3 +34,7 @@ const DatePicker = ({ name }: DatePickerProps) => {
 };
 
 export default DatePicker;
+
+type DatePickerProps = {
+  name: string;
+};

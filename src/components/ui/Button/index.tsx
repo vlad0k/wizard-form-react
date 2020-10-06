@@ -2,13 +2,6 @@ import React, { ReactNode } from "react";
 import classNames from "./index.module.css";
 import classNamesCombine from "classnames";
 
-type ButtonProps = {
-  children?: ReactNode;
-  type?: "primary" | "secondary" | "text";
-  submit?: boolean;
-  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => any;
-};
-
 const Button = ({
   type = "primary",
   children,
@@ -33,3 +26,10 @@ const Button = ({
 };
 
 export default Button;
+
+type ButtonProps = {
+  children?: ReactNode;
+  type?: "primary" | "secondary" | "text";
+  submit?: boolean;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => any;
+};

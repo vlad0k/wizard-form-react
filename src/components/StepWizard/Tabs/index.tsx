@@ -2,10 +2,6 @@ import React from "react";
 import classNames from "./index.module.css";
 import TabPanel from "../TabPanel";
 
-type TabsPropsType = {
-  value: number;
-};
-
 const Tabs = ({ value }: TabsPropsType) => {
   const tabs = [
     "Account",
@@ -25,3 +21,7 @@ const Tabs = ({ value }: TabsPropsType) => {
 };
 
 export default Tabs;
+
+type TabsPropsType = {
+  value: number;
+};

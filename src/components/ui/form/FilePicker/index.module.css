@@ -1,0 +1,21 @@
+.upload {
+    color: var(--action-text-color);
+    background: none;
+    display: flex;
+    align-items: center;
+    margin-top: 12px;
+    transition: 0.2s;
+    font-size: 14px;
+}
+
+.upload:hover {
+    color: #7c8da3;
+}
+
+.upload input {
+    display: none;
+}
+
+.pressed {
+    transform: scale(0.95);
+}

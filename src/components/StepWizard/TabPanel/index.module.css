@@ -1,0 +1,28 @@
+.tab {
+    width: 25%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: Roboto;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 28px;
+    letter-spacing: 0em;
+    text-align: center;
+    color: var(--primary-text-color);
+
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+.active {
+    color: #fff;
+    background: var(--primary-color);
+}
+
+.visited {
+    color: var(--action-text-color);
+}

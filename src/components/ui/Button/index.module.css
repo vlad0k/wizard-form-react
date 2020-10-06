@@ -1,0 +1,38 @@
+.button {
+    font-family: Roboto;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 0em;
+    text-align: center;
+    outline: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    color: white;
+    padding: 12px 24px;
+    cursor: pointer;
+}
+
+.primary {
+    background: var(--primary-color);
+}
+
+.secondary {
+    background: var(--secondary-color);
+}
+
+.text {
+    padding: 0;
+    color: var(--action-text-color);
+    background: none;
+}
+
+.button img {
+    padding-right: 4px;
+}
+
+.finish {
+    background: var(--finish-color);
+}

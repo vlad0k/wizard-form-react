@@ -19,7 +19,8 @@ const customStyles = {
   option: (provided: any, state: any) => ({
     ...provided,
     color: "#657C9A",
-    backgroundColor: state.isSelected || state.isFocused ? "#E7F0FF" : "white",
+    backgroundColor:
+      state.isSelected || state.isFocused ? "var(--background-color)" : "white",
     paddingLeft: 8,
     fontSize: 14,
   }),
@@ -35,7 +36,7 @@ const customStyles = {
     width: 384,
     padding: "4px 8px",
     borderWidth: 1,
-    borderColor: "#C1CFE0",
+    borderColor: "var(--secondary-color)",
     borderStyle: "solid",
     fontWeight: 500,
   }),
@@ -46,7 +47,7 @@ const customStyles = {
     paddingBottom: 24,
   }),
   multiValue: () => ({
-    backgroundColor: "#E7F0FF",
+    backgroundColor: "var(--background-color)",
     fontSize: 12,
     color: "#9BB0CB",
     display: "flex",

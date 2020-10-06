@@ -20,7 +20,7 @@
 }
 
 .secondary {
-    background: #C1CFE0;
+    background: var(--secondary-color);
 }
 
 .text {

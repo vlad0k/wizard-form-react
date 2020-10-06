@@ -1,3 +1,9 @@
+:root {
+  --primary-color: #4E86E4;
+  --secondary-color: #C1CFE0;
+  --background-color: #E7F0FF;
+}
+
 html, body, #root {
   height: 100%;
 }

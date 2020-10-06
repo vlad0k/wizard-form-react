@@ -5,7 +5,7 @@
     height: 40px;
 
     background: #FFFFFF;
-    border: 1px solid #C1CFE0;
+    border: 1px solid var(--secondary-color);
     box-sizing: border-box;
     padding:  8px;
 }

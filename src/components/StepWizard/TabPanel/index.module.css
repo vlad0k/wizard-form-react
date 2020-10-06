@@ -20,7 +20,7 @@
 
 .active {
     color: #fff;
-    background: #4E86E4;
+    background: var(--primary-color);
 }
 
 .visited {

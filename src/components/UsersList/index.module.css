@@ -4,7 +4,7 @@
 
 .table th {
     height: 45px;
-    background: #4E86E4;
+    background: var(--primary-color);
     padding: 0;
     margin: 0;
 

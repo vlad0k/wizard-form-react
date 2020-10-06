@@ -32,9 +32,8 @@ const DatePicker = ({ name }: DatePickerProps) => {
         );
       }}
       weekDayClassName={() => classNames["wd"]}
-      className={classNames["cn"]}
-      popperClassName={classNames["pp"]}
-      wrapperClassName={classNames["wc"]}
+      popperClassName={classNames["popper"]}
+      wrapperClassName={classNames["wrapper"]}
       dayClassName={(date) => classNames.day}
     />
   );

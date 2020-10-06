@@ -23,11 +23,11 @@ const DatePicker = ({ name }: DatePickerProps) => {
         const { date } = props;
         return (
           <div className={classNames["header"]}>
-            <Button type={"text"}>{"<"}</Button>
+            <Button type={"text"}> &#60; </Button>
             <div>
               {date.getMonth()} {date.getFullYear()}
             </div>
-            <Button type={"text"}>{">"}</Button>
+            <Button type={"text"}> &#62; </Button>
           </div>
         );
       }}

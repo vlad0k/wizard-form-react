@@ -9,7 +9,7 @@ type AvatarProp = {
 const Avatar = ({ image }: AvatarProp) => {
   return (
     <div className={classNames.avatar}>
-      <img src={image ? image : noPhotoIcon} alt={"avatar"} />
+      <img src={image ? image : noPhotoIcon} alt="avatar" />
     </div>
   );
 };

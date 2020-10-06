@@ -2,13 +2,12 @@ import React from "react";
 import classNames from "./index.module.css";
 import { Field, Form, Formik } from "formik";
 import * as Yup from "yup";
-import InputField from "../../form/InputField";
+import InputField from "../../ui/form/InputField";
 import Button from "../../ui/Button";
 
 import { useDispatch } from "react-redux";
 import { goBack, profileFormForward } from "../../../redux/addFormReducer";
-import DatePicker from "../../form/DatePicker";
-import Select from "../../form/Select";
+import DatePicker from "../../ui/form/DatePicker";
 
 interface Values {
   firstname: string;
@@ -53,28 +52,28 @@ const Index = () => {
     >
       <Form className={classNames.form}>
         <div className={classNames.column}>
-          <InputField name={"firstname"} label={"First Name"} />
-          <InputField name={"lastname"} label={"Last Name"} />
-          <DatePicker name={"birthdate"} />
+          <InputField name="firstname" label="First Name" />
+          <InputField name="lastname" label="Last Name" />
+          <DatePicker name="birthdate" />
         </div>
         <div className={classNames.column}>
-          <InputField name={"email"} label={"Email"} />
-          <InputField name={"adress"} label={"Adress"} />
+          <InputField name="email" label="Email" />
+          <InputField name="adress" label="Adress" />
           <div className={classNames.radioGroup}>
             <label>
-              <Field type={"radio"} name={"gender"} value={"male"} />
+              <Field type="radio" name="gender" value="male" />
               <div className={classNames.radio} />
               Male
             </label>
             <label>
-              <Field type={"radio"} name={"gender"} value={"female"} />
+              <Field type="radio" name="gender" value="female" />
               <div className={classNames.radio} />
               Female
             </label>
           </div>
 
           <div className={classNames.buttons}>
-            <Button type={"secondary"} onClick={backButtonClickHandler}>
+            <Button type="secondary" onClick={backButtonClickHandler}>
               Back
             </Button>
             <Button submit={true}>Forward</Button>

@@ -15,7 +15,7 @@ const NavLink = ({ to, name, icon }: NavLinkProps) => {
       className={classNames.link}
       activeClassName={classNames.activeLink}
     >
-      <img src={icon} alt={""} />
+      <img src={icon} alt="" />
       <span>{name}</span>
     </ReactRouterNavLink>
   );

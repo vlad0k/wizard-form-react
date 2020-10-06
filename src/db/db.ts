@@ -1,10 +1,7 @@
-const db = indexedDB.open("users");
+import Dexie from "dexie";
 
-db.onerror = function (event) {
-  console.log(db.error);
-};
-db.onsuccess = function (event) {
-  console.log("connected to db!", db);
-};
+var db = new Dexie("WizardFormAppDB");
+
+db.version(1).stores({ users: "++id" });
 
 export default db;

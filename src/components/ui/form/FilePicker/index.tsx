@@ -4,9 +4,10 @@ import classNames from "./index.module.css";
 
 type FilePickerProps = {
   children: ReactNode;
+  name: string;
 };
 
-const FilePicker = ({ children }: FilePickerProps) => {
+const FilePicker = ({ name, children }: FilePickerProps) => {
   const [pressed, setPressed] = useState(false);
 
   const mouseDownHandler = () => {
@@ -18,16 +19,15 @@ const FilePicker = ({ children }: FilePickerProps) => {
 
   return (
     <label
-      htmlFor={"profileimage"}
-      className={cn({
-        [classNames.upload]: true,
+      htmlFor={name}
+      className={cn(classNames.upload, {
         [classNames.pressed]: pressed,
       })}
       onMouseDown={mouseDownHandler}
       onMouseUp={mouseUpHandler}
     >
       {children}
-      <input type={"file"} name={"profileimage"} id={"profileimage"} />
+      <input type="file" name={name} id={name} />
     </label>
   );
 };

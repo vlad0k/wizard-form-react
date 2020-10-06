@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import SelectR, { ValueType } from "react-select";
+import React from "react";
+import Select from "react-select";
 import { Field, FieldProps } from "formik";
 
 const options = [
@@ -60,7 +60,7 @@ const customStyles = {
   }),
 };
 
-const Select = ({ name }: { name: string }) => {
+const MySelect = ({ name }: { name: string }) => {
   // const [selected, setSelected] = useState(null);
   return (
     <>
@@ -70,9 +70,8 @@ const Select = ({ name }: { name: string }) => {
             field: { name, value },
             form: { setFieldValue },
           } = props;
-          console.log(value);
           return (
-            <SelectR
+            <Select
               options={options}
               value={value}
               onChange={(selected) => setFieldValue(name, selected.value)}
@@ -85,4 +84,4 @@ const Select = ({ name }: { name: string }) => {
   );
 };
 
-export default Select;
+export default MySelect;

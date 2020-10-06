@@ -5,10 +5,10 @@ import { ErrorMessage, Field } from "formik";
 type InputFieldPropsType = {
   name: string;
   label: string;
-  type?: string;
+  type?: "text" | "password" | "email";
 };
 
-const InputField = ({ name, label, type }: InputFieldPropsType) => {
+const InputField = ({ name, label, type = "text" }: InputFieldPropsType) => {
   return (
     <label className={classNames.inputField}>
       <span>{label}</span>

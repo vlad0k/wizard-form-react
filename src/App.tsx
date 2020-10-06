@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./App.css";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router, Route } from "react-router-dom";
@@ -16,10 +16,10 @@ function App() {
       <Router>
         <Provider store={store}>
           <Header />
-          <Route path={"/new"}>
+          <Route path="/new">
             <AddUserPage />
           </Route>
-          <Route path={"/users"}>
+          <Route path="/users">
             <ListOfUsersPage />
           </Route>
         </Provider>

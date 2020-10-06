@@ -1,13 +1,13 @@
 import React from "react";
 import classNames from "./index.module.css";
 import { Form, Formik, FieldArray, FieldArrayRenderProps } from "formik";
-import InputField from "../../form/InputField";
+import InputField from "../../ui/form/InputField";
 import Button from "../../ui/Button";
 import addIcon from "../../../assets/icons/add.svg";
 import minusIcon from "../../../assets/icons/minus.svg";
 import { useDispatch } from "react-redux";
 import { goBack } from "../../../redux/addFormReducer";
-import Select from "../../form/Select";
+import Select from "../../ui/form/Select";
 
 interface Values {
   company: string;
@@ -28,15 +28,20 @@ const initialValues: Values = {
 };
 
 const phoneInputs = (props: FieldArrayRenderProps) => {
-  const { push, remove, form } = props;
-  const phoneNumbers = form.values.phoneNumbers;
+  const {
+    push,
+    remove,
+    form: {
+      values: { phoneNumbers },
+    },
+  } = props;
 
   const phN = phoneNumbers.map((p: string, i: number) => (
     <div className={classNames.phones} key={i}>
       <InputField name={`phoneNumbers[${i}]`} label={`Phone #${i + 1}`} />
       {i > 0 && (
-        <Button type={"text"} onClick={() => remove(i)}>
-          <img src={minusIcon} alt={"remove phone number input"} />
+        <Button type="text" onClick={() => remove(i)}>
+          <img src={minusIcon} alt="remove phone number input" />
         </Button>
       )}
     </div>
@@ -47,8 +52,8 @@ const phoneInputs = (props: FieldArrayRenderProps) => {
       {phN}
 
       {phoneNumbers.length < 3 && (
-        <Button type={"text"} onClick={() => push("")}>
-          <img src={addIcon} alt={"add phone number"} />
+        <Button type="text" onClick={() => push("")}>
+          <img src={addIcon} alt="add phone number" />
           add phone number
         </Button>
       )}
@@ -63,12 +68,6 @@ const Step3Form = () => {
     dispatch(goBack());
   };
 
-  // const submitForm = (values: Values) => {
-  //   // const { company, facebook, github, mainLang, fax, phoneNumbers } = values;
-  //   // dispatch();
-  //   // profileFormForward(adress, birthdate, email, firstname, gender, lastname)
-  // };
-
   return (
     <Formik
       initialValues={initialValues}
@@ -76,18 +75,18 @@ const Step3Form = () => {
     >
       <Form className={classNames.form}>
         <div className={classNames.column}>
-          <InputField name={"company"} label={"Company"} />
-          <InputField name={"github"} label={"GitHub Link"} />
-          <InputField name={"facebook"} label={"Facebook Link"} />
-          <Select name={"mainLang"} />
+          <InputField name="company" label="Company" />
+          <InputField name="github" label="GitHub Link" />
+          <InputField name="facebook" label="Facebook Link" />
+          <Select name="mainLang" />
         </div>
 
         <div className={classNames.column}>
-          <InputField name={"fax"} label={"Fax"} />
-          <FieldArray name={"phoneNumbers"}>{phoneInputs}</FieldArray>
+          <InputField name="fax" label="Fax" />
+          <FieldArray name="phoneNumbers">{phoneInputs}</FieldArray>
 
           <div className={classNames.buttons}>
-            <Button type={"secondary"} onClick={backButtonClickHandler}>
+            <Button type="secondary" onClick={backButtonClickHandler}>
               Back
             </Button>
             <Button submit={true}>Forward</Button>

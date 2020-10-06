@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import { accountFormForward } from "../../../redux/addFormReducer";
 
 import Button from "../../ui/Button";
-import InputField from "../../form/InputField";
+import InputField from "../../ui/form/InputField";
 
 interface Values {
   username: string;
@@ -24,7 +24,7 @@ const validateScema = Yup.object({
   ),
 });
 
-const Index = () => {
+const Step1Form = () => {
   const dispatch = useDispatch();
 
   const formSubmit = ({ username, password }: Values) => {
@@ -42,12 +42,12 @@ const Index = () => {
       onSubmit={formSubmit}
     >
       <Form className={classNames.form}>
-        <InputField name={"username"} label={"User Name"} />
-        <InputField name={"password"} label={"Password"} type={"password"} />
+        <InputField name="username" label="User Name" />
+        <InputField name="password" label="Password" type="password" />
         <InputField
-          name={"passwordRepeat"}
-          label={"Repeat Password"}
-          type={"password"}
+          name="passwordRepeat"
+          label="Repeat Password"
+          type="password"
         />
         <div className={classNames.button}>
           <Button submit>Forward</Button>
@@ -57,4 +57,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default Step1Form;

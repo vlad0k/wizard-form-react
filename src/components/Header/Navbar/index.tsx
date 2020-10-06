@@ -7,8 +7,8 @@ import listOfUsersIcon from "../../../assets/icons/list-of-users.svg";
 const Navbar = () => {
   return (
     <nav className={classNames.navbar}>
-      <NavLink to={"/new"} name={"Add new user"} icon={addUsersIcon} />
-      <NavLink to={"/users"} name={"List of users"} icon={listOfUsersIcon} />
+      <NavLink to="/new" name="Add new user" icon={addUsersIcon} />
+      <NavLink to="/users" name="List of users" icon={listOfUsersIcon} />
     </nav>
   );
 };

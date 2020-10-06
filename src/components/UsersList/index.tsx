@@ -13,12 +13,12 @@ const UsersList = () => {
           <th>company</th>
           <th>contacts</th>
           <th>last update</th>
-          <th /> <th />
+          <th colSpan={2} />
         </thead>
       </table>
       <div className={classNames.empty}>
         <span>No users here :(</span>
-        <Link to={"/new"}>
+        <Link to="/new">
           <Button>Create new user</Button>
         </Link>
       </div>

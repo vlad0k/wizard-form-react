@@ -1,9 +1,9 @@
 import React from "react";
 import classNames from "./index.module.css";
 import { Formik, Form } from "formik";
-import Select from "../../form/Select";
 import TextArea from "../../form/TextArea";
 import Checkbox from "../../form/CheckBox";
+import MySelect from "../../ui/form/Select";
 
 const options = [
   "HTML",
@@ -34,7 +34,12 @@ const Step4Form = () => {
     >
       <Form className={classNames.form}>
         <div className={classNames.column}>
-          <Select name={"skills"} isMulti options={options} label={"Skills"} />
+          <MySelect
+            name={"skills"}
+            isMulti
+            options={options}
+            label={"Skills"}
+          />
           <TextArea
             name={"additionalInfo"}
             label={"Additional Info"}

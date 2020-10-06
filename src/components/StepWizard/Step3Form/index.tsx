@@ -79,16 +79,7 @@ const Step3Form = () => {
     dispatch(goBack());
   };
 
-  const submitForm = (values: Values) => {
-    const {
-      company,
-      facebook,
-      github,
-      mainLang = { value: "" },
-      fax,
-      phoneNumbers,
-    } = values;
-  };
+  const submitForm = () => {};
 
   return (
     <Formik initialValues={initialValues} onSubmit={submitForm}>

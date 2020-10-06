@@ -25,7 +25,7 @@
 
 .text {
     padding: 0;
-    color: var(var(--primary-text-color));
+    color: var(--action-text-color);
     background: none;
 }
 

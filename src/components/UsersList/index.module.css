@@ -33,7 +33,7 @@
     font-size: 35px;
     line-height: 41px;
 
-    color: var(var(--primary-text-color));
+    color: var(--action-text-color);
 
     padding-bottom: 64px;
 }

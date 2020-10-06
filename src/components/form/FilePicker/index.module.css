@@ -1,5 +1,5 @@
 .upload {
-    color: var(var(--primary-text-color));
+    color: var(--action-text-color);
     background: none;
     display: flex;
     align-items: center;

@@ -49,14 +49,14 @@ const customStyles = {
   multiValue: () => ({
     backgroundColor: "var(--select-color)",
     fontSize: 12,
-    color: "var(var(--primary-text-color))",
+    color: "var(--action-text-color)",
     display: "flex",
     alignItems: "center",
     padding: 4,
     marginLeft: 4,
   }),
   multiValueLabel: () => ({
-    color: "var(var(--primary-text-color))",
+    color: "var(--action-text-color)",
   }),
 };
 

@@ -13,7 +13,10 @@ interface Values {
   company: string;
   facebook: string;
   github: string;
-  mainLang: string;
+  mainLang: {
+    value: string;
+    label: string;
+  } | null;
   fax: string;
   phoneNumbers: Array<string>;
 }
@@ -22,10 +25,12 @@ const initialValues: Values = {
   company: "",
   facebook: "",
   github: "",
-  mainLang: "eng",
+  mainLang: null,
   fax: "",
   phoneNumbers: [""],
 };
+
+const maxNumberOfPhoneInputs = 3;
 
 const phoneInputs = (props: FieldArrayRenderProps) => {
   const {
@@ -46,8 +51,6 @@ const phoneInputs = (props: FieldArrayRenderProps) => {
       )}
     </div>
   ));
-
-  const maxNumberOfPhoneInputs = 3;
 
   return (
     <>
@@ -70,7 +73,16 @@ const Step3Form = () => {
     dispatch(goBack());
   };
 
-  const submitForm = () => {};
+  const submitForm = (values: Values) => {
+    const {
+      company,
+      facebook,
+      github,
+      mainLang = { value: "" },
+      fax,
+      phoneNumbers,
+    } = values;
+  };
 
   return (
     <Formik initialValues={initialValues} onSubmit={submitForm}>

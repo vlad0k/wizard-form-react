@@ -16,8 +16,7 @@ const Tab = ({ active, name, value }: TopTabProps) => {
     dispatch(selectStep(value));
   };
 
-  const tabClassName = classNamesCombine({
-    [classNames.tab]: true,
+  const tabClassName = classNamesCombine(classNames.tab, {
     [classNames.active]: active,
     [classNames.visited]: value < currentStep,
   });

@@ -8,12 +8,10 @@ const Button = ({
   type = "submit",
   onClick,
 }: ButtonProps) => {
-  const buttonClassNames = classNamesCombine({
-    [classNames.button]: true,
-    [classNames.primary]: appearance === "primary",
-    [classNames.secondary]: appearance === "secondary",
-    [classNames.text]: appearance === "text",
-  });
+  const buttonClassNames = classNamesCombine(
+    classNames.button,
+    classNames[appearance]
+  );
   return (
     <button className={buttonClassNames} type={type} onClick={onClick}>
       {children}

@@ -6,7 +6,7 @@ import InputField from "../../ui/form/InputField";
 import Button from "../../ui/Button";
 
 import { useDispatch } from "react-redux";
-import { goBack, profileFormForward } from "../../../redux/addFormReducer";
+import { goBack, step2FormForward } from "../../../redux/addFormReducer";
 import DatePicker from "../../ui/form/DatePicker";
 
 interface Values {
@@ -34,7 +34,7 @@ const Step2Form = () => {
   const submitForm = (values: Values) => {
     const { firstname, lastname, email, adress, gender, birthdate } = values;
     dispatch(
-      profileFormForward(adress, birthdate, email, firstname, gender, lastname)
+      step2FormForward(adress, birthdate, email, firstname, gender, lastname)
     );
   };
   return (

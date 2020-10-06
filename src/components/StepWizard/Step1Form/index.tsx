@@ -50,7 +50,7 @@ const Step1Form = () => {
           type="password"
         />
         <div className={classNames.button}>
-          <Button submit>Forward</Button>
+          <Button>Forward</Button>
         </div>
       </Form>
     </Formik>

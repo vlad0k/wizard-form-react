@@ -32,7 +32,7 @@ const phoneInputs = (props: FieldArrayRenderProps) => {
     push,
     remove,
     form: {
-      values: { phoneNumbers },
+      values: { phoneNumbers = [""] },
     },
   } = props;
 
@@ -40,7 +40,7 @@ const phoneInputs = (props: FieldArrayRenderProps) => {
     <div className={classNames.phones} key={i}>
       <InputField name={`phoneNumbers[${i}]`} label={`Phone #${i + 1}`} />
       {i > 0 && (
-        <Button type="text" onClick={() => remove(i)}>
+        <Button appearance="text" onClick={() => remove(i)}>
           <img src={minusIcon} alt="remove phone number input" />
         </Button>
       )}
@@ -54,7 +54,7 @@ const phoneInputs = (props: FieldArrayRenderProps) => {
       {phoneNumberFields}
 
       {phoneNumbers.length < maxNumberOfPhoneInputs && (
-        <Button type="text" onClick={() => push("")}>
+        <Button appearance="text" onClick={() => push("")}>
           <img src={addIcon} alt="add phone number" />
           add phone number
         </Button>
@@ -70,11 +70,10 @@ const Step3Form = () => {
     dispatch(goBack());
   };
 
+  const submitForm = () => {};
+
   return (
-    <Formik
-      initialValues={initialValues}
-      onSubmit={(values) => console.log(values)}
-    >
+    <Formik initialValues={initialValues} onSubmit={submitForm}>
       <Form className={classNames.form}>
         <div className={classNames.column}>
           <InputField name="company" label="Company" />
@@ -88,10 +87,14 @@ const Step3Form = () => {
           <FieldArray name="phoneNumbers">{phoneInputs}</FieldArray>
 
           <div className={classNames.buttons}>
-            <Button type="secondary" onClick={backButtonClickHandler}>
+            <Button
+              type="button"
+              appearance="secondary"
+              onClick={backButtonClickHandler}
+            >
               Back
             </Button>
-            <Button submit={true}>Forward</Button>
+            <Button>Forward</Button>
           </div>
         </div>
       </Form>

@@ -3,23 +3,19 @@ import classNames from "./index.module.css";
 import classNamesCombine from "classnames";
 
 const Button = ({
-  type = "primary",
+  appearance = "primary",
   children,
-  submit = false,
+  type = "submit",
   onClick,
 }: ButtonProps) => {
   const buttonClassNames = classNamesCombine({
     [classNames.button]: true,
-    [classNames.primary]: type === "primary",
-    [classNames.secondary]: type === "secondary",
-    [classNames.text]: type === "text",
+    [classNames.primary]: appearance === "primary",
+    [classNames.secondary]: appearance === "secondary",
+    [classNames.text]: appearance === "text",
   });
   return (
-    <button
-      className={buttonClassNames}
-      type={submit ? "submit" : "button"}
-      onClick={onClick}
-    >
+    <button className={buttonClassNames} type={type} onClick={onClick}>
       {children}
     </button>
   );
@@ -29,7 +25,7 @@ export default Button;
 
 type ButtonProps = {
   children?: ReactNode;
-  type?: "primary" | "secondary" | "text";
-  submit?: boolean;
+  appearance?: "primary" | "secondary" | "text";
+  type?: "submit" | "button" | "reset";
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => any;
 };

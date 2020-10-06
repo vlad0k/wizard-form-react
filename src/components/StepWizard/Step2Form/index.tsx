@@ -24,7 +24,7 @@ const validateScema = Yup.object({
   email: Yup.string().required("required field"),
 });
 
-const Index = () => {
+const Step2Form = () => {
   const dispatch = useDispatch();
 
   const backButtonClickHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -73,10 +73,14 @@ const Index = () => {
           </div>
 
           <div className={classNames.buttons}>
-            <Button type="secondary" onClick={backButtonClickHandler}>
+            <Button
+              appearance="secondary"
+              type="button"
+              onClick={backButtonClickHandler}
+            >
               Back
             </Button>
-            <Button submit={true}>Forward</Button>
+            <Button>Forward</Button>
           </div>
         </div>
       </Form>
@@ -84,4 +88,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default Step2Form;

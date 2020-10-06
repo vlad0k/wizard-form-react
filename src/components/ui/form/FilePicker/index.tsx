@@ -3,20 +3,20 @@ import cn from "classnames";
 import classNames from "./index.module.css";
 
 const FilePicker = ({ name, children }: FilePickerProps) => {
-  const [pressed, isPressed] = useState(false);
+  const [isPressed, setIsPressed] = useState(false);
 
   const mouseDownHandler = () => {
-    isPressed(true);
+    setIsPressed(true);
   };
   const mouseUpHandler = () => {
-    isPressed(false);
+    setIsPressed(false);
   };
 
   return (
     <label
       htmlFor={name}
       className={cn(classNames.upload, {
-        [classNames.pressed]: pressed,
+        [classNames.pressed]: isPressed,
       })}
       onMouseDown={mouseDownHandler}
       onMouseUp={mouseUpHandler}

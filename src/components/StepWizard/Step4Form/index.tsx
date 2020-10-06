@@ -3,6 +3,7 @@ import classNames from "./index.module.css";
 import { Formik, Form } from "formik";
 import Select from "../../form/Select";
 import TextArea from "../../form/TextArea";
+import Checkbox from "../../form/CheckBox";
 
 const options = [
   "HTML",
@@ -38,6 +39,15 @@ const Step4Form = () => {
             name={"additionalInfo"}
             label={"Additional Info"}
             maxlength={300}
+          />
+        </div>
+        <div
+          className={[classNames.column, classNames.checkBoxGroup].join(" ")}
+        >
+          <label>My Hobbies</label>
+          <Checkbox
+            name={"sport"}
+            label={"Sport, fitness, aerobica and staff like that"}
           />
         </div>
       </Form>

@@ -1,0 +1,34 @@
+.wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.wrapper span {
+    padding: 12px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 16px;
+
+    color: #657C9A;
+}
+.wrapper input {
+    display: none;
+}
+.checkbox {
+    width: 13px;
+    height: 13px;
+
+    background: #FFFFFF;
+    border: 1px solid #C1CFE0;
+    box-sizing: border-box;
+}
+.wrapper input:checked + .checkbox {
+    width: 13px;
+    height: 13px;
+
+    background: #4E86E4;
+    border: 3px solid #C1CFE0;
+    box-sizing: border-box;
+}

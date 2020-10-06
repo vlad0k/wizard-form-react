@@ -1,18 +1,27 @@
 import React from "react";
-import classNames from "../InputField/index.module.css";
-import { ErrorMessage, Field } from "formik";
+import classNames from "./index.module.css";
+import { ErrorMessage, Field, FieldProps } from "formik";
 
-type InputFieldPropsType = {
+type TextAreaPropsType = {
   name: string;
   label: string;
+  maxlength?: number;
 };
 
-const TextArea = ({ name, label }: InputFieldPropsType) => {
+const TextArea = ({ name, label, maxlength }: TextAreaPropsType) => {
   return (
     <label className={classNames.inputField}>
       <span>{label}</span>
       <Field name={name} id={name}>
-        {({ field }: any) => <textarea {...field} />}
+        {({ field }: FieldProps) => {
+          return (
+            <textarea
+              className={classNames.textarea}
+              {...field}
+              maxLength={maxlength}
+            />
+          );
+        }}
       </Field>
       <div className={classNames.error}>
         <ErrorMessage name={name} />

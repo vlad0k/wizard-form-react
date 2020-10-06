@@ -33,8 +33,12 @@ const Step4Form = () => {
     >
       <Form className={classNames.form}>
         <div className={classNames.column}>
-          <Select name={"skills"} isMulti options={options} />
-          <TextArea name={"additionalInfo"} label={"Additional Info"} />
+          <Select name={"skills"} isMulti options={options} label={"Skills"} />
+          <TextArea
+            name={"additionalInfo"}
+            label={"Additional Info"}
+            maxlength={300}
+          />
         </div>
       </Form>
     </Formik>

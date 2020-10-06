@@ -1,5 +1,5 @@
 .upload {
-    color: #9BB0CB;
+    color: var(--action-text-color);
     background: none;
     display: flex;
     align-items: center;
@@ -9,7 +9,7 @@
 }
 
 .upload:hover {
-    color: #7c8da3;;
+    color: #7c8da3;
 }
 
 .upload input {

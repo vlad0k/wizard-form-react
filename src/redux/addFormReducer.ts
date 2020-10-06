@@ -14,7 +14,7 @@ interface GoBackAction {
   type: typeof GO_BACK;
 }
 
-interface ProfileFormForwardAction {
+interface Step2FormForwardAction {
   type: typeof PROFILE_FORM_FORWARD;
   firstname: string;
   lastname: string;
@@ -32,7 +32,7 @@ interface SelectStepAction {
 type AddFormActionsType =
   | AccountFormForwardAction
   | GoBackAction
-  | ProfileFormForwardAction
+  | Step2FormForwardAction
   | SelectStepAction;
 
 const initialState = {
@@ -45,6 +45,12 @@ const initialState = {
   email: "",
   adress: "",
   gender: "",
+  company: "",
+  facebook: "",
+  github: "",
+  mainLang: null,
+  fax: "",
+  phoneNumbers: [""],
 };
 
 const addFormReducer = (state = initialState, action: AddFormActionsType) => {
@@ -103,14 +109,14 @@ export const accountFormForward = (
 
 export const goBack = (): GoBackAction => ({ type: GO_BACK });
 
-export const profileFormForward = (
+export const step2FormForward = (
   adress: string,
   birthdate: string,
   email: string,
   firstname: string,
   gender: string,
   lastname: string
-): ProfileFormForwardAction => ({
+): Step2FormForwardAction => ({
   type: PROFILE_FORM_FORWARD,
   adress,
   birthdate,

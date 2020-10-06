@@ -16,16 +16,16 @@
 }
 
 .primary {
-    background: #5E97F3;
+    background: var(--primary-color);
 }
 
 .secondary {
-    background: #C1CFE0;
+    background: var(--secondary-color);
 }
 
 .text {
     padding: 0;
-    color: #9BB0CB;
+    color: var(--action-text-color);
     background: none;
 }
 
@@ -34,5 +34,5 @@
 }
 
 .finish {
-    background: #4EE4A5;
+    background: var(--finish-color);
 }

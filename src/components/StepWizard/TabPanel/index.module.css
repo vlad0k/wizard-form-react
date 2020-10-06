@@ -12,7 +12,7 @@
     line-height: 28px;
     letter-spacing: 0em;
     text-align: center;
-    color: #9BB0CB;
+    color: var(--primary-text-color);
 
     cursor: pointer;
     transition: 0.4s;
@@ -20,9 +20,9 @@
 
 .active {
     color: #fff;
-    background: #4E86E4;
+    background: var(--primary-color);
 }
 
 .visited {
-    color: #475666;
+    color: var(--action-text-color);
 }

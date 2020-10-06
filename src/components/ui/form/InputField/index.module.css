@@ -5,7 +5,7 @@
     height: 40px;
 
     background: #FFFFFF;
-    border: 1px solid #C1CFE0;
+    border: 1px solid var(--secondary-color);
     box-sizing: border-box;
     padding:  8px;
 }
@@ -23,7 +23,7 @@
     font-size: 14px;
     line-height: 16px;
 
-    color: #657C9A;
+    color: var(--form-label-color);
     padding-bottom: 4px;
 }
 

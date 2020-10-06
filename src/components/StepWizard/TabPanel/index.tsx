@@ -5,12 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { StateType } from "../../../redux/store";
 import { selectStep } from "../../../redux/addFormReducer";
 
-type TopTabProps = {
-  value: number;
-  name: string;
-  active?: boolean;
-};
-
 const Tab = ({ active, name, value }: TopTabProps) => {
   const currentStep = useSelector(
     (state: StateType) => state.addForm.currentStep
@@ -22,8 +16,7 @@ const Tab = ({ active, name, value }: TopTabProps) => {
     dispatch(selectStep(value));
   };
 
-  const tabClassName = classNamesCombine({
-    [classNames.tab]: true,
+  const tabClassName = classNamesCombine(classNames.tab, {
     [classNames.active]: active,
     [classNames.visited]: value < currentStep,
   });
@@ -36,3 +29,9 @@ const Tab = ({ active, name, value }: TopTabProps) => {
 };
 
 export default Tab;
+
+type TopTabProps = {
+  value: number;
+  name: string;
+  active?: boolean;
+};

@@ -4,7 +4,7 @@
 
 .table th {
     height: 45px;
-    background: #4E86E4;
+    background: var(--primary-color);
     padding: 0;
     margin: 0;
 
@@ -21,7 +21,7 @@
     display: flex;
     height: 430px;
     width: 970px;
-    background-color: #FAFCFF;
+    background-color: var(--background-color);
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -33,7 +33,7 @@
     font-size: 35px;
     line-height: 41px;
 
-    color: #9BB0CB;
+    color: var(--action-text-color);
 
     padding-bottom: 64px;
 }

@@ -35,7 +35,7 @@
     letter-spacing: 0em;
     text-align: left;
 
-    color: #657C9A;
+    color: var(--form-label-color);
 }
 .radio {
     display: inline-block;
@@ -46,7 +46,7 @@
     margin: 4px;
 
     background: #FFFFFF;
-    border: 1px solid #C1CFE0;
+    border: 1px solid var(--secondary-color);
     box-sizing: border-box;
 
     transition: background-color 0.2s linear;
@@ -54,8 +54,8 @@
 }
 
 .form input[type="radio"]:checked + .radio {
-    background: #4E86E4;
-    border: 3px solid #C1CFE0;
+    background: var(--primary-color);
+    border: 3px solid var(--secondary-color);
     box-sizing: border-box;
 }
 

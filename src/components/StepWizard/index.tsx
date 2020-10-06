@@ -2,7 +2,7 @@ import React from "react";
 import Tabs from "./Tabs";
 import classNames from "./index.module.css";
 import Avatar from "../ui/Avatar";
-import FilePicker from "../form/FilePicker";
+import FilePicker from "../ui/form/FilePicker";
 import Step1Form from "./Step1Form";
 import Step2Form from "./Step2Form";
 import { useSelector } from "react-redux";
@@ -15,8 +15,8 @@ const Step1 = () => (
   <div className={classNames.twoColumns}>
     <div className={classNames.addUserPhoto}>
       <Avatar />
-      <FilePicker>
-        <img src={addIcon} alt={"add avatar"} />
+      <FilePicker name={"avatarupload"}>
+        <img src={addIcon} alt="add avatar" />
         add avatar
       </FilePicker>
     </div>

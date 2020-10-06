@@ -1,13 +1,11 @@
 import React from "react";
-import PageHeader from "../../components/ui/PageHeader";
 import UsersList from "../../components/UsersList";
-const ListOfUsersPage = () => {
-  return (
-    <>
-      <PageHeader>List of users</PageHeader>
-      <UsersList />
-    </>
-  );
-};
+import PageLayout from "../../components/PageLayout";
+
+const ListOfUsersPage = () => (
+  <PageLayout name={"List of users"}>
+    <UsersList />
+  </PageLayout>
+);
 
 export default ListOfUsersPage;

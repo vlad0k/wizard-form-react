@@ -1,19 +1,22 @@
 import React from "react";
 import classNames from "./index.module.css";
 import { Form, Formik, FieldArray, FieldArrayRenderProps } from "formik";
-import InputField from "../../form/InputField";
+import InputField from "../../ui/form/InputField";
 import Button from "../../ui/Button";
 import addIcon from "../../../assets/icons/add.svg";
 import minusIcon from "../../../assets/icons/minus.svg";
 import { useDispatch } from "react-redux";
-import { goBack, selectStep } from "../../../redux/addFormReducer";
-import Select, { OptionType } from "../../form/Select";
+import { goBack } from "../../../redux/addFormReducer";
+import Select, { OptionType } from "../../ui/form/Select";
 
 interface Values {
   company: string;
   facebook: string;
   github: string;
-  mainLang: string;
+  mainLang: {
+    value: string;
+    label: string;
+  } | null;
   fax: string;
   phoneNumbers: Array<string>;
 }
@@ -22,10 +25,12 @@ const initialValues: Values = {
   company: "",
   facebook: "",
   github: "",
-  mainLang: "",
+  mainLang: null,
   fax: "",
   phoneNumbers: [""],
 };
+
+const maxNumberOfPhoneInputs = 3;
 
 const options: OptionType[] = [
   { value: "en", label: "English" },
@@ -34,15 +39,20 @@ const options: OptionType[] = [
 ];
 
 const phoneInputs = (props: FieldArrayRenderProps) => {
-  const { push, remove, form } = props;
-  const phoneNumbers = form.values.phoneNumbers;
+  const {
+    push,
+    remove,
+    form: {
+      values: { phoneNumbers = [""] },
+    },
+  } = props;
 
-  const phN = phoneNumbers.map((p: string, i: number) => (
+  const phoneNumberFields = phoneNumbers.map((p: string, i: number) => (
     <div className={classNames.phones} key={i}>
       <InputField name={`phoneNumbers[${i}]`} label={`Phone #${i + 1}`} />
       {i > 0 && (
-        <Button type={"text"} onClick={() => remove(i)}>
-          <img src={minusIcon} alt={"remove phone number input"} />
+        <Button appearance="text" onClick={() => remove(i)}>
+          <img src={minusIcon} alt="remove phone number input" />
         </Button>
       )}
     </div>
@@ -50,11 +60,11 @@ const phoneInputs = (props: FieldArrayRenderProps) => {
 
   return (
     <>
-      {phN}
+      {phoneNumberFields}
 
-      {phoneNumbers.length < 3 && (
-        <Button type={"text"} onClick={() => push("")}>
-          <img src={addIcon} alt={"add phone number"} />
+      {phoneNumbers.length < maxNumberOfPhoneInputs && (
+        <Button appearance="text" onClick={() => push("")}>
+          <img src={addIcon} alt="add phone number" />
           add phone number
         </Button>
       )}
@@ -70,28 +80,39 @@ const Step3Form = () => {
   };
 
   const submitForm = (values: Values) => {
-    dispatch(selectStep(4));
-    console.log(values);
+    const {
+      company,
+      facebook,
+      github,
+      mainLang = { value: "" },
+      fax,
+      phoneNumbers,
+    } = values;
   };
+
   return (
     <Formik initialValues={initialValues} onSubmit={submitForm}>
       <Form className={classNames.form}>
         <div className={classNames.column}>
-          <InputField name={"company"} label={"Company"} />
-          <InputField name={"github"} label={"GitHub Link"} />
-          <InputField name={"facebook"} label={"Facebook Link"} />
-          <Select name={"mainLang"} options={options} label="Main Language" />
+          <InputField name="company" label="Company" />
+          <InputField name="github" label="GitHub Link" />
+          <InputField name="facebook" label="Facebook Link" />
+          <Select name="mainLang" options={options} label="Main Language" />
         </div>
 
         <div className={classNames.column}>
-          <InputField name={"fax"} label={"Fax"} />
-          <FieldArray name={"phoneNumbers"}>{phoneInputs}</FieldArray>
+          <InputField name="fax" label="Fax" />
+          <FieldArray name="phoneNumbers">{phoneInputs}</FieldArray>
 
           <div className={classNames.buttons}>
-            <Button type={"secondary"} onClick={backButtonClickHandler}>
+            <Button
+              type="button"
+              appearance="secondary"
+              onClick={backButtonClickHandler}
+            >
               Back
             </Button>
-            <Button submit={true}>Forward</Button>
+            <Button>Forward</Button>
           </div>
         </div>
       </Form>

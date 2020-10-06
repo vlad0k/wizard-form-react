@@ -2,34 +2,28 @@ import React, { ReactNode } from "react";
 import classNames from "./index.module.css";
 import classNamesCombine from "classnames";
 
-type ButtonProps = {
-  children?: ReactNode;
-  type?: "primary" | "secondary" | "text";
-  submit?: boolean;
-  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => any;
-};
-
 const Button = ({
-  type = "primary",
+  appearance = "primary",
   children,
-  submit = false,
+  type = "submit",
   onClick,
 }: ButtonProps) => {
-  const buttonClassNames = classNamesCombine({
-    [classNames.button]: true,
-    [classNames.primary]: type === "primary",
-    [classNames.secondary]: type === "secondary",
-    [classNames.text]: type === "text",
-  });
+  const buttonClassNames = classNamesCombine(
+    classNames.button,
+    classNames[appearance]
+  );
   return (
-    <button
-      className={buttonClassNames}
-      type={submit ? "submit" : "button"}
-      onClick={onClick}
-    >
+    <button className={buttonClassNames} type={type} onClick={onClick}>
       {children}
     </button>
   );
 };
 
 export default Button;
+
+type ButtonProps = {
+  children?: ReactNode;
+  appearance?: "primary" | "secondary" | "text";
+  type?: "submit" | "button" | "reset";
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => any;
+};

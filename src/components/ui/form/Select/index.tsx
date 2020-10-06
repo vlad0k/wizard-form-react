@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import classNames from "./index.module.css";
-import SelectR, { ValueType } from "react-select";
+import React from "react";
+import Select, { ValueType } from "react-select";
 import { Field, FieldProps } from "formik";
 
 const customStyles = {
   option: (provided: any, state: any) => ({
     ...provided,
-    color: "#657C9A",
-    backgroundColor: state.isSelected || state.isFocused ? "#E7F0FF" : "white",
+    color: "var(--form-label-color)",
+    backgroundColor:
+      state.isSelected || state.isFocused ? "var(--select-color)" : "white",
     paddingLeft: 8,
     fontSize: 14,
   }),
@@ -23,7 +23,7 @@ const customStyles = {
     width: 384,
     padding: "4px 8px",
     borderWidth: 1,
-    borderColor: "#C1CFE0",
+    borderColor: "var(--secondary-color)",
     borderStyle: "solid",
     fontWeight: 500,
   }),
@@ -34,16 +34,16 @@ const customStyles = {
     paddingBottom: 24,
   }),
   multiValue: () => ({
-    backgroundColor: "#E7F0FF",
+    backgroundColor: "var(--select-color)",
     fontSize: 12,
-    color: "#9BB0CB",
+    color: "var(--action-text-color)",
     display: "flex",
     alignItems: "center",
     padding: 4,
     marginLeft: 4,
   }),
   multiValueLabel: () => ({
-    color: "#9BB0CB",
+    color: "var(--action-text-color)",
   }),
 };
 
@@ -59,35 +59,22 @@ type SelectPropsType = {
   label?: string;
 };
 
-const Select = ({ name, isMulti, options, label }: SelectPropsType) => {
-  const [selected, setSelected] = useState<ValueType<OptionType>>(null);
+const MySelect = ({ name, isMulti, options, label }: SelectPropsType) => {
   return (
     <>
-      <span className={classNames.label}>{label}</span>
       <Field name={name}>
         {(props: FieldProps) => {
           const {
             field: { name, value },
             form: { setFieldValue },
           } = props;
-
-          const selectChangeHandler = (selected: any) => {
-            !isMulti && setFieldValue(name, selected.value);
-            isMulti &&
-              selected &&
-              setFieldValue(
-                name,
-                selected.map((el: OptionType) => el.value)
-              );
-            setSelected(selected);
-            isMulti && !selected && setFieldValue(name, null);
-          };
-
           return (
-            <SelectR
+            <Select
               options={options}
-              value={selected}
-              onChange={selectChangeHandler}
+              value={value}
+              onChange={(
+                selected: ValueType<{ value: string; label: string }>
+              ) => setFieldValue(name, selected)}
               styles={customStyles}
               isMulti={isMulti}
             />
@@ -98,4 +85,4 @@ const Select = ({ name, isMulti, options, label }: SelectPropsType) => {
   );
 };
 
-export default Select;
+export default MySelect;

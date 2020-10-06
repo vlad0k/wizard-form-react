@@ -13,8 +13,7 @@ const UsersList = () => {
           <th>company</th>
           <th>contacts</th>
           <th>last update</th>
-          <th />
-          <th />
+          <th /> <th />
         </thead>
       </table>
       <div className={classNames.empty}>

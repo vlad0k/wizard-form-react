@@ -1,6 +1,6 @@
 import React from "react";
 import classNames from "./index.module.css";
-import Logo from "../ui/Logo/Logo";
+import Logo from "../Logo/Logo";
 import Navbar from "./Navbar";
 
 const Header = () => {

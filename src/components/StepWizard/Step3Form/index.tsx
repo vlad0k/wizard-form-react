@@ -6,8 +6,8 @@ import Button from "../../ui/Button";
 import addIcon from "../../../assets/icons/add.svg";
 import minusIcon from "../../../assets/icons/minus.svg";
 import { useDispatch } from "react-redux";
-import { goBack } from "../../../redux/addFormReducer";
-import Select from "../../form/Select";
+import { goBack, selectStep } from "../../../redux/addFormReducer";
+import Select, { OptionType } from "../../form/Select";
 
 interface Values {
   company: string;
@@ -22,10 +22,16 @@ const initialValues: Values = {
   company: "",
   facebook: "",
   github: "",
-  mainLang: "eng",
+  mainLang: "",
   fax: "",
   phoneNumbers: [""],
 };
+
+const options: OptionType[] = [
+  { value: "en", label: "English" },
+  { value: "ru", label: "Russian" },
+  { value: "ua", label: "Ukrainian" },
+];
 
 const phoneInputs = (props: FieldArrayRenderProps) => {
   const { push, remove, form } = props;
@@ -63,23 +69,18 @@ const Step3Form = () => {
     dispatch(goBack());
   };
 
-  // const submitForm = (values: Values) => {
-  //   // const { company, facebook, github, mainLang, fax, phoneNumbers } = values;
-  //   // dispatch();
-  //   // profileFormForward(adress, birthdate, email, firstname, gender, lastname)
-  // };
-
+  const submitForm = (values: Values) => {
+    dispatch(selectStep(4));
+    console.log(values);
+  };
   return (
-    <Formik
-      initialValues={initialValues}
-      onSubmit={() => console.log("submit")}
-    >
+    <Formik initialValues={initialValues} onSubmit={submitForm}>
       <Form className={classNames.form}>
         <div className={classNames.column}>
           <InputField name={"company"} label={"Company"} />
           <InputField name={"github"} label={"GitHub Link"} />
           <InputField name={"facebook"} label={"Facebook Link"} />
-          <Select name={"mainLang"} />
+          <Select name={"mainLang"} options={options} label="Main Language" />
         </div>
 
         <div className={classNames.column}>

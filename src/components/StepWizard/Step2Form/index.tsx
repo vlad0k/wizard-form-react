@@ -37,6 +37,7 @@ const Index = () => {
     dispatch(
       profileFormForward(adress, birthdate, email, firstname, gender, lastname)
     );
+    console.log(values);
   };
   return (
     <Formik

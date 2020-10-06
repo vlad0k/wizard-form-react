@@ -1,19 +1,7 @@
 import React, { useState } from "react";
+import classNames from "./index.module.css";
 import SelectR, { ValueType } from "react-select";
 import { Field, FieldProps } from "formik";
-
-const options = [
-  { value: "en", label: "English" },
-  { value: "ru", label: "Russian" },
-  { value: "ua", label: "Ukrainian" },
-  { value: "uaj", label: "Ukrainian" },
-  { value: "uajj", label: "Ukrainian" },
-  { value: "ua", label: "Ukrainian" },
-  { value: "ukla", label: "Ukrainian" },
-  { value: "uklkj;a", label: "Ukrainian" },
-  { value: "uj;a", label: "Ukrainian" },
-  { value: "u;ka", label: "Ukrainian" },
-];
 
 const customStyles = {
   option: (provided: any, state: any) => ({
@@ -59,23 +47,49 @@ const customStyles = {
   }),
 };
 
-const Select = ({ name }: { name: string }) => {
-  // const [selected, setSelected] = useState(null);
+export type OptionType = {
+  value: string;
+  label: string;
+};
+
+type SelectPropsType = {
+  name: string;
+  isMulti?: boolean;
+  options?: OptionType[];
+  label?: string;
+};
+
+const Select = ({ name, isMulti, options, label }: SelectPropsType) => {
+  const [selected, setSelected] = useState<ValueType<OptionType>>(null);
   return (
     <>
+      <span className={classNames.label}>{label}</span>
       <Field name={name}>
         {(props: FieldProps) => {
           const {
             field: { name, value },
             form: { setFieldValue },
           } = props;
-          console.log(value);
+
+          const selectChangeHandler = (selected: any) => {
+            !isMulti && setFieldValue(name, selected.value);
+            isMulti &&
+              selected &&
+              setFieldValue(
+                name,
+                selected.map((el: OptionType) => el.value)
+              );
+            setSelected(selected);
+            isMulti && !selected && setFieldValue(name, null);
+          };
+
           return (
             <SelectR
               options={options}
-              value={value}
-              onChange={(selected) => setFieldValue(name, selected.value)}
+              value={selected}
+              onChange={selectChangeHandler}
               styles={customStyles}
+              isMulti={isMulti}
             />
           );
         }}

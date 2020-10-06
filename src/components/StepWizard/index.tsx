@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { StateType } from "../../redux/store";
 import Step3Form from "./Step3Form";
 import addIcon from "../../assets/icons/add.svg";
+import Step4Form from "./Step4Form";
 
 const Step1 = () => (
   <div className={classNames.twoColumns}>
@@ -35,7 +36,11 @@ const StepWizard = () => {
     <>
       <Tabs value={currentStep} />
       <div className={classNames.rectangle}>
-        {[<Step1 />, <Step2Form />, <Step3Form />][currentStep - 1]}
+        {
+          [<Step1 />, <Step2Form />, <Step3Form />, <Step4Form />][
+            currentStep - 1
+          ]
+        }
       </div>
     </>
   );

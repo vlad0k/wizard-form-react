@@ -13,30 +13,28 @@ type DatePickerProps = {
 const DatePicker = ({ name }: DatePickerProps) => {
   const [date, setDate] = useState<Date | null>(null);
   return (
-    <Calendar
-      selected={date}
-      onChange={(date: Date) => setDate(date)}
-      dateFormat={"dd-yy-MM"}
-      maxDate={new Date()}
-      isClearable
-      renderCustomHeader={(props) => {
-        const { date } = props;
+    <Field name={"name"}>
+      {({ field, form }: FieldProps) => {
+        const calendarChangeHandler = (date: Date) => {
+          setDate(date);
+          form.setFieldValue(field.name, date ? date.toDateString() : "");
+        };
         return (
-          <div className={classNames["header"]}>
-            <Button type={"text"}>{"<"}</Button>
-            <div>
-              {date.getMonth()} {date.getFullYear()}
-            </div>
-            <Button type={"text"}>{">"}</Button>
-          </div>
+          <Calendar
+            selected={date}
+            onChange={calendarChangeHandler}
+            dateFormat={"dd-yy-MM"}
+            maxDate={new Date()}
+            isClearable
+            // weekDayClassName={() => classNames["wd"]}
+            // className={classNames["cn"]}
+            // popperClassName={classNames["pp"]}
+            // wrapperClassName={classNames["wc"]}
+            // dayClassName={(date) => classNames.day}
+          />
         );
       }}
-      weekDayClassName={() => classNames["wd"]}
-      className={classNames["cn"]}
-      popperClassName={classNames["pp"]}
-      wrapperClassName={classNames["wc"]}
-      dayClassName={(date) => classNames.day}
-    />
+    </Field>
   );
 };
 

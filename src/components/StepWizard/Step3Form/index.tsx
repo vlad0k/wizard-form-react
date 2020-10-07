@@ -1,12 +1,12 @@
-import React from "react";
-import classNames from "./index.module.css";
-import { Form, Formik, FieldArray } from "formik";
-import InputField from "../../ui/InputField";
-import Button from "../../ui/Button";
-import { useDispatch } from "react-redux";
-import { goBack, step3FormSubmit } from "../../../redux/addFormReducer";
-import Select, { OptionType } from "../../ui/Select";
-import PhoneInputs from "./PhoneInputs";
+import React from 'react';
+import classNames from './index.module.css';
+import { Form, Formik, FieldArray } from 'formik';
+import InputField from '../../ui/InputField';
+import Button from '../../ui/Button';
+import { useDispatch } from 'react-redux';
+import { goBack, step3FormSubmit } from '../../../redux/addFormReducer';
+import Select, { OptionType } from '../../ui/Select';
+import PhoneInputs from './PhoneInputs';
 
 interface Values {
   company: string;
@@ -17,24 +17,24 @@ interface Values {
         value: string;
         label: string;
       }
-    | { value: "" };
+    | { value: '' };
   fax: string;
   phoneNumbers: Array<string>;
 }
 
 const initialValues: Values = {
-  company: "",
-  facebook: "",
-  github: "",
-  mainLang: { value: "" },
-  fax: "",
-  phoneNumbers: [""],
+  company: '',
+  facebook: '',
+  github: '',
+  mainLang: { value: '' },
+  fax: '',
+  phoneNumbers: [''],
 };
 
 const options: OptionType[] = [
-  { value: "en", label: "English" },
-  { value: "ru", label: "Russian" },
-  { value: "ua", label: "Ukrainian" },
+  { value: 'en', label: 'English' },
+  { value: 'ru', label: 'Russian' },
+  { value: 'ua', label: 'Ukrainian' },
 ];
 
 const Step3Form = () => {
@@ -48,14 +48,14 @@ const Step3Form = () => {
     const { company, facebook, github, mainLang, fax, phoneNumbers } = values;
     const { value: mainLanguage = options[0].value } = mainLang;
     dispatch(
-      step3FormSubmit(
+      step3FormSubmit({
         company,
         facebook,
         github,
-        mainLanguage,
+        mainLang: mainLanguage,
         fax,
-        phoneNumbers
-      )
+        phoneNumbers,
+      }),
     );
   };
 
@@ -74,11 +74,7 @@ const Step3Form = () => {
           <FieldArray name="phoneNumbers">{PhoneInputs}</FieldArray>
 
           <div className={classNames.buttons}>
-            <Button
-              type="button"
-              appearance="secondary"
-              onClick={backButtonClickHandler}
-            >
+            <Button type="button" appearance="secondary" onClick={backButtonClickHandler}>
               Back
             </Button>
             <Button>Forward</Button>

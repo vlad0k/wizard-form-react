@@ -1,27 +1,27 @@
-import React from "react";
-import classNames from "./index.module.css";
-import { Field, Form, Formik } from "formik";
-import * as Yup from "yup";
-import InputField from "../../ui/InputField";
-import Button from "../../ui/Button";
+import React from 'react';
+import classNames from './index.module.css';
+import { Field, Form, Formik } from 'formik';
+import * as Yup from 'yup';
+import InputField from '../../ui/InputField';
+import Button from '../../ui/Button';
 
-import { useDispatch } from "react-redux";
-import { goBack, step2FormForward } from "../../../redux/addFormReducer";
-import DatePicker from "../../ui/DatePicker";
+import { useDispatch } from 'react-redux';
+import { goBack, step2FormForward } from '../../../redux/addFormReducer';
+import DatePicker from '../../ui/DatePicker';
 
 interface Values {
   firstname: string;
   lastname: string;
   email: string;
   adress: string;
-  gender: "male" | "female";
+  gender: 'male' | 'female';
   birthdate: string;
 }
 
 const validateScema = Yup.object({
-  firstname: Yup.string().required("required field"),
-  lastname: Yup.string().required("required field"),
-  email: Yup.string().required("required field"),
+  firstname: Yup.string().required('required field'),
+  lastname: Yup.string().required('required field'),
+  email: Yup.string().required('required field'),
 });
 
 const Step2Form = () => {
@@ -33,20 +33,18 @@ const Step2Form = () => {
 
   const submitForm = (values: Values) => {
     const { firstname, lastname, email, adress, gender, birthdate } = values;
-    dispatch(
-      step2FormForward(adress, birthdate, email, firstname, gender, lastname)
-    );
+    dispatch(step2FormForward({ adress, birthdate, email, firstname, gender, lastname }));
     console.log(values);
   };
   return (
     <Formik
       initialValues={{
-        firstname: "",
-        lastname: "",
-        email: "",
-        adress: "",
-        gender: "male",
-        birthdate: "",
+        firstname: '',
+        lastname: '',
+        email: '',
+        adress: '',
+        gender: 'male',
+        birthdate: '',
       }}
       onSubmit={submitForm}
       validationSchema={validateScema}
@@ -74,11 +72,7 @@ const Step2Form = () => {
           </div>
 
           <div className={classNames.buttons}>
-            <Button
-              appearance="secondary"
-              type="button"
-              onClick={backButtonClickHandler}
-            >
+            <Button appearance="secondary" type="button" onClick={backButtonClickHandler}>
               Back
             </Button>
             <Button>Forward</Button>

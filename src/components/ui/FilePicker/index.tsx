@@ -1,8 +1,11 @@
-import React, { ReactNode, useState } from "react";
-import cn from "classnames";
-import classNames from "./index.module.css";
+import React, { ChangeEvent, ReactNode, useState } from 'react';
+import cn from 'classnames';
+import classNames from './index.module.css';
+import { Field, FieldProps } from 'formik';
+import Avatar from '../Avatar';
+import addIcon from '../../../assets/icons/add.svg';
 
-const FilePicker = ({ name, children }: FilePickerProps) => {
+const FilePicker = ({ name }: FilePickerProps) => {
   const [isPressed, setIsPressed] = useState(false);
 
   const mouseDownHandler = () => {
@@ -13,23 +16,41 @@ const FilePicker = ({ name, children }: FilePickerProps) => {
   };
 
   return (
-    <label
-      htmlFor={name}
-      className={cn(classNames.upload, {
-        [classNames.pressed]: isPressed,
-      })}
-      onMouseDown={mouseDownHandler}
-      onMouseUp={mouseUpHandler}
-    >
-      {children}
-      <input type="file" name={name} id={name} />
-    </label>
+    <Field name={name}>
+      {({ field: { name, value }, form: { setFieldValue } }: FieldProps) => {
+        const avatarSrc = value && URL.createObjectURL(value);
+
+        const fileInputChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+          const { target } = event;
+          const file = target.files ? target.files[0] : undefined;
+          setFieldValue(name, file);
+        };
+        return (
+          <label
+            htmlFor={name}
+            className={cn(classNames.upload, {
+              [classNames.pressed]: isPressed,
+            })}
+            onMouseDown={mouseDownHandler}
+            onMouseUp={mouseUpHandler}
+          >
+            <div className={classNames.addUserPhoto}>
+              <Avatar image={avatarSrc} />
+              <div>
+                <img src={addIcon} alt="add avatar" />
+                add avatar
+              </div>
+            </div>
+            <input type="file" name={name} id={name} onChange={fileInputChangeHandler} />
+          </label>
+        );
+      }}
+    </Field>
   );
 };
 
 export default FilePicker;
 
 type FilePickerProps = {
-  children: ReactNode;
   name: string;
 };

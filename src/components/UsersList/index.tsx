@@ -28,12 +28,13 @@ const UsersList = () => {
           <th colSpan={2} />
         </thead>
         <tbody>
-          {users.map(({ id, username, firstname, lastname, company, email }: any) => {
+          {users.map(({ id, username, firstname, lastname, company, email, avatar }: any) => {
+            const avatarSrc = avatar ? URL.createObjectURL(avatar) : undefined;
             return (
               <tr>
                 <td>{id}</td>
                 <td>
-                  <Avatar small />
+                  <Avatar small image={avatarSrc} />
                 </td>
                 <td>
                   <div>

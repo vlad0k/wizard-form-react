@@ -11,22 +11,6 @@ import Step3Form from './Step3Form';
 import addIcon from '../../assets/icons/add.svg';
 import Step4Form from './Step4Form';
 
-const Step1 = () => (
-  <div className={classNames.twoColumns}>
-    <div className={classNames.addUserPhoto}>
-      <Avatar />
-      <FilePicker name={'avatarupload'}>
-        <img src={addIcon} alt="add avatar" />
-        add avatar
-      </FilePicker>
-    </div>
-
-    <div className={classNames.formWrapper}>
-      <Step1Form />
-    </div>
-  </div>
-);
-
 const tabs = ['Account', 'Profile', 'Contacts', 'Capabilities'];
 
 const StepWizard = () => {
@@ -35,7 +19,7 @@ const StepWizard = () => {
   const tabKeys = [
     {
       name: 'account',
-      value: <Step1 />,
+      value: <Step1Form />,
     },
     {
       name: 'profile',

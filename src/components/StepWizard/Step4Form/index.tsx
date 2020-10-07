@@ -58,7 +58,7 @@ const Step4Form = () => {
   const submitForm = (values: Values) => {
     const { skills = [], additionalInfo, hobbies = [] } = values;
     const skillsRes = skills.map((skill: SkillOptionType) => skill.value);
-    dispatch(step4FormSubmit(skillsRes, additionalInfo, hobbies));
+    dispatch(step4FormSubmit({ skills: skillsRes, additionalInfo, hobbies }));
     db.users.add({ ...formState, skills: skillsRes, additionalInfo, hobbies });
   };
 

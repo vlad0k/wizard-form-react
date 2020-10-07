@@ -10,6 +10,7 @@ interface AccountFormForwardAction {
   type: typeof ACCOUNT_FORM_FORWARD;
   username: string;
   password: string;
+  avatar: File | null;
 }
 
 interface GoBackAction {
@@ -57,8 +58,9 @@ type AddFormActionsType =
   | Step4FormSubmit;
 
 const initialState = {
-  currentStep: 2,
+  currentStep: 1,
 
+  avatar: null as File | null,
   username: '',
   password: '',
 
@@ -88,6 +90,7 @@ const addFormReducer = (state = initialState, action: AddFormActionsType) => {
         ...state,
         username: action.username,
         password: action.password,
+        avatar: action.avatar,
         currentStep: 2,
       };
     }
@@ -101,7 +104,7 @@ const addFormReducer = (state = initialState, action: AddFormActionsType) => {
     case PROFILE_FORM_FORWARD: {
       return {
         ...state,
-        currentStep: 1,
+        currentStep: state.currentStep + 1,
         adress: action.adress,
         birthdate: action.birthdate,
         email: action.email,
@@ -148,13 +151,13 @@ const addFormReducer = (state = initialState, action: AddFormActionsType) => {
 
 export default addFormReducer;
 
-export const accountFormForward = (
-  username: string,
-  password: string,
-): AccountFormForwardAction => ({
+export const accountFormForward = (payload: {
+  username: string;
+  password: string;
+  avatar: File | null;
+}): AccountFormForwardAction => ({
   type: ACCOUNT_FORM_FORWARD,
-  username,
-  password,
+  ...payload,
 });
 
 export const goBack = (): GoBackAction => ({ type: GO_BACK });
@@ -164,43 +167,35 @@ export const selectStep = (step: number): SelectStepAction => ({
   step,
 });
 
-export const step2FormForward = (
-  firstname: string,
-  lastname: string,
-  birthdate: string,
-  email: string,
-  adress: string,
-  gender: string,
-): Step2FormForwardAction => ({
+export const step2FormForward = (payload: {
+  firstname: string;
+  lastname: string;
+  birthdate: string;
+  email: string;
+  adress: string;
+  gender: string;
+}): Step2FormForwardAction => ({
   type: PROFILE_FORM_FORWARD,
-  firstname,
-  lastname,
-  birthdate,
-  email,
-  adress,
-  gender,
+  ...payload,
 });
 
-export const step3FormSubmit = (
-  company: string,
-  facebook: string,
-  github: string,
-  mainLang: string,
-  fax: string,
-  phoneNumbers: string[],
-): Step3FormForwardAction => ({
+export const step3FormSubmit = (payload: {
+  company: string;
+  facebook: string;
+  github: string;
+  mainLang: string;
+  fax: string;
+  phoneNumbers: string[];
+}): Step3FormForwardAction => ({
   type: STEP_3_FORM_SUBMIT,
-  company,
-  facebook,
-  github,
-  mainLang,
-  fax,
-  phoneNumbers,
+  ...payload,
 });
 
-export const step4FormSubmit = (skills: string[], additionalInfo: string, hobbies: string[]) => ({
+export const step4FormSubmit = (payload: {
+  skills: string[];
+  additionalInfo: string;
+  hobbies: string[];
+}) => ({
   type: STEP_4_FORM_SUBMIT,
-  skills,
-  additionalInfo,
-  hobbies,
+  ...payload,
 });

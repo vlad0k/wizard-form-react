@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import { accountFormForward } from "../../../redux/addFormReducer";
 
 import Button from "../../ui/Button";
-import InputField from "../../ui/form/InputField";
+import InputField from "../../ui/InputField";
 
 interface Values {
   username: string;

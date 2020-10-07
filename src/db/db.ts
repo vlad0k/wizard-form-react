@@ -1,7 +1,8 @@
 import Dexie from "dexie";
 
-var db = new Dexie("WizardFormAppDB");
+var db: any = new Dexie("WizardFormAppDB");
 
-db.version(1).stores({ users: "++id" });
+db.version(10).stores({ users: "++id" });
+db.open();
 
 export default db;

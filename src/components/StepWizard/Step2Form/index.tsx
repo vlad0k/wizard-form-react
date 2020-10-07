@@ -2,12 +2,12 @@ import React from "react";
 import classNames from "./index.module.css";
 import { Field, Form, Formik } from "formik";
 import * as Yup from "yup";
-import InputField from "../../ui/form/InputField";
+import InputField from "../../ui/InputField";
 import Button from "../../ui/Button";
 
 import { useDispatch } from "react-redux";
 import { goBack, step2FormForward } from "../../../redux/addFormReducer";
-import DatePicker from "../../ui/form/DatePicker";
+import DatePicker from "../../ui/DatePicker";
 
 interface Values {
   firstname: string;

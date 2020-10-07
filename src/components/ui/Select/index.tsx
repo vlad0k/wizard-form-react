@@ -1,4 +1,5 @@
 import React from "react";
+import classNames from "./index.module.css";
 import ReactSelect, { ValueType } from "react-select";
 import { Field, FieldProps } from "formik";
 
@@ -11,6 +12,7 @@ const customStyles = {
     paddingLeft: 8,
     fontSize: 14,
   }),
+  // TODO fix select menu height
   menu: () => ({
     boxShadow: "none",
     height: 172,
@@ -62,6 +64,7 @@ type SelectPropsType = {
 const Select = ({ name, isMulti, options, label }: SelectPropsType) => {
   return (
     <>
+      <span className={classNames.label}>{label}</span>
       <Field name={name}>
         {(props: FieldProps) => {
           const {

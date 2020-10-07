@@ -3,9 +3,30 @@ import classNames from "./index.module.css";
 import { Formik, Form } from "formik";
 import TextArea from "../../form/TextArea";
 import Checkbox from "../../form/CheckBox";
-import MySelect from "../../ui/form/Select";
+import MySelect from "../../ui/Select";
+import Button from "../../ui/Button";
+import { useDispatch, useSelector } from "react-redux";
+import { goBack, step4FormSubmit } from "../../../redux/addFormReducer";
+import { StateType } from "../../../redux/store";
 
-const options = [
+interface Values {
+  skills: SkillOptionType[];
+  additionalInfo: "";
+  hobbies: string[];
+}
+
+const initialValues: Values = {
+  skills: [],
+  additionalInfo: "",
+  hobbies: ["sport"],
+};
+
+export type SkillOptionType = {
+  value: string;
+  label: string;
+};
+
+const multiSelectOptions: SkillOptionType[] = [
   "HTML",
   "CSS",
   "Javascript",
@@ -17,7 +38,7 @@ const options = [
   "PHP",
   "Ruby On Rails",
   "SQL",
-  " BackboneJS",
+  "BackboneJS",
   "Web Design",
   "Project management",
   "Git",
@@ -27,33 +48,63 @@ const options = [
 ].map((el: string) => ({ value: el.toLowerCase(), label: el }));
 
 const Step4Form = () => {
+  const dispatch = useDispatch();
+  const formState = useSelector((state: StateType) => {
+    const { currentStep, ...formState } = state.addForm;
+    return formState;
+  });
+
+  const submitForm = (values: Values) => {
+    const { skills = [], additionalInfo, hobbies = [] } = values;
+    const skillsRes = skills.map((skill: SkillOptionType) => skill.value);
+    dispatch(step4FormSubmit(skillsRes, additionalInfo, hobbies));
+  };
+
   return (
-    <Formik
-      initialValues={{ skills: "", additionalInfo: "", hobbies: "" }}
-      onSubmit={(v) => console.log(v)}
-    >
+    <Formik initialValues={initialValues} onSubmit={submitForm}>
       <Form className={classNames.form}>
         <div className={classNames.column}>
           <MySelect
-            name={"skills"}
+            name="skills"
             isMulti
-            options={options}
-            label={"Skills"}
+            options={multiSelectOptions}
+            label="Skills"
           />
           <TextArea
-            name={"additionalInfo"}
-            label={"Additional Info"}
+            name="additionalInfo"
+            label="Additional Info"
             maxlength={300}
           />
         </div>
-        <div
-          className={[classNames.column, classNames.checkBoxGroup].join(" ")}
-        >
-          <label>My Hobbies</label>
+        <div className={[classNames.column, classNames.checkBoxGroup].join("")}>
+          <label className={classNames.checkboxLabel}> My Hobbies</label>
           <Checkbox
-            name={"sport"}
-            label={"Sport, fitness, aerobica and staff like that"}
+            name="sport"
+            label="Sport, fitness, aerobica and staff like that"
           />
+          <Checkbox
+            name="gaming"
+            label="I just want to play games, I’m not living in this life"
+          />
+          <Checkbox
+            name="nothing"
+            label="I’m a female... I’m doing nothing. Every day."
+          />
+          <Checkbox
+            name="guitar"
+            label="Guitar, guitar and guitar again. I’m fall in love with it."
+          />
+          <Checkbox name="nohobbie" label="WTF is “hobbies”???" />
+          <div className={classNames.buttons}>
+            <Button
+              appearance="secondary"
+              type="button"
+              onClick={() => dispatch(goBack())}
+            >
+              Back
+            </Button>
+            <Button appearance="finish">Finish</Button>
+          </div>
         </div>
       </Form>
     </Formik>

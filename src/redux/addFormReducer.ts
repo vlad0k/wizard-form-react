@@ -1,6 +1,8 @@
 const ACCOUNT_FORM_FORWARD = "addForm/ACCOUNT_FORM_FORWARD";
 const GO_BACK = "addForm/GO_BACK";
 const PROFILE_FORM_FORWARD = "addForm/PROFILE_FORM_FORWARD";
+const STEP_3_FORM_SUBMIT = "addForm/STEP_3_FORM_SUBMIT";
+const STEP_4_FORM_SUBMIT = "addForm/STEP_4_FORM_SUBMIT";
 
 const SELECT_STEP = "addForm/SELECT_STEP";
 
@@ -24,6 +26,23 @@ interface Step2FormForwardAction {
   gender: string;
 }
 
+interface Step3FormForwardAction {
+  type: typeof STEP_3_FORM_SUBMIT;
+  company: string;
+  facebook: string;
+  github: string;
+  mainLang: string;
+  fax: string;
+  phoneNumbers: Array<string>;
+}
+
+interface Step4FormSubmit {
+  type: typeof STEP_4_FORM_SUBMIT;
+  skills: string[];
+  additionalInfo: string;
+  hobbies: string[];
+}
+
 interface SelectStepAction {
   type: typeof SELECT_STEP;
   step: number;
@@ -33,24 +52,33 @@ type AddFormActionsType =
   | AccountFormForwardAction
   | GoBackAction
   | Step2FormForwardAction
-  | SelectStepAction;
+  | SelectStepAction
+  | Step3FormForwardAction
+  | Step4FormSubmit;
 
 const initialState = {
   currentStep: 4,
+
   username: "",
   password: "",
+
   firstname: "",
   lastname: "",
   birthdate: "",
   email: "",
   adress: "",
   gender: "",
+
   company: "",
   facebook: "",
   github: "",
-  mainLang: null,
+  mainLang: "",
   fax: "",
   phoneNumbers: [""],
+
+  skills: [""],
+  additionalInfo: "",
+  hobbies: [""],
 };
 
 const addFormReducer = (state = initialState, action: AddFormActionsType) => {
@@ -83,6 +111,19 @@ const addFormReducer = (state = initialState, action: AddFormActionsType) => {
       };
     }
 
+    case STEP_3_FORM_SUBMIT: {
+      return {
+        ...state,
+        currentStep: state.currentStep + 1,
+        company: action.company,
+        facebook: action.facebook,
+        github: action.github,
+        mainLang: action.mainLang,
+        fax: action.fax,
+        phoneNumbers: action.phoneNumbers,
+      };
+    }
+
     case SELECT_STEP: {
       return {
         ...state,
@@ -90,8 +131,17 @@ const addFormReducer = (state = initialState, action: AddFormActionsType) => {
       };
     }
 
+    case STEP_4_FORM_SUBMIT: {
+      return {
+        ...state,
+        skills: action.skills,
+        additionalInfo: action.additionalInfo,
+        hobbies: action.hobbies,
+      };
+    }
+
     default: {
-      return state;
+      return { ...state };
     }
   }
 };
@@ -109,24 +159,52 @@ export const accountFormForward = (
 
 export const goBack = (): GoBackAction => ({ type: GO_BACK });
 
-export const step2FormForward = (
-  adress: string,
-  birthdate: string,
-  email: string,
-  firstname: string,
-  gender: string,
-  lastname: string
-): Step2FormForwardAction => ({
-  type: PROFILE_FORM_FORWARD,
-  adress,
-  birthdate,
-  email,
-  firstname,
-  gender,
-  lastname,
-});
-
 export const selectStep = (step: number): SelectStepAction => ({
   type: SELECT_STEP,
   step,
+});
+
+export const step2FormForward = (
+  firstname: string,
+  lastname: string,
+  birthdate: string,
+  email: string,
+  adress: string,
+  gender: string
+): Step2FormForwardAction => ({
+  type: PROFILE_FORM_FORWARD,
+  firstname,
+  lastname,
+  birthdate,
+  email,
+  adress,
+  gender,
+});
+
+export const step3FormSubmit = (
+  company: string,
+  facebook: string,
+  github: string,
+  mainLang: string,
+  fax: string,
+  phoneNumbers: string[]
+): Step3FormForwardAction => ({
+  type: STEP_3_FORM_SUBMIT,
+  company,
+  facebook,
+  github,
+  mainLang,
+  fax,
+  phoneNumbers,
+});
+
+export const step4FormSubmit = (
+  skills: string[],
+  additionalInfo: string,
+  hobbies: string[]
+) => ({
+  type: STEP_4_FORM_SUBMIT,
+  skills,
+  additionalInfo,
+  hobbies,
 });

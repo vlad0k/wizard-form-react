@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { goBack, step4FormSubmit } from '../../../redux/addFormReducer';
 import { StateType } from '../../../redux/store';
 import db from '../../../db/db';
+import * as Yup from 'yup';
 
 interface Values {
   skills: SkillOptionType[];
@@ -19,7 +20,7 @@ interface Values {
 const initialValues: Values = {
   skills: [],
   additionalInfo: '',
-  hobbies: ['sport'],
+  hobbies: [],
 };
 
 export type SkillOptionType = {
@@ -48,6 +49,12 @@ const multiSelectOptions: SkillOptionType[] = [
   'Firebase',
 ].map((el: string) => ({ value: el.toLowerCase(), label: el }));
 
+const validateScema = Yup.object({
+  skills: Yup.array()
+    .of(Yup.string().required('required field'))
+    .min(3, 'you should have al least 3 skills'),
+});
+
 const Step4Form = () => {
   const dispatch = useDispatch();
   const formState = useSelector((state: StateType) => {
@@ -63,7 +70,7 @@ const Step4Form = () => {
   };
 
   return (
-    <Formik initialValues={initialValues} onSubmit={submitForm}>
+    <Formik initialValues={initialValues} onSubmit={submitForm} validationSchema={validateScema}>
       <Form className={classNames.form}>
         <div className={classNames.column}>
           <MySelect name="skills" isMulti options={multiSelectOptions} label="Skills" />

@@ -76,11 +76,12 @@ const Select = ({ name, isMulti, options, label }: SelectPropsType) => {
               options={options}
               value={selectValue}
               onChange={(selected: ValueType<OptionType>) => {
+                let value: string | string[] = '';
                 for (let i in selected) {
                   if ('value' in selected) {
-                    let value = selected.value;
+                    value = selected.value;
                   } else if (Array.isArray(selected)) {
-                    let value = selected.map((s: OptionType) => s.value);
+                    value = selected.map((s: OptionType) => s.value);
                   }
                 }
                 setFieldValue(name, value);

@@ -1,14 +1,11 @@
 import React from 'react';
 import Tabs from './Tabs';
 import classNames from './index.module.css';
-import Avatar from '../ui/Avatar';
-import FilePicker from '../ui/FilePicker';
 import Step1Form from './Step1Form';
 import Step2Form from './Step2Form';
 import { useSelector } from 'react-redux';
 import { StateType } from '../../redux/store';
 import Step3Form from './Step3Form';
-import addIcon from '../../assets/icons/add.svg';
 import Step4Form from './Step4Form';
 
 const tabs = ['Account', 'Profile', 'Contacts', 'Capabilities'];

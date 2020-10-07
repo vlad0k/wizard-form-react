@@ -8,9 +8,7 @@ import { accountFormForward } from '../../../redux/addFormReducer';
 
 import Button from '../../ui/Button';
 import InputField from '../../ui/InputField';
-import Avatar from '../../ui/Avatar';
-import FilePicker from '../../ui/FilePicker';
-import addIcon from '../../../assets/icons/add.svg';
+import AvatarPicker from '../../ui/AvatarPicker';
 
 interface Values {
   username: string;
@@ -45,7 +43,7 @@ const Step1Form = () => {
     >
       <Form className={classNames.form}>
         <div className={classNames.column}>
-          <FilePicker name={'avatar'} />
+          <AvatarPicker name={'avatar'} />
         </div>
         <div className={classNames.column}>
           <InputField name="username" label="User Name" />

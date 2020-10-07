@@ -15,7 +15,7 @@ export default Button;
 
 type ButtonProps = {
   children?: ReactNode;
-  appearance?: 'primary' | 'secondary' | 'text' | 'finish';
+  appearance?: 'primary' | 'secondary' | 'text' | 'finish' | 'delete';
   type?: 'submit' | 'button' | 'reset';
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => any;
 };

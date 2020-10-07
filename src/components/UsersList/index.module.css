@@ -37,12 +37,16 @@
   padding-bottom: 64px;
 }
 
+.table tr {
+  transition: 0.3s;
+  position: relative;
+}
+
 .table tr:nth-child(odd) {
   background-color: var(--select-color);
 }
 
 .table td {
-  font-family: Roboto;
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
@@ -50,4 +54,21 @@
   /* identical to box height */
   padding: 26px 14px;
   color: #475666;
+  transition: opacity 0.4s;
+}
+
+.isDeleting {
+  transform: translateX(-100px);
+}
+.isDeleting td {
+  opacity: 0.5;
+}
+
+.deleteButton {
+  padding-left: 24px;
+  position: absolute;
+  display: block;
+  margin-top: 36px;
+  width: 120px;
+  top: 0;
 }

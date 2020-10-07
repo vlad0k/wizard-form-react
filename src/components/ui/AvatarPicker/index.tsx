@@ -36,7 +36,7 @@ const AvatarPicker = ({ name }: AvatarPickerProps) => {
           >
             <div className={classNames.addUserPhoto}>
               <Avatar image={avatarSrc} />
-              <div>
+              <div className={classNames.label}>
                 <img src={addIcon} alt="add avatar" />
                 add avatar
               </div>

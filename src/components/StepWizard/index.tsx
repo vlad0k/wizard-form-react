@@ -35,7 +35,6 @@ const StepWizard = () => {
   const tab = tabKeys.filter(
     (t: typeof tabKeys[0]) => t.name === tabs[currentStep - 1].toLowerCase(),
   );
-  console.log(tab);
   return (
     <>
       <Tabs value={currentStep} tabs={tabs} />

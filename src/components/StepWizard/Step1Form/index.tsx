@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import classNames from './index.module.css';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
@@ -9,6 +9,7 @@ import { accountFormForward } from '../../../redux/addFormReducer';
 import Button from '../../ui/Button';
 import InputField from '../../ui/InputField';
 import AvatarPicker from '../../ui/AvatarPicker';
+import db from '../../../db/db';
 
 interface Values {
   username: string;
@@ -20,7 +21,9 @@ interface Values {
 const validateScema = Yup.object({
   username: Yup.string().required('required field'),
   password: Yup.string().required('required field'),
-  passwordRepeat: Yup.string().oneOf([Yup.ref('password'), ''], 'passwords must match'),
+  passwordRepeat: Yup.string()
+    .oneOf([Yup.ref('password'), ''], 'passwords must match')
+    .required('required field'),
 });
 
 const Step1Form = () => {

@@ -19,13 +19,6 @@
   bottom: 0;
 }
 
-.addUserPhoto {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
 .column {
   height: 100%;
   position: relative;

@@ -19,3 +19,19 @@
 .pressed {
   transform: scale(0.95);
 }
+.addUserPhoto {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.addUserPhoto .label {
+  padding-top: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.addUserPhoto div img {
+  margin-right: 8px;
+}

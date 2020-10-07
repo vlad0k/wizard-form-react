@@ -1,34 +1,44 @@
 .inputField input {
-    display: block;
+  display: block;
 
-    width: 400px;
-    height: 40px;
+  width: 400px;
+  height: 40px;
 
-    background: #FFFFFF;
-    border: 1px solid var(--secondary-color);
-    box-sizing: border-box;
-    padding:  8px;
+  background: #ffffff;
+  border: 1px solid var(--secondary-color);
+  box-sizing: border-box;
+  padding: 8px;
 }
 
 .inputField {
-    display: block;
-    padding-bottom: 24px;
+  display: block;
+  padding-bottom: 24px;
 }
 
 .inputField span {
-    display: inline-block;
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 16px;
+  display: inline-block;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 16px;
 
-    color: var(--form-label-color);
-    padding-bottom: 4px;
+  color: var(--form-label-color);
+  padding-bottom: 4px;
 }
 
 .error {
-    color: red;
-    font-size: 9px;
-    padding-left: 16px;
+  color: red;
+  font-size: 9px;
+  padding-left: 16px;
+}
+
+.inputWrapper {
+  position: relative;
+}
+
+.inputWrapper button {
+  position: absolute;
+  top: 12px;
+  right: 8px;
 }

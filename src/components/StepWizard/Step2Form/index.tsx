@@ -34,7 +34,6 @@ const Step2Form = () => {
   const submitForm = (values: Values) => {
     const { firstname, lastname, email, adress, gender, birthdate } = values;
     dispatch(step2FormForward({ adress, birthdate, email, firstname, gender, lastname }));
-    console.log(values);
   };
   return (
     <Formik

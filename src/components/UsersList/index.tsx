@@ -12,6 +12,10 @@ const UsersList = () => {
   const [users, setUsers] = useState<any[]>([]);
   const [isDeteling, setIsDeteling] = useState<IndexableType>('');
 
+  const userDeleteMode = () => {
+    setIsDeteling('');
+    document.removeEventListener('click', userDeleteMode);
+  };
   const getUsers = () => {
     db.table('users')
       .toArray()
@@ -20,16 +24,13 @@ const UsersList = () => {
 
   const deleteUser = (id: number | string) => {
     setIsDeteling(id);
-    document.onclick = () => {
-      setIsDeteling('');
-      document.onclick = null;
-    };
+    document.addEventListener('click', userDeleteMode);
   };
 
   const approveDelete = () => {
     db.table('users').delete(isDeteling);
     getUsers();
-    document.onclick = null;
+    document.removeEventListener('click', userDeleteMode);
   };
 
   if (users.length === 0) getUsers();

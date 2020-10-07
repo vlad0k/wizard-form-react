@@ -42,7 +42,7 @@
   position: relative;
 }
 
-.table tr:nth-child(odd) {
+.table tr:nth-child(even) {
   background-color: var(--select-color);
 }
 

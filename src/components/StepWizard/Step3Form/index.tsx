@@ -13,12 +13,7 @@ interface Values {
   company: string;
   facebook: string;
   github: string;
-  mainLang:
-    | {
-        value: string;
-        label: string;
-      }
-    | { value: '' };
+  mainLang: string;
   fax: string;
   phoneNumbers: Array<string>;
 }
@@ -27,7 +22,7 @@ const initialValues: Values = {
   company: '',
   facebook: '',
   github: '',
-  mainLang: { value: '' },
+  mainLang: '',
   fax: '',
   phoneNumbers: [''],
 };
@@ -41,6 +36,7 @@ const options: OptionType[] = [
 const validateScema = Yup.object({
   phoneNumbers: Yup.array().of(Yup.string().required('required field')),
   company: Yup.string().required('required field'),
+  mainLang: Yup.string().required('required field'),
 });
 
 const Step3Form = () => {
@@ -52,13 +48,13 @@ const Step3Form = () => {
 
   const submitForm = (values: Values) => {
     const { company, facebook, github, mainLang, fax, phoneNumbers } = values;
-    const { value: mainLanguage = options[0].value } = mainLang;
+    // const { value: mainLanguage = options[0].value } = mainLang;
     dispatch(
       step3FormSubmit({
         company,
         facebook,
         github,
-        mainLang: mainLanguage,
+        mainLang,
         fax,
         phoneNumbers,
       }),

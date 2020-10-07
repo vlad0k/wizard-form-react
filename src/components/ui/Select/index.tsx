@@ -1,51 +1,50 @@
-import React from "react";
-import classNames from "./index.module.css";
-import ReactSelect, { ValueType } from "react-select";
-import { Field, FieldProps } from "formik";
+import React, { useState } from 'react';
+import classNames from './index.module.css';
+import ReactSelect, { OptionsType, ValueType } from 'react-select';
+import { ErrorMessage, Field, FieldProps } from 'formik';
 
 const customStyles = {
   option: (provided: any, state: any) => ({
     ...provided,
-    color: "var(--form-label-color)",
-    backgroundColor:
-      state.isSelected || state.isFocused ? "var(--select-color)" : "white",
+    color: 'var(--form-label-color)',
+    backgroundColor: state.isSelected || state.isFocused ? 'var(--select-color)' : 'white',
     paddingLeft: 8,
     fontSize: 14,
   }),
   // TODO fix select menu height
   menu: () => ({
-    boxShadow: "none",
+    boxShadow: 'none',
     height: 172,
-    overflow: "scroll",
+    overflow: 'scroll',
   }),
   control: () => ({
-    border: "none",
-    backgroundColor: "white",
-    display: "block",
+    border: 'none',
+    backgroundColor: 'white',
+    display: 'block',
     width: 384,
-    padding: "4px 8px",
+    padding: '4px 8px',
     borderWidth: 1,
-    borderColor: "var(--secondary-color)",
-    borderStyle: "solid",
+    borderColor: 'var(--secondary-color)',
+    borderStyle: 'solid',
     fontWeight: 500,
   }),
   indicatorsContainer: () => ({
-    display: "none",
+    display: 'none',
   }),
   container: () => ({
     paddingBottom: 24,
   }),
   multiValue: () => ({
-    backgroundColor: "var(--select-color)",
+    backgroundColor: 'var(--select-color)',
     fontSize: 12,
-    color: "var(--action-text-color)",
-    display: "flex",
-    alignItems: "center",
+    color: 'var(--action-text-color)',
+    display: 'flex',
+    alignItems: 'center',
     padding: 4,
     marginLeft: 4,
   }),
   multiValueLabel: () => ({
-    color: "var(--action-text-color)",
+    color: 'var(--action-text-color)',
   }),
 };
 
@@ -62,6 +61,7 @@ type SelectPropsType = {
 };
 
 const Select = ({ name, isMulti, options, label }: SelectPropsType) => {
+  const [selectValue, setSelectValue] = useState<ValueType<OptionType>>(null);
   return (
     <>
       <span className={classNames.label}>{label}</span>
@@ -74,16 +74,27 @@ const Select = ({ name, isMulti, options, label }: SelectPropsType) => {
           return (
             <ReactSelect
               options={options}
-              value={value}
-              onChange={(
-                selected: ValueType<{ value: string; label: string }>
-              ) => setFieldValue(name, selected)}
+              value={selectValue}
+              onChange={(selected: ValueType<OptionType>) => {
+                for (let i in selected) {
+                  if ('value' in selected) {
+                    let value = selected.value;
+                  } else if (Array.isArray(selected)) {
+                    let value = selected.map((s: OptionType) => s.value);
+                  }
+                }
+                setFieldValue(name, value);
+                setSelectValue(selected);
+              }}
               styles={customStyles}
               isMulti={isMulti}
             />
           );
         }}
       </Field>
+      <div className={classNames.error}>
+        <ErrorMessage name={name} />
+      </div>
     </>
   );
 };

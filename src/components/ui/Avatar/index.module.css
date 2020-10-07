@@ -1,13 +1,27 @@
 .avatar {
-    width: 171px;
-    height: 171px;
-    border: 3px solid #5E97F3;
-    box-sizing: border-box;
-    border-radius: 50%;
-    overflow: hidden;
+  box-sizing: border-box;
+  border-radius: 50%;
+  overflow: hidden;
 }
 
-.avatar img {
-    margin-top: 20px;
-    height: 100%;
+.default {
+  width: 171px;
+  height: 171px;
+  border: 3px solid #5e97f3;
+}
+
+.small {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #5e97f3;
+}
+
+.default img {
+  margin-top: 20px;
+  height: 100%;
+}
+
+.small img {
+  margin-top: 4px;
+  height: 100%;
 }

@@ -1,10 +1,10 @@
-const ACCOUNT_FORM_FORWARD = "addForm/ACCOUNT_FORM_FORWARD";
-const GO_BACK = "addForm/GO_BACK";
-const PROFILE_FORM_FORWARD = "addForm/PROFILE_FORM_FORWARD";
-const STEP_3_FORM_SUBMIT = "addForm/STEP_3_FORM_SUBMIT";
-const STEP_4_FORM_SUBMIT = "addForm/STEP_4_FORM_SUBMIT";
+const ACCOUNT_FORM_FORWARD = 'addForm/ACCOUNT_FORM_FORWARD';
+const GO_BACK = 'addForm/GO_BACK';
+const PROFILE_FORM_FORWARD = 'addForm/PROFILE_FORM_FORWARD';
+const STEP_3_FORM_SUBMIT = 'addForm/STEP_3_FORM_SUBMIT';
+const STEP_4_FORM_SUBMIT = 'addForm/STEP_4_FORM_SUBMIT';
 
-const SELECT_STEP = "addForm/SELECT_STEP";
+const SELECT_STEP = 'addForm/SELECT_STEP';
 
 interface AccountFormForwardAction {
   type: typeof ACCOUNT_FORM_FORWARD;
@@ -57,28 +57,28 @@ type AddFormActionsType =
   | Step4FormSubmit;
 
 const initialState = {
-  currentStep: 4,
+  currentStep: 2,
 
-  username: "",
-  password: "",
+  username: '',
+  password: '',
 
-  firstname: "",
-  lastname: "",
-  birthdate: "",
-  email: "",
-  adress: "",
-  gender: "",
+  firstname: '',
+  lastname: '',
+  birthdate: '',
+  email: '',
+  adress: '',
+  gender: '',
 
-  company: "",
-  facebook: "",
-  github: "",
-  mainLang: "",
-  fax: "",
-  phoneNumbers: [""],
+  company: '',
+  facebook: '',
+  github: '',
+  mainLang: '',
+  fax: '',
+  phoneNumbers: [''],
 
-  skills: [""],
-  additionalInfo: "",
-  hobbies: [""],
+  skills: [''],
+  additionalInfo: '',
+  hobbies: [''],
 };
 
 const addFormReducer = (state = initialState, action: AddFormActionsType) => {
@@ -101,7 +101,7 @@ const addFormReducer = (state = initialState, action: AddFormActionsType) => {
     case PROFILE_FORM_FORWARD: {
       return {
         ...state,
-        currentStep: 3,
+        currentStep: 1,
         adress: action.adress,
         birthdate: action.birthdate,
         email: action.email,
@@ -150,7 +150,7 @@ export default addFormReducer;
 
 export const accountFormForward = (
   username: string,
-  password: string
+  password: string,
 ): AccountFormForwardAction => ({
   type: ACCOUNT_FORM_FORWARD,
   username,
@@ -170,7 +170,7 @@ export const step2FormForward = (
   birthdate: string,
   email: string,
   adress: string,
-  gender: string
+  gender: string,
 ): Step2FormForwardAction => ({
   type: PROFILE_FORM_FORWARD,
   firstname,
@@ -187,7 +187,7 @@ export const step3FormSubmit = (
   github: string,
   mainLang: string,
   fax: string,
-  phoneNumbers: string[]
+  phoneNumbers: string[],
 ): Step3FormForwardAction => ({
   type: STEP_3_FORM_SUBMIT,
   company,
@@ -198,11 +198,7 @@ export const step3FormSubmit = (
   phoneNumbers,
 });
 
-export const step4FormSubmit = (
-  skills: string[],
-  additionalInfo: string,
-  hobbies: string[]
-) => ({
+export const step4FormSubmit = (skills: string[], additionalInfo: string, hobbies: string[]) => ({
   type: STEP_4_FORM_SUBMIT,
   skills,
   additionalInfo,

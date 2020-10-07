@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from './index.module.css';
-import { Field, Form, Formik } from 'formik';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 import InputField from '../../ui/InputField';
 import Button from '../../ui/Button';
@@ -14,14 +14,27 @@ interface Values {
   lastname: string;
   email: string;
   adress: string;
-  gender: 'male' | 'female';
-  birthdate: string;
+  gender: 'male' | 'female' | undefined;
+  birthdate: Date | undefined;
 }
+
+const initialValues: Values = {
+  firstname: '',
+  lastname: '',
+  email: '',
+  adress: '',
+  gender: undefined,
+  birthdate: undefined,
+};
 
 const validateScema = Yup.object({
   firstname: Yup.string().required('required field'),
   lastname: Yup.string().required('required field'),
-  email: Yup.string().required('required field'),
+  email: Yup.string().required('required field').email('incorrect email format'),
+  birthdate: Yup.date()
+    .required('required field')
+    .max(new Date(Date.now() - 18 * 3.154 * 10 ** 10), 'You should be 18 years old'),
+  gender: Yup.string().required('please, choose your gender'),
 });
 
 const Step2Form = () => {
@@ -32,22 +45,14 @@ const Step2Form = () => {
   };
 
   const submitForm = (values: Values) => {
-    const { firstname, lastname, email, adress, gender, birthdate } = values;
-    dispatch(step2FormForward({ adress, birthdate, email, firstname, gender, lastname }));
+    const { firstname, lastname, email, adress, gender = '', birthdate } = values;
+    const birthdateRes = birthdate ? birthdate.toLocaleDateString() : '';
+    dispatch(
+      step2FormForward({ adress, birthdate: birthdateRes, email, firstname, gender, lastname }),
+    );
   };
   return (
-    <Formik
-      initialValues={{
-        firstname: '',
-        lastname: '',
-        email: '',
-        adress: '',
-        gender: 'male',
-        birthdate: '',
-      }}
-      onSubmit={submitForm}
-      validationSchema={validateScema}
-    >
+    <Formik initialValues={initialValues} onSubmit={submitForm} validationSchema={validateScema}>
       <Form className={classNames.form}>
         <div className={classNames.column}>
           <InputField name="firstname" label="First Name" />
@@ -69,7 +74,9 @@ const Step2Form = () => {
               Female
             </label>
           </div>
-
+          <div className={classNames.error}>
+            <ErrorMessage name="gender" />
+          </div>
           <div className={classNames.buttons}>
             <Button appearance="secondary" type="button" onClick={backButtonClickHandler}>
               Back

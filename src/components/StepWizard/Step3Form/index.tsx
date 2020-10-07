@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { goBack, step3FormSubmit } from '../../../redux/addFormReducer';
 import Select, { OptionType } from '../../ui/Select';
 import PhoneInputs from './PhoneInputs';
+import * as Yup from 'yup';
 
 interface Values {
   company: string;
@@ -37,6 +38,11 @@ const options: OptionType[] = [
   { value: 'ua', label: 'Ukrainian' },
 ];
 
+const validateScema = Yup.object({
+  phoneNumbers: Yup.array().of(Yup.string().required('required field')),
+  company: Yup.string().required('required field'),
+});
+
 const Step3Form = () => {
   const dispatch = useDispatch();
 
@@ -60,7 +66,7 @@ const Step3Form = () => {
   };
 
   return (
-    <Formik initialValues={initialValues} onSubmit={submitForm}>
+    <Formik initialValues={initialValues} onSubmit={submitForm} validationSchema={validateScema}>
       <Form className={classNames.form}>
         <div className={classNames.column}>
           <InputField name="company" label="Company" />

@@ -27,7 +27,7 @@ const generatePageTemplate = (user: UserType): TemplateType[] => [
     value: [
       { name: 'First Name', value: user.firstname },
       { name: 'Last Name', value: user.lastname },
-      { name: 'Birth Date', value: user.birthdate && String(user.birthdate) },
+      { name: 'Birth Date', value: user.birthdate && user.birthdate.toLocaleDateString() },
       { name: 'Email', value: user.email },
       { name: 'Adress', value: user.adress },
     ],

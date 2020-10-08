@@ -46,3 +46,9 @@
 .groupElements span:last-child {
   color: var(--form-label-color);
 }
+
+.valuesList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}

@@ -71,7 +71,17 @@ const UserPage: FC<UserPagePropsType> = ({ user }) => {
                 {group.value.map((v) => (
                   <div className={classNames.groupElements}>
                     <span>{v.name}</span>
-                    <span>{v.value}</span>
+                    <span>
+                      {Array.isArray(v.value) ? (
+                        <ul className={classNames.valuesList}>
+                          {v.value.map((val) => (
+                            <li>{val}</li>
+                          ))}
+                        </ul>
+                      ) : (
+                        v.value
+                      )}
+                    </span>
                   </div>
                 ))}
               </div>

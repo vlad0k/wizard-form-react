@@ -67,6 +67,7 @@ const StepWizard: FC<StepWizarPropsType> = ({ mode = 'add' }) => {
     },
     {
       name: 'capabilities',
+
       value: (
         <Step4Form
           initialValues={{

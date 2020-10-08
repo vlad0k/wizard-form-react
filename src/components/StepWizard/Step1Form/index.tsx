@@ -3,13 +3,15 @@ import classNames from './index.module.css';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { accountFormForward } from '../../../redux/addFormReducer';
 
 import Button from '../../ui/Button';
 import InputField from '../../ui/InputField';
 import AvatarPicker from '../../ui/AvatarPicker';
 import db from '../../../db/db';
+import { StateType } from '../../../redux/store';
+import { UserType } from '../../../redux/usersListReducer';
 
 interface Values {
   username: string;
@@ -18,16 +20,22 @@ interface Values {
   avatar: File | null;
 }
 
-const validateScema = Yup.object({
-  username: Yup.string().required('required field'),
-  password: Yup.string().required('required field'),
-  passwordRepeat: Yup.string()
-    .oneOf([Yup.ref('password'), ''], 'passwords must match')
-    .required('required field'),
-});
-
 const Step1Form = () => {
   const dispatch = useDispatch();
+  const users = useSelector((state: StateType) => state.users.users);
+
+  const validateScema = Yup.object({
+    username: Yup.string()
+      .required('required field')
+      .notOneOf(
+        users.map((u: UserType) => u.username),
+        "you can't use this username",
+      ),
+    password: Yup.string().required('required field'),
+    passwordRepeat: Yup.string()
+      .oneOf([Yup.ref('password'), ''], 'passwords must match')
+      .required('required field'),
+  });
 
   const formSubmit = ({ username, password, avatar }: Values) => {
     dispatch(accountFormForward({ username, password, avatar }));

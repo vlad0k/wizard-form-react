@@ -11,15 +11,20 @@ const InputField = ({ name, label, type = 'text' }: InputFieldPropsType) => {
     <label className={classNames.inputField}>
       <span>{label}</span>
       <div className={classNames.inputWrapper}>
-        <Field name={name} id={name} type={inputType}>
+        <Field name={name} id={name}>
           {({ field, form, meta }: FieldProps) => (
-            <input {...field} className={meta.error ? classNames.errorField : classNames.noError} />
+            <input
+              {...field}
+              type={inputType}
+              className={meta.error ? classNames.errorField : classNames.noError}
+            />
           )}
         </Field>
         {type === 'password' && (
           <Button
             appearance={'text'}
             onClick={() => setInputType((prev) => (prev === 'password' ? 'text' : 'password'))}
+            type={'button'}
           >
             <img src={inputType === 'password' ? visibilityIcon : visibilityOffIcon} />
           </Button>

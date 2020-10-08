@@ -7,9 +7,14 @@ import Avatar from '../ui/Avatar';
 import EditIcon from '../../assets/icons/Edit.svg';
 import DeleteIcon from '../../assets/icons/Close.svg';
 import { IndexableType, Table } from 'dexie';
+import { useDispatch, useSelector } from 'react-redux';
+import { StateType } from '../../redux/store';
+import { importUsers, UserType } from '../../redux/usersListReducer';
 
 const UsersList = () => {
-  const [users, setUsers] = useState<any[]>([]);
+  const users = useSelector((state: StateType) => state.users.users);
+  const dispatch = useDispatch();
+  const setUsers = (users: UserType[]) => dispatch(importUsers(users));
   const [isDeteling, setIsDeteling] = useState<IndexableType>('');
 
   const userDeleteMode = () => {
@@ -34,7 +39,7 @@ const UsersList = () => {
   };
 
   if (users.length === 0) getUsers();
-
+  console.log(users);
   return (
     <div>
       <table className={classNames.table} cellSpacing={0}>

@@ -48,7 +48,6 @@ const Step3Form: FC<Step3FormPropsType> = ({ initialValues }) => {
 
   const submitForm = (values: Values) => {
     const { company, facebook, github, mainLang, fax, phoneNumbers } = values;
-    // const { value: mainLanguage = options[0].value } = mainLang;
     dispatch(
       step3FormSubmit({
         company,

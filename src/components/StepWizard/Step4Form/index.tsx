@@ -61,12 +61,8 @@ const validateScema = Yup.object({
 const Step4Form: FC<Step4FormPropsType> = ({ initialValues, editId = null }) => {
   const dispatch = useDispatch();
   const formState = useSelector((state: StateType) => {
-    if (!editId) {
-      const { currentStep, ...formState } = state.addForm;
-      return formState;
-    } else {
-      return state.users.users.filter((u) => u.id === editId)[0];
-    }
+    const { currentStep, ...formState } = state.addForm;
+    return formState;
   });
 
   const submitForm = (values: Values) => {

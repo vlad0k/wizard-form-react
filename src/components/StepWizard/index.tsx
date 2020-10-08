@@ -3,14 +3,12 @@ import Tabs from './Tabs';
 import classNames from './index.module.css';
 import Step1Form from './Step1Form';
 import Step2Form from './Step2Form';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { StateType } from '../../redux/store';
 import Step3Form from './Step3Form';
 import Step4Form from './Step4Form';
 import { useParams } from 'react-router-dom';
 import { UrlParamTypes } from '../../pages/UserInfoPage';
-import { selectStep } from '../../redux/addFormReducer';
-import { importUsers } from '../../redux/usersListReducer';
 
 const tabs = ['Account', 'Profile', 'Contacts', 'Capabilities'];
 

@@ -56,12 +56,11 @@ export type OptionType = {
 type SelectPropsType = {
   name: string;
   isMulti?: boolean;
-  options?: OptionType[];
+  options: OptionType[];
   label?: string;
 };
 
 const Select = ({ name, isMulti, options, label }: SelectPropsType) => {
-  const [selectValue, setSelectValue] = useState<ValueType<OptionType>>(null);
   return (
     <>
       <span className={classNames.label}>{label}</span>
@@ -71,6 +70,13 @@ const Select = ({ name, isMulti, options, label }: SelectPropsType) => {
             field: { name, value },
             form: { setFieldValue },
           } = props;
+          let selectValue: OptionType | OptionType[];
+          if (!Array.isArray(value)) {
+            selectValue = options.filter((option) => value === option.value)[0];
+          } else {
+            selectValue = options.filter((option) => value.includes(option.value));
+          }
+
           return (
             <ReactSelect
               options={options}
@@ -85,7 +91,6 @@ const Select = ({ name, isMulti, options, label }: SelectPropsType) => {
                   }
                 }
                 setFieldValue(name, value);
-                setSelectValue(selected);
               }}
               styles={customStyles}
               isMulti={isMulti}

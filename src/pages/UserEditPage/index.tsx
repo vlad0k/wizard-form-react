@@ -10,7 +10,7 @@ const UserEditPage = () => {
   // const username = useSelector((state: StateType) => state.users.users[+id].username);
 
   return (
-    <PageLayout name={`Edit User`}>
+    <PageLayout name={`Edit User`} backLink={`/users/${id}`} backLabel={'User Profile'}>
       <StepWizard mode={'edit'} />
     </PageLayout>
   );

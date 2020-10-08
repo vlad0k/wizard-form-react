@@ -8,7 +8,6 @@ import { Link } from 'react-router-dom';
 
 type TemplateType = {
   key: string;
-  step: number;
   value: {
     name: string;
     value: string | string[] | null | undefined;
@@ -18,7 +17,6 @@ type TemplateType = {
 const generatePageTemplate = (user: UserType): TemplateType[] => [
   {
     key: 'Account',
-    step: 1,
     value: [
       { name: 'User Name', value: user.username },
       { name: 'password', value: '**********' },
@@ -26,7 +24,6 @@ const generatePageTemplate = (user: UserType): TemplateType[] => [
   },
   {
     key: 'Personal',
-    step: 2,
     value: [
       { name: 'First Name', value: user.firstname },
       { name: 'Last Name', value: user.lastname },
@@ -37,7 +34,6 @@ const generatePageTemplate = (user: UserType): TemplateType[] => [
   },
   {
     key: 'Contacts',
-    step: 3,
     value: [
       { name: 'Company', value: user.company },
       { name: 'Fax', value: user.fax },
@@ -47,7 +43,6 @@ const generatePageTemplate = (user: UserType): TemplateType[] => [
   },
   {
     key: 'Capabilities',
-    step: 4,
     value: [
       { name: 'Skills', value: user.skills },
       { name: 'Hobbies', value: user.hobbies },
@@ -66,7 +61,7 @@ const UserPage: FC<UserPagePropsType> = ({ user }) => {
             <div key={group.key} className={classNames.group}>
               <span className={classNames.groupKey}>
                 {group.key}
-                <Link to={`/edit/${user.id}/${group.step}`}>
+                <Link to={`/edit/${user.id}`}>
                   <Button appearance="text">
                     <img src={editIcon} alt="edit" />
                   </Button>

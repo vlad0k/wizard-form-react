@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { FC } from 'react';
 import classNames from './index.module.css';
 import { Formik, Form } from 'formik';
 import TextArea from '../../ui/TextArea';
-import Checkbox from '../../ui/CheckBox';
 import MySelect from '../../ui/Select';
 import Button from '../../ui/Button';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,18 +9,14 @@ import { goBack, step4FormSubmit } from '../../../redux/addFormReducer';
 import { StateType } from '../../../redux/store';
 import db from '../../../db/db';
 import * as Yup from 'yup';
+import { importUsers, UserType } from '../../../redux/usersListReducer';
+import CheckBoxGroup from '../../ui/CheckBoxGroup';
 
 interface Values {
-  skills: SkillOptionType[];
-  additionalInfo: '';
+  skills: string[];
+  additionalInfo: string;
   hobbies: string[];
 }
-
-const initialValues: Values = {
-  skills: [],
-  additionalInfo: '',
-  hobbies: [],
-};
 
 export type SkillOptionType = {
   value: string;
@@ -49,24 +44,44 @@ const multiSelectOptions: SkillOptionType[] = [
   'Firebase',
 ].map((el: string) => ({ value: el.toLowerCase(), label: el }));
 
+const checkBoxGroup = [
+  { name: 'sport', label: 'Sport, fitness, aerobica and staff like that' },
+  { name: 'gaming', label: 'I just want to play games, I’m not living in this life' },
+  { name: 'nothing', label: 'I’m a female... I’m doing nothing. Every day.' },
+  { name: 'guitar', label: 'Guitar, guitar and guitar again. I’m fall in love with it.' },
+  { name: 'nohobbie', label: 'WTF is “hobbies”???' },
+];
+
 const validateScema = Yup.object({
   skills: Yup.array()
     .of(Yup.string().required('required field'))
     .min(3, 'you should have al least 3 skills'),
 });
 
-const Step4Form = () => {
+const Step4Form: FC<Step4FormPropsType> = ({ initialValues, editId = null }) => {
   const dispatch = useDispatch();
   const formState = useSelector((state: StateType) => {
-    const { currentStep, ...formState } = state.addForm;
-    return formState;
+    if (!editId) {
+      const { currentStep, ...formState } = state.addForm;
+      return formState;
+    } else {
+      return state.users.users.filter((u) => u.id === editId)[0];
+    }
   });
 
   const submitForm = (values: Values) => {
     const { skills = [], additionalInfo, hobbies = [] } = values;
-    const skillsRes = skills.map((skill: SkillOptionType) => skill.value);
-    dispatch(step4FormSubmit({ skills: skillsRes, additionalInfo, hobbies }));
-    db.table('users').add({ ...formState, skills: skillsRes, additionalInfo, hobbies });
+    dispatch(step4FormSubmit({ skills, additionalInfo, hobbies }));
+    if (editId) {
+      db.table('users').update(editId, { ...formState, skills, additionalInfo, hobbies });
+    } else {
+      db.table('users').add({ ...formState, skills, additionalInfo, hobbies });
+    }
+    const getUsersFromDb = async () => {
+      const users: UserType[] = await db.table('users').toArray();
+      dispatch(importUsers(users));
+    };
+    getUsersFromDb();
   };
 
   return (
@@ -77,15 +92,7 @@ const Step4Form = () => {
           <TextArea name="additionalInfo" label="Additional Info" maxlength={300} />
         </div>
         <div className={[classNames.column, classNames.checkBoxGroup].join('')}>
-          <label className={classNames.checkboxLabel}> My Hobbies</label>
-          <Checkbox name="sport" label="Sport, fitness, aerobica and staff like that" />
-          <Checkbox name="gaming" label="I just want to play games, I’m not living in this life" />
-          <Checkbox name="nothing" label="I’m a female... I’m doing nothing. Every day." />
-          <Checkbox
-            name="guitar"
-            label="Guitar, guitar and guitar again. I’m fall in love with it."
-          />
-          <Checkbox name="nohobbie" label="WTF is “hobbies”???" />
+          <CheckBoxGroup group={checkBoxGroup} />
           <div className={classNames.buttons}>
             <Button appearance="secondary" type="button" onClick={() => dispatch(goBack())}>
               Back
@@ -99,3 +106,8 @@ const Step4Form = () => {
 };
 
 export default Step4Form;
+
+type Step4FormPropsType = {
+  initialValues: Values;
+  editId?: number | null;
+};

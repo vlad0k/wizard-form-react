@@ -14,10 +14,11 @@ const DatePicker = ({ name }: DatePickerProps) => {
     <>
       <Field name={name}>
         {({ field, form, meta }: FieldProps) => {
+          setDate(field.value);
           console.log(meta.error);
           const calendarChangeHandler = (date: Date) => {
             setDate(date);
-            form.setFieldValue(field.name, date ? date : undefined);
+            form.setFieldValue(field.name, date);
           };
           return (
             <>

@@ -4,6 +4,10 @@
   overflow: hidden;
 }
 
+.avatar img {
+  height: 100%;
+}
+
 .default {
   width: 171px;
   height: 171px;
@@ -14,14 +18,22 @@
   width: 40px;
   height: 40px;
   border: 1px solid #5e97f3;
+  display: flex;
+  justify-content: center;
 }
 
-.default img {
+.noImageLarge img {
   margin-top: 20px;
-  height: 100%;
 }
 
-.small img {
+.noImageSmall img {
   margin-top: 4px;
-  height: 100%;
+}
+
+.large {
+  width: 200px;
+  height: 200px;
+  border: 3px solid #5e97f3;
+  display: flex;
+  justify-content: center;
 }

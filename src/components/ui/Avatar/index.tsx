@@ -3,12 +3,12 @@ import classNames from './index.module.css';
 import cn from 'classnames';
 import noPhotoIcon from '../../../assets/icons/empty-avatar.svg';
 
-const Avatar = ({ image, small }: AvatarProp) => {
+const Avatar = ({ image, size = 'default' }: AvatarProp) => {
   return (
     <div
-      className={cn(classNames.avatar, {
-        [classNames.small]: small,
-        [classNames.default]: !small,
+      className={cn(classNames.avatar, classNames[size], {
+        [classNames.noImageLarge]: !image && size !== 'small',
+        [classNames.noImageSmall]: !image && size === 'small',
       })}
     >
       <img src={image ? image : noPhotoIcon} alt="avatar" />
@@ -20,5 +20,5 @@ export default Avatar;
 
 type AvatarProp = {
   image?: string;
-  small?: boolean;
+  size?: 'small' | 'default' | 'large';
 };

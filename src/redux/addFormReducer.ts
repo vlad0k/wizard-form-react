@@ -21,10 +21,10 @@ interface Step2FormForwardAction {
   type: typeof PROFILE_FORM_FORWARD;
   firstname: string;
   lastname: string;
-  birthdate: string;
+  birthdate: Date | undefined;
   email: string;
   adress: string;
-  gender: string;
+  gender: 'male' | 'female' | null | undefined;
 }
 
 interface Step3FormForwardAction {
@@ -66,10 +66,10 @@ const initialState = {
 
   firstname: '',
   lastname: '',
-  birthdate: '',
+  birthdate: undefined as Date | undefined,
   email: '',
   adress: '',
-  gender: '',
+  gender: null as 'male' | 'female' | null | undefined,
 
   company: '',
   facebook: '',
@@ -170,10 +170,10 @@ export const selectStep = (step: number): SelectStepAction => ({
 export const step2FormForward = (payload: {
   firstname: string;
   lastname: string;
-  birthdate: string;
+  birthdate: Date | undefined;
   email: string;
   adress: string;
-  gender: string;
+  gender: 'male' | 'female' | null | undefined;
 }): Step2FormForwardAction => ({
   type: PROFILE_FORM_FORWARD,
   ...payload,

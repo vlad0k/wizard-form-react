@@ -8,8 +8,10 @@ import './db/db';
 import Header from './components/Header';
 import AddUserPage from './pages/AddUserPage';
 import ListOfUsersPage from './pages/ListOfUsersPage';
+import UserInfoPage from './pages/UserInfoPage';
 import db from './db/db';
 import { importUsers, UserType } from './redux/usersListReducer';
+import UserEditPage from './pages/UserEditPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -27,8 +29,14 @@ function App() {
         <Route path="/new">
           <AddUserPage />
         </Route>
-        <Route path="/users">
+        <Route path="/users" exact>
           <ListOfUsersPage />
+        </Route>
+        <Route path="/users/:id" exact>
+          <UserInfoPage />
+        </Route>
+        <Route path="/edit/:id" exact>
+          <UserEditPage />
         </Route>
       </Router>
     </div>

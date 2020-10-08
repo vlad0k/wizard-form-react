@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import classNames from './index.module.css';
 import { Form, Formik, FieldArray } from 'formik';
 import InputField from '../../ui/InputField';
@@ -39,7 +39,7 @@ const validateScema = Yup.object({
   mainLang: Yup.string().required('required field'),
 });
 
-const Step3Form = () => {
+const Step3Form: FC<Step3FormPropsType> = ({ initialValues }) => {
   const dispatch = useDispatch();
 
   const backButtonClickHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -88,3 +88,7 @@ const Step3Form = () => {
 };
 
 export default Step3Form;
+
+type Step3FormPropsType = {
+  initialValues: Values;
+};

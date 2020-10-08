@@ -58,11 +58,13 @@ const UsersList = () => {
               <tr key={id} className={isDeteling === id ? classNames.isDeleting : ''}>
                 <td>{id}</td>
                 <td>
-                  <Avatar small image={avatarSrc} />
+                  <Avatar size="small" image={avatarSrc} />
                 </td>
                 <td>
                   <div>
-                    {firstname} {lastname}
+                    <Link to={`/users/${id}`}>
+                      {firstname} {lastname}
+                    </Link>
                   </div>
                   <span>{username}</span>
                 </td>
@@ -72,9 +74,11 @@ const UsersList = () => {
                 {isDeteling !== id && (
                   <>
                     <td>
-                      <Button appearance={'text'}>
-                        <img src={EditIcon} alt={`edit ${username}`} />
-                      </Button>
+                      <Link to={`/edit/${id}`}>
+                        <Button appearance={'text'}>
+                          <img src={EditIcon} alt={`edit ${username}`} />
+                        </Button>
+                      </Link>
                     </td>
                     <td>
                       <Button appearance={'text'} onClick={() => deleteUser(id)}>

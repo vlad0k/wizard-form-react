@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import classNames from './index.module.css';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
@@ -14,18 +14,9 @@ interface Values {
   lastname: string;
   email: string;
   adress: string;
-  gender: 'male' | 'female' | undefined;
+  gender: 'male' | 'female' | undefined | null;
   birthdate: Date | undefined;
 }
-
-const initialValues: Values = {
-  firstname: '',
-  lastname: '',
-  email: '',
-  adress: '',
-  gender: undefined,
-  birthdate: undefined,
-};
 
 const validateScema = Yup.object({
   firstname: Yup.string().required('required field'),
@@ -37,7 +28,7 @@ const validateScema = Yup.object({
   gender: Yup.string().required('please, choose your gender'),
 });
 
-const Step2Form = () => {
+const Step2Form: FC<Step2FormProps> = ({ initialValues }) => {
   const dispatch = useDispatch();
 
   const backButtonClickHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -45,11 +36,9 @@ const Step2Form = () => {
   };
 
   const submitForm = (values: Values) => {
-    const { firstname, lastname, email, adress, gender = '', birthdate } = values;
-    const birthdateRes = birthdate ? birthdate.toLocaleDateString() : '';
-    dispatch(
-      step2FormForward({ adress, birthdate: birthdateRes, email, firstname, gender, lastname }),
-    );
+    const { firstname, lastname, email, adress, gender, birthdate } = values;
+    console.log(birthdate);
+    dispatch(step2FormForward({ adress, birthdate, email, firstname, gender, lastname }));
   };
   return (
     <Formik initialValues={initialValues} onSubmit={submitForm} validationSchema={validateScema}>
@@ -90,3 +79,7 @@ const Step2Form = () => {
 };
 
 export default Step2Form;
+
+type Step2FormProps = {
+  initialValues: Values;
+};

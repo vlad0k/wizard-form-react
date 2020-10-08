@@ -37,14 +37,14 @@ export const importUsers = (users: UserType[]): ImportUsersAction => ({
 export type UserType = {
   additionalInfo: string;
   adress: string;
-  avatar: string | null;
-  birthdate: string;
+  avatar: File | null;
+  birthdate: Date | undefined;
   company: string;
   email: string;
   facebook: string;
   fax: string;
   firstname: string;
-  gender: string;
+  gender: 'male' | 'female' | undefined | null;
   github: string;
   hobbies: string[];
   id: number | string;

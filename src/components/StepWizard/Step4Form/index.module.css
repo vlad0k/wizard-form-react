@@ -10,18 +10,6 @@
   position: relative;
   height: 100%;
 }
-
-.checkboxLabel {
-  display: inline-block;
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 16px;
-
-  color: var(--form-label-color);
-  padding-bottom: 4px;
-}
 .buttons {
   position: absolute;
   width: 100%;

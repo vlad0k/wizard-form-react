@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import classNames from './index.module.css';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
@@ -20,7 +20,7 @@ interface Values {
   avatar: File | null;
 }
 
-const Step1Form = () => {
+const Step1Form: FC<Step1FormProps> = ({ initialValues }) => {
   const dispatch = useDispatch();
   const users = useSelector((state: StateType) => state.users.users);
 
@@ -42,16 +42,7 @@ const Step1Form = () => {
   };
 
   return (
-    <Formik
-      initialValues={{
-        username: '',
-        password: '',
-        passwordRepeat: '',
-        avatar: null,
-      }}
-      validationSchema={validateScema}
-      onSubmit={formSubmit}
-    >
+    <Formik initialValues={initialValues} validationSchema={validateScema} onSubmit={formSubmit}>
       <Form className={classNames.form}>
         <div className={classNames.column}>
           <AvatarPicker name={'avatar'} />
@@ -70,3 +61,7 @@ const Step1Form = () => {
 };
 
 export default Step1Form;
+
+type Step1FormProps = {
+  initialValues: Values;
+};

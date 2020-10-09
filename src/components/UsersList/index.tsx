@@ -39,7 +39,6 @@ const UsersList = () => {
   };
 
   if (users.length === 0) getUsers();
-  console.log(users);
   return (
     <div>
       <table className={classNames.table} cellSpacing={0}>

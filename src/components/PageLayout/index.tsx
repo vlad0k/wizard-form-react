@@ -12,7 +12,6 @@ const PageLayout = ({ name, children, backLink, backLabel }: PageLayoutPropType)
         <div>{backLink && <Link to={backLink}>{backLink && `< ${backLabel}`}</Link>}</div>
         <PageHeader>{name}</PageHeader>
       </div>
-
       {children}
     </>
   );

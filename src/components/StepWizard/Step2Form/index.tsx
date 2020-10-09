@@ -4,6 +4,7 @@ import { ErrorMessage, Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 import InputField from '../../ui/InputField';
 import Button from '../../ui/Button';
+import moment from 'moment';
 
 import { useDispatch } from 'react-redux';
 import { goBack, step2FormForward } from '../../../redux/addFormReducer';
@@ -25,7 +26,7 @@ const validateScema = Yup.object({
   email: Yup.string().required('required field').email('incorrect email format'),
   birthdate: Yup.date()
     .required('required field')
-    .max(new Date(Date.now() - 18 * 3.154 * 10 ** 10), 'You should be 18 years old'),
+    .max(moment().subtract(18, 'years').toDate(), 'You should be 18 years old'),
   gender: Yup.string().required('please, choose your gender'),
 });
 
@@ -37,9 +38,7 @@ const Step2Form: FC<Step2FormProps> = ({ initialValues }) => {
   };
 
   const submitForm = (values: Values) => {
-    const { firstname, lastname, email, adress, gender, birthdate } = values;
-    console.log(birthdate);
-    dispatch(step2FormForward({ adress, birthdate, email, firstname, gender, lastname }));
+    dispatch(step2FormForward(values));
   };
   return (
     <Formik initialValues={initialValues} onSubmit={submitForm} validationSchema={validateScema}>

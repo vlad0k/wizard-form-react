@@ -19,9 +19,6 @@
   display: flex;
 }
 
-.group {
-}
-
 .groupKey {
   display: flex;
   font-weight: 500;
@@ -45,10 +42,4 @@
 }
 .groupElements span:last-child {
   color: var(--form-label-color);
-}
-
-.valuesList {
-  list-style: none;
-  margin: 0;
-  padding: 0;
 }

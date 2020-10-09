@@ -2,10 +2,6 @@ import React, { FC } from 'react';
 import classNames from './index.module.css';
 import { UserType } from '../../redux/usersListReducer';
 import Avatar from '../ui/Avatar';
-import Button from '../ui/Button';
-import editIcon from '../../assets/icons/Edit.svg';
-import { Link } from 'react-router-dom';
-import ValuesList from './ValuesList';
 import ValuesGroup from './ValuesGroup';
 
 type TemplateType = {
@@ -16,50 +12,65 @@ type TemplateType = {
   }[];
 };
 
-const generatePageTemplate = (user: UserType): TemplateType[] => [
+const generatePageTemplate = ({
+  username,
+  hobbies,
+  phoneNumbers,
+  company,
+  adress,
+  lastname,
+  firstname,
+  birthdate,
+  email,
+  facebook,
+  fax,
+  skills,
+}: UserType): TemplateType[] => [
   {
     key: 'Account',
     value: [
-      { name: 'User Name', value: user.username },
+      { name: 'User Name', value: username },
       { name: 'password', value: '**********' },
     ],
   },
   {
     key: 'Personal',
     value: [
-      { name: 'First Name', value: user.firstname },
-      { name: 'Last Name', value: user.lastname },
-      { name: 'Birth Date', value: user.birthdate && user.birthdate.toLocaleDateString() },
-      { name: 'Email', value: user.email },
-      { name: 'Adress', value: user.adress },
+      { name: 'First Name', value: firstname },
+      { name: 'Last Name', value: lastname },
+      { name: 'Birth Date', value: birthdate && birthdate.toLocaleDateString() },
+      { name: 'Email', value: email },
+      { name: 'Adress', value: adress },
     ],
   },
   {
     key: 'Contacts',
     value: [
-      { name: 'Company', value: user.company },
-      { name: 'Fax', value: user.fax },
-      { name: 'Facebook Link', value: user.facebook },
-      { name: 'Phone', value: user.phoneNumbers },
+      { name: 'Company', value: company },
+      { name: 'Fax', value: fax },
+      { name: 'Facebook Link', value: facebook },
+      { name: 'Phone', value: phoneNumbers },
     ],
   },
   {
     key: 'Capabilities',
     value: [
-      { name: 'Skills', value: user.skills },
-      { name: 'Hobbies', value: user.hobbies },
+      { name: 'Skills', value: skills },
+      { name: 'Hobbies', value: hobbies },
     ],
   },
 ];
+
 const UserPage: FC<UserPagePropsType> = ({ user }) => {
-  const avatarUrl = user.avatar ? URL.createObjectURL(user.avatar) : undefined;
+  const { avatar, id } = user;
+  const avatarUrl = avatar ? URL.createObjectURL(avatar) : undefined;
 
   return (
     <div className={classNames.userPage}>
       <Avatar image={avatarUrl} size="large" />
       <div>
         {generatePageTemplate(user).map(({ key, value }: TemplateType) => (
-          <ValuesGroup groupName={key} values={value} id={user.id} />
+          <ValuesGroup groupName={key} values={value} id={id} />
         ))}
       </div>
     </div>

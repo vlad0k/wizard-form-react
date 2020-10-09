@@ -9,8 +9,8 @@ import DeleteIcon from '../../assets/icons/Close.svg';
 import { IndexableType } from 'dexie';
 import { useDispatch, useSelector } from 'react-redux';
 import { StateType } from '../../redux/store';
-import { importUsers, UserType } from '../../redux/usersListReducer';
-import { ButtonAppearance } from '../../types';
+import { importUsers } from '../../redux/usersListReducer';
+import { ButtonAppearance, UserType } from '../../types';
 
 const UsersList = () => {
   const users = useSelector((state: StateType) => state.users.users);
@@ -22,11 +22,11 @@ const UsersList = () => {
     setIsDeteling('');
     document.removeEventListener('click', userDeleteMode);
   };
-  const getUsers = () => {
-    db.table('users')
-      .toArray()
-      .then((users: any[]) => setUsers(users ? users : []));
-  };
+  // const getUsers = () => {
+  //   db.table('users')
+  //     .toArray()
+  //     .then((users: any[]) => setUsers(users ? users : []));
+  // };
 
   const deleteUser = (id: number | string) => {
     setIsDeteling(id);
@@ -35,11 +35,11 @@ const UsersList = () => {
 
   const approveDelete = () => {
     db.table('users').delete(isDeteling);
-    getUsers();
+    // getUsers();
     document.removeEventListener('click', userDeleteMode);
   };
 
-  if (users.length === 0) getUsers();
+  // if (users.length === 0) getUsers();
   return (
     <div>
       <table className={classNames.table} cellSpacing={0}>

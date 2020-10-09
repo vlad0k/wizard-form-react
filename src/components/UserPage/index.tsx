@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import classNames from './index.module.css';
-import { UserType } from '../../redux/usersListReducer';
 import Avatar from '../ui/Avatar';
 import ValuesGroup from './ValuesGroup';
+import { UserType } from '../../types';
 
 type TemplateType = {
   key: string;

@@ -1,3 +1,5 @@
+import { UserType } from '../types';
+
 const IMPORT_USERS = 'users/IMPORT_USERS';
 
 interface ImportUsersAction {
@@ -33,25 +35,3 @@ export const importUsers = (users: UserType[]): ImportUsersAction => ({
   type: IMPORT_USERS,
   users,
 });
-
-export type UserType = {
-  additionalInfo: string;
-  adress: string;
-  avatar: File | null;
-  birthdate: Date | undefined;
-  company: string;
-  email: string;
-  facebook: string;
-  fax: string;
-  firstname: string;
-  gender: 'male' | 'female' | undefined | null;
-  github: string;
-  hobbies: string[];
-  id: number | string;
-  lastname: string;
-  mainLang: string;
-  password: string;
-  phoneNumbers: string[];
-  skills: string[];
-  username: string;
-};

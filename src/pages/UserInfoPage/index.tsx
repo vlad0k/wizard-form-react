@@ -3,8 +3,8 @@ import PageLayout from '../../components/PageLayout';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { StateType } from '../../redux/store';
-import { UserType } from '../../redux/usersListReducer';
 import UserPage from '../../components/UserPage';
+import { UserType } from '../../types';
 
 const MyComponent = () => {
   const { id } = useParams<UrlParamTypes>();

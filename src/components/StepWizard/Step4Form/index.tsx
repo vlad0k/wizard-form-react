@@ -9,9 +9,10 @@ import { goBack, step4FormSubmit } from '../../../redux/addFormReducer';
 import { StateType } from '../../../redux/store';
 import db from '../../../db/db';
 import * as Yup from 'yup';
-import { importUsers, UserType } from '../../../redux/usersListReducer';
+import { importUsers } from '../../../redux/usersListReducer';
 import CheckBoxGroup from '../../ui/CheckBoxGroup';
-import { ButtonAppearance } from '../../../types';
+import { ButtonAppearance, UserType } from '../../../types';
+import cn from 'classnames/dedupe';
 
 interface Values {
   skills: string[];
@@ -25,25 +26,25 @@ export type SkillOptionType = {
 };
 
 const multiSelectOptions: SkillOptionType[] = [
-  'HTML',
-  'CSS',
-  'Javascript',
-  'React',
-  'Angular',
-  'jQuery',
-  'NodeJS',
-  'Python',
-  'PHP',
-  'Ruby On Rails',
-  'SQL',
-  'BackboneJS',
-  'Web Design',
-  'Project management',
-  'Git',
-  'Docker',
-  'AWS Lambda',
-  'Firebase',
-].map((el: string) => ({ value: el.toLowerCase(), label: el }));
+  { value: 'html', label: 'HTML' },
+  { value: 'css', label: 'CSS' },
+  { value: 'javascript', label: 'Javascript' },
+  { value: 'react', label: 'React' },
+  { value: 'angular', label: 'Angular' },
+  { value: 'jquery', label: 'jQuery' },
+  { value: 'nodejs', label: 'NodeJS' },
+  { value: 'python', label: 'Python' },
+  { value: 'php', label: 'PHP' },
+  { value: 'ruby-on-rails', label: 'Ruby On Rails' },
+  { value: 'sql', label: 'SQL' },
+  { value: 'backbonejs', label: 'BackboneJS' },
+  { value: 'web-design', label: 'Web Design' },
+  { value: 'project-management', label: 'Project management' },
+  { value: 'git', label: 'Git' },
+  { value: 'docker', label: 'Docker' },
+  { value: 'aws-lambda', label: 'AWS Lambda' },
+  { value: 'firebase', label: 'Firebase' },
+];
 
 const checkBoxGroup = [
   { name: 'sport', label: 'Sport, fitness, aerobica and staff like that' },
@@ -59,12 +60,16 @@ const validateScema = Yup.object({
     .min(3, 'you should have al least 3 skills'),
 });
 
+const MAX_LENGTH_OF_TEXTAREA = 300;
+
 const Step4Form: FC<Step4FormPropsType> = ({ initialValues, editId = null }) => {
   const dispatch = useDispatch();
   const formState = useSelector((state: StateType) => {
     const { currentStep, ...formState } = state.addForm;
     return formState;
   });
+
+  const backButtonClickHandler = () => dispatch(goBack());
 
   const submitForm = (values: Values) => {
     const { skills = [], additionalInfo, hobbies = [] } = values;
@@ -77,21 +82,25 @@ const Step4Form: FC<Step4FormPropsType> = ({ initialValues, editId = null }) => 
     };
     getUsersFromDb();
   };
-
+  console.log(JSON.stringify(multiSelectOptions));
   return (
     <Formik initialValues={initialValues} onSubmit={submitForm} validationSchema={validateScema}>
       <Form className={classNames.form}>
         <div className={classNames.column}>
-          <MySelect name="skills" isMulti options={multiSelectOptions} label="Skills" />
-          <TextArea name="additionalInfo" label="Additional Info" maxlength={300} />
+          <MySelect name="skills" options={multiSelectOptions} label="Skills" isMulti />
+          <TextArea
+            name="additionalInfo"
+            label="Additional Info"
+            maxlength={MAX_LENGTH_OF_TEXTAREA}
+          />
         </div>
-        <div className={[classNames.column, classNames.checkBoxGroup].join(' ')}>
+        <div className={cn(classNames.column, classNames.checkBoxGroup)}>
           <CheckBoxGroup group={checkBoxGroup} />
           <div className={classNames.buttons}>
             <Button
               appearance={ButtonAppearance.Secondary}
               type="button"
-              onClick={() => dispatch(goBack())}
+              onClick={backButtonClickHandler}
             >
               Back
             </Button>

@@ -9,9 +9,8 @@ import { accountFormForward } from '../../../redux/addFormReducer';
 import Button from '../../ui/Button';
 import InputField from '../../ui/InputField';
 import AvatarPicker from '../../ui/AvatarPicker';
-import db from '../../../db/db';
 import { StateType } from '../../../redux/store';
-import { UserType } from '../../../redux/usersListReducer';
+import { UserType } from '../../../types';
 
 interface Values {
   username: string;

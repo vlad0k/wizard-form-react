@@ -9,6 +9,7 @@ import Step3Form from './Step3Form';
 import Step4Form from './Step4Form';
 import { useParams } from 'react-router-dom';
 import { UrlParamTypes } from '../../pages/UserInfoPage';
+import { UserType } from '../../types';
 
 const tabs = ['Account', 'Profile', 'Contacts', 'Capabilities'];
 
@@ -17,7 +18,7 @@ const StepWizard: FC<StepWizarPropsType> = ({ mode = 'add' }) => {
   let currentStep: number = useSelector((state: StateType) => state.addForm.currentStep);
   let initialState = useSelector((state: StateType) => {
     if (mode === 'add') return state.addForm;
-    else return state.users.users.filter((u) => u.id === +id)[0];
+    else return state.users.users.filter((u: UserType) => u.id === +id)[0];
   });
 
   if (!initialState) return <div />;

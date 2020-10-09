@@ -6,6 +6,7 @@ import Button from '../ui/Button';
 import editIcon from '../../assets/icons/Edit.svg';
 import { Link } from 'react-router-dom';
 import ValuesList from './ValuesList';
+import ValuesGroup from './ValuesGroup';
 
 type TemplateType = {
   key: string;
@@ -57,28 +58,9 @@ const UserPage: FC<UserPagePropsType> = ({ user }) => {
     <div className={classNames.userPage}>
       <Avatar image={avatarUrl} size="large" />
       <div>
-        {generatePageTemplate(user).map((group: TemplateType) => {
-          return (
-            <div key={group.key} className={classNames.group}>
-              <span className={classNames.groupKey}>
-                {group.key}
-                <Link to={`/edit/${user.id}`}>
-                  <Button appearance="text">
-                    <img src={editIcon} alt="edit" />
-                  </Button>
-                </Link>
-              </span>
-              <div>
-                {group.value.map((v) => (
-                  <div className={classNames.groupElements}>
-                    <span>{v.name}</span>
-                    <span>{Array.isArray(v.value) ? <ValuesList list={v.value} /> : v.value}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          );
-        })}
+        {generatePageTemplate(user).map(({ key, value }: TemplateType) => (
+          <ValuesGroup groupName={key} values={value} id={user.id} />
+        ))}
       </div>
     </div>
   );

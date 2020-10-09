@@ -1,0 +1,25 @@
+.groupKey,
+.groupElements span:first-child {
+  display: flex;
+  font-weight: 500;
+  color: var(--primary-text-color);
+  width: 150px;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding-right: 16px;
+}
+
+.group {
+  display: flex;
+  padding-bottom: 40px;
+}
+
+.groupElements {
+  padding-bottom: 16px;
+  display: flex;
+  padding-left: 40px;
+}
+
+.groupElements span:last-child {
+  color: var(--form-label-color);
+}

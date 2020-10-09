@@ -5,6 +5,7 @@ import Button from '../Button';
 import visibilityIcon from '../../../assets/icons/icon-visibility.svg';
 import visibilityOffIcon from '../../../assets/icons/icon-visibility-off.svg';
 import FieldError from '../FieldError';
+import { log } from 'util';
 
 const InputField = ({ name, label, type = 'text' }: InputFieldPropsType) => {
   const [inputType, setInputType] = useState<string>(type);
@@ -13,13 +14,20 @@ const InputField = ({ name, label, type = 'text' }: InputFieldPropsType) => {
       <span>{label}</span>
       <div className={classNames.inputWrapper}>
         <Field name={name} id={name}>
-          {({ field, form, meta }: FieldProps) => (
-            <input
-              {...field}
-              type={inputType}
-              className={meta.error ? classNames.errorField : classNames.noError}
-            />
-          )}
+          {({ field, form, meta }: FieldProps) => {
+            console.log(form);
+            return (
+              <input
+                {...field}
+                type={inputType}
+                className={
+                  form.errors[name] && form.touched[name]
+                    ? classNames.errorField
+                    : classNames.noError
+                }
+              />
+            );
+          }}
         </Field>
         {type === 'password' && (
           <Button

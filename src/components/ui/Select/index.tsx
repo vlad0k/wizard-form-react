@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import classNames from './index.module.css';
 import ReactSelect, { OptionsType, ValueType } from 'react-select';
 import { ErrorMessage, Field, FieldProps } from 'formik';
+import FieldError from '../FieldError';
 
 const customStyles = {
   option: (provided: any, state: any) => ({
@@ -98,9 +99,7 @@ const Select = ({ name, isMulti, options, label }: SelectPropsType) => {
           );
         }}
       </Field>
-      <div className={classNames.error}>
-        <ErrorMessage name={name} />
-      </div>
+      <FieldError name={name} />
     </>
   );
 };

@@ -30,11 +30,6 @@
 .errorField {
   border: 1px solid #eb5757;
 }
-.error {
-  color: red;
-  font-size: 9px;
-  padding-left: 16px;
-}
 
 .inputWrapper {
   position: relative;

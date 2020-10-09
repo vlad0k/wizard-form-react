@@ -1,6 +1,7 @@
-import React from "react";
-import classNames from "./index.module.css";
-import { ErrorMessage, Field, FieldProps } from "formik";
+import React from 'react';
+import classNames from './index.module.css';
+import { ErrorMessage, Field, FieldProps } from 'formik';
+import FieldError from '../FieldError';
 
 type TextAreaPropsType = {
   name: string;
@@ -14,18 +15,10 @@ const TextArea = ({ name, label, maxlength }: TextAreaPropsType) => {
       <span>{label}</span>
       <Field name={name} id={name}>
         {({ field }: FieldProps) => {
-          return (
-            <textarea
-              className={classNames.textarea}
-              {...field}
-              maxLength={maxlength}
-            />
-          );
+          return <textarea className={classNames.textarea} {...field} maxLength={maxlength} />;
         }}
       </Field>
-      <div className={classNames.error}>
-        <ErrorMessage name={name} />
-      </div>
+      <FieldError name={name} />
     </label>
   );
 };

@@ -4,6 +4,7 @@ import { ErrorMessage, Field, FieldProps } from 'formik';
 import Button from '../Button';
 import visibilityIcon from '../../../assets/icons/icon-visibility.svg';
 import visibilityOffIcon from '../../../assets/icons/icon-visibility-off.svg';
+import FieldError from '../FieldError';
 
 const InputField = ({ name, label, type = 'text' }: InputFieldPropsType) => {
   const [inputType, setInputType] = useState<string>(type);
@@ -31,9 +32,7 @@ const InputField = ({ name, label, type = 'text' }: InputFieldPropsType) => {
         )}
       </div>
 
-      <div className={classNames.error}>
-        <ErrorMessage name={name} />
-      </div>
+      <FieldError name={name} />
     </label>
   );
 };

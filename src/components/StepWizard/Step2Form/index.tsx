@@ -8,6 +8,7 @@ import Button from '../../ui/Button';
 import { useDispatch } from 'react-redux';
 import { goBack, step2FormForward } from '../../../redux/addFormReducer';
 import DatePicker from '../../ui/DatePicker';
+import FieldError from '../../ui/FieldError';
 
 interface Values {
   firstname: string;
@@ -63,9 +64,7 @@ const Step2Form: FC<Step2FormProps> = ({ initialValues }) => {
               Female
             </label>
           </div>
-          <div className={classNames.error}>
-            <ErrorMessage name="gender" />
-          </div>
+          <FieldError name={'gender'} />
           <div className={classNames.buttons}>
             <Button appearance="secondary" type="button" onClick={backButtonClickHandler}>
               Back

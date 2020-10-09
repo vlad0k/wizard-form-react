@@ -87,7 +87,7 @@ const Step4Form: FC<Step4FormPropsType> = ({ initialValues, editId = null }) => 
           <MySelect name="skills" isMulti options={multiSelectOptions} label="Skills" />
           <TextArea name="additionalInfo" label="Additional Info" maxlength={300} />
         </div>
-        <div className={[classNames.column, classNames.checkBoxGroup].join('')}>
+        <div className={[classNames.column, classNames.checkBoxGroup].join(' ')}>
           <CheckBoxGroup group={checkBoxGroup} />
           <div className={classNames.buttons}>
             <Button appearance="secondary" type="button" onClick={() => dispatch(goBack())}>

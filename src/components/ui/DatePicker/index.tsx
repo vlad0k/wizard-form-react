@@ -3,6 +3,7 @@ import classNames from './index.module.css';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ErrorMessage, Field, FieldProps } from 'formik';
 import Calendar from 'react-datepicker';
+import FieldError from '../FieldError';
 
 type DatePickerProps = {
   name: string;
@@ -34,9 +35,7 @@ const DatePicker = ({ name }: DatePickerProps) => {
           );
         }}
       </Field>
-      <div className={classNames.error}>
-        <ErrorMessage name={name} />
-      </div>
+      <FieldError name={name} />
     </>
   );
 };

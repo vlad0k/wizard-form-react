@@ -8,16 +8,8 @@ import cn from 'classnames';
 const PageLayout = ({ name, children, backLink, backLabel }: PageLayoutPropType) => {
   return (
     <>
-      <div
-        className={cn(classNames.topContainer, {
-          [classNames.backLink]: backLink,
-        })}
-      >
-        {backLink && (
-          <Link to={backLink}>
-            {'< '} {backLabel}
-          </Link>
-        )}
+      <div className={classNames.topContainer}>
+        <div>{backLink && <Link to={backLink}>{backLink && `< ${backLabel}`}</Link>}</div>
         <PageHeader>{name}</PageHeader>
       </div>
 

@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import classNames from './index.module.css';
-import { ErrorMessage, Field, FieldProps } from 'formik';
+import { Field, FieldProps } from 'formik';
 import Button from '../Button';
 import visibilityIcon from '../../../assets/icons/icon-visibility.svg';
 import visibilityOffIcon from '../../../assets/icons/icon-visibility-off.svg';
 import FieldError from '../FieldError';
+import { ButtonAppearance } from '../../../types';
 
 const InputField = ({ name, label, type = 'text' }: InputFieldPropsType) => {
   const [inputType, setInputType] = useState<string>(type);
@@ -25,7 +26,7 @@ const InputField = ({ name, label, type = 'text' }: InputFieldPropsType) => {
         </Field>
         {type === 'password' && (
           <Button
-            appearance={'text'}
+            appearance={ButtonAppearance.Text}
             onClick={() => setInputType((prev) => (prev === 'password' ? 'text' : 'password'))}
             type={'button'}
           >

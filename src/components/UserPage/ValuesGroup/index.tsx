@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Button from '../../ui/Button';
 import editIcon from '../../../assets/icons/Edit.svg';
 import ValuesList from '../ValuesList';
+import { ButtonAppearance } from '../../../types';
 
 const ValuesGroup: FC<ValuesGroupPropsType> = ({ groupName, values, id }) => {
   return (
@@ -11,7 +12,7 @@ const ValuesGroup: FC<ValuesGroupPropsType> = ({ groupName, values, id }) => {
       <span className={classNames.groupKey}>
         {groupName}
         <Link to={`/edit/${id}`}>
-          <Button appearance="text">
+          <Button appearance={ButtonAppearance.Text}>
             <img src={editIcon} alt="edit" />
           </Button>
         </Link>

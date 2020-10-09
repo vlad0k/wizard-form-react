@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import classNames from './index.module.css';
-import { Form, Formik, FieldArray } from 'formik';
+import { FieldArray, Form, Formik } from 'formik';
 import InputField from '../../ui/InputField';
 import Button from '../../ui/Button';
 import { useDispatch } from 'react-redux';
@@ -8,6 +8,7 @@ import { goBack, step3FormSubmit } from '../../../redux/addFormReducer';
 import Select, { OptionType } from '../../ui/Select';
 import PhoneInputs from './PhoneInputs';
 import * as Yup from 'yup';
+import { ButtonAppearance } from '../../../types';
 
 interface Values {
   company: string;
@@ -47,17 +48,7 @@ const Step3Form: FC<Step3FormPropsType> = ({ initialValues }) => {
   };
 
   const submitForm = (values: Values) => {
-    const { company, facebook, github, mainLang, fax, phoneNumbers } = values;
-    dispatch(
-      step3FormSubmit({
-        company,
-        facebook,
-        github,
-        mainLang,
-        fax,
-        phoneNumbers,
-      }),
-    );
+    dispatch(step3FormSubmit(values));
   };
 
   return (
@@ -75,7 +66,11 @@ const Step3Form: FC<Step3FormPropsType> = ({ initialValues }) => {
           <FieldArray name="phoneNumbers">{PhoneInputs}</FieldArray>
 
           <div className={classNames.buttons}>
-            <Button type="button" appearance="secondary" onClick={backButtonClickHandler}>
+            <Button
+              type="button"
+              appearance={ButtonAppearance.Secondary}
+              onClick={backButtonClickHandler}
+            >
               Back
             </Button>
             <Button>Forward</Button>

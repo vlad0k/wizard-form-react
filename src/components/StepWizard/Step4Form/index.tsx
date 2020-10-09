@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import classNames from './index.module.css';
-import { Formik, Form } from 'formik';
+import { Form, Formik } from 'formik';
 import TextArea from '../../ui/TextArea';
 import MySelect from '../../ui/Select';
 import Button from '../../ui/Button';
@@ -11,6 +11,7 @@ import db from '../../../db/db';
 import * as Yup from 'yup';
 import { importUsers, UserType } from '../../../redux/usersListReducer';
 import CheckBoxGroup from '../../ui/CheckBoxGroup';
+import { ButtonAppearance } from '../../../types';
 
 interface Values {
   skills: string[];
@@ -67,12 +68,9 @@ const Step4Form: FC<Step4FormPropsType> = ({ initialValues, editId = null }) => 
 
   const submitForm = (values: Values) => {
     const { skills = [], additionalInfo, hobbies = [] } = values;
-    dispatch(step4FormSubmit({ skills, additionalInfo, hobbies }));
-    if (editId) {
-      db.table('users').update(editId, { ...formState, skills, additionalInfo, hobbies });
-    } else {
-      db.table('users').add({ ...formState, skills, additionalInfo, hobbies });
-    }
+    dispatch(step4FormSubmit(values));
+    db.table('users').add({ ...formState, ...values });
+
     const getUsersFromDb = async () => {
       const users: UserType[] = await db.table('users').toArray();
       dispatch(importUsers(users));
@@ -90,10 +88,14 @@ const Step4Form: FC<Step4FormPropsType> = ({ initialValues, editId = null }) => 
         <div className={[classNames.column, classNames.checkBoxGroup].join(' ')}>
           <CheckBoxGroup group={checkBoxGroup} />
           <div className={classNames.buttons}>
-            <Button appearance="secondary" type="button" onClick={() => dispatch(goBack())}>
+            <Button
+              appearance={ButtonAppearance.Secondary}
+              type="button"
+              onClick={() => dispatch(goBack())}
+            >
               Back
             </Button>
-            <Button appearance="finish">Finish</Button>
+            <Button appearance={ButtonAppearance.Finish}>Finish</Button>
           </div>
         </div>
       </Form>

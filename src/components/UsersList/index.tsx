@@ -6,10 +6,11 @@ import db from '../../db/db';
 import Avatar from '../ui/Avatar';
 import EditIcon from '../../assets/icons/Edit.svg';
 import DeleteIcon from '../../assets/icons/Close.svg';
-import { IndexableType, Table } from 'dexie';
+import { IndexableType } from 'dexie';
 import { useDispatch, useSelector } from 'react-redux';
 import { StateType } from '../../redux/store';
 import { importUsers, UserType } from '../../redux/usersListReducer';
+import { ButtonAppearance } from '../../types';
 
 const UsersList = () => {
   const users = useSelector((state: StateType) => state.users.users);
@@ -74,13 +75,13 @@ const UsersList = () => {
                   <>
                     <td>
                       <Link to={`/edit/${id}`}>
-                        <Button appearance={'text'}>
+                        <Button appearance={ButtonAppearance.Text}>
                           <img src={EditIcon} alt={`edit ${username}`} />
                         </Button>
                       </Link>
                     </td>
                     <td>
-                      <Button appearance={'text'} onClick={() => deleteUser(id)}>
+                      <Button appearance={ButtonAppearance.Text} onClick={() => deleteUser(id)}>
                         <img src={DeleteIcon} alt={`delete ${username}`} />
                       </Button>
                     </td>
@@ -90,7 +91,7 @@ const UsersList = () => {
                   <>
                     <td colSpan={2} />
                     <div className={classNames.deleteButton}>
-                      <Button appearance={'delete'} onClick={approveDelete}>
+                      <Button appearance={ButtonAppearance.Delete} onClick={approveDelete}>
                         × delete
                       </Button>
                     </div>

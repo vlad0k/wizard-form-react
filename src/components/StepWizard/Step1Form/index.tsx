@@ -37,8 +37,8 @@ const Step1Form: FC<Step1FormProps> = ({ initialValues }) => {
       .required('required field'),
   });
 
-  const formSubmit = ({ username, password, avatar }: Values) => {
-    dispatch(accountFormForward({ username, password, avatar }));
+  const formSubmit = (values: Values) => {
+    dispatch(accountFormForward(values));
   };
 
   return (

@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import classNames from './index.module.css';
-import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 import InputField from '../../ui/InputField';
 import Button from '../../ui/Button';
@@ -10,6 +10,7 @@ import { useDispatch } from 'react-redux';
 import { goBack, step2FormForward } from '../../../redux/addFormReducer';
 import DatePicker from '../../ui/DatePicker';
 import FieldError from '../../ui/FieldError';
+import { ButtonAppearance } from '../../../types';
 
 interface Values {
   firstname: string;
@@ -65,7 +66,11 @@ const Step2Form: FC<Step2FormProps> = ({ initialValues }) => {
           </div>
           <FieldError name={'gender'} />
           <div className={classNames.buttons}>
-            <Button appearance="secondary" type="button" onClick={backButtonClickHandler}>
+            <Button
+              appearance={ButtonAppearance.Secondary}
+              type="button"
+              onClick={backButtonClickHandler}
+            >
               Back
             </Button>
             <Button>Forward</Button>

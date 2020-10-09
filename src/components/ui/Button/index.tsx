@@ -1,8 +1,14 @@
 import React, { ReactNode } from 'react';
 import classNames from './index.module.css';
 import classNamesCombine from 'classnames';
+import { ButtonAppearance } from '../../../types';
 
-const Button = ({ appearance = 'primary', children, type = 'submit', onClick }: ButtonProps) => {
+const Button = ({
+  appearance = ButtonAppearance.Primary,
+  children,
+  type = 'submit',
+  onClick,
+}: ButtonProps) => {
   const buttonClassNames = classNamesCombine(classNames.button, classNames[appearance]);
   return (
     <button className={buttonClassNames} type={type} onClick={onClick}>
@@ -15,7 +21,7 @@ export default Button;
 
 type ButtonProps = {
   children?: ReactNode;
-  appearance?: 'primary' | 'secondary' | 'text' | 'finish' | 'delete';
+  appearance?: ButtonAppearance;
   type?: 'submit' | 'button' | 'reset';
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => any;
 };

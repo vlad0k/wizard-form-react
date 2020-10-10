@@ -1,13 +1,18 @@
 import { UserType } from '../types';
 
 const IMPORT_USERS = 'users/IMPORT_USERS';
+const DELETE_USER = 'users/DELETE_USER';
 
 interface ImportUsersAction {
   type: typeof IMPORT_USERS;
   users: UserType[];
 }
 
-type ActionType = ImportUsersAction;
+interface DeleteUserAction {
+  type: typeof DELETE_USER;
+}
+
+type ActionType = ImportUsersAction | DeleteUserAction;
 
 const initialState: {
   users: UserType[];
@@ -35,3 +40,5 @@ export const importUsers = (users: UserType[]): ImportUsersAction => ({
   type: IMPORT_USERS,
   users,
 });
+
+export const deleteUser = (): DeleteUserAction => ({ type: DELETE_USER });

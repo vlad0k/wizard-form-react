@@ -9,7 +9,7 @@ import DeleteIcon from '../../assets/icons/Close.svg';
 import { IndexableType } from 'dexie';
 import { useDispatch, useSelector } from 'react-redux';
 import { StateType } from '../../redux/store';
-import { importUsers } from '../../redux/usersListReducer';
+import { deleteUser, importUsers } from '../../redux/usersListReducer';
 import { ButtonAppearance, UserType } from '../../types';
 
 const UsersList = () => {
@@ -28,14 +28,14 @@ const UsersList = () => {
   //     .then((users: any[]) => setUsers(users ? users : []));
   // };
 
-  const deleteUser = (id: number | string) => {
+  const deleteUserButtonHandler = (id: number | string) => {
     setIsDeteling(id);
     document.addEventListener('click', userDeleteMode);
   };
 
   const approveDelete = () => {
     db.table('users').delete(isDeteling);
-    // getUsers();
+    dispatch(deleteUser());
     document.removeEventListener('click', userDeleteMode);
   };
 
@@ -81,7 +81,10 @@ const UsersList = () => {
                       </Link>
                     </td>
                     <td>
-                      <Button appearance={ButtonAppearance.Text} onClick={() => deleteUser(id)}>
+                      <Button
+                        appearance={ButtonAppearance.Text}
+                        onClick={() => deleteUserButtonHandler(id)}
+                      >
                         <img src={DeleteIcon} alt={`delete ${username}`} />
                       </Button>
                     </td>

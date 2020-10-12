@@ -1,5 +1,3 @@
-import { FormikValues } from 'formik';
-
 const ACCOUNT_FORM_FORWARD = 'addForm/ACCOUNT_FORM_FORWARD';
 const GO_BACK = 'addForm/GO_BACK';
 const PROFILE_FORM_FORWARD = 'addForm/PROFILE_FORM_FORWARD';
@@ -60,7 +58,6 @@ interface SelectStepAction {
 
 interface MoveForwardAction {
   type: typeof MOVE_FORWARD;
-  values: FormikValues;
 }
 
 interface ClearFormAction {
@@ -167,7 +164,6 @@ const addFormReducer = (state = initialState, action: AddFormActionsType) => {
       return {
         ...state,
         currentStep: state.currentStep + 1,
-        ...action.values,
       };
     }
 
@@ -234,9 +230,8 @@ export const step4FormSubmit = (payload: {
   ...payload,
 });
 
-export const moveForward = ({ passwordRepeat, ...values }: FormikValues): MoveForwardAction => ({
+export const moveForward = (): MoveForwardAction => ({
   type: MOVE_FORWARD,
-  values,
 });
 
 export const clearForm = (): ClearFormAction => ({ type: CLEAR_FORM });

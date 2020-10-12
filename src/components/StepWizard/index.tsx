@@ -7,7 +7,7 @@ import FormLayout from './FormLayout';
 import AvatarPicker from '../ui/AvatarPicker';
 import InputField from '../ui/InputField';
 import DatePicker from '../ui/DatePicker';
-import { FieldArray, Form } from 'formik';
+import { FieldArray } from 'formik';
 import FieldError from '../ui/FieldError';
 import RadioGroup from '../ui/RadioGroup';
 import Select, { OptionType } from '../ui/Select';
@@ -15,10 +15,9 @@ import PhoneInputs from './PhoneInputs';
 import MySelect from '../ui/Select';
 import TextArea from '../ui/TextArea';
 import CheckBoxGroup from '../ui/CheckBoxGroup';
-import { SkillOptionType } from '../StepWizard_old/Step4Form';
-import * as Yup from 'yup';
-import { UserType } from '../../types';
-import moment from 'moment';
+import { SkillOptionType } from '../../types';
+import LocationPicker from '../ui/LocationPicker';
+import PhoneInput from '../ui/PhoneInput';
 
 const languageSelectOptions: OptionType[] = [
   { value: 'en', label: 'English' },
@@ -84,7 +83,7 @@ const steps = [
         </div>
         <div>
           <InputField name="email" label="Email" />
-          <InputField name="adress" label="Adress" />
+          <LocationPicker name="adress" label={'Address'} />
           <RadioGroup
             name="gender"
             options={[
@@ -92,7 +91,7 @@ const steps = [
               { value: 'female', label: 'Female' },
             ]}
           />
-          <FieldError name={'gender'} />
+          <FieldError name="gender" />
         </div>
       </>
     ),
@@ -155,6 +154,7 @@ const StepWizard = () => {
       >
         {steps.map(({ render }, index) => currentStep === index && render)[currentStep]}
       </FormLayout>
+      <PhoneInput />
     </div>
   );
 };

@@ -7,11 +7,7 @@ import { getUsersFromDb } from '../db/db';
 
 export const dbMiddleware: Middleware<{}, StateType> = (store) => (next) => (action) => {
   next(action);
-  const actionType = action.type.split('/')[0];
-
-  if (actionType === 'users') {
-    getUsersFromDb(next);
-  }
+  getUsersFromDb(next);
 };
 
 let store: Store = createStore(

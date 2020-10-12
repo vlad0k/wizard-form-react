@@ -1,0 +1,43 @@
+.input {
+  display: block;
+
+  width: 300px;
+  height: 40px;
+
+  background: #ffffff;
+  box-sizing: border-box;
+  padding: 8px;
+  border: 1px solid var(--secondary-color);
+}
+
+.wrapper {
+  position: relative;
+}
+
+.active {
+  background-color: var(--select-color);
+}
+
+.suggestion {
+  color: var(--primary-text-color);
+  cursor: pointer;
+  padding: 4px;
+}
+
+.dropdown {
+  position: absolute;
+  border: 1px solid var(--secondary-color);
+  background-color: white;
+  z-index: 100;
+}
+
+.label {
+  display: inline-block;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 16px;
+
+  color: var(--form-label-color);
+  padding-bottom: 4px;
+}

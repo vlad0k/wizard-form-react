@@ -1,6 +1,6 @@
 import React, { FC, ReactNode } from 'react';
 import classNames from './index.module.css';
-import { Form, Formik, FormikValues } from 'formik';
+import { Form, Formik, FormikBag, FormikErrors, FormikHelpers, FormikValues } from 'formik';
 import Button from '../../ui/Button';
 import { ButtonAppearance, UserType } from '../../../types';
 import { clearForm, goBack, moveForward, step4FormSubmit } from '../../../redux/addFormReducer';
@@ -9,6 +9,7 @@ import * as Yup from 'yup';
 import moment from 'moment';
 import { StateType } from '../../../redux/store';
 import db from '../../../db/db';
+import LocationPicker from '../../ui/LocationPicker';
 
 const FormLayout: FC<FormLayoutPropsType> = ({
   children,
@@ -48,11 +49,12 @@ const FormLayout: FC<FormLayoutPropsType> = ({
   });
 
   const backButtonClickHandler = () => dispatch(goBack());
-  const forwardButtonClickHandler = (values: FormikValues) => {
-    dispatch(moveForward(values));
+  const forwardButtonClickHandler = (errors: FormikErrors<FormikValues>) => {
+    dispatch(moveForward());
   };
-  const formSubmitHandler = (values: FormikValues) => {
+  const formSubmitHandler = (values: FormikValues, formikHelpers: FormikHelpers<FormikValues>) => {
     db.table('users').add(values);
+    formikHelpers.resetForm();
     dispatch(clearForm());
   };
 
@@ -63,13 +65,13 @@ const FormLayout: FC<FormLayoutPropsType> = ({
         onSubmit={formSubmitHandler}
         validationSchema={validationSchema}
       >
-        {({ values }) => {
+        {({ values, errors }) => {
           return (
             <Form className={classNames.form}>
               <div className={classNames.twoColumns}>{children}</div>
               <div className={classNames.buttons}>
                 {currentStep + 1 !== numberOfSteps ? (
-                  <Button onClick={() => forwardButtonClickHandler(values)} type={'button'}>
+                  <Button onClick={() => forwardButtonClickHandler(errors)} type={'button'}>
                     Forward
                   </Button>
                 ) : (

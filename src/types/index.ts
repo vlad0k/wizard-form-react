@@ -32,3 +32,8 @@ export type RadioOptionType = {
   value: string;
   label: string;
 };
+
+export type SkillOptionType = {
+  value: string;
+  label: string;
+};

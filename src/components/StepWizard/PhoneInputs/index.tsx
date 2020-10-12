@@ -1,7 +1,6 @@
 import React from 'react';
 import { FieldArrayRenderProps } from 'formik';
 import classNames from './index.module.css';
-import InputField from '../../ui/InputField';
 import Button from '../../ui/Button';
 import minusIcon from '../../../assets/icons/minus.svg';
 import addIcon from '../../../assets/icons/add.svg';

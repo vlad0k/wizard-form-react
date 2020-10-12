@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from './index.module.css';
-import { ErrorMessage, Field, FieldProps } from 'formik';
+import { Field, FieldProps } from 'formik';
 import FieldError from '../FieldError';
 
 type TextAreaPropsType = {

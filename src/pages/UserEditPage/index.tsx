@@ -1,9 +1,7 @@
 import React from 'react';
 import PageLayout from '../../components/PageLayout';
 import { useParams } from 'react-router-dom';
-import StepWizard from '../../components/StepWizard';
-import { useSelector } from 'react-redux';
-import { StateType } from '../../redux/store';
+import StepWizard from '../../components/StepWizard_old';
 
 const UserEditPage = () => {
   const { id } = useParams<UrlParamTypes>();

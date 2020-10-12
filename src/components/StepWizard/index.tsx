@@ -1,100 +1,162 @@
-import React, { FC } from 'react';
-import Tabs from './Tabs';
-import classNames from './index.module.css';
-import Step1Form from './Step1Form';
-import Step2Form from './Step2Form';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { StateType } from '../../redux/store';
-import Step3Form from './Step3Form';
-import Step4Form from './Step4Form';
-import { useParams } from 'react-router-dom';
-import { UrlParamTypes } from '../../pages/UserInfoPage';
+import Tabs from './Tabs';
+import TabPanel from './TabPanel';
+import FormLayout from './FormLayout';
+import AvatarPicker from '../ui/AvatarPicker';
+import InputField from '../ui/InputField';
+import DatePicker from '../ui/DatePicker';
+import { FieldArray, Form } from 'formik';
+import FieldError from '../ui/FieldError';
+import RadioGroup from '../ui/RadioGroup';
+import Select, { OptionType } from '../ui/Select';
+import PhoneInputs from './PhoneInputs';
+import MySelect from '../ui/Select';
+import TextArea from '../ui/TextArea';
+import CheckBoxGroup from '../ui/CheckBoxGroup';
+import { SkillOptionType } from '../StepWizard_old/Step4Form';
+import * as Yup from 'yup';
 import { UserType } from '../../types';
+import moment from 'moment';
 
-const tabs = ['Account', 'Profile', 'Contacts', 'Capabilities'];
+const languageSelectOptions: OptionType[] = [
+  { value: 'en', label: 'English' },
+  { value: 'ru', label: 'Russian' },
+  { value: 'ua', label: 'Ukrainian' },
+];
 
-const StepWizard: FC<StepWizarPropsType> = ({ mode = 'add' }) => {
-  const { id } = useParams<UrlParamTypes>();
-  let currentStep: number = useSelector((state: StateType) => state.addForm.currentStep);
-  let initialState = useSelector((state: StateType) => {
-    if (mode === 'add') return state.addForm;
-    else return state.users.users.filter((u: UserType) => u.id === +id)[0];
+const multiSelectOptions: SkillOptionType[] = [
+  { value: 'html', label: 'HTML' },
+  { value: 'css', label: 'CSS' },
+  { value: 'javascript', label: 'Javascript' },
+  { value: 'react', label: 'React' },
+  { value: 'angular', label: 'Angular' },
+  { value: 'jquery', label: 'jQuery' },
+  { value: 'nodejs', label: 'NodeJS' },
+  { value: 'python', label: 'Python' },
+  { value: 'php', label: 'PHP' },
+  { value: 'ruby-on-rails', label: 'Ruby On Rails' },
+  { value: 'sql', label: 'SQL' },
+  { value: 'backbonejs', label: 'BackboneJS' },
+  { value: 'web-design', label: 'Web Design' },
+  { value: 'project-management', label: 'Project management' },
+  { value: 'git', label: 'Git' },
+  { value: 'docker', label: 'Docker' },
+  { value: 'aws-lambda', label: 'AWS Lambda' },
+  { value: 'firebase', label: 'Firebase' },
+];
+
+const checkBoxGroup = [
+  { name: 'sport', label: 'Sport, fitness, aerobica and staff like that' },
+  { name: 'gaming', label: 'I just want to play games, I’m not living in this life' },
+  { name: 'nothing', label: 'I’m a female... I’m doing nothing. Every day.' },
+  { name: 'guitar', label: 'Guitar, guitar and guitar again. I’m fall in love with it.' },
+  { name: 'nohobbie', label: 'WTF is “hobbies”???' },
+];
+
+const MAX_LENGTH_OF_TEXTAREA = 300;
+
+const steps = [
+  {
+    name: 'Account',
+    render: (
+      <>
+        <div>
+          <AvatarPicker name={'avatar'} />
+        </div>
+        <div>
+          <InputField name="username" label="User Name" />
+          <InputField name="password" label="Password" type="password" />
+          <InputField name="passwordRepeat" label="Repeat Password" type="password" />
+        </div>
+      </>
+    ),
+  },
+  {
+    name: 'Profile',
+    render: (
+      <>
+        <div>
+          <InputField name="firstname" label="First Name" />
+          <InputField name="lastname" label="Last Name" />
+          <DatePicker name="birthdate" />
+        </div>
+        <div>
+          <InputField name="email" label="Email" />
+          <InputField name="adress" label="Adress" />
+          <RadioGroup
+            name="gender"
+            options={[
+              { value: 'male', label: 'Male' },
+              { value: 'female', label: 'Female' },
+            ]}
+          />
+          <FieldError name={'gender'} />
+        </div>
+      </>
+    ),
+  },
+  {
+    name: 'Contacts',
+    render: (
+      <>
+        <div>
+          <InputField name="company" label="Company" />
+          <InputField name="github" label="GitHub Link" />
+          <InputField name="facebook" label="Facebook Link" />
+          <Select name="mainLang" options={languageSelectOptions} label="Main Language" />
+        </div>
+
+        <div>
+          <InputField name="fax" label="Fax" />
+          <FieldArray name="phoneNumbers">{PhoneInputs}</FieldArray>
+        </div>
+      </>
+    ),
+  },
+  {
+    name: 'Skills',
+    render: (
+      <>
+        <div>
+          <MySelect name="skills" options={multiSelectOptions} label="Skills" isMulti />
+          <TextArea
+            name="additionalInfo"
+            label="Additional Info"
+            maxlength={MAX_LENGTH_OF_TEXTAREA}
+          />
+        </div>
+        <div>
+          <CheckBoxGroup group={checkBoxGroup} />
+        </div>
+      </>
+    ),
+  },
+];
+
+const StepWizard = () => {
+  const { currentStep, initialValues } = useSelector((state: StateType) => {
+    const { currentStep, ...initialValues } = state.addForm;
+    return { currentStep, initialValues };
   });
 
-  if (!initialState) return <div />;
-  const tabKeys = [
-    {
-      name: 'account',
-      value: (
-        <Step1Form
-          initialValues={{
-            username: initialState.username,
-            password: initialState.password,
-            passwordRepeat: initialState.password,
-            avatar: initialState.avatar,
-          }}
-        />
-      ),
-    },
-    {
-      name: 'profile',
-      value: (
-        <Step2Form
-          initialValues={{
-            firstname: initialState.firstname,
-            lastname: initialState.lastname,
-            email: initialState.email,
-            adress: initialState.adress,
-            gender: initialState.gender,
-            birthdate: initialState.birthdate,
-          }}
-        />
-      ),
-    },
-    {
-      name: 'contacts',
-      value: (
-        <Step3Form
-          initialValues={{
-            company: initialState.company,
-            facebook: initialState.facebook,
-            github: initialState.github,
-            mainLang: initialState.mainLang,
-            fax: initialState.fax,
-            phoneNumbers: initialState.phoneNumbers,
-          }}
-        />
-      ),
-    },
-    {
-      name: 'capabilities',
-
-      value: (
-        <Step4Form
-          initialValues={{
-            skills: initialState.skills,
-            additionalInfo: initialState.additionalInfo,
-            hobbies: initialState.hobbies,
-          }}
-          editId={+id}
-        />
-      ),
-    },
-  ];
-
-  const tab = tabKeys.filter(
-    (t: typeof tabKeys[0]) => t.name === tabs[currentStep - 1].toLowerCase(),
-  );
   return (
-    <>
-      <Tabs value={currentStep} tabs={tabs} />
-      <div className={classNames.rectangle}>{tab[0].value}</div>
-    </>
+    <div>
+      <Tabs>
+        {steps.map(({ name }, index) => (
+          <TabPanel key={index} name={name} value={index} active={currentStep === index} />
+        ))}
+      </Tabs>
+      <FormLayout
+        initialValues={{ ...initialValues, passwordRepeat: '' }}
+        numberOfSteps={steps.length}
+        currentStep={currentStep}
+      >
+        {steps.map(({ render }, index) => currentStep === index && render)[currentStep]}
+      </FormLayout>
+    </div>
   );
 };
 
 export default StepWizard;
-
-type StepWizarPropsType = {
-  mode: 'add' | 'edit';
-};

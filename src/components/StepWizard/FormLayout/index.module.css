@@ -1,0 +1,31 @@
+.twoColumns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-content: space-around;
+  align-items: start;
+  justify-items: center;
+  grid-gap: 170px;
+}
+
+.form {
+  padding: 65px 100px;
+  position: relative;
+  width: 770px;
+  height: 412px;
+  background: var(--background-color);
+}
+
+.buttons {
+  position: absolute;
+  width: 100%;
+
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row-reverse;
+  bottom: 65px;
+  right: 100px;
+}
+
+.buttons * {
+  margin-left: 150px;
+}

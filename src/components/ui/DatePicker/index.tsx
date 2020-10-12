@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import classNames from './index.module.css';
 import 'react-datepicker/dist/react-datepicker.css';
-import { ErrorMessage, Field, FieldProps } from 'formik';
+import { Field, FieldProps } from 'formik';
 import Calendar from 'react-datepicker';
 import FieldError from '../FieldError';
 

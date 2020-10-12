@@ -1,8 +1,12 @@
+import { FormikValues } from 'formik';
+
 const ACCOUNT_FORM_FORWARD = 'addForm/ACCOUNT_FORM_FORWARD';
 const GO_BACK = 'addForm/GO_BACK';
 const PROFILE_FORM_FORWARD = 'addForm/PROFILE_FORM_FORWARD';
 const STEP_3_FORM_SUBMIT = 'addForm/STEP_3_FORM_SUBMIT';
 const STEP_4_FORM_SUBMIT = 'addForm/STEP_4_FORM_SUBMIT';
+const MOVE_FORWARD = 'addForm/MOVE_FORWARD';
+const CLEAR_FORM = 'addForm/CLEAR_FORM';
 
 const SELECT_STEP = 'addForm/SELECT_STEP';
 
@@ -49,16 +53,32 @@ interface SelectStepAction {
   step: number;
 }
 
+interface SelectStepAction {
+  type: typeof SELECT_STEP;
+  step: number;
+}
+
+interface MoveForwardAction {
+  type: typeof MOVE_FORWARD;
+  values: FormikValues;
+}
+
+interface ClearFormAction {
+  type: typeof CLEAR_FORM;
+}
+
 type AddFormActionsType =
   | AccountFormForwardAction
   | GoBackAction
   | Step2FormForwardAction
   | SelectStepAction
   | Step3FormForwardAction
-  | Step4FormSubmit;
+  | Step4FormSubmit
+  | MoveForwardAction
+  | ClearFormAction;
 
 const initialState = {
-  currentStep: 1,
+  currentStep: 0,
 
   avatar: null as File | null,
   username: '',
@@ -97,7 +117,7 @@ const addFormReducer = (state = initialState, action: AddFormActionsType) => {
     case GO_BACK: {
       return {
         ...state,
-        currentStep: state.currentStep > 1 ? state.currentStep - 1 : 1,
+        currentStep: state.currentStep > 0 ? state.currentStep - 1 : 0,
       };
     }
 
@@ -140,6 +160,20 @@ const addFormReducer = (state = initialState, action: AddFormActionsType) => {
         skills: action.skills,
         additionalInfo: action.additionalInfo,
         hobbies: action.hobbies,
+      };
+    }
+
+    case MOVE_FORWARD: {
+      return {
+        ...state,
+        currentStep: state.currentStep + 1,
+        ...action.values,
+      };
+    }
+
+    case CLEAR_FORM: {
+      return {
+        ...initialState,
       };
     }
 
@@ -199,3 +233,10 @@ export const step4FormSubmit = (payload: {
   type: STEP_4_FORM_SUBMIT,
   ...payload,
 });
+
+export const moveForward = ({ passwordRepeat, ...values }: FormikValues): MoveForwardAction => ({
+  type: MOVE_FORWARD,
+  values,
+});
+
+export const clearForm = (): ClearFormAction => ({ type: CLEAR_FORM });

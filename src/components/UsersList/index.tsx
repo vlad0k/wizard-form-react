@@ -9,24 +9,18 @@ import DeleteIcon from '../../assets/icons/Close.svg';
 import { IndexableType } from 'dexie';
 import { useDispatch, useSelector } from 'react-redux';
 import { StateType } from '../../redux/store';
-import { deleteUser, importUsers } from '../../redux/usersListReducer';
-import { ButtonAppearance, UserType } from '../../types';
+import { deleteUser } from '../../redux/usersListReducer';
+import { ButtonAppearance } from '../../types';
 
 const UsersList = () => {
   const users = useSelector((state: StateType) => state.users.users);
   const dispatch = useDispatch();
-  const setUsers = (users: UserType[]) => dispatch(importUsers(users));
   const [isDeteling, setIsDeteling] = useState<IndexableType>('');
 
   const userDeleteMode = () => {
     setIsDeteling('');
     document.removeEventListener('click', userDeleteMode);
   };
-  // const getUsers = () => {
-  //   db.table('users')
-  //     .toArray()
-  //     .then((users: any[]) => setUsers(users ? users : []));
-  // };
 
   const deleteUserButtonHandler = (id: number | string) => {
     setIsDeteling(id);

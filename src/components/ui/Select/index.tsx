@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import classNames from './index.module.css';
-import ReactSelect, { OptionsType, ValueType } from 'react-select';
-import { ErrorMessage, Field, FieldProps } from 'formik';
+import ReactSelect, { ValueType } from 'react-select';
+import { Field, FieldProps } from 'formik';
 import FieldError from '../FieldError';
 
 const customStyles = {
@@ -22,7 +22,7 @@ const customStyles = {
     border: 'none',
     backgroundColor: 'white',
     display: 'block',
-    width: 384,
+    width: 284,
     padding: '4px 8px',
     borderWidth: 1,
     borderColor: 'var(--secondary-color)',
@@ -84,13 +84,12 @@ const Select = ({ name, isMulti, options, label }: SelectPropsType) => {
               value={selectValue}
               onChange={(selected: ValueType<OptionType>) => {
                 let value: string | string[] = '';
-                for (let i in selected) {
-                  if ('value' in selected) {
-                    value = selected.value;
-                  } else if (Array.isArray(selected)) {
-                    value = selected.map((s: OptionType) => s.value);
-                  }
+                if (selected && 'value' in selected) {
+                  value = selected.value;
+                } else if (Array.isArray(selected)) {
+                  value = selected.map((s: OptionType) => s.value);
                 }
+
                 setFieldValue(name, value);
               }}
               styles={customStyles}

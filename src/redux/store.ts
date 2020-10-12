@@ -6,7 +6,7 @@ import usersListReducer from './usersListReducer';
 import { getUsersFromDb } from '../db/db';
 
 export const dbMiddleware: Middleware<{}, StateType> = (store) => (next) => (action) => {
-  const result = next(action);
+  next(action);
   const actionType = action.type.split('/')[0];
 
   if (actionType === 'users') {
@@ -17,7 +17,7 @@ export const dbMiddleware: Middleware<{}, StateType> = (store) => (next) => (act
 let store: Store = createStore(
   combineReducers({ addForm: addFormReducer, users: usersListReducer }),
   {},
-  applyMiddleware(dbMiddleware),
+  composeWithDevTools(applyMiddleware(dbMiddleware)),
 );
 
 getUsersFromDb(store.dispatch);

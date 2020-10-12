@@ -72,7 +72,6 @@ const Step4Form: FC<Step4FormPropsType> = ({ initialValues, editId = null }) => 
   const backButtonClickHandler = () => dispatch(goBack());
 
   const submitForm = (values: Values) => {
-    const { skills = [], additionalInfo, hobbies = [] } = values;
     dispatch(step4FormSubmit(values));
     db.table('users').add({ ...formState, ...values });
 

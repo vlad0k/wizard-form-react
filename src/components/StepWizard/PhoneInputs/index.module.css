@@ -1,0 +1,11 @@
+.phones {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.phones img {
+  padding-left: 8px;
+  position: absolute;
+  top: 34px;
+}

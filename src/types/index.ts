@@ -27,3 +27,8 @@ export type UserType = {
   skills: string[];
   username: string;
 };
+
+export type RadioOptionType = {
+  value: string;
+  label: string;
+};

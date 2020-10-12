@@ -9,3 +9,13 @@
   position: absolute;
   top: 34px;
 }
+
+.label {
+  display: block;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 16px;
+  color: var(--form-label-color);
+  padding-bottom: 4px;
+}

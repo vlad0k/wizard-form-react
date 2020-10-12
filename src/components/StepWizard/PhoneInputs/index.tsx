@@ -6,6 +6,7 @@ import Button from '../../ui/Button';
 import minusIcon from '../../../assets/icons/minus.svg';
 import addIcon from '../../../assets/icons/add.svg';
 import { ButtonAppearance } from '../../../types';
+import PhoneInput from '../../ui/PhoneInput';
 
 const MAX_NUMBER_OF_PHONE_INPUTS = 3;
 
@@ -21,20 +22,22 @@ const PhoneInputs = (props: FieldArrayRenderProps) => {
   return (
     <>
       {phoneNumbers.map((phone: string, index: number) => (
-        <div className={classNames.phones} key={index}>
-          <InputField name={`phoneNumbers[${index}]`} label={`Phone #${index + 1}`} />
-          {index > 0 && (
-            <Button
-              appearance={ButtonAppearance.Text}
-              type={'button'}
-              onClick={() => remove(index)}
-            >
-              <img src={minusIcon} alt="remove phone number input" />
-            </Button>
-          )}
-        </div>
+        <>
+          <label className={classNames.label}>Phone {index + 1}</label>
+          <div className={classNames.phones} key={index}>
+            <PhoneInput name={`phoneNumbers[${index}]`} />
+            {index > 0 && (
+              <Button
+                appearance={ButtonAppearance.Text}
+                type={'button'}
+                onClick={() => remove(index)}
+              >
+                <img src={minusIcon} alt="remove phone number input" />
+              </Button>
+            )}
+          </div>
+        </>
       ))}
-
       {phoneNumbers.length < MAX_NUMBER_OF_PHONE_INPUTS && (
         <Button appearance={ButtonAppearance.Text} type={'button'} onClick={() => push('')}>
           <img src={addIcon} alt="add phone number" />

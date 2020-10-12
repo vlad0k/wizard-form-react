@@ -154,7 +154,6 @@ const StepWizard = () => {
       >
         {steps.map(({ render }, index) => currentStep === index && render)[currentStep]}
       </FormLayout>
-      <PhoneInput />
     </div>
   );
 };

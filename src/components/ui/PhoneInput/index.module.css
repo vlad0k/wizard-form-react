@@ -1,0 +1,21 @@
+.input {
+  display: block;
+
+  width: 300px;
+  height: 40px;
+
+  background: #ffffff;
+  box-sizing: border-box;
+  padding: 8px;
+}
+
+.noError {
+  border: 1px solid var(--secondary-color);
+}
+.errorField {
+  border: 1px solid #eb5757;
+}
+
+.wrapper {
+  padding-bottom: 20px;
+}

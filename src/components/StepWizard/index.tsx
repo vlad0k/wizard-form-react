@@ -129,7 +129,7 @@ const STEPS = [
         <div role="group">
           <span>Hobbies:</span>
           {HOBBIES_CHECKBOX_GROUP.map(({ value, label }) => (
-            <Checkbox name="hobbies" value={value} label={label} />
+            <Checkbox key={value} name="hobbies" value={value} label={label} />
           ))}
           <FieldError name={'hobbies'} />
         </div>

@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import classNames from './index.module.css';
-import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
+import PlacesAutocomplete from 'react-places-autocomplete';
 import { Field, FieldProps } from 'formik';
 import cn from 'classnames';
 

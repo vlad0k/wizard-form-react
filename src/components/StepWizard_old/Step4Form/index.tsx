@@ -10,7 +10,6 @@ import { StateType } from '../../../redux/store';
 import db from '../../../db/db';
 import * as Yup from 'yup';
 import { importUsers } from '../../../redux/usersListReducer';
-// import CheckBoxGroup from '../../ui/CheckBoxGroup';
 import { ButtonAppearance, UserType } from '../../../types';
 import cn from 'classnames/dedupe';
 
@@ -46,13 +45,13 @@ const multiSelectOptions: SkillOptionType[] = [
   { value: 'firebase', label: 'Firebase' },
 ];
 
-const checkBoxGroup = [
-  { name: 'sport', label: 'Sport, fitness, aerobica and staff like that' },
-  { name: 'gaming', label: 'I just want to play games, I’m not living in this life' },
-  { name: 'nothing', label: 'I’m a female... I’m doing nothing. Every day.' },
-  { name: 'guitar', label: 'Guitar, guitar and guitar again. I’m fall in love with it.' },
-  { name: 'nohobbie', label: 'WTF is “hobbies”???' },
-];
+// const checkBoxGroup = [
+//   { name: 'sport', label: 'Sport, fitness, aerobica and staff like that' },
+//   { name: 'gaming', label: 'I just want to play games, I’m not living in this life' },
+//   { name: 'nothing', label: 'I’m a female... I’m doing nothing. Every day.' },
+//   { name: 'guitar', label: 'Guitar, guitar and guitar again. I’m fall in love with it.' },
+//   { name: 'nohobbie', label: 'WTF is “hobbies”???' },
+// ];
 
 const validateScema = Yup.object({
   skills: Yup.array()

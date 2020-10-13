@@ -25,7 +25,7 @@ const PhoneInput: FC<PhoneInputPropsType> = ({ name }) => {
                 onBlur={onBlur}
               >
                 {(inputProps: any) => (
-                  <input {...inputProps} name={name} type="tel" disableUnderline />
+                  <input {...inputProps} name={name} type="tel" />
                 )}
               </InputMask>
               <FieldError name={name} />

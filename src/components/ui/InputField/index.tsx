@@ -32,7 +32,7 @@ const InputField = ({ name, label, type = 'text' }: InputFieldPropsType) => {
             onClick={passwordVisibilityButtonHandler}
             type={'button'}
           >
-            <img src={inputType === 'password' ? visibilityIcon : visibilityOffIcon} />
+            <img src={inputType === 'password' ? visibilityIcon : visibilityOffIcon} alt=''/>
           </Button>
         )}
       </div>

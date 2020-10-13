@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React  from 'react';
 import classNames from './index.module.css';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Field, FieldProps } from 'formik';
 import Calendar from 'react-datepicker';
 import FieldError from '../FieldError';
-import InputField from '../InputField';
 
 type DatePickerProps = {
   name: string;

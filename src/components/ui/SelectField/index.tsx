@@ -72,7 +72,6 @@ const SelectField = ({ name, isMulti, options, label }: SelectPropsType) => {
 
           const selectChangeHandler = (selected: ValueType<OptionTypeBase>) => {
 
-            setFieldValue(name, value);
           };
 
           return (

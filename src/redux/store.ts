@@ -11,7 +11,10 @@ export const dbMiddleware: Middleware<{}, StateType> = (store) => (next) => (act
 };
 
 let store: Store = createStore(
-  combineReducers({ addForm: addFormReducer, users: usersListReducer }),
+  combineReducers({
+    addForm: addFormReducer,
+    users: usersListReducer,
+  }),
   {},
   composeWithDevTools(applyMiddleware(dbMiddleware)),
 );

@@ -8,6 +8,7 @@ var db = new Dexie('WizardFormAppDB');
 db.version(10).stores({ users: '++id' });
 db.open();
 
+// TODO to sort out
 export const getUsersFromDb = async (dispatch: Dispatch) => {
   const users: UserType[] = await db.table('users').toArray();
   dispatch(importUsers(users));

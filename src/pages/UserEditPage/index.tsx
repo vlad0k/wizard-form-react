@@ -5,7 +5,6 @@ import StepWizard from '../../components/StepWizard_old';
 
 const UserEditPage = () => {
   const { id } = useParams<UrlParamTypes>();
-  // const username = useSelector((state: StateType) => state.users.users[+id].username);
 
   return (
     <PageLayout name={`Edit User`} backLink={`/users/${id}`} backLabel={'User Profile'}>

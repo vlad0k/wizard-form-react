@@ -65,10 +65,3 @@
   justify-content: space-between;
   bottom: 0;
 }
-
-.error {
-  display: block;
-  color: red;
-  font-size: 9px;
-  padding-left: 16px;
-}

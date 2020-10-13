@@ -74,20 +74,22 @@ const SelectField = ({ name, isMulti, options, label }: SelectPropsType) => {
             selectValue = options.filter((option) => value.includes(option.value));
           }
 
+          const selectChangeHandler = (selected: ValueType<OptionType>) => {
+            if (selected && 'value' in selected) {
+              setFieldValue(name, selected.value);
+            } else if (Array.isArray(selected)) {
+              setFieldValue(
+                name,
+                selected.map((s: OptionType) => s.value),
+              );
+            }
+          };
+
           return (
             <ReactSelect
               options={options}
               value={selectValue}
-              onChange={(selected: ValueType<OptionType>) => {
-                let value: string | string[] = '';
-                if (selected && 'value' in selected) {
-                  value = selected.value;
-                } else if (Array.isArray(selected)) {
-                  value = selected.map((s: OptionType) => s.value);
-                }
-
-                setFieldValue(name, value);
-              }}
+              onChange={selectChangeHandler}
               styles={customStyles}
               isMulti={isMulti}
             />

@@ -14,9 +14,9 @@ const TextArea = ({ name, label, maxlength }: TextAreaPropsType) => {
     <label className={classNames.inputField}>
       <span>{label}</span>
       <Field name={name} id={name}>
-        {({ field }: FieldProps) => {
-          return <textarea className={classNames.textarea} {...field} maxLength={maxlength} />;
-        }}
+        {({ field }: FieldProps) => (
+          <textarea className={classNames.textarea} {...field} maxLength={maxlength} />
+        )}
       </Field>
       <FieldError name={name} />
     </label>

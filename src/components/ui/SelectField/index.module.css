@@ -9,11 +9,3 @@
   color: var(--form-label-color);
   padding-bottom: 4px;
 }
-
-.error {
-  color: red;
-  font-size: 9px;
-  padding-left: 16px;
-  margin-top: -24px;
-  margin-bottom: 24px;
-}

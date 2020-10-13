@@ -25,7 +25,7 @@ const PhoneInputs = (props: FieldArrayRenderProps) => {
       {phoneNumbers.map((phone: string, index: number) => {
         const removePhoneNumberButtonHandler = () => remove(index);
         return (
-          <>
+          <div key={index}>
             <label className={classNames.label}>Phone {index + 1}</label>
             <div className={classNames.phones} key={index}>
               <PhoneInput name={`phoneNumbers[${index}]`} />
@@ -39,7 +39,7 @@ const PhoneInputs = (props: FieldArrayRenderProps) => {
                 </Button>
               )}
             </div>
-          </>
+          </div>
         );
       })}
 

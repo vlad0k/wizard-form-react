@@ -61,24 +61,23 @@ const generatePageTemplate = ({
   },
 ];
 
-const UserPage: FC<UserPagePropsType> = ({ user }) => {
+const UserInfo: FC<UserPagePropsType> = ({ user }) => {
   const { avatar, id } = user;
-  const avatarUrl = avatar ? URL.createObjectURL(avatar) : undefined;
 
   return (
     <div className={classNames.userPage}>
-      <Avatar image={avatarUrl} size={AvatarSize.large} />
+      <Avatar image={avatar ? URL.createObjectURL(avatar) : undefined} size={AvatarSize.large} />
       <div>
         {generatePageTemplate(user).map(({ key, value }: TemplateType) => (
           // TODO Rename this component
-          <ValuesGroup groupName={key} values={value} id={id} />
+          <ValuesGroup key={key} groupName={key} values={value} id={id} />
         ))}
       </div>
     </div>
   );
 };
 
-export default UserPage;
+export default UserInfo;
 
 type UserPagePropsType = {
   user: UserType;

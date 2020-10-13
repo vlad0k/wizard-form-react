@@ -11,7 +11,7 @@ type DatePickerProps = {
 };
 
 const DatePicker = ({ name }: DatePickerProps) => {
-  const [date, setDate] = useState<Date | undefined>(undefined);
+  const [date, setDate] = useState<Date>();
   return (
     <>
       <Field name={name}>
@@ -27,7 +27,7 @@ const DatePicker = ({ name }: DatePickerProps) => {
               <Calendar
                 selected={date}
                 onChange={calendarChangeHandler}
-                dateFormat="dd-yy-MM"
+                dateFormat="dd/MM/yy"
                 className={classNames.datePicker}
                 maxDate={new Date()}
               />

@@ -66,11 +66,7 @@ const SelectField = ({ name, isMulti, options, label }: SelectPropsType) => {
     <>
       <span className={classNames.label}>{label}</span>
       <Field name={name}>
-        {(props: FieldProps) => {
-          const {
-            field: { name, value },
-            form: { setFieldValue },
-          } = props;
+        {({ field: { name, value }, form: { setFieldValue } }: FieldProps) => {
           let selectValue: OptionType | OptionType[];
           if (!Array.isArray(value)) {
             selectValue = options.filter((option) => value === option.value)[0];

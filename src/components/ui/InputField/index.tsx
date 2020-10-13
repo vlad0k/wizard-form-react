@@ -9,12 +9,14 @@ import { ButtonAppearance } from '../../../types';
 
 const InputField = ({ name, label, type = 'text' }: InputFieldPropsType) => {
   const [inputType, setInputType] = useState<string>(type);
+  const passwordVisibilityButtonHandler = () =>
+    setInputType((prev) => (prev === 'password' ? 'text' : 'password'));
   return (
     <label className={classNames.inputField}>
       <span>{label}</span>
       <div className={classNames.inputWrapper}>
         <Field name={name} id={name}>
-          {({ field, form, meta }: FieldProps) => (
+          {({ field, form }: FieldProps) => (
             <input
               {...field}
               type={inputType}
@@ -27,7 +29,7 @@ const InputField = ({ name, label, type = 'text' }: InputFieldPropsType) => {
         {type === 'password' && (
           <Button
             appearance={ButtonAppearance.text}
-            onClick={() => setInputType((prev) => (prev === 'password' ? 'text' : 'password'))}
+            onClick={passwordVisibilityButtonHandler}
             type={'button'}
           >
             <img src={inputType === 'password' ? visibilityIcon : visibilityOffIcon} />

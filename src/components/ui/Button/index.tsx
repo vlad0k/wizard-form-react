@@ -8,12 +8,11 @@ const Button = ({
   children,
   type = 'submit',
   onClick,
-}: ButtonProps) => {
+}: ButtonProps) => (
   <button className={cn(classNames.button, classNames[appearance])} type={type} onClick={onClick}>
     {children}
-  </button>;
-};
-
+  </button>
+);
 export default Button;
 
 type ButtonProps = {

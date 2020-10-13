@@ -126,7 +126,7 @@ const STEPS = [
           />
         </div>
         <div>
-          <CheckBoxGroup group={HOBBIES_CHECKBOX_GROUP} />
+          <CheckBoxGroup checkboxes={HOBBIES_CHECKBOX_GROUP} />
         </div>
       </>
     ),

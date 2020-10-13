@@ -2,12 +2,12 @@ import React from 'react';
 import classNames from './index.module.css';
 import Checkbox from './CheckBox';
 
-const CheckBoxGroup = ({ group }: CheckBoxGroupPropsType) => {
+const CheckBoxGroup = ({ checkboxes }: CheckBoxGroupPropsType) => {
   return (
     <div>
-      <label className={classNames.checkboxLabel}> My Hobbies</label>
-      {group.map((c: CheckBoxtype, i) => (
-        <Checkbox key={i} name={c.name} label={c.label} />
+      <span className={classNames.checkboxLabel}> My Hobbies</span>
+      {checkboxes.map(({ name, label }, index) => (
+        <Checkbox key={index} name={name} label={label} />
       ))}
     </div>
   );
@@ -16,7 +16,7 @@ const CheckBoxGroup = ({ group }: CheckBoxGroupPropsType) => {
 export default CheckBoxGroup;
 
 type CheckBoxGroupPropsType = {
-  group: CheckBoxtype[];
+  checkboxes: CheckBoxtype[];
 };
 
 interface CheckBoxtype {

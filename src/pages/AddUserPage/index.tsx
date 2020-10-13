@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react';
 
-import StepWizard from "../../components/StepWizard";
-import PageLayout from "../../components/PageLayout";
+import StepWizard from '../../components/StepWizard';
+import PageLayout from '../../components/PageLayout';
 
 const AddUserPage = () => (
-  <PageLayout name={"Add User"}>
+  <PageLayout name={'Add User'}>
     <StepWizard />
   </PageLayout>
 );

@@ -1,38 +1,48 @@
 .button {
-    font-family: Roboto;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 16px;
-    letter-spacing: 0em;
-    text-align: center;
-    outline: none;
-    border: none;
-    display: flex;
-    align-items: center;
-    color: white;
-    padding: 12px 24px;
-    cursor: pointer;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: 0em;
+  text-align: center;
+  outline: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  color: white;
+  padding: 12px 24px;
+  cursor: pointer;
 }
 
 .primary {
-    background: var(--primary-color);
+  background: var(--primary-color);
 }
 
 .secondary {
-    background: var(--secondary-color);
+  background: var(--secondary-color);
 }
 
 .text {
-    padding: 0;
-    color: var(--action-text-color);
-    background: none;
+  padding: 0;
+  color: var(--action-text-color);
+  background: none;
 }
 
 .button img {
-    padding-right: 4px;
+  padding-right: 4px;
 }
 
 .finish {
-    background: var(--finish-color);
+  background: var(--finish-color);
+}
+
+.delete {
+  padding: 0;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: bold;
+  color: #ff8989;
+  background: none;
 }

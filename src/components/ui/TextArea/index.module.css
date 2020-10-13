@@ -1,0 +1,28 @@
+.textarea {
+  display: block;
+
+  width: 100%;
+  height: 130px;
+
+  background: #ffffff;
+  border: 1px solid #c1cfe0;
+  box-sizing: border-box;
+  padding: 8px;
+}
+
+.InputField {
+  display: block;
+  padding-bottom: 24px;
+}
+
+.inputField span {
+  display: inline-block;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 16px;
+
+  color: #657c9a;
+  padding-bottom: 4px;
+}

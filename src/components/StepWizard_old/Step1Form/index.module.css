@@ -1,0 +1,25 @@
+.form {
+  height: 100%;
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: start;
+  justify-items: center;
+}
+
+.form label:first-child {
+  padding-top: 0;
+}
+
+.button {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  bottom: 0;
+}
+
+.column {
+  height: 100%;
+  position: relative;
+}

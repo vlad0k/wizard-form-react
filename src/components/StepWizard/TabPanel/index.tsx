@@ -1,14 +1,12 @@
-import React from "react";
-import classNames from "./index.module.css";
-import classNamesCombine from "classnames";
-import { useDispatch, useSelector } from "react-redux";
-import { StateType } from "../../../redux/store";
-import { selectStep } from "../../../redux/addFormReducer";
+import React, { FC } from 'react';
+import classNames from './index.module.css';
+import classNamesCombine from 'classnames';
+import { useDispatch, useSelector } from 'react-redux';
+import { StateType } from '../../../redux/store';
+import { selectStep } from '../../../redux/addFormReducer';
 
-const Tab = ({ active, name, value }: TopTabProps) => {
-  const currentStep = useSelector(
-    (state: StateType) => state.addForm.currentStep
-  );
+const TabPanel: FC<TopTabProps> = ({ active, name, value }) => {
+  const currentStep = useSelector((state: StateType) => state.addForm.currentStep);
 
   const dispatch = useDispatch();
 
@@ -23,12 +21,12 @@ const Tab = ({ active, name, value }: TopTabProps) => {
 
   return (
     <div className={tabClassName} onClick={tabClickHandler}>
-      {value}. {name}
+      {value + 1}. {name}
     </div>
   );
 };
 
-export default Tab;
+export default TabPanel;
 
 type TopTabProps = {
   value: number;

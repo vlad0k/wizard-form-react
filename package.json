@@ -12,6 +12,8 @@
     "@types/react": "^16.9.49",
     "@types/react-datepicker": "^3.1.1",
     "@types/react-dom": "^16.9.8",
+    "@types/react-input-mask": "^2.0.5",
+    "@types/react-places-autocomplete": "^7.2.6",
     "@types/react-redux": "^7.1.9",
     "@types/react-router-dom": "^5.1.5",
     "@types/react-select": "^3.0.21",
@@ -19,9 +21,12 @@
     "classnames": "^2.2.6",
     "dexie": "^3.0.2",
     "formik": "^2.1.6",
+    "moment": "^2.29.1",
     "react": "^16.13.1",
     "react-datepicker": "^3.2.2",
     "react-dom": "^16.13.1",
+    "react-input-mask": "^2.0.4",
+    "react-places-autocomplete": "^7.3.0",
     "react-redux": "^7.2.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
@@ -52,7 +57,24 @@
     ]
   },
   "devDependencies": {
+    "husky": "^4.3.0",
+    "lint-staged": "^10.4.0",
     "prettier": "^2.1.2",
+    "prettier-plugin-import-sort": "0.0.6",
     "redux-devtools-extension": "^2.13.8"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,css,md}": "prettier --write"
+  },
+  "importSort": {
+    ".js, .jsx, .ts, .tsx": {
+      "style": "module",
+      "parser": "typescript"
+    }
   }
 }

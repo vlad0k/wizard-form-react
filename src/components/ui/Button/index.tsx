@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import classNames from './index.module.css';
-import classNamesCombine from 'classnames';
+import cn from 'classnames';
 import { ButtonAppearance } from '../../../types';
 
 const Button = ({
@@ -9,12 +9,9 @@ const Button = ({
   type = 'submit',
   onClick,
 }: ButtonProps) => {
-  const buttonClassNames = classNamesCombine(classNames.button, classNames[appearance]);
-  return (
-    <button className={buttonClassNames} type={type} onClick={onClick}>
-      {children}
-    </button>
-  );
+  <button className={cn(classNames.button, classNames[appearance])} type={type} onClick={onClick}>
+    {children}
+  </button>;
 };
 
 export default Button;

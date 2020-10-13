@@ -93,7 +93,7 @@ const Step4Form: FC<Step4FormPropsType> = ({ initialValues, editId = null }) => 
           />
         </div>
         <div className={cn(classNames.column, classNames.checkBoxGroup)}>
-          <CheckBoxGroup checkboxes={checkBoxGroup} />
+          {/*<CheckBoxGroup checkboxes={checkBoxGroup} />*/}
           <div className={classNames.buttons}>
             <Button
               appearance={ButtonAppearance.secondary}

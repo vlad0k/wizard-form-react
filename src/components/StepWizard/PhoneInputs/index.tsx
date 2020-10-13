@@ -18,33 +18,28 @@ const PhoneInputs = (props: FieldArrayRenderProps) => {
     },
   } = props;
 
-  const addButtonHandler = () => push('');
-
   return (
     <>
-      {phoneNumbers.map((phone: string, index: number) => {
-        const removePhoneNumberButtonHandler = () => remove(index);
-        return (
-          <div key={index}>
-            <label className={classNames.label}>Phone {index + 1}</label>
-            <div className={classNames.phones} key={index}>
-              <PhoneInput name={`phoneNumbers[${index}]`} />
-              {index > 0 && (
-                <Button
-                  appearance={ButtonAppearance.text}
-                  type={'button'}
-                  onClick={removePhoneNumberButtonHandler}
-                >
-                  <img src={minusIcon} alt="remove phone number input" />
-                </Button>
-              )}
-            </div>
+      {phoneNumbers.map((phone: string, index: number) => (
+        <div key={index}>
+          <label className={classNames.label}>Phone {index + 1}</label>
+          <div className={classNames.phones} key={index}>
+            <PhoneInput name={`phoneNumbers[${index}]`} />
+            {index > 0 && (
+              <Button
+                appearance={ButtonAppearance.text}
+                type={'button'}
+                onClick={() => remove(index)}
+              >
+                <img src={minusIcon} alt="remove phone number input" />
+              </Button>
+            )}
           </div>
-        );
-      })}
+        </div>
+      ))}
 
       {phoneNumbers.length < MAX_NUMBER_OF_PHONE_INPUTS && (
-        <Button appearance={ButtonAppearance.text} type={'button'} onClick={addButtonHandler}>
+        <Button appearance={ButtonAppearance.text} type={'button'} onClick={() => push('')}>
           <img src={addIcon} alt="add phone number" />
           add phone number
         </Button>

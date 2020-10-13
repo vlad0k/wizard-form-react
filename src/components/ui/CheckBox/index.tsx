@@ -8,6 +8,7 @@ type CheckboxPropsType = {
 };
 
 const Checkbox = ({ name, label }: CheckboxPropsType) => {
+  //  TODO create ui checkbox
   return (
     <label className={classNames.wrapper} htmlFor={name}>
       <Field name={name}>
@@ -31,7 +32,7 @@ const Checkbox = ({ name, label }: CheckboxPropsType) => {
             <>
               <input
                 id={name}
-                type={'checkbox'}
+                type="checkbox"
                 checked={hobbies.includes(field.name)}
                 onChange={changeHandler}
               />

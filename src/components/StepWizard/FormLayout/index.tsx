@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 import { StateType } from '../../../redux/store';
 import db from '../../../db/db';
-import dateYearSubtstract from '../../../utils/dateYearSubstract';
+import ageValidator from '../../../utils/dateYearSubstract';
 
 const FormLayout: FC<FormLayoutPropsType> = ({
   children,
@@ -25,7 +25,7 @@ const FormLayout: FC<FormLayoutPropsType> = ({
     username: Yup.string()
       .required('required field')
       .notOneOf(
-        users.map((u: UserType) => u.username),
+        users.map((user: UserType) => user.username),
         "you can't use this username",
       ),
     password: Yup.string().required('required field'),
@@ -37,7 +37,7 @@ const FormLayout: FC<FormLayoutPropsType> = ({
     email: Yup.string().required('required field').email('incorrect email format'),
     birthdate: Yup.date()
       .required('required field')
-      .max(dateYearSubtstract(18), 'You should be 18 years old'),
+      .max(ageValidator(18), 'You should be 18 years old'),
     gender: Yup.string().nullable().required('please, choose your gender'),
     phoneNumbers: Yup.array().of(Yup.string().required('required field')),
     company: Yup.string().required('required field'),

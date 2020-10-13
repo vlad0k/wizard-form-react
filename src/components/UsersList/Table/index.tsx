@@ -23,6 +23,7 @@ const Table: FC<TablePropsType> = ({ users, stripped = false }) => {
 
   const deleteUserButtonHandler = (id: number | string) => {
     setIsDeteling(id);
+    //TODO remove event listener from func
     document.addEventListener('click', userDeleteMode);
   };
 
@@ -34,16 +35,18 @@ const Table: FC<TablePropsType> = ({ users, stripped = false }) => {
 
   return (
     <table className={cn(classNames.table, { [classNames.stripped]: stripped })} cellSpacing={0}>
-      <tr>
-        <th colSpan={2} />
-        <th>name</th>
-        <th>company</th>
-        <th>contacts</th>
-        <th>last update</th>
-        <th colSpan={2} />
-      </tr>
-      {users.map(
-        ({ id, username, firstname, lastname, company, email, avatar }: UserType, i: number) => {
+      <thead>
+        <tr>
+          <th colSpan={2} />
+          <th>name</th>
+          <th>company</th>
+          <th>contacts</th>
+          <th>last update</th>
+          <th colSpan={2} />
+        </tr>
+      </thead>
+      <tbody>
+        {users.map(({ id, username, firstname, lastname, company, email, avatar }, i: number) => {
           return (
             <tr key={id} className={isDeteling === id ? classNames.isDeleting : ''}>
               <td>{id}</td>
@@ -86,6 +89,7 @@ const Table: FC<TablePropsType> = ({ users, stripped = false }) => {
               {isDeteling === id && (
                 <>
                   <td colSpan={2} />
+                  {/*TODO remove div from tr*/}
                   <div className={classNames.deleteButton}>
                     <Button
                       appearance={ButtonAppearance.delete}
@@ -98,8 +102,8 @@ const Table: FC<TablePropsType> = ({ users, stripped = false }) => {
               )}
             </tr>
           );
-        },
-      )}
+        })}
+      </tbody>
     </table>
   );
 };

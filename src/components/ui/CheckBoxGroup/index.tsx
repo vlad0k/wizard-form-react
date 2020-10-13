@@ -1,8 +1,8 @@
 import React from 'react';
 import classNames from './index.module.css';
-import Checkbox from './CheckBox';
+import Checkbox from '../CheckBox';
 
-const CheckBoxGroup = ({ checkboxes }: CheckBoxGroupPropsType) => {
+const CheckBoxGroup = ({ checkboxes, name }: CheckBoxGroupPropsType) => {
   return (
     <div>
       <span className={classNames.checkboxLabel}> My Hobbies</span>
@@ -17,9 +17,10 @@ export default CheckBoxGroup;
 
 type CheckBoxGroupPropsType = {
   checkboxes: CheckBoxtype[];
+  name: string;
 };
 
-interface CheckBoxtype {
+type CheckBoxtype = {
   name: string;
   label: string;
-}
+};

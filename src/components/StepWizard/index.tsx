@@ -17,6 +17,7 @@ import TextArea from '../ui/TextArea';
 import CheckBoxGroup from '../ui/CheckBoxGroup';
 import { SkillOptionType } from '../../types';
 import LocationPicker from '../ui/LocationPicker';
+import Checkbox from '../ui/CheckBox';
 
 const MAX_LENGTH_OF_TEXTAREA = 300;
 
@@ -126,7 +127,10 @@ const STEPS = [
           />
         </div>
         <div>
-          <CheckBoxGroup checkboxes={HOBBIES_CHECKBOX_GROUP} />
+          {/*<CheckBoxGroup name="hobbies" checkboxes={HOBBIES_CHECKBOX_GROUP} />*/}
+          {HOBBIES_CHECKBOX_GROUP.map(({ name, label }) => {
+            // return <Checkbox type="checkbox" name={name}></Checkbox>;
+          })}
         </div>
       </>
     ),

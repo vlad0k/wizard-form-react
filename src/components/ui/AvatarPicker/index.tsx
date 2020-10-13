@@ -19,9 +19,7 @@ const AvatarPicker = ({ name }: AvatarPickerProps) => {
     <Field name={name}>
       {({ field: { name, value }, form: { setFieldValue } }: FieldProps) => {
         const fileInputChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-          const {
-            target: { files },
-          } = event;
+          const { target: { files } = { files: [] } } = event;
           setFieldValue(name, files && files[0]);
         };
         return (

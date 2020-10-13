@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import classNames from './index.module.css';
 import { Form, Formik } from 'formik';
 import TextArea from '../../ui/TextArea';
-import MySelect from '../../ui/Select';
+import MySelect from '../../ui/SelectField';
 import Button from '../../ui/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { goBack, step4FormSubmit } from '../../../redux/addFormReducer';
@@ -81,7 +81,6 @@ const Step4Form: FC<Step4FormPropsType> = ({ initialValues, editId = null }) => 
     };
     getUsersFromDb();
   };
-  console.log(JSON.stringify(multiSelectOptions));
   return (
     <Formik initialValues={initialValues} onSubmit={submitForm} validationSchema={validateScema}>
       <Form className={classNames.form}>
@@ -97,13 +96,13 @@ const Step4Form: FC<Step4FormPropsType> = ({ initialValues, editId = null }) => 
           <CheckBoxGroup group={checkBoxGroup} />
           <div className={classNames.buttons}>
             <Button
-              appearance={ButtonAppearance.Secondary}
+              appearance={ButtonAppearance.secondary}
               type="button"
               onClick={backButtonClickHandler}
             >
               Back
             </Button>
-            <Button appearance={ButtonAppearance.Finish}>Finish</Button>
+            <Button appearance={ButtonAppearance.finish}>Finish</Button>
           </div>
         </div>
       </Form>

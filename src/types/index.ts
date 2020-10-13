@@ -1,9 +1,9 @@
 export enum ButtonAppearance {
-  Primary = 'primary',
-  Secondary = 'secondary',
-  Text = 'text',
-  Finish = 'finish',
-  Delete = 'delete',
+  primary = 'primary',
+  secondary = 'secondary',
+  text = 'text',
+  finish = 'finish',
+  delete = 'delete',
 }
 
 export type UserType = {
@@ -37,3 +37,9 @@ export type SkillOptionType = {
   value: string;
   label: string;
 };
+
+export enum AvatarSize {
+  small = 'small',
+  default = 'default',
+  large = 'large',
+}

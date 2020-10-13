@@ -4,7 +4,7 @@ import classNamesCombine from 'classnames';
 import { ButtonAppearance } from '../../../types';
 
 const Button = ({
-  appearance = ButtonAppearance.Primary,
+  appearance = ButtonAppearance.primary,
   children,
   type = 'submit',
   onClick,

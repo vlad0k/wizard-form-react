@@ -18,24 +18,21 @@ const AvatarPicker = ({ name }: AvatarPickerProps) => {
   return (
     <Field name={name}>
       {({ field: { name, value }, form: { setFieldValue } }: FieldProps) => {
-        const avatarSrc = value && URL.createObjectURL(value);
-
         const fileInputChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-          const { target } = event;
-          const file = target.files ? target.files[0] : undefined;
-          setFieldValue(name, file);
+          const {
+            target: { files },
+          } = event;
+          setFieldValue(name, files && files[0]);
         };
         return (
           <label
             htmlFor={name}
-            className={cn(classNames.upload, {
-              [classNames.pressed]: isPressed,
-            })}
+            className={cn(classNames.upload, { [classNames.pressed]: isPressed })}
             onMouseDown={mouseDownHandler}
             onMouseUp={mouseUpHandler}
           >
             <div className={classNames.addUserPhoto}>
-              <Avatar image={avatarSrc} />
+              <Avatar image={value && URL.createObjectURL(value)} />
               <div className={classNames.label}>
                 <img src={addIcon} alt="add avatar" />
                 add avatar

@@ -10,22 +10,23 @@ import DatePicker from '../ui/DatePicker';
 import { FieldArray } from 'formik';
 import FieldError from '../ui/FieldError';
 import RadioGroup from '../ui/RadioGroup';
-import Select, { OptionType } from '../ui/Select';
+import SelectField, { OptionType } from '../ui/SelectField';
 import PhoneInputs from './PhoneInputs';
-import MySelect from '../ui/Select';
+import MySelect from '../ui/SelectField';
 import TextArea from '../ui/TextArea';
 import CheckBoxGroup from '../ui/CheckBoxGroup';
 import { SkillOptionType } from '../../types';
 import LocationPicker from '../ui/LocationPicker';
-import PhoneInput from '../ui/PhoneInput';
 
-const languageSelectOptions: OptionType[] = [
+const MAX_LENGTH_OF_TEXTAREA = 300;
+
+const LANGUAGE_SELECT_OPTIONS: OptionType[] = [
   { value: 'en', label: 'English' },
   { value: 'ru', label: 'Russian' },
   { value: 'ua', label: 'Ukrainian' },
 ];
 
-const multiSelectOptions: SkillOptionType[] = [
+const SKILLS_SELECT_OPTIONS: SkillOptionType[] = [
   { value: 'html', label: 'HTML' },
   { value: 'css', label: 'CSS' },
   { value: 'javascript', label: 'Javascript' },
@@ -46,7 +47,7 @@ const multiSelectOptions: SkillOptionType[] = [
   { value: 'firebase', label: 'Firebase' },
 ];
 
-const checkBoxGroup = [
+const HOBBIES_CHECKBOX_GROUP = [
   { name: 'sport', label: 'Sport, fitness, aerobica and staff like that' },
   { name: 'gaming', label: 'I just want to play games, I’m not living in this life' },
   { name: 'nothing', label: 'I’m a female... I’m doing nothing. Every day.' },
@@ -54,9 +55,7 @@ const checkBoxGroup = [
   { name: 'nohobbie', label: 'WTF is “hobbies”???' },
 ];
 
-const MAX_LENGTH_OF_TEXTAREA = 300;
-
-const steps = [
+const STEPS = [
   {
     name: 'Account',
     render: (
@@ -104,7 +103,7 @@ const steps = [
           <InputField name="company" label="Company" />
           <InputField name="github" label="GitHub Link" />
           <InputField name="facebook" label="Facebook Link" />
-          <Select name="mainLang" options={languageSelectOptions} label="Main Language" />
+          <SelectField name="mainLang" options={LANGUAGE_SELECT_OPTIONS} label="Main Language" />
         </div>
 
         <div>
@@ -119,7 +118,7 @@ const steps = [
     render: (
       <>
         <div>
-          <MySelect name="skills" options={multiSelectOptions} label="Skills" isMulti />
+          <MySelect name="skills" options={SKILLS_SELECT_OPTIONS} label="Skills" isMulti />
           <TextArea
             name="additionalInfo"
             label="Additional Info"
@@ -127,7 +126,7 @@ const steps = [
           />
         </div>
         <div>
-          <CheckBoxGroup group={checkBoxGroup} />
+          <CheckBoxGroup group={HOBBIES_CHECKBOX_GROUP} />
         </div>
       </>
     ),
@@ -143,16 +142,16 @@ const StepWizard = () => {
   return (
     <div>
       <Tabs>
-        {steps.map(({ name }, index) => (
+        {STEPS.map(({ name }, index) => (
           <TabPanel key={index} name={name} value={index} active={currentStep === index} />
         ))}
       </Tabs>
       <FormLayout
         initialValues={{ ...initialValues, passwordRepeat: '' }}
-        numberOfSteps={steps.length}
+        numberOfSteps={STEPS.length}
         currentStep={currentStep}
       >
-        {steps.map(({ render }, index) => currentStep === index && render)[currentStep]}
+        {STEPS[currentStep].render}
       </FormLayout>
     </div>
   );

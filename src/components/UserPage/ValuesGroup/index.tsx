@@ -12,7 +12,7 @@ const ValuesGroup: FC<ValuesGroupPropsType> = ({ groupName, values, id }) => {
       <span className={classNames.groupKey}>
         {groupName}
         <Link to={`/edit/${id}`}>
-          <Button appearance={ButtonAppearance.Text}>
+          <Button appearance={ButtonAppearance.text}>
             <img src={editIcon} alt="edit" />
           </Button>
         </Link>
@@ -35,7 +35,7 @@ type ValuesGroupPropsType = {
   groupName: string;
   values: {
     name: string;
-    value: string | string[] | null | undefined;
+    value: string | string[] | null;
   }[];
   id: string | number;
 };

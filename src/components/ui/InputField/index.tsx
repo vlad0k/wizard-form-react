@@ -26,7 +26,7 @@ const InputField = ({ name, label, type = 'text' }: InputFieldPropsType) => {
         </Field>
         {type === 'password' && (
           <Button
-            appearance={ButtonAppearance.Text}
+            appearance={ButtonAppearance.text}
             onClick={() => setInputType((prev) => (prev === 'password' ? 'text' : 'password'))}
             type={'button'}
           >

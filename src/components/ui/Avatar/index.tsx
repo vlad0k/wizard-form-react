@@ -2,8 +2,9 @@ import React from 'react';
 import classNames from './index.module.css';
 import cn from 'classnames';
 import noPhotoIcon from '../../../assets/icons/empty-avatar.svg';
+import { AvatarSize } from '../../../types';
 
-const Avatar = ({ image, size = 'default' }: AvatarProp) => {
+const Avatar = ({ image, size = AvatarSize.default }: AvatarProp) => {
   return (
     <div
       className={cn(classNames.avatar, classNames[size], {
@@ -20,5 +21,5 @@ export default Avatar;
 
 type AvatarProp = {
   image?: string;
-  size?: 'small' | 'default' | 'large';
+  size?: AvatarSize;
 };

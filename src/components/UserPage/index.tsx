@@ -2,13 +2,13 @@ import React, { FC } from 'react';
 import classNames from './index.module.css';
 import Avatar from '../ui/Avatar';
 import ValuesGroup from './ValuesGroup';
-import { UserType } from '../../types';
+import { AvatarSize, UserType } from '../../types';
 
 type TemplateType = {
   key: string;
   value: {
     name: string;
-    value: string | string[] | null | undefined;
+    value: string | string[] | null;
   }[];
 };
 
@@ -38,7 +38,7 @@ const generatePageTemplate = ({
     value: [
       { name: 'First Name', value: firstname },
       { name: 'Last Name', value: lastname },
-      { name: 'Birth Date', value: birthdate && birthdate.toLocaleDateString() },
+      { name: 'Birth Date', value: birthdate ? birthdate.toLocaleDateString() : null },
       { name: 'Email', value: email },
       { name: 'Adress', value: adress },
     ],
@@ -67,9 +67,10 @@ const UserPage: FC<UserPagePropsType> = ({ user }) => {
 
   return (
     <div className={classNames.userPage}>
-      <Avatar image={avatarUrl} size="large" />
+      <Avatar image={avatarUrl} size={AvatarSize.large} />
       <div>
         {generatePageTemplate(user).map(({ key, value }: TemplateType) => (
+          // TODO Rename this component
           <ValuesGroup groupName={key} values={value} id={id} />
         ))}
       </div>

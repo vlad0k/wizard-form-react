@@ -61,7 +61,7 @@ type SelectPropsType = {
   label?: string;
 };
 
-const Select = ({ name, isMulti, options, label }: SelectPropsType) => {
+const SelectField = ({ name, isMulti, options, label }: SelectPropsType) => {
   return (
     <>
       <span className={classNames.label}>{label}</span>
@@ -103,4 +103,4 @@ const Select = ({ name, isMulti, options, label }: SelectPropsType) => {
   );
 };
 
-export default Select;
+export default SelectField;

@@ -1,104 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import classNames from './index.module.css';
 import Button from '../ui/Button';
 import { Link } from 'react-router-dom';
-import db from '../../db/db';
-import Avatar from '../ui/Avatar';
-import EditIcon from '../../assets/icons/Edit.svg';
-import DeleteIcon from '../../assets/icons/Close.svg';
-import { IndexableType } from 'dexie';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { StateType } from '../../redux/store';
-import { deleteUser } from '../../redux/usersListReducer';
-import { ButtonAppearance } from '../../types';
+import Table from './Table';
 
 const UsersList = () => {
   const users = useSelector((state: StateType) => state.users.users);
-  const dispatch = useDispatch();
-  const [isDeteling, setIsDeteling] = useState<IndexableType>('');
 
-  const userDeleteMode = () => {
-    setIsDeteling('');
-    document.removeEventListener('click', userDeleteMode);
-  };
-
-  const deleteUserButtonHandler = (id: number | string) => {
-    setIsDeteling(id);
-    document.addEventListener('click', userDeleteMode);
-  };
-
-  const approveDelete = () => {
-    db.table('users').delete(isDeteling);
-    dispatch(deleteUser());
-    document.removeEventListener('click', userDeleteMode);
-  };
-
-  // if (users.length === 0) getUsers();
   return (
     <div>
-      <table className={classNames.table} cellSpacing={0}>
-        <tr>
-          <th colSpan={2} />
-          <th>name</th>
-          <th>company</th>
-          <th>contacts</th>
-          <th>last update</th>
-          <th colSpan={2} />
-        </tr>
-        {users.map(
-          ({ id, username, firstname, lastname, company, email, avatar }: any, i: number) => {
-            const avatarSrc = avatar ? URL.createObjectURL(avatar) : undefined;
-            return (
-              <tr key={id} className={isDeteling === id ? classNames.isDeleting : ''}>
-                <td>{id}</td>
-                <td>
-                  <Avatar size="small" image={avatarSrc} />
-                </td>
-                <td>
-                  <div>
-                    <Link to={`/users/${id}`}>
-                      {firstname} {lastname}
-                    </Link>
-                  </div>
-                  <span>{username}</span>
-                </td>
-                <td>{company}</td>
-                <td>{email}</td>
-                <td>3 month ago</td>
-                {isDeteling !== id && (
-                  <>
-                    <td>
-                      <Link to={`/edit/${id}`}>
-                        <Button appearance={ButtonAppearance.Text}>
-                          <img src={EditIcon} alt={`edit ${username}`} />
-                        </Button>
-                      </Link>
-                    </td>
-                    <td>
-                      <Button
-                        appearance={ButtonAppearance.Text}
-                        onClick={() => deleteUserButtonHandler(id)}
-                      >
-                        <img src={DeleteIcon} alt={`delete ${username}`} />
-                      </Button>
-                    </td>
-                  </>
-                )}
-                {isDeteling === id && (
-                  <>
-                    <td colSpan={2} />
-                    <div className={classNames.deleteButton}>
-                      <Button appearance={ButtonAppearance.Delete} onClick={approveDelete}>
-                        × delete
-                      </Button>
-                    </div>
-                  </>
-                )}
-              </tr>
-            );
-          },
-        )}
-      </table>
+      <Table users={users} stripped />
       {users.length === 0 && (
         <div className={classNames.empty}>
           <span>No users here :(</span>

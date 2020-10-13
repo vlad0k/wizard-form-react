@@ -5,7 +5,7 @@ import InputField from '../../ui/InputField';
 import Button from '../../ui/Button';
 import { useDispatch } from 'react-redux';
 import { goBack, step3FormSubmit } from '../../../redux/addFormReducer';
-import Select, { OptionType } from '../../ui/Select';
+import Select, { OptionType } from '../../ui/SelectField';
 import PhoneInputs from './PhoneInputs';
 import * as Yup from 'yup';
 import { ButtonAppearance } from '../../../types';
@@ -68,7 +68,7 @@ const Step3Form: FC<Step3FormPropsType> = ({ initialValues }) => {
           <div className={classNames.buttons}>
             <Button
               type="button"
-              appearance={ButtonAppearance.Secondary}
+              appearance={ButtonAppearance.secondary}
               onClick={backButtonClickHandler}
             >
               Back

@@ -1,15 +1,14 @@
 import React, { FC, ReactNode } from 'react';
 import classNames from './index.module.css';
-import { Form, Formik, FormikBag, FormikErrors, FormikHelpers, FormikValues } from 'formik';
+import { Form, Formik, FormikErrors, FormikHelpers, FormikValues } from 'formik';
 import Button from '../../ui/Button';
 import { ButtonAppearance, UserType } from '../../../types';
-import { clearForm, goBack, moveForward, step4FormSubmit } from '../../../redux/addFormReducer';
+import { clearForm, goBack, moveForward } from '../../../redux/addFormReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
-import moment from 'moment';
 import { StateType } from '../../../redux/store';
 import db from '../../../db/db';
-import LocationPicker from '../../ui/LocationPicker';
+import dateYearSubtstract from '../../../utils/dateYearSubstract';
 
 const FormLayout: FC<FormLayoutPropsType> = ({
   children,
@@ -31,21 +30,21 @@ const FormLayout: FC<FormLayoutPropsType> = ({
       ),
     password: Yup.string().required('required field'),
     passwordRepeat: Yup.string()
-      .oneOf([Yup.ref('password'), ''], 'passwords must match')
+      .oneOf([Yup.ref('password'), ''], "passwords don't match")
       .required('required field'),
     firstname: Yup.string().required('required field'),
     lastname: Yup.string().required('required field'),
     email: Yup.string().required('required field').email('incorrect email format'),
     birthdate: Yup.date()
       .required('required field')
-      .max(moment().subtract(18, 'years').toDate(), 'You should be 18 years old'),
-    gender: Yup.string().required('please, choose your gender'),
+      .max(dateYearSubtstract(18), 'You should be 18 years old'),
+    gender: Yup.string().nullable().required('please, choose your gender'),
     phoneNumbers: Yup.array().of(Yup.string().required('required field')),
     company: Yup.string().required('required field'),
     mainLang: Yup.string().required('required field'),
     skills: Yup.array()
       .of(Yup.string().required('required field'))
-      .min(3, 'you should have al least 3 skills'),
+      .min(3, ({ min }) => `you should have al least ${min} skills`),
   });
 
   const backButtonClickHandler = () => dispatch(goBack());
@@ -75,11 +74,11 @@ const FormLayout: FC<FormLayoutPropsType> = ({
                     Forward
                   </Button>
                 ) : (
-                  <Button appearance={ButtonAppearance.Finish}>Finish</Button>
+                  <Button appearance={ButtonAppearance.finish}>Finish</Button>
                 )}
                 {currentStep !== 0 && (
                   <Button
-                    appearance={ButtonAppearance.Secondary}
+                    appearance={ButtonAppearance.secondary}
                     type="button"
                     onClick={backButtonClickHandler}
                   >

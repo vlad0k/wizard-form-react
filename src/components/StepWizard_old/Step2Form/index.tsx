@@ -17,8 +17,8 @@ interface Values {
   lastname: string;
   email: string;
   adress: string;
-  gender: 'male' | 'female' | undefined | null;
-  birthdate: Date | undefined;
+  gender: 'male' | 'female' | null;
+  birthdate: Date | null;
 }
 
 const validateScema = Yup.object({
@@ -67,7 +67,7 @@ const Step2Form: FC<Step2FormProps> = ({ initialValues }) => {
           <FieldError name={'gender'} />
           <div className={classNames.buttons}>
             <Button
-              appearance={ButtonAppearance.Secondary}
+              appearance={ButtonAppearance.secondary}
               type="button"
               onClick={backButtonClickHandler}
             >

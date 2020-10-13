@@ -11,21 +11,18 @@ type DatePickerProps = {
 };
 
 const DatePicker = ({ name }: DatePickerProps) => {
-  const [date, setDate] = useState<Date>();
   return (
     <>
       <Field name={name}>
-        {({ field, form, meta }: FieldProps) => {
-          setDate(field.value);
+        {({ field: { value }, form: { setFieldValue } }: FieldProps) => {
           const calendarChangeHandler = (date: Date) => {
-            setDate(date);
-            form.setFieldValue(field.name, date);
+            setFieldValue(name, date);
           };
           return (
             <>
               <span className={classNames.label}>Birth Date</span>
               <Calendar
-                selected={date}
+                selected={value}
                 onChange={calendarChangeHandler}
                 dateFormat="dd/MM/yy"
                 className={classNames.datePicker}

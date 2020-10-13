@@ -1,7 +1,6 @@
 .datePicker {
   width: 192px;
   height: 40px;
-
   background: #ffffff;
   border: 1px solid var(--secondary-color);
   box-sizing: border-box;
@@ -15,7 +14,6 @@
   font-weight: normal;
   font-size: 14px;
   line-height: 16px;
-
   color: var(--form-label-color);
   padding-bottom: 4px;
 }

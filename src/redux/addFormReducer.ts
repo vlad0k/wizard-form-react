@@ -97,7 +97,7 @@ const initialState = {
 
   skills: [''],
   additionalInfo: '',
-  hobbies: [''],
+  hobbies: [] as string[],
 };
 
 const addFormReducer = (state = initialState, action: AddFormActionsType) => {

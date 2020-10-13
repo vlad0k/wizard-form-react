@@ -10,7 +10,7 @@ import { StateType } from '../../../redux/store';
 import db from '../../../db/db';
 import * as Yup from 'yup';
 import { importUsers } from '../../../redux/usersListReducer';
-import CheckBoxGroup from '../../ui/CheckBoxGroup';
+// import CheckBoxGroup from '../../ui/CheckBoxGroup';
 import { ButtonAppearance, UserType } from '../../../types';
 import cn from 'classnames/dedupe';
 

@@ -5,7 +5,7 @@ import InputField from '../../ui/InputField';
 import Button from '../../ui/Button';
 import { useDispatch } from 'react-redux';
 import { goBack, step3FormSubmit } from '../../../redux/addFormReducer';
-import Select, { OptionType } from '../../ui/SelectField';
+// import Select, { OptionType } from '../../ui/SelectField';
 import PhoneInputs from './PhoneInputs';
 import * as Yup from 'yup';
 import { ButtonAppearance } from '../../../types';
@@ -28,11 +28,11 @@ const initialValues: Values = {
   phoneNumbers: [''],
 };
 
-const options: OptionType[] = [
-  { value: 'en', label: 'English' },
-  { value: 'ru', label: 'Russian' },
-  { value: 'ua', label: 'Ukrainian' },
-];
+// const options: OptionType[] = [
+//   { value: 'en', label: 'English' },
+//   { value: 'ru', label: 'Russian' },
+//   { value: 'ua', label: 'Ukrainian' },
+// ];
 
 const validateScema = Yup.object({
   phoneNumbers: Yup.array().of(Yup.string().required('required field')),
@@ -58,7 +58,7 @@ const Step3Form: FC<Step3FormPropsType> = ({ initialValues }) => {
           <InputField name="company" label="Company" />
           <InputField name="github" label="GitHub Link" />
           <InputField name="facebook" label="Facebook Link" />
-          <Select name="mainLang" options={options} label="Main Language" />
+          {/*<Select name="mainLang" options={options} label="Main Language" />*/}
         </div>
 
         <div className={classNames.column}>

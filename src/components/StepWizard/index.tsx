@@ -10,18 +10,18 @@ import DatePicker from '../ui/DatePicker';
 import { FieldArray } from 'formik';
 import FieldError from '../ui/FieldError';
 import RadioGroup from '../ui/RadioGroup';
-import SelectField, { OptionType } from '../ui/SelectField';
+import SelectField  from '../ui/SelectField';
 import PhoneInputs from './PhoneInputs';
 import MySelect from '../ui/SelectField';
 import TextArea from '../ui/TextArea';
-import CheckBoxGroup from '../ui/CheckBoxGroup';
 import { SkillOptionType } from '../../types';
 import LocationPicker from '../ui/LocationPicker';
 import Checkbox from '../ui/CheckBox';
+import {OptionsType, OptionTypeBase} from "react-select";
 
 const MAX_LENGTH_OF_TEXTAREA = 300;
 
-const LANGUAGE_SELECT_OPTIONS: OptionType[] = [
+const LANGUAGE_SELECT_OPTIONS: OptionsType<OptionTypeBase> = [
   { value: 'en', label: 'English' },
   { value: 'ru', label: 'Russian' },
   { value: 'ua', label: 'Ukrainian' },
@@ -49,11 +49,11 @@ const SKILLS_SELECT_OPTIONS: SkillOptionType[] = [
 ];
 
 const HOBBIES_CHECKBOX_GROUP = [
-  { name: 'sport', label: 'Sport, fitness, aerobica and staff like that' },
-  { name: 'gaming', label: 'I just want to play games, I’m not living in this life' },
-  { name: 'nothing', label: 'I’m a female... I’m doing nothing. Every day.' },
-  { name: 'guitar', label: 'Guitar, guitar and guitar again. I’m fall in love with it.' },
-  { name: 'nohobbie', label: 'WTF is “hobbies”???' },
+  { value: 'sport', label: 'Sport, fitness, aerobica and staff like that' },
+  { value: 'gaming', label: 'I just want to play games, I’m not living in this life' },
+  { value: 'nothing', label: 'I’m a female... I’m doing nothing. Every day.' },
+  { value: 'guitar', label: 'Guitar, guitar and guitar again. I’m fall in love with it.' },
+  { value: 'nohobbie', label: 'WTF is “hobbies”???' },
 ];
 
 const STEPS = [
@@ -126,11 +126,12 @@ const STEPS = [
             maxlength={MAX_LENGTH_OF_TEXTAREA}
           />
         </div>
-        <div>
-          {/*<CheckBoxGroup name="hobbies" checkboxes={HOBBIES_CHECKBOX_GROUP} />*/}
-          {HOBBIES_CHECKBOX_GROUP.map(({ name, label }) => {
-            // return <Checkbox type="checkbox" name={name}></Checkbox>;
-          })}
+        <div role="group">
+          <span>Hobbies:</span>
+          {HOBBIES_CHECKBOX_GROUP.map(({ value, label }) => (
+            <Checkbox name="hobbies" value={value} label={label} />
+          ))}
+          <FieldError name={'hobbies'} />
         </div>
       </>
     ),

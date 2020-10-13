@@ -7,7 +7,7 @@ const UserEditPage = () => {
   const { id } = useParams<UrlParamTypes>();
 
   return (
-    <PageLayout name={`Edit User`} backLink={`/users/${id}`} backLabel={'User Profile'}>
+    <PageLayout name="Edit User" backLink={`/users/${id}`} backLabel="User Profile">
       <StepWizard mode={'edit'} />
     </PageLayout>
   );

@@ -1,47 +1,27 @@
-import React from 'react';
+import React, { FC } from 'react';
 import classNames from './index.module.css';
 import { Field, FieldProps } from 'formik';
 
 type CheckboxPropsType = {
   name: string;
   label: string;
+  value: string;
 };
 
-const Checkbox = ({ name, label }: CheckboxPropsType) => {
+const Checkbox: FC<CheckboxPropsType> = ({ name, label, value }) => {
   //  TODO create ui checkbox
   return (
-    <label className={classNames.wrapper} htmlFor={name}>
-      <Field name={name}>
-        {({
-          field,
-          form: {
-            values: { hobbies },
-            setFieldValue,
-          },
-        }: FieldProps) => {
-          const changeHandler = () => {
-            hobbies.includes(field.name)
-              ? setFieldValue(
-                  'hobbies',
-                  hobbies.filter((el: string) => el !== name),
-                )
-              : setFieldValue('hobbies', [...hobbies, name]);
-          };
-
+    <label className={classNames.wrapper} htmlFor={value}>
+      <Field name={name} value={value} type="checkbox">
+        {({ field }: FieldProps) => {
           return (
             <>
-              <input
-                id={name}
-                type="checkbox"
-                checked={hobbies.includes(field.name)}
-                onChange={changeHandler}
-              />
+              <input {...field} id={value} type="checkbox" />
               <div className={classNames.checkbox} />
             </>
           );
         }}
       </Field>
-
       <span>{label}</span>
     </label>
   );

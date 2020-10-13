@@ -1,8 +1,9 @@
 import React from 'react';
 import classNames from './index.module.css';
-import ReactSelect, { ValueType } from 'react-select';
+import ReactSelect, { ValueType, OptionsType, OptionTypeBase } from 'react-select';
 import { Field, FieldProps } from 'formik';
 import FieldError from '../FieldError';
+
 
 const customStyles = {
   option: (provided: any, state: any) => ({
@@ -49,15 +50,15 @@ const customStyles = {
   }),
 };
 
-export type OptionType = {
-  value: string;
-  label: string;
-};
+// export type OptionType = {
+//   value: string;
+//   label: string;
+// };
 
 type SelectPropsType = {
   name: string;
   isMulti?: boolean;
-  options: OptionType[];
+  options: OptionsType<OptionTypeBase>;
   label?: string;
 };
 
@@ -67,28 +68,17 @@ const SelectField = ({ name, isMulti, options, label }: SelectPropsType) => {
       <span className={classNames.label}>{label}</span>
       <Field name={name}>
         {({ field: { name, value }, form: { setFieldValue } }: FieldProps) => {
-          let selectValue: OptionType | OptionType[];
-          if (!Array.isArray(value)) {
-            selectValue = options.filter((option) => value === option.value)[0];
-          } else {
-            selectValue = options.filter((option) => value.includes(option.value));
-          }
+          const selectedValue = options.find((option) => value.includes(option.value));
 
-          const selectChangeHandler = (selected: ValueType<OptionType>) => {
-            if (selected && 'value' in selected) {
-              setFieldValue(name, selected.value);
-            } else if (Array.isArray(selected)) {
-              setFieldValue(
-                name,
-                selected.map((s: OptionType) => s.value),
-              );
-            }
+          const selectChangeHandler = (selected: ValueType<OptionTypeBase>) => {
+
+            setFieldValue(name, value);
           };
 
           return (
             <ReactSelect
               options={options}
-              value={selectValue}
+              value={selectedValue}
               onChange={selectChangeHandler}
               styles={customStyles}
               isMulti={isMulti}

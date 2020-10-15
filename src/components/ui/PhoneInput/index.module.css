@@ -19,3 +19,10 @@
 .wrapper {
   padding-bottom: 20px;
 }
+
+.label {
+  font-size: 14px;
+  line-height: 16px;
+  color: var(--form-label-color);
+  padding-bottom: 8px;
+}

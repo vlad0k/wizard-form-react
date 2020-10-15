@@ -8,6 +8,7 @@ import SelectField from '../../ui/SelectField';
 import { FieldArray } from 'formik';
 import PhoneInputs from '../PhoneInputs';
 import { OptionsType, OptionTypeBase } from 'react-select';
+import PhoneInput from '../../ui/PhoneInput';
 
 const LANGUAGE_SELECT_OPTIONS: OptionsType<OptionTypeBase> = [
   { value: 'en', label: 'English' },
@@ -28,7 +29,7 @@ const ContactsForm = () => {
   );
 
   const validationSchema = Yup.object({
-    phoneNumbers: Yup.array().of(Yup.string().required('required field')),
+    phoneNumbers: Yup.array().of(Yup.string()),
     company: Yup.string().required('required field'),
     mainLang: Yup.object().required('required field').nullable(),
   });
@@ -43,7 +44,7 @@ const ContactsForm = () => {
       </div>
 
       <div>
-        <InputField name="fax" label="Fax" />
+        <PhoneInput name="fax" label="Fax" />
         <FieldArray name="phoneNumbers">{PhoneInputs}</FieldArray>
       </div>
     </FormLayout>

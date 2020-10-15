@@ -28,6 +28,7 @@ export type UserType = {
   phoneNumbers: string[];
   skills: OptionTypeBase[];
   username: string;
+  lastUpdated: Date;
 };
 
 export type RadioOptionType = {

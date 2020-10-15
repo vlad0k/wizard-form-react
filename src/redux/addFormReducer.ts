@@ -48,7 +48,7 @@ const initialState = {
   fax: '',
   phoneNumbers: [''],
 
-  skills: null as ValueType<OptionTypeBase>,
+  skills: [] as ValueType<OptionTypeBase>,
   additionalInfo: '',
   hobbies: [] as string[],
 };

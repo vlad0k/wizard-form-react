@@ -25,13 +25,13 @@ const AvatarPicker = ({ name }: AvatarPickerProps) => {
         return (
           <label
             htmlFor={name}
-            className={cn(classNames.upload, { [classNames.pressed]: isPressed })}
+            className={classNames.upload}
             onMouseDown={mouseDownHandler}
             onMouseUp={mouseUpHandler}
           >
             <div className={classNames.addUserPhoto}>
               <Avatar image={value && URL.createObjectURL(value)} />
-              <div className={classNames.label}>
+              <div className={cn(classNames.label, { [classNames.pressed]: isPressed })}>
                 <img src={addIcon} alt="add avatar" />
                 add avatar
               </div>

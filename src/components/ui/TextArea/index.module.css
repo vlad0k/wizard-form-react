@@ -1,13 +1,16 @@
 .textarea {
   display: block;
-
+  resize: none;
   width: 100%;
   height: 130px;
-
   background: #ffffff;
   border: 1px solid #c1cfe0;
   box-sizing: border-box;
   padding: 8px;
+  font-family: Roboto;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
 }
 
 .InputField {

@@ -6,8 +6,8 @@ import { ButtonAppearance } from '../../../types';
 import { clearForm, goBack, submitForm } from '../../../redux/addFormReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { StateType } from '../../../redux/store';
-import db from '../../../db/db';
 import { ObjectSchema } from 'yup';
+import { addUser } from '../../../redux/usersListReducer';
 
 const FormLayout: FC<FormLayoutPropsType> = ({ children, initialValues, validationSchema }) => {
   const dispatch = useDispatch();
@@ -20,9 +20,10 @@ const FormLayout: FC<FormLayoutPropsType> = ({ children, initialValues, validati
 
   const backButtonClickHandler = () => dispatch(goBack());
   const formSubmitHandler = (values: FormikValues, formikHelpers: FormikHelpers<FormikValues>) => {
+    formikHelpers.resetForm();
     dispatch(submitForm(values));
     if (currentStep === 3) {
-      db.table('users').add({ ...formValues, ...values });
+      dispatch(addUser({ ...formValues, ...values, lastUpdated: new Date() }));
       dispatch(clearForm());
     }
   };

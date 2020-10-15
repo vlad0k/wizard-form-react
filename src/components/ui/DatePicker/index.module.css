@@ -17,3 +17,7 @@
   color: var(--form-label-color);
   padding-bottom: 4px;
 }
+
+.errorBorder {
+  border: 1px solid red;
+}

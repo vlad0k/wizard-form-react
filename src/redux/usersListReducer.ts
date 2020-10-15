@@ -79,3 +79,12 @@ export const deleteUser = (id: IndexableType) => (dispatch: Dispatch) => {
       dispatch(importUsersActionCreator(users));
     });
 };
+
+export const addUser = (user: UserType) => (dispatch: Dispatch) => {
+  db.table('users')
+    .add(user)
+    .then(async () => {
+      const users = await db.table('users').toArray();
+      dispatch(importUsersActionCreator(users));
+    });
+};

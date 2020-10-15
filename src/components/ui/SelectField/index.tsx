@@ -82,7 +82,9 @@ const SelectField = ({ name, isMulti, options, label }: SelectPropsType) => {
           );
         }}
       </Field>
-      <FieldError name={name} />
+      <div className={classNames.error}>
+        <FieldError name={name} />
+      </div>
     </>
   );
 };

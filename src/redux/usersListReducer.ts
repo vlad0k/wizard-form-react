@@ -1,4 +1,7 @@
-import { UserType } from '../types';
+import { UsersFetchStatus, UserType } from '../types';
+import db from '../db/db';
+import { IndexableType } from 'dexie';
+import { Dispatch } from 'redux';
 
 const IMPORT_USERS = 'users/IMPORT_USERS';
 const DELETE_USER = 'users/DELETE_USER';
@@ -11,7 +14,7 @@ interface ImportUsersAction {
 
 interface IsFetchingAction {
   type: typeof IS_FETCHING;
-  isFetching: boolean;
+  usersFetchStatus: UsersFetchStatus;
 }
 
 interface DeleteUserAction {
@@ -22,7 +25,7 @@ type ActionType = ImportUsersAction | DeleteUserAction | IsFetchingAction;
 
 const initialState = {
   users: [] as UserType[],
-  isFetching: false,
+  usersFetchStatus: UsersFetchStatus.unfetched as UsersFetchStatus,
 };
 
 const usersReducer = (state = initialState, action: ActionType) => {
@@ -31,14 +34,14 @@ const usersReducer = (state = initialState, action: ActionType) => {
       return {
         ...state,
         users: action.users,
-        isFetching: false,
+        usersFetchStatus: UsersFetchStatus.fetched,
       };
     }
 
     case IS_FETCHING: {
       return {
         ...state,
-        isFetching: action.isFetching,
+        usersFetchStatus: action.usersFetchStatus,
       };
     }
     default: {
@@ -49,14 +52,30 @@ const usersReducer = (state = initialState, action: ActionType) => {
 
 export default usersReducer;
 
-export const importUsers = (users: UserType[]): ImportUsersAction => ({
+export const importUsersActionCreator = (users: UserType[]): ImportUsersAction => ({
   type: IMPORT_USERS,
   users,
 });
 
-export const deleteUser = (): DeleteUserAction => ({ type: DELETE_USER });
+export const deleteUserActionCreator = (): DeleteUserAction => ({ type: DELETE_USER });
 
-export const isFetching = (isFetching: boolean): IsFetchingAction => ({
+export const usersFetchStatus = (usersFetchStatus: UsersFetchStatus): IsFetchingAction => ({
   type: IS_FETCHING,
-  isFetching,
+  usersFetchStatus,
 });
+
+export const importUsers = () => async (dispatch: Dispatch) => {
+  dispatch(usersFetchStatus(UsersFetchStatus.isFetching));
+  const users: UserType[] = await db.table('users').toArray();
+  dispatch(importUsersActionCreator(users));
+  return users;
+};
+
+export const deleteUser = (id: IndexableType) => (dispatch: Dispatch) => {
+  db.table('users')
+    .delete(id)
+    .then(async () => {
+      const users = await db.table('users').toArray();
+      dispatch(importUsersActionCreator(users));
+    });
+};

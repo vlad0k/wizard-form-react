@@ -32,16 +32,15 @@ const LocationPicker: FC<LocationPickerTypeProps> = ({ name, label }) => {
                 {suggestions.length !== 0 && (
                   <div className={classNames.dropdown}>
                     {suggestions.map((suggestion, index) => {
-                      const { active, description, id } = suggestion;
-                      const className = cn(classNames.suggestion, {
-                        [classNames.active]: active,
-                      });
+                      const { active, description, placeId } = suggestion;
+                      console.log(getSuggestionItemProps(suggestion));
                       return (
                         <div
-                          key={id}
-                          {...getSuggestionItemProps(suggestion, {
-                            className,
+                          {...getSuggestionItemProps(suggestion)}
+                          className={cn(classNames.suggestion, {
+                            [classNames.active]: active,
                           })}
+                          key={placeId}
                         >
                           <span>{description}</span>
                         </div>

@@ -8,7 +8,6 @@ import EditIcon from '../../../assets/icons/Edit.svg';
 import DeleteIcon from '../../../assets/icons/Close.svg';
 import { useDispatch } from 'react-redux';
 import { IndexableType } from 'dexie';
-import db from '../../../db/db';
 import { deleteUser } from '../../../redux/usersListReducer';
 import cn from 'classnames';
 
@@ -27,9 +26,8 @@ const Table: FC<TablePropsType> = ({ users, stripped = false }) => {
     document.addEventListener('click', userDeleteMode);
   };
 
-  const approveDeleteButtonHandler = () => {
-    db.table('users').delete(isDeteling);
-    dispatch(deleteUser());
+  const approveDeleteButtonHandler = (id: IndexableType) => {
+    dispatch(deleteUser(id));
     document.removeEventListener('click', userDeleteMode);
   };
 
@@ -93,7 +91,7 @@ const Table: FC<TablePropsType> = ({ users, stripped = false }) => {
                   <div className={classNames.deleteButton}>
                     <Button
                       appearance={ButtonAppearance.delete}
-                      onClick={approveDeleteButtonHandler}
+                      onClick={() => approveDeleteButtonHandler(id)}
                     >
                       × delete
                     </Button>

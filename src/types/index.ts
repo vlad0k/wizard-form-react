@@ -45,3 +45,9 @@ export enum AvatarSize {
   default = 'default',
   large = 'large',
 }
+
+export enum UsersFetchStatus {
+  unfetched,
+  isFetching,
+  fetched,
+}

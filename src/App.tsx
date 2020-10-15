@@ -10,13 +10,8 @@ import AddUserPage from './pages/AddUserPage';
 import ListOfUsersPage from './pages/ListOfUsersPage';
 import UserInfoPage from './pages/UserInfoPage';
 import UserEditPage from './pages/UserEditPage';
-import { useDispatch } from 'react-redux';
-import { getUsersFromDb } from './db/db';
 
 function App() {
-  const dispatch = useDispatch();
-  getUsersFromDb(dispatch);
-
   return (
     <div className="App">
       <Router>

@@ -1,17 +1,14 @@
-.twoColumns {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+.columns {
+  display: flex;
+  align-items: flex-start;
   justify-content: space-around;
-  align-items: start;
-  justify-items: center;
-  grid-gap: 170px;
 }
 
 .form {
-  padding: 65px 100px;
+  padding-top: 65px;
   position: relative;
-  width: 770px;
-  height: 412px;
+  width: 970px;
+  height: 476px;
   background: var(--background-color);
 }
 

@@ -70,11 +70,5 @@
   },
   "lint-staged": {
     "*.{js,css,md}": "prettier --write"
-  },
-  "importSort": {
-    ".js, .jsx, .ts, .tsx": {
-      "style": "module",
-      "parser": "typescript"
-    }
   }
 }

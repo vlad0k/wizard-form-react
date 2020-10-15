@@ -25,7 +25,7 @@ const PhoneInputs = (props: FieldArrayRenderProps) => {
           <label className={classNames.label}>Phone {index + 1}</label>
           <div className={classNames.phones} key={index}>
             <PhoneInput name={`phoneNumbers[${index}]`} />
-            {index > 0 && (
+
               <Button
                 appearance={ButtonAppearance.text}
                 type={'button'}
@@ -33,7 +33,7 @@ const PhoneInputs = (props: FieldArrayRenderProps) => {
               >
                 <img src={minusIcon} alt="remove phone number input" />
               </Button>
-            )}
+
           </div>
         </div>
       ))}

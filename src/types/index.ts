@@ -1,3 +1,5 @@
+import { OptionTypeBase } from 'react-select';
+
 export enum ButtonAppearance {
   primary = 'primary',
   secondary = 'secondary',
@@ -21,10 +23,10 @@ export type UserType = {
   hobbies: string[];
   id: number | string;
   lastname: string;
-  mainLang: string;
+  mainLang: OptionTypeBase;
   password: string;
   phoneNumbers: string[];
-  skills: string[];
+  skills: OptionTypeBase[];
   username: string;
 };
 

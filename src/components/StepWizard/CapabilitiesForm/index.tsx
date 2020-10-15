@@ -2,10 +2,8 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { StateType } from '../../../redux/store';
 import * as Yup from 'yup';
-import { SkillOptionType, UserType } from '../../../types';
+import { SkillOptionType } from '../../../types';
 import FormLayout from '../FormLayout';
-import AvatarPicker from '../../ui/AvatarPicker';
-import InputField from '../../ui/InputField';
 import MySelect from '../../ui/SelectField';
 import TextArea from '../../ui/TextArea';
 import Checkbox from '../../ui/CheckBox';
@@ -43,31 +41,37 @@ const HOBBIES_CHECKBOX_GROUP = [
 ];
 
 const CapabilitiesForm = () => {
-  const initialValues = useSelector(({addForm: {skills, additionalInfo, hobbies}}: StateType )=> ({skills, additionalInfo, hobbies}))
+  const initialValues = useSelector(
+    ({ addForm: { skills, additionalInfo, hobbies } }: StateType) => ({
+      skills,
+      additionalInfo,
+      hobbies,
+    }),
+  );
 
   const validationSchema = Yup.object({
     skills: Yup.array()
-        .of(Yup.string().required('required field'))
-        .min(3, ({ min }) => `you should have al least ${min} skills`),
-  } )
+      .of(Yup.string().required('required field'))
+      .min(3, ({ min }) => `you should have al least ${min} skills`),
+  });
 
   return (
     <FormLayout initialValues={initialValues} validationSchema={validationSchema}>
-        <div>
-          <MySelect name="skills" options={SKILLS_SELECT_OPTIONS} label="Skills" isMulti />
-          <TextArea
-            name="additionalInfo"
-            label="Additional Info"
-            maxlength={MAX_LENGTH_OF_TEXTAREA}
-          />
-        </div>
-        <div role="group">
-          <span>Hobbies:</span>
-          {HOBBIES_CHECKBOX_GROUP.map(({ value, label }) => (
-            <Checkbox key={value} name="hobbies" value={value} label={label} />
-          ))}
-          <FieldError name={'hobbies'} />
-        </div>
+      <div>
+        <MySelect name="skills" options={SKILLS_SELECT_OPTIONS} label="Skills" isMulti />
+        <TextArea
+          name="additionalInfo"
+          label="Additional Info"
+          maxlength={MAX_LENGTH_OF_TEXTAREA}
+        />
+      </div>
+      <div role="group">
+        <span>Hobbies:</span>
+        {HOBBIES_CHECKBOX_GROUP.map(({ value, label }) => (
+          <Checkbox key={value} name="hobbies" value={value} label={label} />
+        ))}
+        <FieldError name={'hobbies'} />
+      </div>
     </FormLayout>
   );
 };

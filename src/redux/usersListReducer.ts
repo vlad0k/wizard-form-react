@@ -2,22 +2,27 @@ import { UserType } from '../types';
 
 const IMPORT_USERS = 'users/IMPORT_USERS';
 const DELETE_USER = 'users/DELETE_USER';
+const IS_FETCHING = 'users/IS_FETCHING';
 
 interface ImportUsersAction {
   type: typeof IMPORT_USERS;
   users: UserType[];
 }
 
+interface IsFetchingAction {
+  type: typeof IS_FETCHING;
+  isFetching: boolean;
+}
+
 interface DeleteUserAction {
   type: typeof DELETE_USER;
 }
 
-type ActionType = ImportUsersAction | DeleteUserAction;
+type ActionType = ImportUsersAction | DeleteUserAction | IsFetchingAction;
 
-const initialState: {
-  users: UserType[];
-} = {
-  users: [],
+const initialState = {
+  users: [] as UserType[],
+  isFetching: false,
 };
 
 const usersReducer = (state = initialState, action: ActionType) => {
@@ -26,6 +31,14 @@ const usersReducer = (state = initialState, action: ActionType) => {
       return {
         ...state,
         users: action.users,
+        isFetching: false,
+      };
+    }
+
+    case IS_FETCHING: {
+      return {
+        ...state,
+        isFetching: action.isFetching,
       };
     }
     default: {
@@ -42,3 +55,8 @@ export const importUsers = (users: UserType[]): ImportUsersAction => ({
 });
 
 export const deleteUser = (): DeleteUserAction => ({ type: DELETE_USER });
+
+export const isFetching = (isFetching: boolean): IsFetchingAction => ({
+  type: IS_FETCHING,
+  isFetching,
+});

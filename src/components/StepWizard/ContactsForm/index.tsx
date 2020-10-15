@@ -15,15 +15,23 @@ const LANGUAGE_SELECT_OPTIONS: OptionsType<OptionTypeBase> = [
   { value: 'ua', label: 'Ukrainian' },
 ];
 
-
 const ContactsForm = () => {
-  const initialValues = useSelector(({addForm: {company, github, facebook, mainLang, fax, phoneNumbers}}: StateType )=> ({company, github, facebook, mainLang, fax, phoneNumbers}))
+  const initialValues = useSelector(
+    ({ addForm: { company, github, facebook, mainLang, fax, phoneNumbers } }: StateType) => ({
+      company,
+      github,
+      facebook,
+      mainLang,
+      fax,
+      phoneNumbers,
+    }),
+  );
 
   const validationSchema = Yup.object({
     phoneNumbers: Yup.array().of(Yup.string().required('required field')),
-      company: Yup.string().required('required field'),
-      mainLang: Yup.string().required('required field'),
-  })
+    company: Yup.string().required('required field'),
+    mainLang: Yup.object().required('required field').nullable(),
+  });
 
   return (
     <FormLayout initialValues={initialValues} validationSchema={validationSchema}>

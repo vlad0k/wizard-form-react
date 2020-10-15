@@ -19,8 +19,6 @@ let store: Store = createStore(
   composeWithDevTools(applyMiddleware(dbMiddleware)),
 );
 
-getUsersFromDb(store.dispatch);
-
 const rootState = store.getState();
 export type StateType = typeof rootState;
 export default store;

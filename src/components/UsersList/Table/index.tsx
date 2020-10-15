@@ -86,16 +86,17 @@ const Table: FC<TablePropsType> = ({ users, stripped = false }) => {
               )}
               {isDeteling === id && (
                 <>
-                  <td colSpan={2} />
-                  {/*TODO remove div from tr*/}
-                  <div className={classNames.deleteButton}>
-                    <Button
-                      appearance={ButtonAppearance.delete}
-                      onClick={() => approveDeleteButtonHandler(id)}
-                    >
-                      × delete
-                    </Button>
-                  </div>
+                  <td />
+                  <td>
+                    <div className={classNames.deleteButton}>
+                      <Button
+                        appearance={ButtonAppearance.delete}
+                        onClick={() => approveDeleteButtonHandler(id)}
+                      >
+                        × delete
+                      </Button>
+                    </div>
+                  </td>
                 </>
               )}
             </tr>

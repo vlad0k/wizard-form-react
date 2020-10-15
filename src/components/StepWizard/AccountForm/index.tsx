@@ -35,7 +35,7 @@ const AccountForm: FC<AccountFormPropsType> = () => {
       .test(
         'users fetched',
         'users are not fetched',
-        () => usersFetchStatus === UsersFetchStatus.unfetched,
+        () => usersFetchStatus !== UsersFetchStatus.unfetched,
       ),
     password: Yup.string().required('required field'),
     passwordRepeat: Yup.string()

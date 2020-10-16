@@ -32,9 +32,6 @@ const customStyles = {
   indicatorsContainer: () => ({
     display: 'none',
   }),
-  container: () => ({
-    paddingBottom: 24,
-  }),
   multiValue: () => ({
     backgroundColor: 'var(--select-color)',
     fontSize: 12,
@@ -63,7 +60,7 @@ type SelectPropsType = {
 
 const SelectField = ({ name, isMulti, options, label }: SelectPropsType) => {
   return (
-    <>
+    <div className={classNames.wrapper}>
       <span className={classNames.label}>{label}</span>
       <Field name={name}>
         {({ field: { name, value }, form: { setFieldValue } }: FieldProps) => {
@@ -82,10 +79,8 @@ const SelectField = ({ name, isMulti, options, label }: SelectPropsType) => {
           );
         }}
       </Field>
-      <div className={classNames.error}>
-        <FieldError name={name} />
-      </div>
-    </>
+      <FieldError name={name} />
+    </div>
   );
 };
 

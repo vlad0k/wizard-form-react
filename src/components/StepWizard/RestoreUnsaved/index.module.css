@@ -1,0 +1,22 @@
+.wrapper {
+  display: flex;
+  padding: 12px 24px;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #5e97f3;
+  font-size: 14px;
+  line-height: 16px;
+  color: #ffffff;
+}
+
+.container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.wrapper span {
+  color: white;
+  font-weight: bold;
+  margin-left: 8px;
+}

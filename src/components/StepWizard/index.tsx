@@ -7,6 +7,7 @@ import AccountForm from './AccountForm';
 import ProfileForm from './ProfileForm';
 import ContactsForm from './ContactsForm';
 import CapabilitiesForm from './CapabilitiesForm';
+import RestoreUnsaved from './RestoreUnsaved';
 
 const STEPS = [
   {
@@ -29,7 +30,7 @@ const STEPS = [
 
 const StepWizard = () => {
   const currentStep = useSelector((state: StateType) => state.addForm.currentStep);
-
+  const formState = localStorage.getItem('formState');
   return (
     <div>
       <Tabs>
@@ -37,7 +38,10 @@ const StepWizard = () => {
           <TabPanel key={index} name={name} value={index} active={currentStep === index} />
         ))}
       </Tabs>
-      {STEPS[currentStep].render}
+      <div>
+        {currentStep === 0 && formState && <RestoreUnsaved />}
+        {STEPS[currentStep].render}
+      </div>
     </div>
   );
 };

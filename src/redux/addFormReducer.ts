@@ -1,5 +1,8 @@
 import { FormikValues } from 'formik';
 import { OptionTypeBase, ValueType } from 'react-select';
+import { Action } from 'redux';
+import { ThunkAction } from 'redux-thunk';
+import { StateType } from './store';
 
 const GO_BACK = 'addForm/GO_BACK';
 const SUBMIT_FORM = 'addForm/SUBMIT_FORM';
@@ -98,9 +101,16 @@ export const selectStep = (step: number): SelectStepAction => ({
   step,
 });
 
-export const submitForm = (values: FormikValues): SubmitFormAction => ({
+export const submitFormActionCreator = (values: FormikValues): SubmitFormAction => ({
   type: SUBMIT_FORM,
   values,
 });
 
 export const clearForm = (): ClearFormAction => ({ type: CLEAR_FORM });
+
+export const submitForm = (
+  values: FormikValues,
+): ThunkAction<void, StateType, unknown, Action<string>> => (dispatch, getState) => {
+  dispatch(submitFormActionCreator(values));
+  localStorage.setItem('formState', JSON.stringify(getState().addForm));
+};

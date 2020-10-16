@@ -11,8 +11,8 @@ import { UsersFetchStatus } from '../../types';
 
 const UsersList = () => {
   const { usersFetchStatus, users } = useSelector((state: StateType) => state.users);
-
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(importUsers());
   }, [dispatch]);

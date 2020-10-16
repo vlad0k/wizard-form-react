@@ -5,11 +5,11 @@ import { ThunkAction } from 'redux-thunk';
 import { StateType } from './store';
 import db from '../db/db';
 
-const GO_BACK = 'addForm/GO_BACK';
-const SUBMIT_FORM = 'addForm/SUBMIT_FORM';
-const CLEAR_FORM = 'addForm/CLEAR_FORM';
-
-const SELECT_STEP = 'addForm/SELECT_STEP';
+const GO_BACK = 'form/GO_BACK';
+const SUBMIT_FORM = 'form/SUBMIT_FORM';
+const CLEAR_FORM = 'form/CLEAR_FORM';
+const SELECT_STEP = 'form/SELECT_STEP';
+const EDIT_USER = 'form/EDIT_USER';
 
 interface GoBackAction {
   type: typeof GO_BACK;
@@ -29,10 +29,21 @@ interface SubmitFormAction {
   values: FormikValues;
 }
 
-type AddFormActionsType = GoBackAction | SelectStepAction | ClearFormAction | SubmitFormAction;
+interface EditUserAction {
+  type: typeof EDIT_USER;
+  isEditMode: boolean;
+}
+
+type AddFormActionsType =
+  | GoBackAction
+  | SelectStepAction
+  | ClearFormAction
+  | SubmitFormAction
+  | EditUserAction;
 
 const initialState = {
   currentStep: 0,
+  isEditMode: false,
 
   avatar: null as File | null,
   username: '',
@@ -57,7 +68,7 @@ const initialState = {
   hobbies: [] as string[],
 };
 
-const addFormReducer = (state = initialState, action: AddFormActionsType) => {
+const formReducer = (state = initialState, action: AddFormActionsType) => {
   switch (action.type) {
     case GO_BACK: {
       return {
@@ -80,10 +91,24 @@ const addFormReducer = (state = initialState, action: AddFormActionsType) => {
     }
 
     case SUBMIT_FORM: {
+      if (!state.isEditMode) {
+        return {
+          ...state,
+          currentStep: state.currentStep < 3 ? state.currentStep + 1 : 0,
+          ...action.values,
+        };
+      } else {
+        return {
+          ...state,
+          ...action.values,
+        };
+      }
+    }
+
+    case EDIT_USER: {
       return {
         ...state,
-        currentStep: state.currentStep < 3 ? state.currentStep + 1 : 0,
-        ...action.values,
+        isEditMode: action.isEditMode,
       };
     }
 
@@ -93,13 +118,18 @@ const addFormReducer = (state = initialState, action: AddFormActionsType) => {
   }
 };
 
-export default addFormReducer;
+export default formReducer;
 
 export const goBack = (): GoBackAction => ({ type: GO_BACK });
 
 export const selectStep = (step: number): SelectStepAction => ({
   type: SELECT_STEP,
   step,
+});
+
+export const editUser = (isEditMode: boolean): EditUserAction => ({
+  type: EDIT_USER,
+  isEditMode,
 });
 
 export const submitFormActionCreator = (values: FormikValues): SubmitFormAction => ({
@@ -113,7 +143,13 @@ export const submitForm = (
   values: FormikValues,
 ): ThunkAction<void, StateType, unknown, Action<string>> => (dispatch, getState) => {
   dispatch(submitFormActionCreator(values));
+};
+
+export const saveFormToDb = (): ThunkAction<void, StateType, unknown, Action<string>> => (
+  dispatch,
+  getState,
+) => {
   db.table('formState')
     .clear()
-    .then(() => db.table('formState').add(getState().addForm));
+    .then(() => db.table('formState').add(getState().form));
 };

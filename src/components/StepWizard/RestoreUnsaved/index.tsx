@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState } from 'react';
 import classNames from './index.module.css';
 import Button from '../../ui/Button';
 import { ButtonAppearance } from '../../../types';
-import { submitForm } from '../../../redux/addFormReducer';
+import { submitForm } from '../../../redux/formReducer';
 import { useDispatch } from 'react-redux';
 import closeIcon from '../../../assets/icons/close.png';
 import db from '../../../db/db';

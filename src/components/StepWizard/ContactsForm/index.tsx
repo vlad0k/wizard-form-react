@@ -18,7 +18,7 @@ const LANGUAGE_SELECT_OPTIONS: OptionsType<OptionTypeBase> = [
 
 const ContactsForm = () => {
   const initialValues = useSelector(
-    ({ addForm: { company, github, facebook, mainLang, fax, phoneNumbers } }: StateType) => ({
+    ({ form: { company, github, facebook, mainLang, fax, phoneNumbers } }: StateType) => ({
       company,
       github,
       facebook,

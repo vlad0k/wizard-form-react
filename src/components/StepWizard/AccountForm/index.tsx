@@ -8,11 +8,9 @@ import { StateType } from '../../../redux/store';
 import db from '../../../db/db';
 
 const AccountForm: FC<AccountFormPropsType> = () => {
-  const { initialValues } = useSelector(
-    ({ addForm: { avatar, password, username } }: StateType) => ({
-      initialValues: { avatar, password, username },
-    }),
-  );
+  const { initialValues } = useSelector(({ form: { avatar, password, username } }: StateType) => ({
+    initialValues: { avatar, password, username },
+  }));
 
   const validationSchema = Yup.object({
     username: Yup.string()

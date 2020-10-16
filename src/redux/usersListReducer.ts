@@ -2,6 +2,9 @@ import { UsersFetchStatus, UserType } from '../types';
 import db from '../db/db';
 import { IndexableType } from 'dexie';
 import { Dispatch } from 'redux';
+import { FormikValues } from 'formik';
+import { submitFormActionCreator } from './formReducer';
+import { StateType } from './store';
 
 const IMPORT_USERS = 'users/IMPORT_USERS';
 const DELETE_USER = 'users/DELETE_USER';
@@ -88,4 +91,18 @@ export const addUser = (user: UserType) => (dispatch: Dispatch) => {
       dispatch(importUsersActionCreator(users));
     });
   db.table('formState').clear();
+};
+
+export const updateUser = (id: IndexableType, values: FormikValues) => (
+  dispatch: Dispatch,
+  getState: () => StateType,
+) => {
+  dispatch(submitFormActionCreator(values));
+  db.table('users')
+    .put({ id: +id, ...getState().form, ...values })
+    .then(async () => {
+      const users = await db.table('users').toArray();
+      dispatch(importUsersActionCreator(users));
+      dispatch(submitFormActionCreator(values));
+    });
 };

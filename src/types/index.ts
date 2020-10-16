@@ -52,3 +52,7 @@ export enum UsersFetchStatus {
   isFetching,
   fetched,
 }
+
+export type UrlParamTypes = {
+  id: string;
+};

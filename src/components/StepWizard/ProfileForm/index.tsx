@@ -12,7 +12,7 @@ import FieldError from '../../ui/FieldError';
 
 const ProfileForm: FC = () => {
   const initialValues = useSelector(
-    ({ addForm: { firstname, lastname, birthdate, email, adress, gender } }: StateType) => ({
+    ({ form: { firstname, lastname, birthdate, email, adress, gender } }: StateType) => ({
       firstname,
       lastname,
       birthdate,

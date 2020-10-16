@@ -3,20 +3,27 @@ import classNames from './index.module.css';
 import classNamesCombine from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
 import { StateType } from '../../../redux/store';
-import { selectStep } from '../../../redux/addFormReducer';
+import { selectStep } from '../../../redux/formReducer';
 
 const TabPanel: FC<TopTabProps> = ({ active, name, value }) => {
-  const currentStep = useSelector((state: StateType) => state.addForm.currentStep);
+  const { currentStep, isEditMode } = useSelector(
+    ({ form: { currentStep, isEditMode } }: StateType) => ({
+      currentStep,
+      isEditMode,
+    }),
+  );
 
   const dispatch = useDispatch();
 
   const tabClickHandler = () => {
-    dispatch(selectStep(value));
+    if (isEditMode) {
+      dispatch(selectStep(value));
+    }
   };
 
   const tabClassName = classNamesCombine(classNames.tab, {
     [classNames.active]: active,
-    [classNames.visited]: value > currentStep,
+    [classNames.visited]: !isEditMode && value > currentStep,
   });
 
   return (

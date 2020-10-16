@@ -3,7 +3,7 @@ import PageLayout from '../../components/PageLayout';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { StateType } from '../../redux/store';
-import { UserType } from '../../types';
+import { UrlParamTypes, UserType } from '../../types';
 import UserInfo from '../../components/UserInfo';
 
 const UserInfoPage = () => {
@@ -21,7 +21,3 @@ const UserInfoPage = () => {
 };
 
 export default UserInfoPage;
-
-export type UrlParamTypes = {
-  id: string;
-};

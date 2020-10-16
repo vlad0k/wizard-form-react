@@ -68,9 +68,9 @@ const UserInfo: FC<UserPagePropsType> = ({ user }) => {
     <div className={classNames.userPage}>
       <Avatar image={avatar ? URL.createObjectURL(avatar) : undefined} size={AvatarSize.large} />
       <div>
-        {generatePageTemplate(user).map(({ key, value }: TemplateType) => (
+        {generatePageTemplate(user).map(({ key, value }: TemplateType, index) => (
           // TODO Rename this component
-          <ValuesGroup key={key} groupName={key} values={value} id={id} />
+          <ValuesGroup index={index} key={key} groupName={key} values={value} id={id} />
         ))}
       </div>
     </div>

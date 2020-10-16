@@ -2,44 +2,45 @@ import React, { FC, useEffect, useState } from 'react';
 import classNames from './index.module.css';
 import Button from '../../ui/Button';
 import { ButtonAppearance } from '../../../types';
-import { submitForm } from '../../../redux/formReducer';
-import { useDispatch } from 'react-redux';
 import closeIcon from '../../../assets/icons/close.png';
-import db from '../../../db/db';
 import { StateType } from '../../../redux/store';
+import { deleteFormState, getFormState } from '../../../localStorage';
+import { useDispatch } from 'react-redux';
+import { loadSavedForm } from '../../../redux/stepWizardReducer';
 
 const RestoreUnsaved: FC = () => {
-  const [formStateFromDb, setFormStateFromDb] = useState<StateType | undefined>(undefined);
+  const [savedFormState, setSavedFormState] = useState<StateType | undefined>(undefined);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
-    db.table('formState')
-      .toCollection()
-      .first()
-      .then((formState) => setFormStateFromDb(formState));
+    const formState = getFormState();
+    setSavedFormState(formState);
   }, []);
 
-  const closeButtonHandler = () => {
-    setFormStateFromDb(undefined);
-    db.table('formState').clear();
+  const continueButtonHandler = () => {
+    dispatch(loadSavedForm(savedFormState));
+    // deleteFormState();
+    // setSavedFormState(undefined);
   };
 
-  const continueButtonHandler = () => {
-    formStateFromDb && dispatch(submitForm({ ...formStateFromDb }));
-    setFormStateFromDb(undefined);
+  const closeButtonHandler = () => {
+    // deleteFormState();
+    setSavedFormState(undefined);
   };
+
   return (
     <>
-      {formStateFromDb && (
+      {savedFormState && (
         <div className={classNames.wrapper}>
           <div className={classNames.container}>
             You have an unsaved user data. Do you want to complete it?
-            <Button onClick={continueButtonHandler} appearance={ButtonAppearance.text}>
+            <Button appearance={ButtonAppearance.text} onClick={continueButtonHandler}>
               <span>Continue</span>
             </Button>
           </div>
 
-          <Button onClick={closeButtonHandler} appearance={ButtonAppearance.text}>
+          <Button appearance={ButtonAppearance.text} onClick={closeButtonHandler}>
             <img src={closeIcon} alt={'close'} />
           </Button>
         </div>

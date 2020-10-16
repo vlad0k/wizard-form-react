@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, ReactNode, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { StateType } from '../../redux/store';
 import Tabs from './Tabs';
@@ -8,44 +8,60 @@ import ProfileForm from './ProfileForm';
 import ContactsForm from './ContactsForm';
 import CapabilitiesForm from './CapabilitiesForm';
 import RestoreUnsaved from './RestoreUnsaved';
-import { editUser, selectStep } from '../../redux/formReducer';
+import { editUser, selectStep, setNumberOfSteps } from '../../redux/stepWizardReducer';
+import { UserType } from '../../types';
+import { FormikValues } from 'formik';
 
 const STEPS = [
   {
     name: 'Account',
-    render: <AccountForm />,
+    component: <AccountForm />,
   },
   {
     name: 'Profile',
-    render: <ProfileForm />,
+    component: <ProfileForm />,
   },
+
   {
     name: 'Contacts',
-    render: <ContactsForm />,
+    component: <ContactsForm />,
   },
   {
     name: 'Skills',
-    render: <CapabilitiesForm />,
+    component: <CapabilitiesForm />,
   },
 ];
 
 const StepWizard: FC<StepWizardPropsType> = ({ edit = false }) => {
-  const currentStep = useSelector((state: StateType) => state.form.currentStep);
-  const dispatch = useDispatch();
+  const currentStep: number = useSelector(
+    ({ stepWizard: { currentStep } }: StateType) => currentStep,
+  );
+
   useEffect(() => {
-    dispatch(editUser(edit));
-  }, [dispatch]);
+    dispatch(setNumberOfSteps(STEPS.length));
+  }, [STEPS]);
+
+  const dispatch = useDispatch();
+  const selectStepHandler = (step: number) => {
+    dispatch(selectStep(step));
+  };
 
   return (
     <div>
       <Tabs>
         {STEPS.map(({ name }, index) => (
-          <TabPanel key={index} name={name} value={index} active={currentStep === index} />
+          <TabPanel
+            key={name}
+            name={`${index + 1}. ${name}`}
+            active={currentStep === index}
+            selectStep={() => selectStepHandler(index)}
+            disabled={currentStep < index}
+          />
         ))}
       </Tabs>
       <div>
         {!edit && <RestoreUnsaved />}
-        {STEPS[currentStep].render}
+        {STEPS[currentStep].component}
       </div>
     </div>
   );

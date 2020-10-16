@@ -1,0 +1,14 @@
+.buttons {
+  position: absolute;
+  width: 100%;
+
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row-reverse;
+  bottom: 65px;
+  right: 100px;
+}
+
+.buttons * {
+  margin-left: 150px;
+}

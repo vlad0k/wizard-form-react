@@ -41,11 +41,17 @@ const HOBBIES_CHECKBOX_GROUP = [
 ];
 
 const CapabilitiesForm = () => {
-  const initialValues = useSelector(({ form: { skills, additionalInfo, hobbies } }: StateType) => ({
-    skills,
-    additionalInfo,
-    hobbies,
-  }));
+  const initialValues = useSelector(
+    ({
+      stepWizard: {
+        form: { skills, additionalInfo, hobbies },
+      },
+    }: StateType) => ({
+      skills,
+      additionalInfo,
+      hobbies,
+    }),
+  );
 
   const validationSchema = Yup.object({
     skills: Yup.array()

@@ -5,14 +5,17 @@ import Button from '../../ui/Button';
 import editIcon from '../../../assets/icons/Edit.svg';
 import ValuesList from '../ValuesList';
 import { ButtonAppearance } from '../../../types';
+import { useDispatch } from 'react-redux';
+import { selectStep } from '../../../redux/stepWizardReducer';
 
-const ValuesGroup: FC<ValuesGroupPropsType> = ({ groupName, values, id }) => {
+const ValuesGroup: FC<ValuesGroupPropsType> = ({ groupName, values, id, index }) => {
+  const dispatch = useDispatch();
   return (
     <div key={groupName} className={classNames.group}>
       <span className={classNames.groupKey}>
         {groupName}
         <Link to={`/edit/${id}`}>
-          <Button appearance={ButtonAppearance.text}>
+          <Button onClick={() => dispatch(selectStep(index))} appearance={ButtonAppearance.text}>
             <img src={editIcon} alt="edit" />
           </Button>
         </Link>
@@ -38,4 +41,5 @@ type ValuesGroupPropsType = {
     value: string | string[] | null;
   }[];
   id: string | number;
+  index: number;
 };

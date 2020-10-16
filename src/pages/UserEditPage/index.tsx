@@ -1,21 +1,16 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PageLayout from '../../components/PageLayout';
 import { useParams } from 'react-router-dom';
-import { submitForm } from '../../redux/formReducer';
 import StepWizard from '../../components/StepWizard';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { StateType } from '../../redux/store';
 import { UrlParamTypes, UserType } from '../../types';
 
 const UserEditPage = () => {
-  const { id } = useParams<UrlParamTypes>();
-  const users: UserType[] = useSelector(({ users }: StateType) => users.users);
-  const dispatch = useDispatch();
-  const user = users.find((user) => user.id === +id);
-  useEffect(() => {
-    user && dispatch(submitForm(user));
-  }, [dispatch]);
-  if (!user) {
+  const { id: userId } = useParams<UrlParamTypes>();
+  const users = useSelector(({ users }: StateType) => users.users);
+  const { id, ...userData } = users.find((user: UserType) => user.id === +userId);
+  if (!userData) {
     return <div>No such user</div>;
   }
 

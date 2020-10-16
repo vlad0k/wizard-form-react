@@ -1,11 +1,10 @@
 import { UsersFetchStatus, UserType } from '../types';
-import db from '../db/db';
+import db, { getUsers } from '../db';
 import { IndexableType } from 'dexie';
 import { Dispatch } from 'redux';
 import { FormikValues } from 'formik';
-import { submitFormActionCreator } from './formReducer';
 import { StateType } from './store';
-
+import { addUser as addUserToDb } from '../db/index';
 const IMPORT_USERS = 'users/IMPORT_USERS';
 const DELETE_USER = 'users/DELETE_USER';
 const IS_FETCHING = 'users/IS_FETCHING';
@@ -69,9 +68,15 @@ export const usersFetchStatus = (usersFetchStatus: UsersFetchStatus): IsFetching
 
 export const importUsers = () => async (dispatch: Dispatch) => {
   dispatch(usersFetchStatus(UsersFetchStatus.isFetching));
-  const users: UserType[] = await db.table('users').toArray();
-  dispatch(importUsersActionCreator(users));
-  return users;
+  getUsers().then((users: UserType[]) => {
+    dispatch(importUsersActionCreator(users));
+    dispatch(usersFetchStatus(UsersFetchStatus.fetched));
+  });
+};
+
+export const addUser = (user: UserType) => (dispatch: Dispatch) => {
+  addUserToDb(user);
+  getUsers().then((users: UserType[]) => dispatch(importUsersActionCreator(users)));
 };
 
 export const deleteUser = (id: IndexableType) => (dispatch: Dispatch) => {
@@ -83,26 +88,9 @@ export const deleteUser = (id: IndexableType) => (dispatch: Dispatch) => {
     });
 };
 
-export const addUser = (user: UserType) => (dispatch: Dispatch) => {
-  db.table('users')
-    .add(user)
-    .then(async () => {
-      const users = await db.table('users').toArray();
-      dispatch(importUsersActionCreator(users));
-    });
-  db.table('formState').clear();
-};
-
 export const updateUser = (id: IndexableType, values: FormikValues) => (
   dispatch: Dispatch,
   getState: () => StateType,
 ) => {
-  dispatch(submitFormActionCreator(values));
-  db.table('users')
-    .put({ id: +id, ...getState().form, ...values })
-    .then(async () => {
-      const users = await db.table('users').toArray();
-      dispatch(importUsersActionCreator(users));
-      dispatch(submitFormActionCreator(values));
-    });
+  //  TODO Update user
 };

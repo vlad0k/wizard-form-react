@@ -5,26 +5,26 @@ import InputField from '../../ui/InputField';
 import * as Yup from 'yup';
 import { useSelector } from 'react-redux';
 import { StateType } from '../../../redux/store';
-import db from '../../../db/db';
+import '../../../yup';
 
 const AccountForm: FC<AccountFormPropsType> = () => {
-  const { initialValues } = useSelector(({ form: { avatar, password, username } }: StateType) => ({
-    initialValues: { avatar, password, username },
-  }));
+  const { initialValues } = useSelector(
+    ({
+      stepWizard: {
+        form: { avatar, password, username },
+      },
+    }: StateType) => ({
+      initialValues: { avatar, password, username },
+    }),
+  );
 
   const validationSchema = Yup.object({
-    username: Yup.string()
-      .required('required field')
-      .test('username is unavaliable', 'you cant use this username', async (value) => {
-        const users = await db.table('users').toArray();
-        return !users.map((user) => user.username).includes(value);
-      }),
+    username: Yup.string().required('required field').uniqueUsername(),
     password: Yup.string().required('required field'),
     passwordRepeat: Yup.string()
       .oneOf([Yup.ref('password'), ''], "passwords don't match")
       .required('required field'),
   });
-
   return (
     <FormLayout
       initialValues={{ ...initialValues, passwordRepeat: initialValues.password }}

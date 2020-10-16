@@ -56,3 +56,8 @@ export enum UsersFetchStatus {
 export type UrlParamTypes = {
   id: string;
 };
+
+export type FormPropsType = {
+  nextStepHandler: () => void;
+  prevStepHandler: () => void;
+};

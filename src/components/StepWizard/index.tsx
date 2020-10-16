@@ -30,7 +30,6 @@ const STEPS = [
 
 const StepWizard = () => {
   const currentStep = useSelector((state: StateType) => state.addForm.currentStep);
-  const formState = localStorage.getItem('formState');
   return (
     <div>
       <Tabs>
@@ -39,7 +38,7 @@ const StepWizard = () => {
         ))}
       </Tabs>
       <div>
-        {currentStep === 0 && formState && <RestoreUnsaved />}
+        <RestoreUnsaved />
         {STEPS[currentStep].render}
       </div>
     </div>

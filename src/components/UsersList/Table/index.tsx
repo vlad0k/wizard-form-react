@@ -10,7 +10,7 @@ import { useDispatch } from 'react-redux';
 import { IndexableType } from 'dexie';
 import { deleteUser } from '../../../redux/usersListReducer';
 import cn from 'classnames';
-import TimeAgo from 'react-timeago';
+import moment from 'moment';
 
 const Table: FC<TablePropsType> = ({ users, stripped = false }) => {
   const dispatch = useDispatch();
@@ -79,9 +79,7 @@ const Table: FC<TablePropsType> = ({ users, stripped = false }) => {
                 </td>
                 <td>{company}</td>
                 <td>{phoneNumbers[0] ? phoneNumbers[0] : email}</td>
-                <td>
-                  <TimeAgo date={lastUpdated} />
-                </td>
+                <td>{moment(lastUpdated).fromNow()}</td>
                 {isDeteling !== id && (
                   <>
                     <td>

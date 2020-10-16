@@ -87,5 +87,5 @@ export const addUser = (user: UserType) => (dispatch: Dispatch) => {
       const users = await db.table('users').toArray();
       dispatch(importUsersActionCreator(users));
     });
-  localStorage.removeItem('formState');
+  db.table('formState').clear();
 };

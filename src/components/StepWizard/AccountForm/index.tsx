@@ -1,13 +1,11 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import FormLayout from '../FormLayout';
 import AvatarPicker from '../../ui/AvatarPicker';
 import InputField from '../../ui/InputField';
 import * as Yup from 'yup';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { StateType } from '../../../redux/store';
-import { importUsers } from '../../../redux/usersListReducer';
 import db from '../../../db/db';
-import _ from 'lodash';
 
 const AccountForm: FC<AccountFormPropsType> = () => {
   const { initialValues } = useSelector(
@@ -31,7 +29,7 @@ const AccountForm: FC<AccountFormPropsType> = () => {
 
   return (
     <FormLayout
-      initialValues={{ ...initialValues, passwordRepeat: '' }}
+      initialValues={{ ...initialValues, passwordRepeat: initialValues.password }}
       validationSchema={validationSchema}
     >
       <div>

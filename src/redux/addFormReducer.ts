@@ -3,6 +3,7 @@ import { OptionTypeBase, ValueType } from 'react-select';
 import { Action } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 import { StateType } from './store';
+import db from '../db/db';
 
 const GO_BACK = 'addForm/GO_BACK';
 const SUBMIT_FORM = 'addForm/SUBMIT_FORM';
@@ -112,5 +113,7 @@ export const submitForm = (
   values: FormikValues,
 ): ThunkAction<void, StateType, unknown, Action<string>> => (dispatch, getState) => {
   dispatch(submitFormActionCreator(values));
-  localStorage.setItem('formState', JSON.stringify(getState().addForm));
+  db.table('formState')
+    .clear()
+    .then(() => db.table('formState').add(getState().addForm));
 };

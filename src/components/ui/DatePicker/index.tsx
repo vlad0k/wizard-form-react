@@ -15,7 +15,7 @@ const DatePicker = ({ name }: DatePickerProps) => {
   return (
     <>
       <Field name={name}>
-        {({ field: { value }, form: { setFieldValue, errors } }: FieldProps) => {
+        {({ field: { value }, form: { setFieldValue, errors, touched } }: FieldProps) => {
           const calendarChangeHandler = (date: Date) => {
             setFieldValue(name, date);
           };
@@ -26,7 +26,9 @@ const DatePicker = ({ name }: DatePickerProps) => {
                 selected={value}
                 onChange={calendarChangeHandler}
                 dateFormat="dd/MM/yy"
-                className={cn(classNames.datePicker, { [classNames.errorBorder]: errors[name] })}
+                className={cn(classNames.datePicker, {
+                  [classNames.errorBorder]: errors[name],
+                })}
                 maxDate={new Date()}
               />
             </>

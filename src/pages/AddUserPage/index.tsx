@@ -2,7 +2,6 @@ import React from 'react';
 
 import StepWizard from '../../components/StepWizard';
 import PageLayout from '../../components/PageLayout';
-import { useDispatch } from 'react-redux';
 
 const AddUserPage = () => {
   return (

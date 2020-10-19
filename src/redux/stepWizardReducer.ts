@@ -52,7 +52,7 @@ interface EditUserAction {
 
 interface LoadSavedFormAction {
   type: typeof LOAD_SAVED_FORM;
-  form: FormikValues;
+  values: FormikValues;
 }
 
 type AddFormActionsType =
@@ -159,7 +159,7 @@ const stepWizardReducer = (state = initialState, action: AddFormActionsType) => 
         currentStep: 0,
         form: {
           ...state.form,
-          ...action.form,
+          ...action.values,
         },
       };
     }
@@ -206,9 +206,9 @@ export const editUser = (isEditMode: boolean): EditUserAction => ({
   isEditMode,
 });
 
-export const loadSavedForm = (form: FormikValues): LoadSavedFormAction => ({
+export const loadSavedForm = (values: FormikValues): LoadSavedFormAction => ({
   type: LOAD_SAVED_FORM,
-  form,
+  values,
 });
 
 export const resetForm = (): ResetFormAction => ({ type: RESET_FORM });

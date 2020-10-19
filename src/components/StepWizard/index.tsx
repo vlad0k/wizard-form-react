@@ -1,4 +1,4 @@
-import React, { FC, ReactNode, useEffect, useState } from 'react';
+import React, { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { StateType } from '../../redux/store';
 import Tabs from './Tabs';
@@ -8,9 +8,7 @@ import ProfileForm from './ProfileForm';
 import ContactsForm from './ContactsForm';
 import CapabilitiesForm from './CapabilitiesForm';
 import RestoreUnsaved from './RestoreUnsaved';
-import { editUser, selectStep, setNumberOfSteps } from '../../redux/stepWizardReducer';
-import { UserType } from '../../types';
-import { FormikValues } from 'formik';
+import { selectStep, setNumberOfSteps } from '../../redux/stepWizardReducer';
 
 const STEPS = [
   {
@@ -37,14 +35,11 @@ const StepWizard: FC<StepWizardPropsType> = ({ edit = false }) => {
     ({ stepWizard: { currentStep } }: StateType) => currentStep,
   );
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(setNumberOfSteps(STEPS.length));
-  }, [STEPS]);
-
-  const dispatch = useDispatch();
-  const selectStepHandler = (step: number) => {
-    dispatch(selectStep(step));
-  };
+  }, [dispatch]);
 
   return (
     <div>
@@ -54,7 +49,7 @@ const StepWizard: FC<StepWizardPropsType> = ({ edit = false }) => {
             key={name}
             name={`${index + 1}. ${name}`}
             active={currentStep === index}
-            selectStep={() => selectStepHandler(index)}
+            selectStep={() => dispatch(selectStep(index))}
             disabled={currentStep < index}
           />
         ))}

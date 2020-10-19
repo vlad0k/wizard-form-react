@@ -20,17 +20,16 @@ const FormLayout: FC<FormLayoutPropsType> = ({ children, initialValues, validati
   );
 
   const formSubmitHandler = (values: FormikValues, formikHelpers: FormikHelpers<FormikValues>) => {
-    formikHelpers.resetForm();
     dispatch(submitStep(values));
     dispatch(nextStep());
     saveFormState({ ...form, ...values });
     if (currentStep === numberOfSteps - 1) {
-      dispatch(addUser(form));
+      dispatch(addUser({ ...form, ...values }));
       dispatch(resetForm());
       deleteFormState();
     }
   };
-  console.log(initialValues);
+
   return (
     <div className={classNames.wrapper}>
       <Formik
@@ -38,10 +37,14 @@ const FormLayout: FC<FormLayoutPropsType> = ({ children, initialValues, validati
         onSubmit={formSubmitHandler}
         validationSchema={validationSchema}
       >
-        <Form className={classNames.form}>
-          <div className={classNames.columns}>{children}</div>
-          <NavigationButtons />
-        </Form>
+        {({ values, setFieldValue }) => {
+          return (
+            <Form className={classNames.form}>
+              <div className={classNames.columns}>{children}</div>
+              <NavigationButtons />
+            </Form>
+          );
+        }}
       </Formik>
     </div>
   );

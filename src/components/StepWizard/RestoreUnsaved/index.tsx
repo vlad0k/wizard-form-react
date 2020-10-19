@@ -4,7 +4,7 @@ import Button from '../../ui/Button';
 import { ButtonAppearance } from '../../../types';
 import closeIcon from '../../../assets/icons/close.png';
 import { StateType } from '../../../redux/store';
-import { deleteFormState, getFormState } from '../../../localStorage';
+import { getFormState } from '../../../localStorage';
 import { useDispatch } from 'react-redux';
 import { loadSavedForm } from '../../../redux/stepWizardReducer';
 

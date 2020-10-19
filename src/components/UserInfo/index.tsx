@@ -63,7 +63,7 @@ const generatePageTemplate = ({
 
 const UserInfo: FC<UserPagePropsType> = ({ user }) => {
   const { avatar, id } = user;
-
+  console.log(user);
   return (
     <div className={classNames.userPage}>
       <Avatar image={avatar ? URL.createObjectURL(avatar) : undefined} size={AvatarSize.large} />

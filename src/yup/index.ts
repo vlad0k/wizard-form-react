@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 import { getUsers } from '../db';
-import { StringSchema } from 'yup';
+import { MixedSchema, StringSchema } from 'yup';
 
 Yup.addMethod<StringSchema>(Yup.string, 'uniqueUsername', function () {
   return this.test('uniqueUsername', "you can't use this username", async (value) => {
@@ -9,7 +9,17 @@ Yup.addMethod<StringSchema>(Yup.string, 'uniqueUsername', function () {
   });
 });
 
+Yup.addMethod<MixedSchema>(Yup.mixed, 'fileSize', function (size: number = 1) {
+  return this.test('fileSize', `avatar should be less than ${size} mb`, (value) => {
+    return value ? value.size <= size * 1_048_576 : true;
+  });
+});
+
 declare module 'yup' {
+  interface MixedSchema {
+    fileSize: (size?: number) => MixedSchema<{} | null | undefined, object | File>;
+  }
+
   interface StringSchema {
     uniqueUsername: () => StringSchema<string | null | undefined>;
   }

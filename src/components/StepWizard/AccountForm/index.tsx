@@ -8,6 +8,7 @@ import { FormikValues } from 'formik';
 
 const AccountForm: FC<AccountFormPropsType> = ({ initialValues }) => {
   const validationSchema = Yup.object({
+    avatar: Yup.mixed().notRequired().fileSize(),
     username: Yup.string().required('required field').uniqueUsername(),
     password: Yup.string().required('required field'),
     passwordRepeat: Yup.string()

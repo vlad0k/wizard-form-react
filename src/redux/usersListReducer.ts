@@ -6,6 +6,7 @@ import { FormikValues } from 'formik';
 import { addUser as addUserToDb, updateUser as updateUserToDb } from '../db';
 import createFakeUser from '../utils/createFakeUser';
 import xhr from 'xhr';
+import { throttle } from 'lodash';
 
 const IMPORT_USERS = 'users/IMPORT_USERS';
 const DELETE_USER = 'users/DELETE_USER';
@@ -96,16 +97,18 @@ export const updateUser = (id: number, values: FormikValues) => (dispatch: Dispa
   });
 };
 
-export const generateUsers = () => (dispatch: Dispatch) => {
-  deleteAllUsers();
-  for (let i = 0; i < 50; i++) {
-    let fake = createFakeUser();
-    xhr.get(fake.avatar, { responseType: 'blob' }, (err, res) => {
-      // @ts-ignore
-      const avatar = new File([res.body], 'avatar.jpeg');
-      addUserToDb({ ...fake, avatar }).then(() => {
-        getUsers().then((users: UserType[]) => dispatch(importUsersActionCreator(users)));
+export const generateUsers = throttle(
+  () => (dispatch: Dispatch) => {
+    console.log('+');
+    deleteAllUsers();
+    for (let i = 0; i < 50; i++) {
+      let fake = createFakeUser();
+      xhr.get(fake.avatar, { responseType: 'blob' }, (err, res) => {
+        addUserToDb({ ...fake, avatar: res.statusCode === 200 ? res.body : undefined }).then(() => {
+          getUsers().then((users: UserType[]) => dispatch(importUsersActionCreator(users)));
+        });
       });
-    });
-  }
-};
+    }
+  },
+  2000,
+);

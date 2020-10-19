@@ -62,13 +62,11 @@ const StepWizard: FC<StepWizardPropsType> = ({ editMode = false }) => {
       </Tabs>
       <div>
         {!editMode && <RestoreUnsaved />}
-        {STEPS[currentStep].component}
         {
           STEPS.map(({ name, component: Component }, index) => <Component initialValues={form} />)[
             currentStep
           ]
         }
-        )
       </div>
     </div>
   );

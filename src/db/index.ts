@@ -17,12 +17,10 @@ export const getUsers = async () => {
 
 export const getUser = async (id: IndexableType): Promise<UserType> => {
   const users = await db.table('users').toArray();
-  const user = users.find((user) => +user.id === +id);
-  return user;
+  return users.find((user) => +user.id === +id);
 };
 
 export const updateUser = async (id: number, values: FormikValues) => {
-  console.log(values);
   await db.table('users').put({ ...values, id, lastUpdated: new Date() });
 };
 

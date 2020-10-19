@@ -4,7 +4,7 @@ import { IndexableType } from 'dexie';
 import { Dispatch } from 'redux';
 import { FormikValues } from 'formik';
 import { StateType } from './store';
-import { addUser as addUserToDb } from '../db/index';
+import { addUser as addUserToDb, updateUser as updateUserToDb } from '../db/index';
 const IMPORT_USERS = 'users/IMPORT_USERS';
 const DELETE_USER = 'users/DELETE_USER';
 const IS_FETCHING = 'users/IS_FETCHING';
@@ -88,9 +88,8 @@ export const deleteUser = (id: IndexableType) => (dispatch: Dispatch) => {
     });
 };
 
-export const updateUser = (id: IndexableType, values: FormikValues) => (
-  dispatch: Dispatch,
-  getState: () => StateType,
-) => {
-  //  TODO Update user
+export const updateUser = (id: number, values: FormikValues) => (dispatch: Dispatch) => {
+  updateUserToDb(id, values).then(() => {
+    getUsers().then((users: UserType[]) => dispatch(importUsersActionCreator(users)));
+  });
 };

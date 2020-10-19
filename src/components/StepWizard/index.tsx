@@ -8,29 +8,33 @@ import ProfileForm from './ProfileForm';
 import ContactsForm from './ContactsForm';
 import CapabilitiesForm from './CapabilitiesForm';
 import RestoreUnsaved from './RestoreUnsaved';
-import { selectStep, setNumberOfSteps } from '../../redux/stepWizardReducer';
+import { initiateStepWizard, selectStep } from '../../redux/stepWizardReducer';
 
 const STEPS = [
   {
     name: 'Account',
+    url: 'account',
     component: <AccountForm />,
   },
   {
     name: 'Profile',
+    url: 'profile',
     component: <ProfileForm />,
   },
 
   {
     name: 'Contacts',
+    url: 'contacts',
     component: <ContactsForm />,
   },
   {
-    name: 'Skills',
+    name: 'Capabilities',
+    url: 'capabilities',
     component: <CapabilitiesForm />,
   },
 ];
 
-const StepWizard: FC<StepWizardPropsType> = ({ edit = false }) => {
+const StepWizard: FC<StepWizardPropsType> = ({ editMode = false }) => {
   const currentStep: number = useSelector(
     ({ stepWizard: { currentStep } }: StateType) => currentStep,
   );
@@ -38,8 +42,8 @@ const StepWizard: FC<StepWizardPropsType> = ({ edit = false }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(setNumberOfSteps(STEPS.length));
-  }, [dispatch]);
+    dispatch(initiateStepWizard(STEPS.length, editMode));
+  }, [dispatch, editMode]);
 
   return (
     <div>
@@ -51,11 +55,12 @@ const StepWizard: FC<StepWizardPropsType> = ({ edit = false }) => {
             active={currentStep === index}
             selectStep={() => dispatch(selectStep(index))}
             disabled={currentStep < index}
+            editMode={editMode}
           />
         ))}
       </Tabs>
       <div>
-        {!edit && <RestoreUnsaved />}
+        {!editMode && <RestoreUnsaved />}
         {STEPS[currentStep].component}
       </div>
     </div>
@@ -63,7 +68,7 @@ const StepWizard: FC<StepWizardPropsType> = ({ edit = false }) => {
 };
 
 type StepWizardPropsType = {
-  edit?: boolean;
+  editMode?: boolean;
 };
 
 export default StepWizard;

@@ -7,10 +7,11 @@ import { previosStep } from '../../../redux/stepWizardReducer';
 import { StateType } from '../../../redux/store';
 
 const NavigationButtons = () => {
-  const { currentStep, numberOfSteps } = useSelector(
-    ({ stepWizard: { currentStep, numberOfSteps } }: StateType) => ({
+  const { currentStep, numberOfSteps, isEditMode } = useSelector(
+    ({ stepWizard: { currentStep, numberOfSteps, isEditMode } }: StateType) => ({
       currentStep,
       numberOfSteps,
+      isEditMode,
     }),
   );
   const dispatch = useDispatch();
@@ -20,18 +21,30 @@ const NavigationButtons = () => {
   };
 
   return (
-    <div className={classNames.buttons}>
-      {currentStep === numberOfSteps - 1 ? (
-        <Button appearance={ButtonAppearance.finish}>Finish</Button>
+    <>
+      {!isEditMode ? (
+        <div className={classNames.buttons}>
+          {currentStep === numberOfSteps - 1 ? (
+            <Button appearance={ButtonAppearance.finish}>Finish</Button>
+          ) : (
+            <Button>Forward</Button>
+          )}
+          {currentStep > 0 && (
+            <Button
+              appearance={ButtonAppearance.secondary}
+              onClick={backButtonHandler}
+              type="button"
+            >
+              Back
+            </Button>
+          )}
+        </div>
       ) : (
-        <Button>Forward</Button>
+        <div className={classNames.buttons}>
+          <Button>Save</Button>
+        </div>
       )}
-      {currentStep > 0 && (
-        <Button appearance={ButtonAppearance.secondary} onClick={backButtonHandler} type="button">
-          Back
-        </Button>
-      )}
-    </div>
+    </>
   );
 };
 

@@ -4,7 +4,7 @@ import Button from '../../ui/Button';
 import { ButtonAppearance } from '../../../types';
 import closeIcon from '../../../assets/icons/close.png';
 import { StateType } from '../../../redux/store';
-import { getFormState } from '../../../localStorage';
+import { deleteFormState, getFormState } from '../../../localStorage';
 import { useDispatch } from 'react-redux';
 import { loadSavedForm } from '../../../redux/stepWizardReducer';
 
@@ -20,12 +20,12 @@ const RestoreUnsaved: FC = () => {
 
   const continueButtonHandler = () => {
     dispatch(loadSavedForm(savedFormState));
-    // deleteFormState();
-    // setSavedFormState(undefined);
+    deleteFormState();
+    setSavedFormState(undefined);
   };
 
   const closeButtonHandler = () => {
-    // deleteFormState();
+    deleteFormState();
     setSavedFormState(undefined);
   };
 

@@ -13,6 +13,7 @@ const NEXT_STEP = 'form/NEXT_STEP';
 const RESET_FORM = 'form/RESET_FORM';
 const EDIT_USER = 'form/EDIT_USER';
 const LOAD_SAVED_FORM = 'form/LOAD_SAVED_FORM';
+const INITIATE_STEP_WIZARD = 'form/INITIATE_STEP_WIZARD';
 
 interface BackButonAction {
   type: typeof BACK_BUTTON_HANDLE;
@@ -55,6 +56,12 @@ interface LoadSavedFormAction {
   values: FormikValues;
 }
 
+interface InitiateStepWizardAction {
+  type: typeof INITIATE_STEP_WIZARD;
+  numberOfSteps: number;
+  isEditMode: boolean;
+}
+
 type AddFormActionsType =
   | BackButonAction
   | SelectStepAction
@@ -64,7 +71,8 @@ type AddFormActionsType =
   | SetNumberOfStepsAction
   | PreviosStepAction
   | NextStepAction
-  | LoadSavedFormAction;
+  | LoadSavedFormAction
+  | InitiateStepWizardAction;
 
 const initialState = {
   currentStep: 0,
@@ -164,6 +172,14 @@ const stepWizardReducer = (state = initialState, action: AddFormActionsType) => 
       };
     }
 
+    case INITIATE_STEP_WIZARD: {
+      return {
+        ...state,
+        isEditMode: action.isEditMode,
+        numberOfSteps: action.numberOfSteps,
+      };
+    }
+
     case EDIT_USER: {
       return {
         ...state,
@@ -212,5 +228,14 @@ export const loadSavedForm = (values: FormikValues): LoadSavedFormAction => ({
 });
 
 export const resetForm = (): ResetFormAction => ({ type: RESET_FORM });
+
+export const initiateStepWizard = (
+  numberOfSteps: number,
+  isEditMode: boolean,
+): InitiateStepWizardAction => ({
+  type: INITIATE_STEP_WIZARD,
+  numberOfSteps,
+  isEditMode,
+});
 
 export const saveFormToDb = (): ThunkAction<void, StateType, unknown, Action<string>> => () => {};

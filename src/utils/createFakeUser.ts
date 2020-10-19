@@ -20,7 +20,7 @@ const createFakeUser = (): FormikValues => {
   const newUser = {
     additionalInfo: faker.lorem.text(),
     adress: faker.address.streetAddress(),
-    avatar: undefined,
+    avatar: faker.image.avatar(),
     birthdate: faker.date.past(),
     company: faker.company.companyName(),
     email: faker.internet.email(),

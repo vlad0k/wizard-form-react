@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { StateType } from '../../redux/store';
 import Table from './Table';
 import Preloader from '../ui/Preloader';
-import { generateUsers, importUsers } from '../../redux/usersListReducer';
+import { importUsers } from '../../redux/usersListReducer';
 import { UsersFetchStatus, UserType } from '../../types';
 import Paginator from './Paginator';
 
@@ -15,7 +15,7 @@ const PORTION_SIZE = 10;
 const createPortion = (users: UserType[], page: number) => {
   const portionValue = users.filter(
     (user: UserType, index: number) =>
-      index > PORTION_SIZE * (page - 1) && index <= PORTION_SIZE * (page - 1 + 1),
+      index > PORTION_SIZE * (page - 1) - 1 && index <= PORTION_SIZE * page - 1,
   );
   return portionValue;
 };

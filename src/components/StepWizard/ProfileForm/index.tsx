@@ -2,8 +2,6 @@ import React, { FC } from 'react';
 import FormLayout from '../FormLayout';
 import InputField from '../../ui/InputField';
 import * as Yup from 'yup';
-import { useSelector } from 'react-redux';
-import { StateType } from '../../../redux/store';
 import ageValidator from '../../../utils/dateYearSubstract';
 import DatePicker from '../../ui/DatePicker';
 import LocationPicker from '../../ui/LocationPicker';
@@ -12,21 +10,6 @@ import FieldError from '../../ui/FieldError';
 import { FormikValues } from 'formik';
 
 const ProfileForm: FC<ProfileFormPropsType> = ({ initialValues }) => {
-  // const initialValues = useSelector(
-  //   ({
-  //     stepWizard: {
-  //       form: { firstname, lastname, birthdate, email, adress, gender },
-  //     },
-  //   }: StateType) => ({
-  //     firstname,
-  //     lastname,
-  //     birthdate,
-  //     email,
-  //     adress,
-  //     gender,
-  //   }),
-  // );
-
   const validationSchema = Yup.object({
     firstname: Yup.string().required('required field'),
     lastname: Yup.string().required('required field'),

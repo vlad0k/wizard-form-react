@@ -1,6 +1,4 @@
 import React, { FC } from 'react';
-import { useSelector } from 'react-redux';
-import { StateType } from '../../../redux/store';
 import * as Yup from 'yup';
 import FormLayout from '../FormLayout';
 import InputField from '../../ui/InputField';
@@ -38,21 +36,6 @@ export const LANGUAGE_SELECT_OPTIONS: OptionsType<OptionTypeBase> = [
 ];
 
 const ContactsForm: FC<ContactsFormPropsType> = ({ initialValues }) => {
-  // const initialValues = useSelector(
-  //   ({
-  //     stepWizard: {
-  //       form: { company, github, facebook, mainLang, fax, phoneNumbers },
-  //     },
-  //   }: StateType) => ({
-  //     company,
-  //     github,
-  //     facebook,
-  //     mainLang,
-  //     fax,
-  //     phoneNumbers,
-  //   }),
-  // );
-
   const validationSchema = Yup.object({
     phoneNumbers: Yup.array().of(Yup.string()),
     company: Yup.string().required('required field'),

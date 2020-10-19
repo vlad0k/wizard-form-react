@@ -5,6 +5,7 @@ import { Dispatch } from 'redux';
 import { FormikValues } from 'formik';
 import { addUser as addUserToDb, updateUser as updateUserToDb } from '../db';
 import createFakeUser from '../utils/createFakeUser';
+import xhr from 'xhr';
 
 const IMPORT_USERS = 'users/IMPORT_USERS';
 const DELETE_USER = 'users/DELETE_USER';
@@ -99,8 +100,12 @@ export const generateUsers = () => (dispatch: Dispatch) => {
   deleteAllUsers();
   for (let i = 0; i < 50; i++) {
     let fake = createFakeUser();
-    console.log(fake);
-    addUserToDb(fake);
+    xhr.get(fake.avatar, { responseType: 'blob' }, (err, res) => {
+      // @ts-ignore
+      const avatar = new File([res.body], 'avatar.jpeg');
+      addUserToDb({ ...fake, avatar }).then(() => {
+        getUsers().then((users: UserType[]) => dispatch(importUsersActionCreator(users)));
+      });
+    });
   }
-  getUsers().then((users: UserType[]) => dispatch(importUsersActionCreator(users)));
 };

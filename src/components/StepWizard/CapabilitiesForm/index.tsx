@@ -1,6 +1,4 @@
 import React, { FC } from 'react';
-import { useSelector } from 'react-redux';
-import { StateType } from '../../../redux/store';
 import * as Yup from 'yup';
 import { SkillOptionType } from '../../../types';
 import FormLayout from '../FormLayout';

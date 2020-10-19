@@ -11,7 +11,7 @@ const UserInfoPage = () => {
 
   useEffect(() => {
     getUser(id).then((user) => setUser(user));
-  }, []);
+  }, [id]);
 
   if (!user) return <div />;
 

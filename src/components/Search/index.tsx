@@ -3,9 +3,10 @@ import classNames from './index.module.css';
 
 import { debounce } from 'lodash';
 import { searchUsers } from '../../db';
-import { UserType } from '../../types';
+import { AvatarSize, UserType } from '../../types';
 import { Link } from 'react-router-dom';
 import cn from 'classnames/dedupe';
+import Avatar from '../ui/Avatar';
 
 const Search: FC = () => {
   const [value, setValue] = useState<string>('');
@@ -27,8 +28,8 @@ const Search: FC = () => {
         className={classNames.searchBar}
         value={value}
         onChange={(event: ChangeEvent<HTMLInputElement>) => setValue(event.target.value)}
-        onFocus={() => {}}
-        onBlur={() => setIsResultsShow(false)}
+        onFocus={() => setIsResultsShow(true)}
+        onBlur={() => setTimeout(() => setIsResultsShow(false), 100)}
       />
       {isResultsShow && value !== '' && (
         <ul className={classNames.resultsList}>
@@ -37,13 +38,17 @@ const Search: FC = () => {
               <span>-- no users found --</span>
             </li>
           )}
-          {foundUsers.map(({ id, username, firstname, lastname }) => (
+          {foundUsers.map(({ id, username, firstname, lastname, avatar }) => (
             <li className={classNames.result}>
               <Link to={`/users/${id}`}>
+                <Avatar
+                  image={avatar ? URL.createObjectURL(avatar) : undefined}
+                  size={AvatarSize.small}
+                />
                 <div className={classNames.name}>
                   {firstname} {lastname}
+                  <div className={classNames.username}>@{username}</div>
                 </div>
-                <div>@{username}</div>
               </Link>
             </li>
           ))}

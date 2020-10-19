@@ -26,10 +26,27 @@ export const updateUser = async (id: number, values: FormikValues) => {
   await db.table('users').put({ ...values, id, lastUpdated: new Date() });
 };
 
-export const addUser = async (user: UserType) => {
-  db.table('users').add(user);
+export const addUser = async (user: FormikValues) => {
+  db.table('users').add({ ...user, lastUpdated: new Date() });
 };
 
 export const deleteUser = async (id: IndexableType) => {
   db.table('users').delete(id);
+};
+
+export const deleteAllUsers = async () => {
+  db.table('users').clear();
+};
+
+export const searchUsers = async (search: string) => {
+  if (!search) {
+    return [];
+  }
+
+  const users = await getUsers();
+  return users.filter(
+    (user) =>
+      user.firstname.toLowerCase().includes(search.toLowerCase()) ||
+      user.lastname.toLowerCase().includes(search.toLowerCase()),
+  );
 };

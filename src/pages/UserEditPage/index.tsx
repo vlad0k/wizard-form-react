@@ -13,7 +13,6 @@ const UserEditPage = () => {
 
   useEffect(() => {
     getUser(id).then((user) => {
-      console.log(user);
       const {
         avatar,
         username,

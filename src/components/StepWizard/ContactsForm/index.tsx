@@ -1,36 +1,57 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { StateType } from '../../../redux/store';
 import * as Yup from 'yup';
 import FormLayout from '../FormLayout';
 import InputField from '../../ui/InputField';
 import SelectField from '../../ui/SelectField';
-import { FieldArray } from 'formik';
+import { FieldArray, FormikValues } from 'formik';
 import PhoneInputs from '../PhoneInputs';
 import { OptionsType, OptionTypeBase } from 'react-select';
 import PhoneInput from '../../ui/PhoneInput';
 
-const LANGUAGE_SELECT_OPTIONS: OptionsType<OptionTypeBase> = [
+export const LANGUAGE_SELECT_OPTIONS: OptionsType<OptionTypeBase> = [
   { value: 'en', label: 'English' },
+  { value: 'fr', label: 'French' },
+  { value: 'es', label: 'Spanish' },
+  { value: 'ar', label: 'Arabic' },
+  { value: 'cmn', label: 'Mandarin' },
   { value: 'ru', label: 'Russian' },
-  { value: 'ua', label: 'Ukrainian' },
+  { value: 'pt', label: 'Portuguese' },
+  { value: 'de', label: 'German' },
+  { value: 'ja', label: 'Japanese' },
+  { value: 'hi', label: 'Hindi' },
+  { value: 'ms', label: 'Malay' },
+  { value: 'fa', label: 'Persian' },
+  { value: 'sw', label: 'Swahili' },
+  { value: 'ta', label: 'Tamil' },
+  { value: 'it', label: 'Italian' },
+  { value: 'nl', label: 'Dutch' },
+  { value: 'bn', label: 'Bengali' },
+  { value: 'tr', label: 'Turkish' },
+  { value: 'vi', label: 'Vietnamese' },
+  { value: 'pl', label: 'Polish' },
+  { value: 'jv', label: 'Javanese' },
+  { value: 'pa', label: 'Punjabi' },
+  { value: 'th', label: 'Thai' },
+  { value: 'ko', label: 'Korean' },
 ];
 
-const ContactsForm = () => {
-  const initialValues = useSelector(
-    ({
-      stepWizard: {
-        form: { company, github, facebook, mainLang, fax, phoneNumbers },
-      },
-    }: StateType) => ({
-      company,
-      github,
-      facebook,
-      mainLang,
-      fax,
-      phoneNumbers,
-    }),
-  );
+const ContactsForm: FC<ContactsFormPropsType> = ({ initialValues }) => {
+  // const initialValues = useSelector(
+  //   ({
+  //     stepWizard: {
+  //       form: { company, github, facebook, mainLang, fax, phoneNumbers },
+  //     },
+  //   }: StateType) => ({
+  //     company,
+  //     github,
+  //     facebook,
+  //     mainLang,
+  //     fax,
+  //     phoneNumbers,
+  //   }),
+  // );
 
   const validationSchema = Yup.object({
     phoneNumbers: Yup.array().of(Yup.string()),
@@ -56,3 +77,7 @@ const ContactsForm = () => {
 };
 
 export default ContactsForm;
+
+type ContactsFormPropsType = {
+  initialValues: FormikValues;
+};

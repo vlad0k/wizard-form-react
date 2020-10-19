@@ -3,21 +3,10 @@ import FormLayout from '../FormLayout';
 import AvatarPicker from '../../ui/AvatarPicker';
 import InputField from '../../ui/InputField';
 import * as Yup from 'yup';
-import { useSelector } from 'react-redux';
-import { StateType } from '../../../redux/store';
 import '../../../yup';
+import { FormikValues } from 'formik';
 
-const AccountForm: FC<AccountFormPropsType> = () => {
-  const { initialValues } = useSelector(
-    ({
-      stepWizard: {
-        form: { avatar, password, username },
-      },
-    }: StateType) => ({
-      initialValues: { avatar, password, username },
-    }),
-  );
-
+const AccountForm: FC<AccountFormPropsType> = ({ initialValues }) => {
   const validationSchema = Yup.object({
     username: Yup.string().required('required field').uniqueUsername(),
     password: Yup.string().required('required field'),
@@ -44,4 +33,6 @@ const AccountForm: FC<AccountFormPropsType> = () => {
 
 export default AccountForm;
 
-type AccountFormPropsType = {};
+type AccountFormPropsType = {
+  initialValues: FormikValues;
+};

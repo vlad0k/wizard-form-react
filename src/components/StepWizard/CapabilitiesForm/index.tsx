@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { StateType } from '../../../redux/store';
 import * as Yup from 'yup';
@@ -8,10 +8,11 @@ import MySelect from '../../ui/SelectField';
 import TextArea from '../../ui/TextArea';
 import Checkbox from '../../ui/CheckBox';
 import FieldError from '../../ui/FieldError';
+import { FormikValues } from 'formik';
 
 const MAX_LENGTH_OF_TEXTAREA = 300;
 
-const SKILLS_SELECT_OPTIONS: SkillOptionType[] = [
+export const SKILLS_SELECT_OPTIONS: SkillOptionType[] = [
   { value: 'html', label: 'HTML' },
   { value: 'css', label: 'CSS' },
   { value: 'javascript', label: 'Javascript' },
@@ -32,7 +33,7 @@ const SKILLS_SELECT_OPTIONS: SkillOptionType[] = [
   { value: 'firebase', label: 'Firebase' },
 ];
 
-const HOBBIES_CHECKBOX_GROUP = [
+export const HOBBIES_CHECKBOX_GROUP = [
   { value: 'sport', label: 'Sport, fitness, aerobica and staff like that' },
   { value: 'gaming', label: 'I just want to play games, I’m not living in this life' },
   { value: 'nothing', label: 'I’m a female... I’m doing nothing. Every day.' },
@@ -40,19 +41,7 @@ const HOBBIES_CHECKBOX_GROUP = [
   { value: 'nohobbie', label: 'WTF is “hobbies”???' },
 ];
 
-const CapabilitiesForm = () => {
-  const initialValues = useSelector(
-    ({
-      stepWizard: {
-        form: { skills, additionalInfo, hobbies },
-      },
-    }: StateType) => ({
-      skills,
-      additionalInfo,
-      hobbies,
-    }),
-  );
-
+const CapabilitiesForm: FC<CapabilitiesFormPropsType> = ({ initialValues }) => {
   const validationSchema = Yup.object({
     skills: Yup.array()
       .of(Yup.string().required('required field'))
@@ -81,3 +70,7 @@ const CapabilitiesForm = () => {
 };
 
 export default CapabilitiesForm;
+
+type CapabilitiesFormPropsType = {
+  initialValues: FormikValues;
+};

@@ -14,30 +14,31 @@ const STEPS = [
   {
     name: 'Account',
     url: 'account',
-    component: <AccountForm />,
+    component: AccountForm,
   },
   {
     name: 'Profile',
     url: 'profile',
-    component: <ProfileForm />,
+    component: ProfileForm,
   },
 
   {
     name: 'Contacts',
     url: 'contacts',
-    component: <ContactsForm />,
+    component: ContactsForm,
   },
   {
     name: 'Capabilities',
     url: 'capabilities',
-    component: <CapabilitiesForm />,
+    component: CapabilitiesForm,
   },
 ];
 
 const StepWizard: FC<StepWizardPropsType> = ({ editMode = false }) => {
-  const currentStep: number = useSelector(
-    ({ stepWizard: { currentStep } }: StateType) => currentStep,
-  );
+  const { currentStep, form } = useSelector(({ stepWizard: { currentStep, form } }: StateType) => ({
+    currentStep,
+    form,
+  }));
 
   const dispatch = useDispatch();
 
@@ -62,6 +63,12 @@ const StepWizard: FC<StepWizardPropsType> = ({ editMode = false }) => {
       <div>
         {!editMode && <RestoreUnsaved />}
         {STEPS[currentStep].component}
+        {
+          STEPS.map(({ name, component: Component }, index) => <Component initialValues={form} />)[
+            currentStep
+          ]
+        }
+        )
       </div>
     </div>
   );

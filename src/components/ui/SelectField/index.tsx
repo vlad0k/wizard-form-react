@@ -12,12 +12,6 @@ const customStyles = {
     paddingLeft: 8,
     fontSize: 14,
   }),
-  // TODO fix select menu height
-  menu: () => ({
-    boxShadow: 'none',
-    height: 172,
-    overflow: 'scroll',
-  }),
   control: () => ({
     border: 'none',
     backgroundColor: 'white',

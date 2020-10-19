@@ -10,12 +10,16 @@ import AddUserPage from './pages/AddUserPage';
 import ListOfUsersPage from './pages/ListOfUsersPage';
 import UserInfoPage from './pages/UserInfoPage';
 import UserEditPage from './pages/UserEditPage';
+import IndexPage from './pages/IndexPage';
 
 function App() {
   return (
     <div className="App">
       <Router>
         <Header />
+        <Route path="/" exact>
+          <IndexPage />
+        </Route>
         <Route path="/new">
           <AddUserPage />
         </Route>

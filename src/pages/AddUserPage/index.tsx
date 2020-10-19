@@ -11,6 +11,7 @@ const AddUserPage = () => {
   useEffect(() => {
     dispatch(resetForm());
   }, [dispatch]);
+
   return (
     <PageLayout name={'Add User'}>
       <StepWizard />

@@ -43,6 +43,7 @@ const FormLayout: FC<FormLayoutPropsType> = ({ children, initialValues, validati
         initialValues={initialValues}
         onSubmit={formSubmitHandler}
         validationSchema={validationSchema}
+        enableReinitialize
       >
         {({ values, setFieldValue }) => {
           return (

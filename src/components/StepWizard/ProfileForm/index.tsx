@@ -9,22 +9,23 @@ import DatePicker from '../../ui/DatePicker';
 import LocationPicker from '../../ui/LocationPicker';
 import RadioGroup from '../../ui/RadioGroup';
 import FieldError from '../../ui/FieldError';
+import { FormikValues } from 'formik';
 
-const ProfileForm: FC = () => {
-  const initialValues = useSelector(
-    ({
-      stepWizard: {
-        form: { firstname, lastname, birthdate, email, adress, gender },
-      },
-    }: StateType) => ({
-      firstname,
-      lastname,
-      birthdate,
-      email,
-      adress,
-      gender,
-    }),
-  );
+const ProfileForm: FC<ProfileFormPropsType> = ({ initialValues }) => {
+  // const initialValues = useSelector(
+  //   ({
+  //     stepWizard: {
+  //       form: { firstname, lastname, birthdate, email, adress, gender },
+  //     },
+  //   }: StateType) => ({
+  //     firstname,
+  //     lastname,
+  //     birthdate,
+  //     email,
+  //     adress,
+  //     gender,
+  //   }),
+  // );
 
   const validationSchema = Yup.object({
     firstname: Yup.string().required('required field'),
@@ -57,6 +58,10 @@ const ProfileForm: FC = () => {
       </div>
     </FormLayout>
   );
+};
+
+type ProfileFormPropsType = {
+  initialValues: FormikValues;
 };
 
 export default ProfileForm;

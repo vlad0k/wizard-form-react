@@ -1,9 +1,11 @@
-import React  from 'react';
+import React from 'react';
 import classNames from './index.module.css';
 import 'react-datepicker/dist/react-datepicker.css';
+import './calenar.css';
 import { Field, FieldProps } from 'formik';
 import Calendar from 'react-datepicker';
 import FieldError from '../FieldError';
+import cn from 'classnames';
 
 type DatePickerProps = {
   name: string;
@@ -13,7 +15,7 @@ const DatePicker = ({ name }: DatePickerProps) => {
   return (
     <>
       <Field name={name}>
-        {({ field: { value }, form: { setFieldValue } }: FieldProps) => {
+        {({ field: { value }, form: { setFieldValue, errors, touched } }: FieldProps) => {
           const calendarChangeHandler = (date: Date) => {
             setFieldValue(name, date);
           };
@@ -24,7 +26,9 @@ const DatePicker = ({ name }: DatePickerProps) => {
                 selected={value}
                 onChange={calendarChangeHandler}
                 dateFormat="dd/MM/yy"
-                className={classNames.datePicker}
+                className={cn(classNames.datePicker, {
+                  [classNames.errorBorder]: errors[name],
+                })}
                 maxDate={new Date()}
               />
             </>

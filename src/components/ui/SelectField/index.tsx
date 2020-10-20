@@ -4,7 +4,6 @@ import ReactSelect, { ValueType, OptionsType, OptionTypeBase } from 'react-selec
 import { Field, FieldProps } from 'formik';
 import FieldError from '../FieldError';
 
-
 const customStyles = {
   option: (provided: any, state: any) => ({
     ...provided,
@@ -32,9 +31,6 @@ const customStyles = {
   }),
   indicatorsContainer: () => ({
     display: 'none',
-  }),
-  container: () => ({
-    paddingBottom: 24,
   }),
   multiValue: () => ({
     backgroundColor: 'var(--select-color)',
@@ -64,20 +60,18 @@ type SelectPropsType = {
 
 const SelectField = ({ name, isMulti, options, label }: SelectPropsType) => {
   return (
-    <>
+    <div className={classNames.wrapper}>
       <span className={classNames.label}>{label}</span>
       <Field name={name}>
         {({ field: { name, value }, form: { setFieldValue } }: FieldProps) => {
-          const selectedValue = options.find((option) => value.includes(option.value));
-
           const selectChangeHandler = (selected: ValueType<OptionTypeBase>) => {
-
+            setFieldValue(name, selected);
           };
 
           return (
             <ReactSelect
               options={options}
-              value={selectedValue}
+              value={value}
               onChange={selectChangeHandler}
               styles={customStyles}
               isMulti={isMulti}
@@ -86,7 +80,7 @@ const SelectField = ({ name, isMulti, options, label }: SelectPropsType) => {
         }}
       </Field>
       <FieldError name={name} />
-    </>
+    </div>
   );
 };
 

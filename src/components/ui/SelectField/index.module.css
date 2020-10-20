@@ -9,3 +9,7 @@
   color: var(--form-label-color);
   padding-bottom: 4px;
 }
+
+.wrapper {
+  padding-bottom: 24px;
+}

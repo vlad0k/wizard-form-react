@@ -1,3 +1,5 @@
+import { OptionTypeBase } from 'react-select';
+
 export enum ButtonAppearance {
   primary = 'primary',
   secondary = 'secondary',
@@ -21,11 +23,12 @@ export type UserType = {
   hobbies: string[];
   id: number | string;
   lastname: string;
-  mainLang: string;
+  mainLang: OptionTypeBase;
   password: string;
   phoneNumbers: string[];
-  skills: string[];
+  skills: OptionTypeBase[];
   username: string;
+  lastUpdated: Date;
 };
 
 export type RadioOptionType = {
@@ -42,4 +45,10 @@ export enum AvatarSize {
   small = 'small',
   default = 'default',
   large = 'large',
+}
+
+export enum UsersFetchStatus {
+  unfetched,
+  isFetching,
+  fetched,
 }

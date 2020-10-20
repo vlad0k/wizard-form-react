@@ -16,7 +16,7 @@ const TabPanel: FC<TopTabProps> = ({ active, name, value }) => {
 
   const tabClassName = classNamesCombine(classNames.tab, {
     [classNames.active]: active,
-    [classNames.visited]: value < currentStep,
+    [classNames.visited]: value > currentStep,
   });
 
   return (

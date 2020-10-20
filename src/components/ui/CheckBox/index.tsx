@@ -9,7 +9,6 @@ type CheckboxPropsType = {
 };
 
 const Checkbox: FC<CheckboxPropsType> = ({ name, label, value }) => {
-  //  TODO create ui checkbox
   return (
     <label className={classNames.wrapper} htmlFor={value}>
       <Field name={name} value={value} type="checkbox">

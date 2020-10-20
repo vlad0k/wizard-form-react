@@ -1,5 +1,5 @@
 .datePicker {
-  width: 192px;
+  width: 227px;
   height: 40px;
   background: #ffffff;
   border: 1px solid var(--secondary-color);
@@ -16,4 +16,8 @@
   line-height: 16px;
   color: var(--form-label-color);
   padding-bottom: 4px;
+}
+
+.errorBorder {
+  border: 1px solid red;
 }

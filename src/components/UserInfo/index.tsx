@@ -55,7 +55,7 @@ const generatePageTemplate = ({
   {
     key: 'Capabilities',
     value: [
-      { name: 'Skills', value: skills },
+      { name: 'Skills', value: skills.map((skill) => skill.label) },
       { name: 'Hobbies', value: hobbies },
     ],
   },

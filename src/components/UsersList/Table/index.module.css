@@ -42,6 +42,11 @@
   opacity: 0.5;
 }
 
+.isDeleting td:last-child {
+  opacity: 1;
+  background-color: white;
+}
+
 .deleteButton {
   padding-left: 24px;
   position: absolute;

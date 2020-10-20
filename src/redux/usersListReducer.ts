@@ -119,7 +119,6 @@ export const updateUser = (id: number, values: FormikValues) => (dispatch: Dispa
 
 export const generateUsers = throttle(
   () => (dispatch: Dispatch) => {
-    console.log('+');
     deleteAllUsers();
     for (let i = 0; i < 50; i++) {
       let fake = createFakeUser();

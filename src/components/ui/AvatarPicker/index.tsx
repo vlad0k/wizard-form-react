@@ -6,9 +6,11 @@ import Avatar from '../Avatar';
 import addIcon from '../../../assets/icons/add.svg';
 import FieldError from '../FieldError';
 import DropZone from './DropZone';
+import ImageCrop from './ImageCrop';
 
 const AvatarPicker = ({ name }: AvatarPickerProps) => {
   const [isPressed, setIsPressed] = useState(false);
+  const [image, setImage] = useState<File | undefined>(undefined);
 
   const mouseDownHandler = () => {
     setIsPressed(true);
@@ -20,7 +22,18 @@ const AvatarPicker = ({ name }: AvatarPickerProps) => {
   return (
     <>
       <Field name={name}>
-        {({ field: { name, value }, form: { setFieldValue, values } }: FieldProps) => {
+        {({
+          field: { name, value },
+          form: { setFieldValue, values, setFieldTouched },
+        }: FieldProps) => {
+          const setField = (file: File) => {
+            setFieldValue(name, file);
+            setFieldTouched(name);
+          };
+          const handleChange = (file: File) => {
+            setImage(file);
+          };
+
           return (
             <label
               htmlFor={name}
@@ -28,7 +41,11 @@ const AvatarPicker = ({ name }: AvatarPickerProps) => {
               onMouseDown={mouseDownHandler}
               onMouseUp={mouseUpHandler}
             >
-              <DropZone handleChange={(file: File) => setFieldValue(name, file)} name={name}>
+              {image && (
+                <ImageCrop image={image} setField={setField} onClose={() => setImage(undefined)} />
+              )}
+
+              <DropZone handleChange={handleChange} name={name}>
                 <div className={classNames.addUserPhoto}>
                   <Avatar image={value && URL.createObjectURL(value)} />
                   <div className={cn(classNames.label, { [classNames.pressed]: isPressed })}>

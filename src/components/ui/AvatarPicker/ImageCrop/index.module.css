@@ -1,0 +1,34 @@
+.wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: bg 2s linear;
+  backdrop-filter: blur(4px);
+}
+
+.imageCrop {
+  width: 50%;
+  padding: 36px;
+  background: white;
+  border: 4px solid var(--primary-color);
+  border-radius: 32px;
+}
+
+.paddingWrapper {
+  padding-top: 36px;
+}
+
+@keyframes bg {
+  from {
+    backdrop-filter: blur(0);
+  }
+  to {
+    backdrop-filter: blur(4px);
+  }
+}

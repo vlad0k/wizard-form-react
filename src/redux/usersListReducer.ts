@@ -11,6 +11,7 @@ import { throttle } from 'lodash';
 const IMPORT_USERS = 'users/IMPORT_USERS';
 const DELETE_USER = 'users/DELETE_USER';
 const IS_FETCHING = 'users/IS_FETCHING';
+const SELECT_PAGE = 'users/SELECT_PAGE';
 
 interface ImportUsersAction {
   type: typeof IMPORT_USERS;
@@ -26,11 +27,17 @@ interface DeleteUserAction {
   type: typeof DELETE_USER;
 }
 
-type ActionType = ImportUsersAction | DeleteUserAction | IsFetchingAction;
+interface SelectPage {
+  type: typeof SELECT_PAGE;
+  page: number;
+}
+
+type ActionType = ImportUsersAction | DeleteUserAction | IsFetchingAction | SelectPage;
 
 const initialState = {
   users: [] as UserType[],
   usersFetchStatus: UsersFetchStatus.unfetched as UsersFetchStatus,
+  page: 1,
 };
 
 const usersReducer = (state = initialState, action: ActionType) => {
@@ -49,6 +56,14 @@ const usersReducer = (state = initialState, action: ActionType) => {
         usersFetchStatus: action.usersFetchStatus,
       };
     }
+
+    case SELECT_PAGE: {
+      return {
+        ...state,
+        page: action.page,
+      };
+    }
+
     default: {
       return state;
     }
@@ -67,6 +82,11 @@ export const deleteUserActionCreator = (): DeleteUserAction => ({ type: DELETE_U
 export const usersFetchStatus = (usersFetchStatus: UsersFetchStatus): IsFetchingAction => ({
   type: IS_FETCHING,
   usersFetchStatus,
+});
+
+export const selectPage = (page: number): SelectPage => ({
+  type: SELECT_PAGE,
+  page,
 });
 
 export const importUsers = () => async (dispatch: Dispatch) => {

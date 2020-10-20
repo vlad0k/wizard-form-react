@@ -19,7 +19,7 @@ const RestoreUnsaved: FC = () => {
   }, []);
 
   const continueButtonHandler = () => {
-    dispatch(loadSavedForm(savedFormState));
+    dispatch(loadSavedForm({ ...savedFormState, avatar: undefined }));
     deleteFormState();
     setSavedFormState(undefined);
   };

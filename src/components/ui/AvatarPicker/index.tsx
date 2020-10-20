@@ -1,10 +1,11 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import cn from 'classnames';
 import classNames from './index.module.css';
-import { ErrorMessage, Field, FieldProps } from 'formik';
+import { Field, FieldProps } from 'formik';
 import Avatar from '../Avatar';
 import addIcon from '../../../assets/icons/add.svg';
 import FieldError from '../FieldError';
+import DropZone from './DropZone';
 
 const AvatarPicker = ({ name }: AvatarPickerProps) => {
   const [isPressed, setIsPressed] = useState(false);
@@ -19,11 +20,7 @@ const AvatarPicker = ({ name }: AvatarPickerProps) => {
   return (
     <>
       <Field name={name}>
-        {({ field: { name, value }, form: { setFieldValue } }: FieldProps) => {
-          const fileInputChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-            const { target: { files } = { files: [] } } = event;
-            setFieldValue(name, files && files[0]);
-          };
+        {({ field: { name, value }, form: { setFieldValue, values } }: FieldProps) => {
           return (
             <label
               htmlFor={name}
@@ -31,14 +28,15 @@ const AvatarPicker = ({ name }: AvatarPickerProps) => {
               onMouseDown={mouseDownHandler}
               onMouseUp={mouseUpHandler}
             >
-              <div className={classNames.addUserPhoto}>
-                <Avatar image={value && URL.createObjectURL(value)} />
-                <div className={cn(classNames.label, { [classNames.pressed]: isPressed })}>
-                  <img src={addIcon} alt="add avatar" />
-                  add avatar
+              <DropZone handleChange={(file: File) => setFieldValue(name, file)} name={name}>
+                <div className={classNames.addUserPhoto}>
+                  <Avatar image={value && URL.createObjectURL(value)} />
+                  <div className={cn(classNames.label, { [classNames.pressed]: isPressed })}>
+                    <img src={addIcon} alt="add avatar" />
+                    add avatar
+                  </div>
                 </div>
-              </div>
-              <input type="file" name={name} id={name} onChange={fileInputChangeHandler} />
+              </DropZone>
             </label>
           );
         }}

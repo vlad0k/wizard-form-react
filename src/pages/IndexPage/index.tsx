@@ -13,7 +13,7 @@ const IndexPage = () => {
     dispatch(generateUsers());
   };
   return (
-    <PageLayout name={''}>
+    <PageLayout name={'Search Users'}>
       <Search />
       <Button onClick={generateButtonHandler}>Generate Users</Button>
     </PageLayout>

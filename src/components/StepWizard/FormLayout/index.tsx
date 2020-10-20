@@ -27,6 +27,7 @@ const FormLayout: FC<FormLayoutPropsType> = ({ children, initialValues, validati
       dispatch(submitStep(values));
       dispatch(nextStep());
       saveFormState({ ...form, ...values });
+      values.avatar && localStorage.setItem('avatar', URL.createObjectURL(values.avatar));
       if (currentStep === numberOfSteps - 1) {
         dispatch(addUser({ ...form, ...values }));
         dispatch(resetForm());

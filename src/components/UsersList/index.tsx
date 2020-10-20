@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { StateType } from '../../redux/store';
 import Table from './Table';
 import Preloader from '../ui/Preloader';
-import { importUsers } from '../../redux/usersListReducer';
+import { importUsers, selectPage } from '../../redux/usersListReducer';
 import { UsersFetchStatus, UserType } from '../../types';
 import Paginator from './Paginator';
 
@@ -22,8 +22,7 @@ const createPortion = (users: UserType[], page: number) => {
 
 const UsersList = () => {
   const [portion, setPortion] = useState<UserType[]>([]);
-  const [page, setPage] = useState<number>(1);
-  const { usersFetchStatus, users } = useSelector((state: StateType) => state.users);
+  const { usersFetchStatus, users, page } = useSelector((state: StateType) => state.users);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -48,7 +47,7 @@ const UsersList = () => {
           value={page}
           numberOfPages={Math.ceil(users.length / PORTION_SIZE)}
           selectPage={(page: number) => {
-            setPage(page);
+            dispatch(selectPage(page));
           }}
         />
       )}

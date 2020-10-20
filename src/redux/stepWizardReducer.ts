@@ -203,12 +203,6 @@ export const submitStep = (values: FormikValues): SubmitStepAction => ({
   type: SUBMIT_STEP,
   values,
 });
-
-export const setNumberOfSteps = (numberOfSteps: number): SetNumberOfStepsAction => ({
-  type: SET_NUMBER_OF_STEPS,
-  numberOfSteps,
-});
-
 export const previosStep = (): PreviosStepAction => ({
   type: PREVIOS_STEP,
 });

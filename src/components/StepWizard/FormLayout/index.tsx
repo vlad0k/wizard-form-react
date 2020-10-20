@@ -1,4 +1,4 @@
-import React, { FC, ReactNode } from 'react';
+import React, { FC, ReactNode, useEffect, useState } from 'react';
 import classNames from './index.module.css';
 import { Form, Formik, FormikHelpers, FormikValues } from 'formik';
 import { nextStep, resetForm, submitStep } from '../../../redux/stepWizardReducer';
@@ -11,6 +11,7 @@ import { deleteFormState, saveFormState } from '../../../localStorage';
 import { useParams } from 'react-router-dom';
 
 const FormLayout: FC<FormLayoutPropsType> = ({ children, initialValues, validationSchema }) => {
+  const [isSaved, setIsSaved] = useState(false);
   const { id } = useParams();
   const dispatch = useDispatch();
   const { currentStep, numberOfSteps, form, isEditMode } = useSelector(
@@ -21,6 +22,10 @@ const FormLayout: FC<FormLayoutPropsType> = ({ children, initialValues, validati
       isEditMode,
     }),
   );
+
+  useEffect(() => {
+    isSaved && setTimeout(() => setIsSaved(false), 5000);
+  }, [isSaved]);
 
   const formSubmitHandler = (values: FormikValues, formikHelpers: FormikHelpers<FormikValues>) => {
     if (!isEditMode) {
@@ -35,6 +40,7 @@ const FormLayout: FC<FormLayoutPropsType> = ({ children, initialValues, validati
       }
     } else {
       dispatch(updateUser(+id, { ...form, ...values }));
+      setIsSaved(true);
     }
   };
 
@@ -50,7 +56,9 @@ const FormLayout: FC<FormLayoutPropsType> = ({ children, initialValues, validati
           return (
             <Form className={classNames.form}>
               <div className={classNames.columns}>{children}</div>
-              <NavigationButtons />
+              <div>
+                <NavigationButtons isSaved={isSaved} />
+              </div>
             </Form>
           );
         }}

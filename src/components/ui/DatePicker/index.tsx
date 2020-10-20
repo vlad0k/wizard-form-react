@@ -6,6 +6,7 @@ import { Field, FieldProps } from 'formik';
 import Calendar from 'react-datepicker';
 import FieldError from '../FieldError';
 import cn from 'classnames';
+import calendarIcon from '../../../assets/icons/calendar.svg';
 
 type DatePickerProps = {
   name: string;
@@ -17,21 +18,22 @@ const DatePicker = ({ name }: DatePickerProps) => {
       <Field name={name}>
         {({ field: { value }, form: { setFieldValue, errors, touched } }: FieldProps) => {
           const calendarChangeHandler = (date: Date) => {
-            setFieldValue(name, date);
+            setFieldValue(name, date ? date : undefined);
           };
           return (
-            <>
+            <div className={classNames.wrapper}>
               <span className={classNames.label}>Birth Date</span>
               <Calendar
                 selected={value}
                 onChange={calendarChangeHandler}
                 dateFormat="dd/MM/yy"
                 className={cn(classNames.datePicker, {
-                  [classNames.errorBorder]: errors[name],
+                  [classNames.errorBorder]: errors[name] && touched[name],
                 })}
                 maxDate={new Date()}
               />
-            </>
+              <img className={classNames.icon} src={calendarIcon} alt="" />
+            </div>
           );
         }}
       </Field>

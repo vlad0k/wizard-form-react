@@ -16,7 +16,7 @@ const TabPanel: FC<TopTabProps> = ({
   });
 
   return (
-    <div className={tabClassName} onClick={selectStep}>
+    <div className={tabClassName} onClick={() => selectStep()}>
       {name}
     </div>
   );

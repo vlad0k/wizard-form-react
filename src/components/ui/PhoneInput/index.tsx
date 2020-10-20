@@ -4,6 +4,7 @@ import InputMask from 'react-input-mask';
 import { Field, FieldProps } from 'formik';
 import FieldError from '../FieldError';
 import cn from 'classnames';
+import FormLabel from '../FormLabel';
 
 const PhoneInput: FC<PhoneInputPropsType> = ({ name, label }) => {
   return (
@@ -14,8 +15,8 @@ const PhoneInput: FC<PhoneInputPropsType> = ({ name, label }) => {
           const isError = form.errors[name] && form.touched[name];
           return (
             <>
-              <span className={classNames.label}>{label}</span>
               <div>
+                {label && <FormLabel label={label} />}
                 <InputMask
                   className={cn(classNames.input, {
                     [classNames.errorField]: isError,

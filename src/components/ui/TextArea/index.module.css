@@ -7,8 +7,7 @@
   border: 1px solid #c1cfe0;
   box-sizing: border-box;
   padding: 8px;
-  font-family: Roboto;
-  font-weight: 500;
+  font-weight: bolder;
   font-size: 14px;
   line-height: 20px;
 }
@@ -16,16 +15,4 @@
 .InputField {
   display: block;
   padding-bottom: 24px;
-}
-
-.inputField span {
-  display: inline-block;
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 16px;
-
-  color: #657c9a;
-  padding-bottom: 4px;
 }

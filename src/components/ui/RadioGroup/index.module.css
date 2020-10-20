@@ -1,7 +1,14 @@
 .radioGroup {
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
+  justify-content: flex-start;
   padding: 24px 0;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: flex-start;
+  padding: 12px;
 }
 
 .radioGroup input {
@@ -9,15 +16,14 @@
 }
 
 .radioGroup label {
+  padding-right: 40px;
   display: flex;
   align-items: center;
-
-  font-family: Roboto;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
   line-height: 16px;
-  letter-spacing: 0em;
+  letter-spacing: 0;
   text-align: left;
 
   color: var(--form-label-color);
@@ -42,4 +48,8 @@
   background: var(--primary-color);
   border: 3px solid var(--secondary-color);
   box-sizing: border-box;
+}
+
+.radioGroup input:checked ~ span {
+  font-weight: bolder;
 }

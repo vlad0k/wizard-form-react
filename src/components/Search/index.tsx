@@ -29,7 +29,7 @@ const Search: FC = () => {
         value={value}
         onChange={(event: ChangeEvent<HTMLInputElement>) => setValue(event.target.value)}
         onFocus={() => setIsResultsShow(true)}
-        onBlur={() => setTimeout(() => setIsResultsShow(false), 100)}
+        onBlur={() => setTimeout(() => setIsResultsShow(false), 500)}
       />
       {isResultsShow && value !== '' && (
         <ul className={classNames.resultsList}>

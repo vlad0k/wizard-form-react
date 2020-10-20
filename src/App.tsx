@@ -6,10 +6,10 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './db';
 
 import Header from './components/Header';
-import AddUserPage from './pages/AddUserPage';
-import ListOfUsersPage from './pages/ListOfUsersPage';
-import UserInfoPage from './pages/UserInfoPage';
-import UserEditPage from './pages/UserEditPage';
+import AddUserPage from './pages/users/AddPage';
+import ListOfUsersPage from './pages/users/ListPage';
+import UserInfoPage from './pages/users/InfoPage';
+import UserEditPage from './pages/users/EditPage';
 import IndexPage from './pages/IndexPage';
 
 function App() {

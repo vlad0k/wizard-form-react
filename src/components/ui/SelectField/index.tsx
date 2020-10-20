@@ -3,6 +3,7 @@ import classNames from './index.module.css';
 import ReactSelect, { ValueType, OptionsType, OptionTypeBase } from 'react-select';
 import { Field, FieldProps } from 'formik';
 import FieldError from '../FieldError';
+import FormLabel from '../FormLabel';
 
 const customStyles = {
   option: (provided: any, state: any) => ({
@@ -40,11 +41,6 @@ const customStyles = {
   }),
 };
 
-// export type OptionType = {
-//   value: string;
-//   label: string;
-// };
-
 type SelectPropsType = {
   name: string;
   isMulti?: boolean;
@@ -55,7 +51,7 @@ type SelectPropsType = {
 const SelectField = ({ name, isMulti, options, label }: SelectPropsType) => {
   return (
     <div className={classNames.wrapper}>
-      <span className={classNames.label}>{label}</span>
+      {label && <FormLabel label={label} />}
       <Field name={name}>
         {({ field: { name, value }, form: { setFieldValue } }: FieldProps) => {
           const selectChangeHandler = (selected: ValueType<OptionTypeBase>) => {

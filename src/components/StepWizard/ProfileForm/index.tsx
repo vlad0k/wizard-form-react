@@ -14,9 +14,7 @@ const ProfileForm: FC<ProfileFormPropsType> = ({ initialValues }) => {
     firstname: Yup.string().required('required field'),
     lastname: Yup.string().required('required field'),
     email: Yup.string().required('required field').email('incorrect email format'),
-    birthdate: Yup.date()
-      .required('required field')
-      .max(ageValidator(18), 'You should be 18 years old'),
+    birthdate: Yup.date().notRequired().max(ageValidator(18), 'You should be 18 years old'),
     gender: Yup.string().nullable().required('please, choose your gender'),
   });
 
@@ -29,8 +27,9 @@ const ProfileForm: FC<ProfileFormPropsType> = ({ initialValues }) => {
       </div>
       <div>
         <InputField name="email" label="Email" />
-        <LocationPicker name="adress" label={'Address'} />
+        <LocationPicker name="adress" label="Address" />
         <RadioGroup
+          label="Gender"
           name="gender"
           options={[
             { value: 'male', label: 'Male' },

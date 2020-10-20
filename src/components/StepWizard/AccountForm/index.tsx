@@ -21,7 +21,7 @@ const AccountForm: FC<AccountFormPropsType> = ({ initialValues }) => {
       validationSchema={validationSchema}
     >
       <div>
-        <AvatarPicker name={'avatar'} />
+        <AvatarPicker name="avatar" />
       </div>
       <div>
         <InputField name="username" label="User Name" />

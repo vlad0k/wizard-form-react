@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 
-import StepWizard from '../../components/StepWizard';
-import PageLayout from '../../components/PageLayout';
+import StepWizard from '../../../components/StepWizard';
+import PageLayout from '../../../components/PageLayout';
 import { useDispatch } from 'react-redux';
-import { resetForm } from '../../redux/stepWizardReducer';
+import { resetForm } from '../../../redux/stepWizardReducer';
 
 const AddUserPage = () => {
   const dispatch = useDispatch();
@@ -13,7 +13,7 @@ const AddUserPage = () => {
   }, [dispatch]);
 
   return (
-    <PageLayout name={'Add User'}>
+    <PageLayout name="Add User">
       <StepWizard />
     </PageLayout>
   );

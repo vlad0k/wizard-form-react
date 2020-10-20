@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
-import PageLayout from '../../components/PageLayout';
+import PageLayout from '../../../components/PageLayout';
 import { useParams } from 'react-router-dom';
-import StepWizard from '../../components/StepWizard';
-import { UrlParamTypes } from '../../types';
-import { getUser } from '../../db';
+import StepWizard from '../../../components/StepWizard';
+import { UrlParamTypes } from '../../../types';
+import { getUser } from '../../../db';
 import { useDispatch } from 'react-redux';
-import { submitStep } from '../../redux/stepWizardReducer';
+import { submitStep } from '../../../redux/stepWizardReducer';
 
 const UserEditPage = () => {
   const { id } = useParams<UrlParamTypes>();

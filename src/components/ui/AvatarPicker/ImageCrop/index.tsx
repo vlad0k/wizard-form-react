@@ -1,11 +1,12 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import classNames from './index.module.css';
 import ReactCrop, { Crop } from 'react-image-crop';
 import 'react-image-crop/dist/ReactCrop.css';
 import Button from '../../Button';
 import { ButtonAppearance } from '../../../../types';
 import PageHeader from '../../PageHeader';
-import { throttle } from 'lodash';
+
+const canvas = document.createElement('canvas');
 
 const ImageCrop: FC<ImageCropPropsType> = ({ image, setField, onClose }) => {
   const [crop, setCrop] = useState<Crop>({ aspect: 1 / 1 });
@@ -14,55 +15,60 @@ const ImageCrop: FC<ImageCropPropsType> = ({ image, setField, onClose }) => {
   useEffect(() => {
     setSrc(URL.createObjectURL(image));
     setField(image);
-  }, [image]);
+  }, [image, setField]);
 
-  const cropChange = (newCrop: Crop) => {
-    const { x = 0, y = 0, height = 0, width = 0 } = newCrop;
-    setCrop(newCrop);
-    const createImage = () => {
-      const canvas = document.createElement('canvas');
-      const scaleX = img.naturalWidth / img.width;
-      const scaleY = img.naturalHeight / img.height;
-      canvas.width = width;
-      canvas.height = height;
+  const cropChange = useCallback(
+    (newCrop: Crop) => {
+      const { x = 0, y = 0, height = 0, width = 0 } = newCrop;
+      setCrop(newCrop);
+      const createImage = () => {
+        const scaleX = img.naturalWidth / img.width;
+        const scaleY = img.naturalHeight / img.height;
+        canvas.width = width;
+        canvas.height = height;
 
-      const ctx = canvas.getContext('2d');
-      ctx &&
-        ctx.drawImage(
-          img,
-          x * scaleX,
-          y * scaleY,
-          width * scaleX,
-          height * scaleY,
-          0,
-          0,
-          width,
-          height,
-        );
+        const ctx = canvas.getContext('2d');
+        ctx &&
+          ctx.drawImage(
+            img,
+            x * scaleX,
+            y * scaleY,
+            width * scaleX,
+            height * scaleY,
+            0,
+            0,
+            width,
+            height,
+          );
 
-      canvas.toBlob((blob) => {
-        if (blob) {
-          const avatar = new File([blob], 'avatar.jpeg');
-          setField(avatar);
-        }
-      });
-    };
-    img && throttle(createImage, 1000)();
-  };
+        canvas.toBlob((blob) => {
+          if (blob) {
+            const avatar = new File([blob], 'avatar.jpeg');
+            setField(avatar);
+          }
+        });
+      };
+      img && createImage();
+    },
+    [img, setField],
+  );
+
   return (
     <div className={classNames.wrapper}>
       <div className={classNames.imageCrop}>
-        <PageHeader>Crop Image</PageHeader>
-
-        <div className={classNames.paddingWrapper}>
-          <ReactCrop
-            src={src}
-            crop={crop}
-            onImageLoaded={(img) => setImg(img)}
-            onChange={cropChange}
-          />
+        <div className={classNames.header}>
+          <PageHeader>Crop Image</PageHeader>
         </div>
-        <div className={classNames.paddingWrapper}>
+
+        <ReactCrop
+          src={src}
+          crop={crop}
+          onImageLoaded={(img) => setImg(img)}
+          onChange={cropChange}
+          className={classNames.crop}
+        />
+
+        <div className={classNames.button}>
           <Button onClick={onClose} appearance={ButtonAppearance.finish}>
             Done
           </Button>

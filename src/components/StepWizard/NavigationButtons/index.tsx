@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import classNames from './index.module.css';
 import Button from '../../ui/Button';
 import { ButtonAppearance } from '../../../types';
@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { previosStep } from '../../../redux/stepWizardReducer';
 import { StateType } from '../../../redux/store';
 
-const NavigationButtons = () => {
+const NavigationButtons: FC<NavigationButtonsPropsType> = ({ isSaved }) => {
   const { currentStep, numberOfSteps, isEditMode } = useSelector(
     ({ stepWizard: { currentStep, numberOfSteps, isEditMode } }: StateType) => ({
       currentStep,
@@ -42,10 +42,15 @@ const NavigationButtons = () => {
       ) : (
         <div className={classNames.buttons}>
           <Button>Save</Button>
+          {isSaved && <span>saved!</span>}
         </div>
       )}
     </>
   );
+};
+
+type NavigationButtonsPropsType = {
+  isSaved?: boolean;
 };
 
 export default NavigationButtons;

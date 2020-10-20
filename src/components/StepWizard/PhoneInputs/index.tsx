@@ -29,7 +29,7 @@ const PhoneInputs = (props: FieldArrayRenderProps) => {
               {phoneNumbers.length > 1 && (
                 <Button
                   appearance={ButtonAppearance.text}
-                  type={'button'}
+                  type="button"
                   onClick={() => remove(index)}
                 >
                   <img src={minusIcon} alt="remove phone number input" />
@@ -41,7 +41,7 @@ const PhoneInputs = (props: FieldArrayRenderProps) => {
       ))}
 
       {phoneNumbers.length < MAX_NUMBER_OF_PHONE_INPUTS && (
-        <Button appearance={ButtonAppearance.text} type={'button'} onClick={() => push('')}>
+        <Button appearance={ButtonAppearance.text} type="button" onClick={() => push('')}>
           <img src={addIcon} alt="add phone number" />
           add phone number
         </Button>

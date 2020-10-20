@@ -1,0 +1,14 @@
+.generate {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: center;
+}
+
+.generate span {
+  color: var(--finish-color);
+  margin-right: 16px;
+}

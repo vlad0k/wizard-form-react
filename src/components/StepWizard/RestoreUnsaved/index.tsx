@@ -41,7 +41,7 @@ const RestoreUnsaved: FC = () => {
           </div>
 
           <Button appearance={ButtonAppearance.text} onClick={closeButtonHandler}>
-            <img src={closeIcon} alt={'close'} />
+            <img src={closeIcon} alt="close" />
           </Button>
         </div>
       )}

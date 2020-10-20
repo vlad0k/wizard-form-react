@@ -61,7 +61,7 @@ const CapabilitiesForm: FC<CapabilitiesFormPropsType> = ({ initialValues }) => {
         {HOBBIES_CHECKBOX_GROUP.map(({ value, label }) => (
           <Checkbox key={value} name="hobbies" value={value} label={label} />
         ))}
-        <FieldError name={'hobbies'} />
+        <FieldError name="hobbies" />
       </div>
     </FormLayout>
   );

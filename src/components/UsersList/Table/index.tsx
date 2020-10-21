@@ -62,7 +62,6 @@ const Table: FC<TablePropsType> = ({ users, stripped = false }) => {
           ) => {
             return (
               <tr key={id} className={isDeteling === id ? classNames.isDeleting : ''}>
-                <td></td>
                 <td>
                   <Avatar
                     size={AvatarSize.small}

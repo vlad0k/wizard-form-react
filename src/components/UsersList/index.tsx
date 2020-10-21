@@ -25,6 +25,8 @@ const UsersList = () => {
   const { usersFetchStatus, users, page } = useSelector((state: StateType) => state.users);
   const dispatch = useDispatch();
 
+  const numberOFPages = Math.ceil(users.length / PORTION_SIZE);
+
   useEffect(() => {
     dispatch(importUsers());
   }, [dispatch]);
@@ -42,10 +44,10 @@ const UsersList = () => {
           <Preloader />
         </div>
       )}
-      {users.length / PORTION_SIZE > 0 && (
+      {numberOFPages > 1 && (
         <Paginator
           value={page}
-          numberOfPages={Math.ceil(users.length / PORTION_SIZE)}
+          numberOfPages={numberOFPages}
           selectPage={(page: number) => {
             dispatch(selectPage(page));
           }}

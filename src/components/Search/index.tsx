@@ -1,11 +1,10 @@
 import React, { ChangeEvent, FC, useEffect, useState } from 'react';
 import classNames from './index.module.css';
 
-import { debounce } from 'lodash';
 import { searchUsers } from '../../db';
 import { AvatarSize, UserType } from '../../types';
 import { Link } from 'react-router-dom';
-import cn from 'classnames/dedupe';
+import cn from 'classnames';
 import Avatar from '../ui/Avatar';
 
 const Search: FC = () => {
@@ -14,11 +13,11 @@ const Search: FC = () => {
   const [isResultsShow, setIsResultsShow] = useState<boolean>(false);
 
   useEffect(() => {
-    const searchInDb = debounce(async () => {
+    const searchInDb = async () => {
       const newUsers = await searchUsers(value);
       setFoundUsers(newUsers);
       setIsResultsShow(true);
-    }, 200);
+    };
     searchInDb();
   }, [value]);
 

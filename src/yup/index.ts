@@ -9,9 +9,9 @@ Yup.addMethod<StringSchema>(Yup.string, 'uniqueUsername', function () {
   });
 });
 
-Yup.addMethod<MixedSchema>(Yup.mixed, 'fileSize', function (size: number = 1) {
-  return this.test('fileSize', `avatar should be less than ${size} mb`, (value) => {
-    return value ? value.size <= size * 1_048_576 : true;
+Yup.addMethod<MixedSchema>(Yup.mixed, 'fileSize', function (sizeInMb: number = 1) {
+  return this.test('fileSize', `avatar should be less than ${sizeInMb} mb`, (value) => {
+    return value ? value.size <= sizeInMb * 1_048_576 : true;
   });
 });
 
@@ -24,3 +24,5 @@ declare module 'yup' {
     uniqueUsername: () => StringSchema<string | null | undefined>;
   }
 }
+
+export default Yup;

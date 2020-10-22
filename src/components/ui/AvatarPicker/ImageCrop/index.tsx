@@ -5,7 +5,7 @@ import PageHeader from '../../PageHeader';
 import Button from '../../Button';
 import { ButtonAppearance } from '../../../../types';
 
-const ImageCrop: FC<ImageCropPropsType> = ({ image, setField, onClose }) => {
+const ImageCrop: FC<ImageCropPropsType> = ({ image, setField = () => {}, close = () => {} }) => {
   const [result, setResult] = useState<File>(image);
   const imageRef = createRef<HTMLImageElement>();
 
@@ -28,7 +28,7 @@ const ImageCrop: FC<ImageCropPropsType> = ({ image, setField, onClose }) => {
 
   const doneButtonHandler = () => {
     setField(result);
-    onClose();
+    close();
   };
 
   return (
@@ -54,7 +54,7 @@ const ImageCrop: FC<ImageCropPropsType> = ({ image, setField, onClose }) => {
 type ImageCropPropsType = {
   image: File;
   setField: (image: File) => void;
-  onClose: () => void;
+  close: () => void;
 };
 
 export default ImageCrop;

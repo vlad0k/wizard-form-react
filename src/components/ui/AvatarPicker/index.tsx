@@ -43,7 +43,7 @@ const AvatarPicker = ({ name }: AvatarPickerProps) => {
               onMouseUp={mouseUpHandler}
             >
               {image && (
-                <ImageCrop image={image} setField={setField} onClose={() => setImage(undefined)} />
+                <ImageCrop image={image} setField={setField} close={() => setImage(undefined)} />
               )}
 
               <DropZone handleChange={handleChange} name={name}>

@@ -1,11 +1,9 @@
-import React, { createRef, FC, useCallback, useEffect, useMemo, useState } from 'react';
+import React, { createRef, FC, useEffect, useState } from 'react';
 import classNames from './index.module.css';
 import Cropper from 'cropperjs';
 import PageHeader from '../../PageHeader';
 import Button from '../../Button';
 import { ButtonAppearance } from '../../../../types';
-
-const canvas = document.createElement('canvas');
 
 const ImageCrop: FC<ImageCropPropsType> = ({ image, setField, onClose }) => {
   const [result, setResult] = useState<File>(image);
@@ -16,9 +14,9 @@ const ImageCrop: FC<ImageCropPropsType> = ({ image, setField, onClose }) => {
       return;
     }
     const cropper = new Cropper(imageRef.current, {
-      aspectRatio: 1 / 1,
+      aspectRatio: 1,
       crop: () => {
-        const canvas = cropper.getCroppedCanvas().toBlob((blob) => {
+        cropper.getCroppedCanvas().toBlob((blob) => {
           if (blob) {
             const avatar = new File([blob], 'avatar.png');
             setResult(avatar);

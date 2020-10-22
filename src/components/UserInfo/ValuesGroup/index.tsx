@@ -1,12 +1,13 @@
 import React, { FC } from 'react';
-import classNames from './index.module.css';
-import { Link } from 'react-router-dom';
-import Button from '../../ui/Button';
-import editIcon from '../../../assets/icons/Edit.svg';
-import ValuesList from '../ValuesList';
-import { ButtonAppearance } from '../../../types';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+
+import editIcon from '../../../assets/icons/Edit.svg';
 import { selectStep } from '../../../redux/stepWizardReducer';
+import { ButtonAppearance } from '../../../types';
+import Button from '../../ui/Button';
+import ValuesList from '../ValuesList';
+import classNames from './index.module.css';
 
 const ValuesGroup: FC<ValuesGroupPropsType> = ({ groupName, values, id, index }) => {
   const dispatch = useDispatch();

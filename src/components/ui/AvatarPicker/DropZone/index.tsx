@@ -1,12 +1,12 @@
 import React, { FC, ReactNode } from 'react';
-import classNames from './index.module.css';
 import { useDropzone } from 'react-dropzone';
 
-const DropZone: FC<DropZonePropsType> = ({ name, handleChange, children }) => {
+import classNames from './index.module.css';
+
+const DropZone: FC<DropZonePropsType> = ({ handleChange, children }) => {
   const onDrop = (acceptedFiles: File[]) => {
     handleChange(acceptedFiles[0]);
   };
-
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
   return (
     <div {...getRootProps()} className={classNames.dropZone}>
@@ -18,9 +18,8 @@ const DropZone: FC<DropZonePropsType> = ({ name, handleChange, children }) => {
 };
 
 type DropZonePropsType = {
-  handleChange: (file: File) => void;
+  handleChange: (photo: File) => {};
   children: ReactNode;
-  name: string;
 };
 
 export default DropZone;

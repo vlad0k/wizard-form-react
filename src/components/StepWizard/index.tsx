@@ -1,14 +1,15 @@
 import React, { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { StateType } from '../../redux/store';
-import Tabs from './Tabs';
-import TabPanel from './TabPanel';
-import AccountForm from './AccountForm';
-import ProfileForm from './ProfileForm';
-import ContactsForm from './ContactsForm';
-import CapabilitiesForm from './CapabilitiesForm';
-import RestoreUnsaved from './RestoreUnsaved';
+
 import { initiateStepWizard, selectStep } from '../../redux/stepWizardReducer';
+import { StateType } from '../../redux/store';
+import AccountForm from './AccountForm';
+import CapabilitiesForm from './CapabilitiesForm';
+import ContactsForm from './ContactsForm';
+import ProfileForm from './ProfileForm';
+import RestoreUnsaved from './RestoreUnsaved';
+import TabPanel from './TabPanel';
+import Tabs from './Tabs';
 
 const STEPS = [
   {

@@ -1,9 +1,10 @@
-import React, { createRef, FC, useEffect, useState } from 'react';
-import classNames from './index.module.css';
 import Cropper from 'cropperjs';
-import PageHeader from '../../PageHeader';
-import Button from '../../Button';
+import React, { createRef, FC, useEffect, useState } from 'react';
+
 import { ButtonAppearance } from '../../../../types';
+import Button from '../../Button';
+import PageHeader from '../../PageHeader';
+import classNames from './index.module.css';
 
 const ImageCrop: FC<ImageCropPropsType> = ({ image, setField = () => {}, close = () => {} }) => {
   const [result, setResult] = useState<File>(image);
@@ -33,7 +34,7 @@ const ImageCrop: FC<ImageCropPropsType> = ({ image, setField = () => {}, close =
 
   return (
     <div className={classNames.wrapper}>
-      <div className={classNames.imageCrop}>
+      <div className={classNames.cropContainer}>
         <div className={classNames.header}>
           <PageHeader>Crop Image</PageHeader>
         </div>

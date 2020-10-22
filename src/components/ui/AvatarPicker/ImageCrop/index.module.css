@@ -11,13 +11,14 @@
   animation: bg 2s linear;
   backdrop-filter: blur(4px);
 }
+
 .header {
   display: flex;
   justify-content: center;
   padding-bottom: 36px;
 }
 
-.imageCrop {
+.cropContainer {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -49,10 +50,4 @@
   to {
     backdrop-filter: blur(4px);
   }
-}
-
-/* v2 styles */
-.crop img {
-  display: block;
-  max-width: 100%;
 }

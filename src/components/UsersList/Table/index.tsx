@@ -1,16 +1,17 @@
+import cn from 'classnames';
+import { IndexableType } from 'dexie';
+import moment from 'moment';
 import React, { FC, useState } from 'react';
-import classNames from './index.module.css';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+
+import DeleteIcon from '../../../assets/icons/Close.svg';
+import EditIcon from '../../../assets/icons/Edit.svg';
+import { deleteUser } from '../../../redux/usersListReducer';
 import { AvatarSize, ButtonAppearance, UserType } from '../../../types';
 import Avatar from '../../ui/Avatar';
-import { Link } from 'react-router-dom';
 import Button from '../../ui/Button';
-import EditIcon from '../../../assets/icons/Edit.svg';
-import DeleteIcon from '../../../assets/icons/Close.svg';
-import { useDispatch } from 'react-redux';
-import { IndexableType } from 'dexie';
-import { deleteUser } from '../../../redux/usersListReducer';
-import cn from 'classnames';
-import moment from 'moment';
+import classNames from './index.module.css';
 
 const Table: FC<TablePropsType> = ({ users, stripped = false }) => {
   const dispatch = useDispatch();
@@ -46,17 +47,21 @@ const Table: FC<TablePropsType> = ({ users, stripped = false }) => {
       </thead>
       <tbody>
         {users.map(
-          (
-            { id, username, firstname, lastname, company, email, avatar, phoneNumbers, updatedAt },
-            i: number,
-          ) => {
+          ({
+            id,
+            username,
+            firstname,
+            lastname,
+            company,
+            email,
+            avatar,
+            phoneNumbers,
+            updatedAt,
+          }: UserType) => {
             return (
               <tr key={id} className={isDeteling === id ? classNames.isDeleting : ''}>
                 <td>
-                  <Avatar
-                    size={AvatarSize.small}
-                    image={avatar ? URL.createObjectURL(avatar) : undefined}
-                  />
+                  <Avatar size={AvatarSize.small} imageFile={avatar} />
                 </td>
                 <td>
                   <div>

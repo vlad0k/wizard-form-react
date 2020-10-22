@@ -1,8 +1,9 @@
 import React, { FC } from 'react';
-import classNames from './index.module.css';
-import Avatar from '../ui/Avatar';
-import ValuesGroup from './ValuesGroup';
+
 import { AvatarSize, UserType } from '../../types';
+import Avatar from '../ui/Avatar';
+import classNames from './index.module.css';
+import ValuesGroup from './ValuesGroup';
 
 type TemplateType = {
   key: string;
@@ -65,7 +66,7 @@ const UserInfo: FC<UserPagePropsType> = ({ user }) => {
   const { avatar, id } = user;
   return (
     <div className={classNames.userPage}>
-      <Avatar image={avatar ? URL.createObjectURL(avatar) : undefined} size={AvatarSize.large} />
+      <Avatar imageFile={avatar} size={AvatarSize.large} />
       <div>
         {generatePageTemplate(user).map(({ key, value }: TemplateType, index) => (
           <ValuesGroup index={index} key={key} groupName={key} values={value} id={id} />
@@ -74,9 +75,7 @@ const UserInfo: FC<UserPagePropsType> = ({ user }) => {
     </div>
   );
 };
-
-export default UserInfo;
-
 type UserPagePropsType = {
   user: UserType;
 };
+export default UserInfo;

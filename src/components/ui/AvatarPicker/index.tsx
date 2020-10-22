@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
 import cn from 'classnames';
-import classNames from './index.module.css';
 import { Field, FieldProps } from 'formik';
-import Avatar from '../Avatar';
+import React, { useState } from 'react';
+
 import addIcon from '../../../assets/icons/add.svg';
+import Avatar from '../Avatar';
 import FieldError from '../FieldError';
 import DropZone from './DropZone';
 import ImageCrop from './ImageCrop';
+import classNames from './index.module.css';
 
 const AvatarPicker = ({ name }: AvatarPickerProps) => {
   const [isPressed, setIsPressed] = useState(false);
@@ -22,10 +23,7 @@ const AvatarPicker = ({ name }: AvatarPickerProps) => {
   return (
     <>
       <Field name={name}>
-        {({
-          field: { name, value },
-          form: { setFieldValue, values, setFieldTouched },
-        }: FieldProps) => {
+        {({ field: { name, value }, form: { setFieldValue, setFieldTouched } }: FieldProps) => {
           const setField = (file: File) => {
             console.log(file);
             setFieldValue(name, file);
@@ -48,7 +46,7 @@ const AvatarPicker = ({ name }: AvatarPickerProps) => {
 
               <DropZone handleChange={handleChange} name={name}>
                 <div className={classNames.addUserPhoto}>
-                  <Avatar image={value && URL.createObjectURL(value)} />
+                  <Avatar imageFile={value} />
                   <div className={cn(classNames.label, { [classNames.pressed]: isPressed })}>
                     <img src={addIcon} alt="add avatar" />
                     add avatar

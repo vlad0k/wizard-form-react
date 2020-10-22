@@ -1,11 +1,11 @@
+import cn from 'classnames';
 import React, { ChangeEvent, FC, useEffect, useState } from 'react';
-import classNames from './index.module.css';
+import { Link } from 'react-router-dom';
 
 import { searchUsers } from '../../db';
 import { AvatarSize, UserType } from '../../types';
-import { Link } from 'react-router-dom';
-import cn from 'classnames';
 import Avatar from '../ui/Avatar';
+import classNames from './index.module.css';
 
 const Search: FC = () => {
   const [value, setValue] = useState<string>('');
@@ -40,7 +40,7 @@ const Search: FC = () => {
           {foundUsers.map(({ id, username, firstname, lastname, avatar = undefined }) => (
             <li className={classNames.result}>
               <Link to={`/users/${id}`}>
-                <Avatar image={URL.createObjectURL(avatar)} size={AvatarSize.small} />
+                <Avatar imageFile={avatar} size={AvatarSize.small} />
                 <div className={classNames.name}>
                   {firstname} {lastname}
                   <div className={classNames.username}>@{username}</div>

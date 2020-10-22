@@ -1,10 +1,12 @@
-import React from 'react';
-import classNames from './index.module.css';
 import cn from 'classnames';
+import React from 'react';
+
 import noPhotoIcon from '../../../assets/icons/empty-avatar.svg';
 import { AvatarSize } from '../../../types';
+import classNames from './index.module.css';
 
-const Avatar = ({ image, size = AvatarSize.default }: AvatarProp) => {
+const Avatar = ({ imageFile, imageSrc, size = AvatarSize.default }: AvatarProp) => {
+  const image = imageFile ? URL.createObjectURL(imageFile) : imageSrc;
   return (
     <div
       className={cn(classNames.avatar, classNames[size], {
@@ -20,6 +22,7 @@ const Avatar = ({ image, size = AvatarSize.default }: AvatarProp) => {
 export default Avatar;
 
 type AvatarProp = {
-  image?: string;
+  imageFile?: File | null;
+  imageSrc?: string;
   size?: AvatarSize;
 };

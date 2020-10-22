@@ -20,7 +20,7 @@ faker.random.array = (min: number, max: number, cb: () => any = () => {}): any[]
 const createFakeUser = (): FormikValues => {
   const newUser = {
     additionalInfo: faker.lorem.text(),
-    adress: faker.address.streetAddress(),
+    address: faker.address.streetAddress(),
     avatar: faker.image.avatar(),
     birthdate: faker.date.past(70, ageValidator(18)),
     company: faker.company.companyName(),

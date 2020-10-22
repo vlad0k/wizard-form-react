@@ -47,17 +47,7 @@ const Table: FC<TablePropsType> = ({ users, stripped = false }) => {
       <tbody>
         {users.map(
           (
-            {
-              id,
-              username,
-              firstname,
-              lastname,
-              company,
-              email,
-              avatar,
-              phoneNumbers,
-              lastUpdated,
-            },
+            { id, username, firstname, lastname, company, email, avatar, phoneNumbers, updatedAt },
             i: number,
           ) => {
             return (
@@ -78,7 +68,7 @@ const Table: FC<TablePropsType> = ({ users, stripped = false }) => {
                 </td>
                 <td>{company}</td>
                 <td>{phoneNumbers[0] ? phoneNumbers[0] : email}</td>
-                <td>{moment(lastUpdated).fromNow()}</td>
+                <td>{moment(updatedAt).fromNow()}</td>
                 {isDeteling !== id && (
                   <>
                     <td>

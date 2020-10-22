@@ -87,7 +87,7 @@ const initialState = {
     lastname: '',
     birthdate: undefined as Date | undefined,
     email: '',
-    adress: '',
+    address: '',
     gender: null as 'male' | 'female' | null,
 
     company: '',
@@ -199,7 +199,7 @@ export const backButtonHanle = (): BackButonAction => ({ type: BACK_BUTTON_HANDL
 
 export const selectStep = (step: number): SelectStepAction => ({ type: SELECT_STEP, step });
 
-export const submitStep = (values: FormikValues): SubmitStepAction => ({
+export const submitForm = (values: FormikValues): SubmitStepAction => ({
   type: SUBMIT_STEP,
   values,
 });

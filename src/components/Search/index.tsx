@@ -37,13 +37,10 @@ const Search: FC = () => {
               <span>-- no users found --</span>
             </li>
           )}
-          {foundUsers.map(({ id, username, firstname, lastname, avatar }) => (
+          {foundUsers.map(({ id, username, firstname, lastname, avatar = undefined }) => (
             <li className={classNames.result}>
               <Link to={`/users/${id}`}>
-                <Avatar
-                  image={avatar ? URL.createObjectURL(avatar) : undefined}
-                  size={AvatarSize.small}
-                />
+                <Avatar image={URL.createObjectURL(avatar)} size={AvatarSize.small} />
                 <div className={classNames.name}>
                   {firstname} {lastname}
                   <div className={classNames.username}>@{username}</div>

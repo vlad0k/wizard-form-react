@@ -5,15 +5,15 @@ import StepWizard from '../../../components/StepWizard';
 import { UrlParamTypes } from '../../../types';
 import { getUser } from '../../../db';
 import { useDispatch } from 'react-redux';
-import { submitStep } from '../../../redux/stepWizardReducer';
+import { submitForm } from '../../../redux/stepWizardReducer';
 
 const UserEditPage = () => {
   const { id } = useParams<UrlParamTypes>();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    getUser(id).then((user) => {
-      const {
+    getUser(id).then(
+      ({
         avatar,
         username,
         password,
@@ -21,7 +21,7 @@ const UserEditPage = () => {
         lastname,
         birthdate,
         email,
-        adress,
+        address,
         gender,
         company,
         facebook,
@@ -32,31 +32,31 @@ const UserEditPage = () => {
         skills,
         additionalInfo,
         hobbies,
-      } = user;
-
-      dispatch(
-        submitStep({
-          avatar,
-          username,
-          password,
-          firstname,
-          lastname,
-          birthdate,
-          email,
-          adress,
-          gender,
-          company,
-          facebook,
-          github,
-          mainLang,
-          fax,
-          phoneNumbers,
-          skills,
-          additionalInfo,
-          hobbies,
-        }),
-      );
-    });
+      }) => {
+        dispatch(
+          submitForm({
+            avatar,
+            username,
+            password,
+            firstname,
+            lastname,
+            birthdate,
+            email,
+            address,
+            gender,
+            company,
+            facebook,
+            github,
+            mainLang,
+            fax,
+            phoneNumbers,
+            skills,
+            additionalInfo,
+            hobbies,
+          }),
+        );
+      },
+    );
   }, [dispatch, id]);
 
   return (

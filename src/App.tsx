@@ -1,5 +1,7 @@
 import React from 'react';
 import './App.css';
+import ReactNotification from 'react-notifications-component';
+import 'react-notifications-component/dist/theme.css';
 
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
@@ -17,6 +19,7 @@ function App() {
     <div className="App">
       <Router>
         <Header />
+        <ReactNotification />
         <Route path="/" exact>
           <IndexPage />
         </Route>

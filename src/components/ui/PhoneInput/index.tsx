@@ -16,7 +16,7 @@ const PhoneInput: FC<PhoneInputPropsType> = ({ name, label }) => {
           return (
             <>
               <div>
-                {label && <FormLabel label={label} />}
+                <FormLabel label={label} />
                 <InputMask
                   className={cn(classNames.input, {
                     [classNames.errorField]: isError,

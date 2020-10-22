@@ -1,12 +1,15 @@
 import { UsersFetchStatus, UserType } from '../types';
-import db, { deleteAllUsers, getUsers } from '../db';
+import db, {
+  addUser as addUserToDb,
+  deleteAllUsers,
+  getUsers,
+  updateUser as updateUserToDb,
+} from '../db';
 import { IndexableType } from 'dexie';
 import { Dispatch } from 'redux';
 import { FormikValues } from 'formik';
-import { addUser as addUserToDb, updateUser as updateUserToDb } from '../db';
 import createFakeUser from '../utils/createFakeUser';
-import xhr from 'xhr';
-import { throttle } from 'lodash';
+import { store } from 'react-notifications-component';
 
 const IMPORT_USERS = 'users/IMPORT_USERS';
 const DELETE_USER = 'users/DELETE_USER';
@@ -113,21 +116,67 @@ export const deleteUser = (id: IndexableType) => (dispatch: Dispatch) => {
 
 export const updateUser = (id: number, values: FormikValues) => (dispatch: Dispatch) => {
   updateUserToDb(id, values).then(() => {
-    getUsers().then((users: UserType[]) => dispatch(importUsersActionCreator(users)));
+    getUsers().then((users: UserType[]) => {
+      dispatch(importUsersActionCreator(users));
+      const user = users.find((user) => id === user.id);
+      const username = user && user.username;
+      store.addNotification({
+        title: 'Saved',
+        message: `@${username} was updated`,
+        type: 'success',
+        insert: 'top',
+        container: 'bottom-right',
+        animationIn: ['animate__animated', 'animate__fadeIn'],
+        animationOut: ['animate__animated', 'animate__fadeOut'],
+        dismiss: {
+          duration: 3000,
+        },
+      });
+    });
   });
 };
 
-export const generateUsers = throttle(
-  () => (dispatch: Dispatch) => {
-    deleteAllUsers();
-    for (let i = 0; i < 50; i++) {
-      let fake = createFakeUser();
-      xhr.get(fake.avatar, { responseType: 'blob' }, (err, res) => {
-        addUserToDb({ ...fake, avatar: res.statusCode === 200 ? res.body : undefined }).then(() => {
-          getUsers().then((users: UserType[]) => dispatch(importUsersActionCreator(users)));
+//TODO rewrite function to import a bunch of users
+export const generateUsers = () => (dispatch: Dispatch) => {
+  const NUMBER_OF_FAKES = 50;
+  store.addNotification({
+    title: 'Generating fake users...',
+    message: ' ',
+    type: 'warning',
+    insert: 'top',
+    container: 'bottom-right',
+    animationIn: ['animate__animated', 'animate__fadeIn'],
+    animationOut: ['animate__animated', 'animate__fadeOut'],
+    dismiss: {
+      duration: 3000,
+    },
+  });
+  dispatch(usersFetchStatus(UsersFetchStatus.isFetching));
+  deleteAllUsers();
+  for (let i = 1; i <= NUMBER_OF_FAKES; i++) {
+    let fake = createFakeUser();
+    const fetchAvatar = async () => {
+      const response = await fetch(fake.avatar);
+      const blob = await response.blob();
+      await addUserToDb({ ...fake, avatar: new File([blob], 'avatar.jpeg') });
+      const users = await getUsers();
+      dispatch(importUsersActionCreator(users));
+      if (i === NUMBER_OF_FAKES) {
+        store.addNotification({
+          title: 'Success',
+          message: 'Fake users were generated',
+          type: 'success',
+          insert: 'top',
+          container: 'bottom-right',
+          animationIn: ['animate__animated', 'animate__fadeIn'],
+          animationOut: ['animate__animated', 'animate__fadeOut'],
+          dismiss: {
+            duration: 3000,
+          },
         });
-      });
-    }
-  },
-  2000,
-);
+        dispatch(usersFetchStatus(UsersFetchStatus.fetched));
+      }
+    };
+    fetchAvatar();
+  }
+};

@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import classNames from './index.module.css';
-import classNamesCombine from 'classnames';
+import cn from 'classnames';
 
 const TabPanel: FC<TopTabProps> = ({
   active,
@@ -9,7 +9,7 @@ const TabPanel: FC<TopTabProps> = ({
   selectStep = () => {},
   editMode = false,
 }) => {
-  const tabClassName = classNamesCombine(classNames.tab, {
+  const tabClassName = cn(classNames.tab, {
     [classNames.active]: active,
     [classNames.visited]: editMode,
     [classNames.visited]: disabled && !editMode,

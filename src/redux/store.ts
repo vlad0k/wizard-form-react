@@ -2,7 +2,7 @@ import { createStore, combineReducers, Store, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunkMiddleware from 'redux-thunk';
 
-import stepWizardReducer, { selectStep } from './stepWizardReducer';
+import stepWizardReducer from './stepWizardReducer';
 import usersListReducer from './usersListReducer';
 
 let store: Store = createStore(

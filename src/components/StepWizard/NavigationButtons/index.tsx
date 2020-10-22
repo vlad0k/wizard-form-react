@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { previosStep } from '../../../redux/stepWizardReducer';
 import { StateType } from '../../../redux/store';
 
-const NavigationButtons: FC<NavigationButtonsPropsType> = ({ isSaved }) => {
+const NavigationButtons: FC<NavigationButtonsPropsType> = () => {
   const { currentStep, numberOfSteps, isEditMode } = useSelector(
     ({ stepWizard: { currentStep, numberOfSteps, isEditMode } }: StateType) => ({
       currentStep,
@@ -42,15 +42,12 @@ const NavigationButtons: FC<NavigationButtonsPropsType> = ({ isSaved }) => {
       ) : (
         <div className={classNames.buttons}>
           <Button>Save</Button>
-          {isSaved && <span>saved!</span>}
         </div>
       )}
     </>
   );
 };
 
-type NavigationButtonsPropsType = {
-  isSaved?: boolean;
-};
+type NavigationButtonsPropsType = {};
 
 export default NavigationButtons;

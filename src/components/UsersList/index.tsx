@@ -8,15 +8,12 @@ import Table from './Table';
 import Preloader from '../ui/Preloader';
 import { importUsers, selectPage } from '../../redux/usersListReducer';
 import { UsersFetchStatus, UserType } from '../../types';
-import Paginator from './Paginator';
+import Paginator from '../ui/Pagination';
 
 const PORTION_SIZE = 10;
 
 const createPortion = (users: UserType[], page: number) => {
-  const portionValue = users.filter(
-    (user: UserType, index: number) =>
-      index > PORTION_SIZE * (page - 1) - 1 && index <= PORTION_SIZE * page - 1,
-  );
+  const portionValue = users.slice(PORTION_SIZE * (page - 1), PORTION_SIZE * page);
   return portionValue;
 };
 
@@ -36,22 +33,19 @@ const UsersList = () => {
     setPortion(portionValue);
   }, [page, users]);
 
+  const selectPageHandler = (page: number) => dispatch(selectPage(page));
+
   return (
     <div>
-      <Table users={portion} stripped />
       {usersFetchStatus === UsersFetchStatus.isFetching && (
         <div className={classNames.preloader}>
           <Preloader />
         </div>
       )}
+      {usersFetchStatus !== UsersFetchStatus.isFetching && <Table users={portion} stripped />}
+
       {numberOFPages > 1 && (
-        <Paginator
-          value={page}
-          numberOfPages={numberOFPages}
-          selectPage={(page: number) => {
-            dispatch(selectPage(page));
-          }}
-        />
+        <Paginator value={page} numberOfPages={numberOFPages} selectPage={selectPageHandler} />
       )}
       {users.length === 0 && usersFetchStatus === UsersFetchStatus.fetched && (
         <div className={classNames.empty}>

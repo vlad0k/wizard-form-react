@@ -10,7 +10,7 @@ export enum ButtonAppearance {
 
 export type UserType = {
   additionalInfo: string;
-  adress: string;
+  address: string;
   avatar: File | null;
   birthdate: Date | undefined;
   company: string;
@@ -28,7 +28,7 @@ export type UserType = {
   phoneNumbers: string[];
   skills: OptionTypeBase[];
   username: string;
-  lastUpdated: Date;
+  updatedAt: Date;
 };
 
 export type RadioOptionType = {

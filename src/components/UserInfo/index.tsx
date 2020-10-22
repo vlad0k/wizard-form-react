@@ -17,7 +17,7 @@ const generatePageTemplate = ({
   hobbies,
   phoneNumbers,
   company,
-  adress,
+  address,
   lastname,
   firstname,
   birthdate,
@@ -40,7 +40,7 @@ const generatePageTemplate = ({
       { name: 'Last Name', value: lastname },
       { name: 'Birth Date', value: birthdate ? birthdate.toLocaleDateString() : null },
       { name: 'Email', value: email },
-      { name: 'Adress', value: adress },
+      { name: 'Address', value: address },
     ],
   },
   {

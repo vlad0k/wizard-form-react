@@ -13,9 +13,3 @@
 .buttons * {
   margin-left: 150px;
 }
-
-.buttons span {
-  color: var(--finish-color);
-  margin-right: -120px;
-  margin-bottom: -4px;
-}

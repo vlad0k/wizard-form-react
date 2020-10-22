@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import classNames from './index.module.css';
 import cn from 'classnames';
 
-const Paginator: FC<PaginatorPropsType> = ({ value, numberOfPages, selectPage = () => {} }) => {
+const Pagination: FC<PaginationPropsType> = ({ value, numberOfPages, selectPage = () => {} }) => {
   const pages = new Array(numberOfPages).fill(null).map((element, index) => index + 1);
 
   return (
@@ -22,10 +22,10 @@ const Paginator: FC<PaginatorPropsType> = ({ value, numberOfPages, selectPage = 
   );
 };
 
-type PaginatorPropsType = {
+type PaginationPropsType = {
   value: number;
   numberOfPages: number;
   selectPage: (page: number) => void;
 };
 
-export default Paginator;
+export default Pagination;

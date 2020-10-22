@@ -27,6 +27,7 @@ const AvatarPicker = ({ name }: AvatarPickerProps) => {
           form: { setFieldValue, values, setFieldTouched },
         }: FieldProps) => {
           const setField = (file: File) => {
+            console.log(file);
             setFieldValue(name, file);
             setFieldTouched(name);
           };

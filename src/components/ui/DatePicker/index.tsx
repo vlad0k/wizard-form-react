@@ -18,7 +18,7 @@ const DatePicker = ({ name }: DatePickerProps) => {
       <Field name={name}>
         {({ field: { value }, form: { setFieldValue, errors, touched } }: FieldProps) => {
           const calendarChangeHandler = (date: Date) => {
-            setFieldValue(name, date ? date : undefined);
+            setFieldValue(name, date);
           };
           return (
             <div className={classNames.wrapper}>

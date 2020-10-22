@@ -51,7 +51,7 @@ type SelectPropsType = {
 const SelectField = ({ name, isMulti, options, label }: SelectPropsType) => {
   return (
     <div className={classNames.wrapper}>
-      {label && <FormLabel label={label} />}
+      <FormLabel label={label} />
       <Field name={name}>
         {({ field: { name, value }, form: { setFieldValue } }: FieldProps) => {
           const selectChangeHandler = (selected: ValueType<OptionTypeBase>) => {

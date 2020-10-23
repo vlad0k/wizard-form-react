@@ -34,9 +34,6 @@ const STEPS = [
 ];
 
 const StepWizard: FC<StepWizardPropsType> = ({ editMode = false }) => {
-  const { step } = useParams();
-  const currentStepIndex = STEPS.findIndex(({ url }) => url === step);
-  const tabSelectHandler = () => {};
   return (
     <div>
       <Tabs>
@@ -44,10 +41,9 @@ const StepWizard: FC<StepWizardPropsType> = ({ editMode = false }) => {
           <TabPanel
             key={name}
             name={`${index + 1}. ${name}`}
-            disabled={index > currentStepIndex}
+            disabled={false}
             value={url}
-            isActive={index === currentStepIndex}
-            onSelect={tabSelectHandler}
+            isActive={false}
           />
         ))}
       </Tabs>

@@ -31,5 +31,5 @@ type TopTabProps = {
   disabled: boolean;
   value: string;
   isActive: boolean;
-  onSelect: () => void;
+  onSelect?: () => void;
 };

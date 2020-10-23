@@ -1,23 +1,26 @@
 import cn from 'classnames';
 import React, { FC } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { NavTab } from 'react-router-tabs';
 
 import classNames from './index.module.css';
 
-const TabPanel: FC<TopTabProps> = ({ name, disabled = false, to }) => {
-  const { pathname } = useLocation();
-  const isActive = pathname.split('/').pop() === to;
-
+const TabPanel: FC<TopTabProps> = ({
+  name,
+  disabled = false,
+  value,
+  isActive,
+  onSelect = () => {},
+}) => {
   const tabClassName = cn(classNames.tab, {
     [classNames.active]: isActive,
     [classNames.visited]: disabled,
   });
 
   return (
-    <NavTab to={to} className={tabClassName}>
+    <div onClick={onSelect} className={tabClassName}>
       {name}
-    </NavTab>
+    </div>
   );
 };
 
@@ -26,5 +29,7 @@ export default TabPanel;
 type TopTabProps = {
   name: string;
   disabled: boolean;
-  to: string;
+  value: string;
+  isActive: boolean;
+  onSelect: () => void;
 };

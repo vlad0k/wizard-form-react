@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
 
@@ -7,6 +7,7 @@ import AccountForm from './AccountForm';
 import CapabilitiesForm from './CapabilitiesForm';
 import ContactsForm from './ContactsForm';
 import ProfileForm from './ProfileForm';
+import RestoreUnsaved from './RestoreUnsaved';
 import TabPanel from './TabPanel';
 import Tabs from './Tabs';
 
@@ -53,7 +54,8 @@ const StepWizard: FC<StepWizardPropsType> = ({ editMode = false }) => {
           const prevUrl = index !== 0 ? match.url + '/' + STEPS[index - 1].url : '';
 
           return (
-            <Route key={url} path={`${match.path}/${url}`}>
+            <Route key={url} path={`${match.url}/${url}`}>
+              {url === STEPS[0].url && <RestoreUnsaved />}
               <Component
                 initialValues={form}
                 nextUrl={nextUrl}

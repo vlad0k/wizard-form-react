@@ -6,6 +6,7 @@ import AvatarPicker from '../../ui/AvatarPicker';
 import InputField from '../../ui/InputField';
 import FormLayout from '../FormLayout';
 import NavigationButtons from '../NavigationButtons';
+import RestoreUnsaved from '../RestoreUnsaved';
 
 const AccountForm: FC<AccountFormPropsType> = ({
   initialValues,

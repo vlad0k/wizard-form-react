@@ -5,11 +5,12 @@ import { NavTab } from 'react-router-tabs';
 
 import classNames from './index.module.css';
 
-const TabPanel: FC<TopTabProps> = ({ active, name, disabled = false, editMode = false, to }) => {
+const TabPanel: FC<TopTabProps> = ({ name, disabled = false, editMode = false, to }) => {
   const { pathname } = useLocation();
+  const isActive = pathname.split('/').pop() === to;
 
   const tabClassName = cn(classNames.tab, {
-    [classNames.active]: pathname.split('/').pop() === to,
+    [classNames.active]: isActive,
     [classNames.visited]: editMode,
     [classNames.visited]: disabled && !editMode,
   });
@@ -25,7 +26,6 @@ export default TabPanel;
 
 type TopTabProps = {
   name: string;
-  active?: boolean;
   disabled: boolean;
   editMode?: boolean;
   to: string;

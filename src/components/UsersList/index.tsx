@@ -46,7 +46,11 @@ const UsersList = () => {
       {usersFetchStatus !== UsersFetchStatus.isFetching && <Table users={portion} stripped />}
 
       {numberOFPages > 1 && (
-        <Paginator value={page} numberOfPages={numberOFPages} selectPage={selectPageHandler} />
+        <Paginator
+          currentPage={page}
+          numberOfPages={numberOFPages}
+          selectPage={selectPageHandler}
+        />
       )}
       {users.length === 0 && usersFetchStatus === UsersFetchStatus.fetched && (
         <div className={classNames.empty}>

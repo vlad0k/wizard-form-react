@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 import PageLayout from '../../../components/PageLayout';
-import StepWizard from '../../../components/StepWizard/index_old';
+import StepWizard from '../../../components/StepWizard/';
 import { resetForm } from '../../../redux/stepWizardReducer';
 
 const AddUserPage = () => {

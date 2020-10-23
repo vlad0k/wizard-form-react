@@ -3,7 +3,11 @@ import React, { FC } from 'react';
 
 import classNames from './index.module.css';
 
-const Pagination: FC<PaginationPropsType> = ({ value, numberOfPages, selectPage = () => {} }) => {
+const Pagination: FC<PaginationPropsType> = ({
+  currentPage,
+  numberOfPages,
+  selectPage = () => {},
+}) => {
   const pages = new Array(numberOfPages).fill(null).map((element, index) => index + 1);
 
   return (
@@ -11,7 +15,7 @@ const Pagination: FC<PaginationPropsType> = ({ value, numberOfPages, selectPage 
       {pages.map((page) => (
         <div
           className={cn(classNames.page, {
-            [classNames.active]: page === value,
+            [classNames.active]: page === currentPage,
           })}
           key={page}
           onClick={() => selectPage(page)}
@@ -24,7 +28,7 @@ const Pagination: FC<PaginationPropsType> = ({ value, numberOfPages, selectPage 
 };
 
 type PaginationPropsType = {
-  value: number;
+  currentPage: number;
   numberOfPages: number;
   selectPage: (page: number) => void;
 };

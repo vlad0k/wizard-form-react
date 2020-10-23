@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import PageLayout from '../../../components/PageLayout';
-import StepWizard from '../../../components/StepWizard/index_old';
+import StepWizard from '../../../components/StepWizard/';
 import { getUser } from '../../../db';
 import { submitForm } from '../../../redux/stepWizardReducer';
 import { UrlParamTypes } from '../../../types';

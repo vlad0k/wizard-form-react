@@ -61,7 +61,7 @@ const StepWizard: FC<StepWizardPropsType> = ({ editMode = false }) => {
             key={name}
             name={`${index + 1}. ${name}`}
             active={currentStep === index}
-            selectStep={() => dispatch(selectStep(index))}
+            // selectStep={() => dispatch(selectStep(index))}
             disabled={currentStep < index}
             editMode={editMode}
             to={url}

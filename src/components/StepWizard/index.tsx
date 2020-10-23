@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { useRouteMatch } from 'react-router-dom';
 
 import AccountForm from './AccountForm';
@@ -32,8 +32,9 @@ const STEPS = [
   },
 ];
 
-const StepWizard = () => {
+const StepWizard: FC<StepWizardPropsType> = ({ editMode = false }) => {
   const match = useRouteMatch();
+  const currentTab = match.url.split('/').pop();
 
   return (
     <div>
@@ -42,7 +43,6 @@ const StepWizard = () => {
           <TabPanel
             key={name}
             name={`${index + 1}. ${name}`}
-            active={match.url === url}
             disabled={false}
             editMode={true}
             to={url}
@@ -51,6 +51,10 @@ const StepWizard = () => {
       </Tabs>
     </div>
   );
+};
+
+type StepWizardPropsType = {
+  editMode?: boolean;
 };
 
 export default StepWizard;

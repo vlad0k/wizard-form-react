@@ -1,6 +1,6 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
+import { Redirect, Route, Switch, useHistory, useParams, useRouteMatch } from 'react-router-dom';
 
 import { StateType } from '../../redux/store';
 import AccountForm from './AccountForm';
@@ -36,7 +36,9 @@ const STEPS = [
 ];
 
 const StepWizard: FC<StepWizardPropsType> = ({ editMode = false }) => {
+  const { step } = useParams();
   const match = useRouteMatch();
+  const history = useHistory();
   const form = useSelector((state: StateType) => state.stepWizard.form);
 
   return (

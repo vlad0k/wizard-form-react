@@ -21,7 +21,7 @@ function App() {
         <Route path="/" exact>
           <IndexPage />
         </Route>
-        <Route path="/new">
+        <Route path="/new/:step">
           <AddUserPage />
         </Route>
         <Route path="/users" exact>
@@ -30,7 +30,7 @@ function App() {
         <Route path="/users/:id" exact>
           <UserInfoPage />
         </Route>
-        <Route path="/edit/:id">
+        <Route path="/edit/:id/:step">
           <UserEditPage />
         </Route>
       </Router>

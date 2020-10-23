@@ -1,11 +1,12 @@
-import React from 'react';
 import { FieldArrayRenderProps } from 'formik';
-import classNames from './index.module.css';
-import Button from '../../ui/Button';
-import minusIcon from '../../../assets/icons/minus.svg';
+import React from 'react';
+
 import addIcon from '../../../assets/icons/add.svg';
+import minusIcon from '../../../assets/icons/minus.svg';
 import { ButtonAppearance } from '../../../types';
+import Button from '../../ui/Button';
 import PhoneInput from '../../ui/PhoneInput';
+import classNames from './index.module.css';
 
 const MAX_NUMBER_OF_PHONE_INPUTS = 3;
 
@@ -29,7 +30,7 @@ const PhoneInputs = (props: FieldArrayRenderProps) => {
               {phoneNumbers.length > 1 && (
                 <Button
                   appearance={ButtonAppearance.text}
-                  type={'button'}
+                  type="button"
                   onClick={() => remove(index)}
                 >
                   <img src={minusIcon} alt="remove phone number input" />
@@ -41,7 +42,7 @@ const PhoneInputs = (props: FieldArrayRenderProps) => {
       ))}
 
       {phoneNumbers.length < MAX_NUMBER_OF_PHONE_INPUTS && (
-        <Button appearance={ButtonAppearance.text} type={'button'} onClick={() => push('')}>
+        <Button appearance={ButtonAppearance.text} type="button" onClick={() => push('')}>
           <img src={addIcon} alt="add phone number" />
           add phone number
         </Button>

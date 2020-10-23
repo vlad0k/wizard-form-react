@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
-import classNames from './index.module.css';
 import { Field, FieldProps } from 'formik';
-import Button from '../Button';
-import visibilityIcon from '../../../assets/icons/icon-visibility.svg';
+import React, { useState } from 'react';
+
 import visibilityOffIcon from '../../../assets/icons/icon-visibility-off.svg';
-import FieldError from '../FieldError';
+import visibilityIcon from '../../../assets/icons/icon-visibility.svg';
 import { ButtonAppearance } from '../../../types';
+import Button from '../Button';
+import FieldError from '../FieldError';
+import FormLabel from '../FormLabel';
+import classNames from './index.module.css';
 
 const InputField = ({ name, label, type = 'text' }: InputFieldPropsType) => {
   const [inputType, setInputType] = useState<string>(type);
@@ -13,7 +15,7 @@ const InputField = ({ name, label, type = 'text' }: InputFieldPropsType) => {
     setInputType((prev) => (prev === 'password' ? 'text' : 'password'));
   return (
     <label className={classNames.inputField}>
-      <span>{label}</span>
+      <FormLabel label={label} />
       <div className={classNames.inputWrapper}>
         <Field name={name} id={name}>
           {({ field, form }: FieldProps) => (
@@ -30,9 +32,9 @@ const InputField = ({ name, label, type = 'text' }: InputFieldPropsType) => {
           <Button
             appearance={ButtonAppearance.text}
             onClick={passwordVisibilityButtonHandler}
-            type={'button'}
+            type="button"
           >
-            <img src={inputType === 'password' ? visibilityIcon : visibilityOffIcon} alt=''/>
+            <img src={inputType === 'password' ? visibilityIcon : visibilityOffIcon} alt="" />
           </Button>
         )}
       </div>

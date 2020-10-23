@@ -1,17 +1,17 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { StateType } from '../../../redux/store';
+import { FormikValues } from 'formik';
+import React, { FC } from 'react';
 import * as Yup from 'yup';
+
 import { SkillOptionType } from '../../../types';
-import FormLayout from '../FormLayout';
-import MySelect from '../../ui/SelectField';
-import TextArea from '../../ui/TextArea';
 import Checkbox from '../../ui/CheckBox';
 import FieldError from '../../ui/FieldError';
+import MySelect from '../../ui/SelectField';
+import TextArea from '../../ui/TextArea';
+import FormLayout from '../FormLayout';
 
 const MAX_LENGTH_OF_TEXTAREA = 300;
 
-const SKILLS_SELECT_OPTIONS: SkillOptionType[] = [
+export const SKILLS_SELECT_OPTIONS: SkillOptionType[] = [
   { value: 'html', label: 'HTML' },
   { value: 'css', label: 'CSS' },
   { value: 'javascript', label: 'Javascript' },
@@ -32,7 +32,7 @@ const SKILLS_SELECT_OPTIONS: SkillOptionType[] = [
   { value: 'firebase', label: 'Firebase' },
 ];
 
-const HOBBIES_CHECKBOX_GROUP = [
+export const HOBBIES_CHECKBOX_GROUP = [
   { value: 'sport', label: 'Sport, fitness, aerobica and staff like that' },
   { value: 'gaming', label: 'I just want to play games, I’m not living in this life' },
   { value: 'nothing', label: 'I’m a female... I’m doing nothing. Every day.' },
@@ -40,15 +40,7 @@ const HOBBIES_CHECKBOX_GROUP = [
   { value: 'nohobbie', label: 'WTF is “hobbies”???' },
 ];
 
-const CapabilitiesForm = () => {
-  const initialValues = useSelector(
-    ({ addForm: { skills, additionalInfo, hobbies } }: StateType) => ({
-      skills,
-      additionalInfo,
-      hobbies,
-    }),
-  );
-
+const CapabilitiesForm: FC<CapabilitiesFormPropsType> = ({ initialValues }) => {
   const validationSchema = Yup.object({
     skills: Yup.array()
       .of(Yup.string().required('required field'))
@@ -70,10 +62,14 @@ const CapabilitiesForm = () => {
         {HOBBIES_CHECKBOX_GROUP.map(({ value, label }) => (
           <Checkbox key={value} name="hobbies" value={value} label={label} />
         ))}
-        <FieldError name={'hobbies'} />
+        <FieldError name="hobbies" />
       </div>
     </FormLayout>
   );
 };
 
 export default CapabilitiesForm;
+
+type CapabilitiesFormPropsType = {
+  initialValues: FormikValues;
+};

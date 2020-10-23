@@ -1,8 +1,9 @@
 import React, { FC } from 'react';
-import classNames from './index.module.css';
-import Avatar from '../ui/Avatar';
-import ValuesGroup from './ValuesGroup';
+
 import { AvatarSize, UserType } from '../../types';
+import Avatar from '../ui/Avatar';
+import classNames from './index.module.css';
+import ValuesGroup from './ValuesGroup';
 
 type TemplateType = {
   key: string;
@@ -17,7 +18,7 @@ const generatePageTemplate = ({
   hobbies,
   phoneNumbers,
   company,
-  adress,
+  address,
   lastname,
   firstname,
   birthdate,
@@ -40,7 +41,7 @@ const generatePageTemplate = ({
       { name: 'Last Name', value: lastname },
       { name: 'Birth Date', value: birthdate ? birthdate.toLocaleDateString() : null },
       { name: 'Email', value: email },
-      { name: 'Adress', value: adress },
+      { name: 'Address', value: address },
     ],
   },
   {
@@ -60,25 +61,21 @@ const generatePageTemplate = ({
     ],
   },
 ];
-
+//TODO rewrite on component
 const UserInfo: FC<UserPagePropsType> = ({ user }) => {
   const { avatar, id } = user;
-
   return (
     <div className={classNames.userPage}>
-      <Avatar image={avatar ? URL.createObjectURL(avatar) : undefined} size={AvatarSize.large} />
+      <Avatar imageFile={avatar} size={AvatarSize.large} />
       <div>
-        {generatePageTemplate(user).map(({ key, value }: TemplateType) => (
-          // TODO Rename this component
-          <ValuesGroup key={key} groupName={key} values={value} id={id} />
+        {generatePageTemplate(user).map(({ key, value }: TemplateType, index) => (
+          <ValuesGroup index={index} key={key} groupName={key} values={value} id={id} />
         ))}
       </div>
     </div>
   );
 };
-
-export default UserInfo;
-
 type UserPagePropsType = {
   user: UserType;
 };
+export default UserInfo;

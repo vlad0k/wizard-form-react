@@ -1,8 +1,9 @@
 import React from "react";
-import classNames from "./index.module.css";
-import NavLink from "../NavLink";
+
 import addUsersIcon from "../../../assets/icons/add-users.svg";
 import listOfUsersIcon from "../../../assets/icons/list-of-users.svg";
+import NavLink from "../NavLink";
+import classNames from "./index.module.css";
 
 const Navbar = () => {
   return (

@@ -1,11 +1,14 @@
-import React from 'react';
-import classNames from './index.module.css';
 import 'react-datepicker/dist/react-datepicker.css';
 import './calenar.css';
-import { Field, FieldProps } from 'formik';
-import Calendar from 'react-datepicker';
-import FieldError from '../FieldError';
+
 import cn from 'classnames';
+import { Field, FieldProps } from 'formik';
+import React from 'react';
+import Calendar from 'react-datepicker';
+
+import calendarIcon from '../../../assets/icons/calendar.svg';
+import FieldError from '../FieldError';
+import classNames from './index.module.css';
 
 type DatePickerProps = {
   name: string;
@@ -20,18 +23,19 @@ const DatePicker = ({ name }: DatePickerProps) => {
             setFieldValue(name, date);
           };
           return (
-            <>
+            <div className={classNames.wrapper}>
               <span className={classNames.label}>Birth Date</span>
               <Calendar
                 selected={value}
                 onChange={calendarChangeHandler}
                 dateFormat="dd/MM/yy"
                 className={cn(classNames.datePicker, {
-                  [classNames.errorBorder]: errors[name],
+                  [classNames.errorBorder]: errors[name] && touched[name],
                 })}
                 maxDate={new Date()}
               />
-            </>
+              <img className={classNames.icon} src={calendarIcon} alt="" />
+            </div>
           );
         }}
       </Field>

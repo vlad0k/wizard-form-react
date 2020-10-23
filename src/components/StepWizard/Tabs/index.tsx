@@ -1,4 +1,5 @@
 import React, { FC, ReactNode } from 'react';
+
 import classNames from './index.module.css';
 
 const Tabs: FC<TabsPropsType> = ({ children }) => (

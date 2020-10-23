@@ -1,7 +1,8 @@
 import React, { ReactNode } from 'react';
-import classNames from './index.module.css';
-import PageHeader from '../ui/PageHeader';
 import { Link } from 'react-router-dom';
+
+import PageHeader from '../ui/PageHeader';
+import classNames from './index.module.css';
 
 const PageLayout = ({ name, children, backLink, backLabel }: PageLayoutPropType) => {
   return (

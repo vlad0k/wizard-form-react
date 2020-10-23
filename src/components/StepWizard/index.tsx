@@ -1,48 +1,60 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { StateType } from '../../redux/store';
-import Tabs from './Tabs';
-import TabPanel from './TabPanel';
+import React, { FC } from 'react';
+import { useRouteMatch } from 'react-router-dom';
+
 import AccountForm from './AccountForm';
-import ProfileForm from './ProfileForm';
-import ContactsForm from './ContactsForm';
 import CapabilitiesForm from './CapabilitiesForm';
-import RestoreUnsaved from './RestoreUnsaved';
+import ContactsForm from './ContactsForm';
+import ProfileForm from './ProfileForm';
+import TabPanel from './TabPanel';
+import Tabs from './Tabs';
 
 const STEPS = [
   {
     name: 'Account',
-    render: <AccountForm />,
+    url: 'account',
+    component: AccountForm,
   },
   {
     name: 'Profile',
-    render: <ProfileForm />,
+    url: 'profile',
+    component: ProfileForm,
   },
+
   {
     name: 'Contacts',
-    render: <ContactsForm />,
+    url: 'contacts',
+    component: ContactsForm,
   },
   {
-    name: 'Skills',
-    render: <CapabilitiesForm />,
+    name: 'Capabilities',
+    url: 'capabilities',
+    component: CapabilitiesForm,
   },
 ];
 
-const StepWizard = () => {
-  const currentStep = useSelector((state: StateType) => state.addForm.currentStep);
+const StepWizard: FC<StepWizardPropsType> = ({ editMode = false }) => {
+  const match = useRouteMatch();
+  const currentTab = match.url.split('/').pop();
+
   return (
     <div>
       <Tabs>
-        {STEPS.map(({ name }, index) => (
-          <TabPanel key={index} name={name} value={index} active={currentStep === index} />
+        {STEPS.map(({ name, url }, index) => (
+          <TabPanel
+            key={name}
+            name={`${index + 1}. ${name}`}
+            disabled={false}
+            editMode={true}
+            to={url}
+          />
         ))}
       </Tabs>
-      <div>
-        <RestoreUnsaved />
-        {STEPS[currentStep].render}
-      </div>
     </div>
   );
+};
+
+type StepWizardPropsType = {
+  editMode?: boolean;
 };
 
 export default StepWizard;

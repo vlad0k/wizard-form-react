@@ -1,7 +1,8 @@
-import React, { ReactNode } from 'react';
-import classNames from './index.module.css';
 import cn from 'classnames';
+import React, { ReactNode } from 'react';
+
 import { ButtonAppearance } from '../../../types';
+import classNames from './index.module.css';
 
 const Button = ({
   appearance = ButtonAppearance.primary,

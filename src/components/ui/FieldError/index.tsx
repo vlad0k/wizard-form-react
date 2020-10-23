@@ -1,6 +1,7 @@
-import React, { FC } from 'react';
-import classNames from './index.module.css';
 import { ErrorMessage } from 'formik';
+import React, { FC } from 'react';
+
+import classNames from './index.module.css';
 
 const FieldError: FC<FieldErrorProps> = ({ name }) => {
   return (

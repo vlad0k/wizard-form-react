@@ -1,34 +1,24 @@
+import { FormikValues } from 'formik';
 import React, { FC } from 'react';
-import FormLayout from '../FormLayout';
-import InputField from '../../ui/InputField';
 import * as Yup from 'yup';
-import { useSelector } from 'react-redux';
-import { StateType } from '../../../redux/store';
+
 import ageValidator from '../../../utils/dateYearSubstract';
 import DatePicker from '../../ui/DatePicker';
+import FieldError from '../../ui/FieldError';
+import InputField from '../../ui/InputField';
 import LocationPicker from '../../ui/LocationPicker';
 import RadioGroup from '../../ui/RadioGroup';
-import FieldError from '../../ui/FieldError';
+import FormLayout from '../FormLayout';
 
-const ProfileForm: FC = () => {
-  const initialValues = useSelector(
-    ({ addForm: { firstname, lastname, birthdate, email, adress, gender } }: StateType) => ({
-      firstname,
-      lastname,
-      birthdate,
-      email,
-      adress,
-      gender,
-    }),
-  );
-
+const ProfileForm: FC<ProfileFormPropsType> = ({ initialValues }) => {
   const validationSchema = Yup.object({
     firstname: Yup.string().required('required field'),
     lastname: Yup.string().required('required field'),
     email: Yup.string().required('required field').email('incorrect email format'),
     birthdate: Yup.date()
-      .required('required field')
-      .max(ageValidator(18), 'You should be 18 years old'),
+      .notRequired()
+      .max(ageValidator(18), 'You should be 18 years old')
+      .nullable(),
     gender: Yup.string().nullable().required('please, choose your gender'),
   });
 
@@ -41,8 +31,9 @@ const ProfileForm: FC = () => {
       </div>
       <div>
         <InputField name="email" label="Email" />
-        <LocationPicker name="adress" label={'Address'} />
+        <LocationPicker name="address" label="Address" />
         <RadioGroup
+          label="Gender"
           name="gender"
           options={[
             { value: 'male', label: 'Male' },
@@ -53,6 +44,10 @@ const ProfileForm: FC = () => {
       </div>
     </FormLayout>
   );
+};
+
+type ProfileFormPropsType = {
+  initialValues: FormikValues;
 };
 
 export default ProfileForm;

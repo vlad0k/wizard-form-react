@@ -1,0 +1,16 @@
+.dropZone {
+  border: 2px dashed var(--select-color);
+  border-radius: 16px;
+  padding: 16px 16px 8px 16px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  outline: none;
+}
+
+.dropMessage {
+  color: var(--action-text-color);
+  font-size: 8px;
+  text-align: center;
+  margin-top: 10px;
+}

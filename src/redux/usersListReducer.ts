@@ -1,11 +1,24 @@
-import { UsersFetchStatus, UserType } from '../types';
-import db from '../db/db';
 import { IndexableType } from 'dexie';
+import { FormikValues } from 'formik';
+import { store } from 'react-notifications-component';
 import { Dispatch } from 'redux';
+
+import db, {
+  addUser as addUserToDb,
+  deleteAllUsers,
+  getUsers,
+  updateUser as updateUserToDb,
+} from '../db';
+import { UsersFetchStatus, UserType } from '../types';
+import createFakeUser from '../utils/createFakeUser';
+import { createNotification } from '../utils/notifications';
+
+const NUMBER_OF_FAKES = 50;
 
 const IMPORT_USERS = 'users/IMPORT_USERS';
 const DELETE_USER = 'users/DELETE_USER';
 const IS_FETCHING = 'users/IS_FETCHING';
+const SELECT_PAGE = 'users/SELECT_PAGE';
 
 interface ImportUsersAction {
   type: typeof IMPORT_USERS;
@@ -21,11 +34,17 @@ interface DeleteUserAction {
   type: typeof DELETE_USER;
 }
 
-type ActionType = ImportUsersAction | DeleteUserAction | IsFetchingAction;
+interface SelectPage {
+  type: typeof SELECT_PAGE;
+  page: number;
+}
+
+type ActionType = ImportUsersAction | DeleteUserAction | IsFetchingAction | SelectPage;
 
 const initialState = {
   users: [] as UserType[],
   usersFetchStatus: UsersFetchStatus.unfetched as UsersFetchStatus,
+  page: 1,
 };
 
 const usersReducer = (state = initialState, action: ActionType) => {
@@ -44,6 +63,14 @@ const usersReducer = (state = initialState, action: ActionType) => {
         usersFetchStatus: action.usersFetchStatus,
       };
     }
+
+    case SELECT_PAGE: {
+      return {
+        ...state,
+        page: action.page,
+      };
+    }
+
     default: {
       return state;
     }
@@ -64,11 +91,22 @@ export const usersFetchStatus = (usersFetchStatus: UsersFetchStatus): IsFetching
   usersFetchStatus,
 });
 
+export const selectPage = (page: number): SelectPage => ({
+  type: SELECT_PAGE,
+  page,
+});
+
 export const importUsers = () => async (dispatch: Dispatch) => {
   dispatch(usersFetchStatus(UsersFetchStatus.isFetching));
-  const users: UserType[] = await db.table('users').toArray();
-  dispatch(importUsersActionCreator(users));
-  return users;
+  getUsers().then((users: UserType[]) => {
+    dispatch(importUsersActionCreator(users));
+    dispatch(usersFetchStatus(UsersFetchStatus.fetched));
+  });
+};
+
+export const addUser = (user: UserType) => (dispatch: Dispatch) => {
+  addUserToDb(user);
+  getUsers().then((users: UserType[]) => dispatch(importUsersActionCreator(users)));
 };
 
 export const deleteUser = (id: IndexableType) => (dispatch: Dispatch) => {
@@ -80,12 +118,39 @@ export const deleteUser = (id: IndexableType) => (dispatch: Dispatch) => {
     });
 };
 
-export const addUser = (user: UserType) => (dispatch: Dispatch) => {
-  db.table('users')
-    .add(user)
-    .then(async () => {
-      const users = await db.table('users').toArray();
+export const updateUser = (id: number, values: FormikValues) => (dispatch: Dispatch) => {
+  updateUserToDb(id, values).then(() => {
+    getUsers().then((users: UserType[]) => {
       dispatch(importUsersActionCreator(users));
+      const user = users.find((user) => id === user.id);
+      const username = user && user.username;
+      createNotification({ title: 'Saved', message: `@${username} was updated`, type: 'success' });
     });
-  db.table('formState').clear();
+  });
+};
+
+//TODO rewrite function to import a bunch of users on promises NOT AWAIT
+export const generateUsers = () => (dispatch: Dispatch) => {
+  createNotification({ message: 'Generating fake users...' });
+  dispatch(usersFetchStatus(UsersFetchStatus.isFetching));
+  deleteAllUsers();
+  for (let i = 1; i <= NUMBER_OF_FAKES; i++) {
+    let fake = createFakeUser();
+    const fetchAvatar = async () => {
+      const response = await fetch(fake.avatar);
+      const blob = await response.blob();
+      await addUserToDb({ ...fake, avatar: new File([blob], 'avatar.jpeg') });
+      const users = await getUsers();
+      dispatch(importUsersActionCreator(users));
+      if (i === NUMBER_OF_FAKES) {
+        createNotification({
+          title: 'Success',
+          message: 'Fake users were generated',
+          type: 'success',
+        });
+        dispatch(usersFetchStatus(UsersFetchStatus.fetched));
+      }
+    };
+    fetchAvatar();
+  }
 };

@@ -1,35 +1,32 @@
+import cn from 'classnames';
 import React, { FC } from 'react';
+import { useLocation } from 'react-router-dom';
+import { NavTab } from 'react-router-tabs';
+
 import classNames from './index.module.css';
-import classNamesCombine from 'classnames';
-import { useDispatch, useSelector } from 'react-redux';
-import { StateType } from '../../../redux/store';
-import { selectStep } from '../../../redux/addFormReducer';
 
-const TabPanel: FC<TopTabProps> = ({ active, name, value }) => {
-  const currentStep = useSelector((state: StateType) => state.addForm.currentStep);
+const TabPanel: FC<TopTabProps> = ({ name, disabled = false, editMode = false, to }) => {
+  const { pathname } = useLocation();
+  const isActive = pathname.split('/').pop() === to;
 
-  const dispatch = useDispatch();
-
-  const tabClickHandler = () => {
-    dispatch(selectStep(value));
-  };
-
-  const tabClassName = classNamesCombine(classNames.tab, {
-    [classNames.active]: active,
-    [classNames.visited]: value > currentStep,
+  const tabClassName = cn(classNames.tab, {
+    [classNames.active]: isActive,
+    [classNames.visited]: editMode,
+    [classNames.visited]: disabled && !editMode,
   });
 
   return (
-    <div className={tabClassName} onClick={tabClickHandler}>
-      {value + 1}. {name}
-    </div>
+    <NavTab to={to} className={tabClassName}>
+      {name}
+    </NavTab>
   );
 };
 
 export default TabPanel;
 
 type TopTabProps = {
-  value: number;
   name: string;
-  active?: boolean;
+  disabled: boolean;
+  editMode?: boolean;
+  to: string;
 };

@@ -1,9 +1,11 @@
-import React, { FC } from 'react';
-import classNames from './index.module.css';
-import InputMask from 'react-input-mask';
-import { Field, FieldProps } from 'formik';
-import FieldError from '../FieldError';
 import cn from 'classnames';
+import { Field, FieldProps } from 'formik';
+import React, { FC } from 'react';
+import InputMask from 'react-input-mask';
+
+import FieldError from '../FieldError';
+import FormLabel from '../FormLabel';
+import classNames from './index.module.css';
 
 const PhoneInput: FC<PhoneInputPropsType> = ({ name, label }) => {
   return (
@@ -14,8 +16,8 @@ const PhoneInput: FC<PhoneInputPropsType> = ({ name, label }) => {
           const isError = form.errors[name] && form.touched[name];
           return (
             <>
-              <span className={classNames.label}>{label}</span>
               <div>
+                <FormLabel label={label} />
                 <InputMask
                   className={cn(classNames.input, {
                     [classNames.errorField]: isError,

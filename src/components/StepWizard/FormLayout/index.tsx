@@ -1,32 +1,40 @@
-import React, { FC, ReactNode } from 'react';
-import classNames from './index.module.css';
 import { Form, Formik, FormikHelpers, FormikValues } from 'formik';
-import Button from '../../ui/Button';
-import { ButtonAppearance } from '../../../types';
-import { clearForm, goBack, submitForm } from '../../../redux/addFormReducer';
+import React, { FC, ReactNode } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { StateType } from '../../../redux/store';
+import { useParams } from 'react-router-dom';
 import { ObjectSchema } from 'yup';
-import { addUser } from '../../../redux/usersListReducer';
+
+import { deleteFormState, saveFormState } from '../../../localStorage';
+import { nextStep, resetForm, submitForm } from '../../../redux/stepWizardReducer';
+import { StateType } from '../../../redux/store';
+import { addUser, updateUser } from '../../../redux/usersListReducer';
+import NavigationButtons from '../NavigationButtons';
+import classNames from './index.module.css';
 
 const FormLayout: FC<FormLayoutPropsType> = ({ children, initialValues, validationSchema }) => {
+  const { id } = useParams();
   const dispatch = useDispatch();
-  const { currentStep, formValues } = useSelector(
-    ({ addForm: { currentStep, ...formValues } }: StateType) => ({
+  const { currentStep, numberOfSteps, form, isEditMode } = useSelector(
+    ({ stepWizard: { currentStep, numberOfSteps, form, isEditMode } }: StateType) => ({
       currentStep,
-      formValues,
+      numberOfSteps,
+      form,
+      isEditMode,
     }),
   );
 
-  const backButtonClickHandler = () => dispatch(goBack());
   const formSubmitHandler = (values: FormikValues, formikHelpers: FormikHelpers<FormikValues>) => {
-    formikHelpers.resetForm();
-
-    if (currentStep === 3) {
-      dispatch(addUser({ ...formValues, ...values, lastUpdated: new Date() }));
-      dispatch(clearForm());
-    } else {
+    if (!isEditMode) {
       dispatch(submitForm(values));
+      dispatch(nextStep());
+      saveFormState({ ...form, ...values });
+      if (currentStep === numberOfSteps - 1) {
+        dispatch(addUser({ ...form, ...values }));
+        dispatch(resetForm());
+        deleteFormState();
+      }
+    } else {
+      dispatch(updateUser(+id, { ...form, ...values }));
     }
   };
 
@@ -36,26 +44,14 @@ const FormLayout: FC<FormLayoutPropsType> = ({ children, initialValues, validati
         initialValues={initialValues}
         onSubmit={formSubmitHandler}
         validationSchema={validationSchema}
+        enableReinitialize
       >
-        {({ values, errors }) => {
+        {({ values, setFieldValue }) => {
           return (
             <Form className={classNames.form}>
               <div className={classNames.columns}>{children}</div>
-              <div className={classNames.buttons}>
-                {currentStep + 1 !== 4 ? (
-                  <Button>Forward</Button>
-                ) : (
-                  <Button appearance={ButtonAppearance.finish}>Finish</Button>
-                )}
-                {currentStep !== 0 && (
-                  <Button
-                    appearance={ButtonAppearance.secondary}
-                    type="button"
-                    onClick={backButtonClickHandler}
-                  >
-                    Back
-                  </Button>
-                )}
+              <div>
+                <NavigationButtons />
               </div>
             </Form>
           );

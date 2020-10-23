@@ -1,17 +1,12 @@
-import React, { FC } from 'react';
-import classNames from './index.module.css';
 import { Field, FieldProps } from 'formik';
+import React, { FC } from 'react';
 
-type CheckboxPropsType = {
-  name: string;
-  label: string;
-  value: string;
-};
+import classNames from './index.module.css';
 
 const Checkbox: FC<CheckboxPropsType> = ({ name, label, value }) => {
   return (
     <label className={classNames.wrapper} htmlFor={value}>
-      <Field name={name} value={value} type="checkbox">
+      <Field name={name} value={label} type="checkbox">
         {({ field }: FieldProps) => {
           return (
             <>
@@ -24,6 +19,12 @@ const Checkbox: FC<CheckboxPropsType> = ({ name, label, value }) => {
       <span>{label}</span>
     </label>
   );
+};
+
+type CheckboxPropsType = {
+  name: string;
+  label: string;
+  value: string;
 };
 
 export default Checkbox;

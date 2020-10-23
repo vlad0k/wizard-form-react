@@ -1,7 +1,9 @@
-import React from 'react';
-import classNames from './index.module.css';
 import { Field, FieldProps } from 'formik';
+import React from 'react';
+
 import FieldError from '../FieldError';
+import FormLabel from '../FormLabel';
+import classNames from './index.module.css';
 
 type TextAreaPropsType = {
   name: string;
@@ -12,7 +14,7 @@ type TextAreaPropsType = {
 const TextArea = ({ name, label, maxlength }: TextAreaPropsType) => {
   return (
     <label className={classNames.inputField}>
-      <span>{label}</span>
+      <FormLabel label={label} />
       <Field name={name} id={name}>
         {({ field }: FieldProps) => (
           <textarea className={classNames.textarea} {...field} maxLength={maxlength} />

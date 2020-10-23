@@ -1,39 +1,27 @@
+import { FormikValues } from 'formik';
 import React, { FC } from 'react';
-import FormLayout from '../FormLayout';
+
+import Yup from '../../../yup';
 import AvatarPicker from '../../ui/AvatarPicker';
 import InputField from '../../ui/InputField';
-import * as Yup from 'yup';
-import { useSelector } from 'react-redux';
-import { StateType } from '../../../redux/store';
-import db from '../../../db/db';
+import FormLayout from '../FormLayout';
 
-const AccountForm: FC<AccountFormPropsType> = () => {
-  const { initialValues } = useSelector(
-    ({ addForm: { avatar, password, username } }: StateType) => ({
-      initialValues: { avatar, password, username },
-    }),
-  );
-
+const AccountForm: FC<AccountFormPropsType> = ({ initialValues }) => {
   const validationSchema = Yup.object({
-    username: Yup.string()
-      .required('required field')
-      .test('username is unavaliable', 'you cant use this username', async (value) => {
-        const users = await db.table('users').toArray();
-        return !users.map((user) => user.username).includes(value);
-      }),
+    avatar: Yup.mixed().notRequired().fileSizeInMb(),
+    username: Yup.string().required('required field').uniqueUsername(),
     password: Yup.string().required('required field'),
     passwordRepeat: Yup.string()
       .oneOf([Yup.ref('password'), ''], "passwords don't match")
       .required('required field'),
   });
-
   return (
     <FormLayout
       initialValues={{ ...initialValues, passwordRepeat: initialValues.password }}
       validationSchema={validationSchema}
     >
       <div>
-        <AvatarPicker name={'avatar'} />
+        <AvatarPicker name="avatar" />
       </div>
       <div>
         <InputField name="username" label="User Name" />
@@ -46,4 +34,6 @@ const AccountForm: FC<AccountFormPropsType> = () => {
 
 export default AccountForm;
 
-type AccountFormPropsType = {};
+type AccountFormPropsType = {
+  initialValues: FormikValues;
+};

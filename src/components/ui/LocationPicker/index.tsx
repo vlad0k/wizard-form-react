@@ -1,8 +1,10 @@
-import React, { FC } from 'react';
-import classNames from './index.module.css';
-import PlacesAutocomplete from 'react-places-autocomplete';
-import { Field, FieldProps } from 'formik';
 import cn from 'classnames';
+import { Field, FieldProps } from 'formik';
+import React, { FC } from 'react';
+import PlacesAutocomplete from 'react-places-autocomplete';
+
+import FormLabel from '../FormLabel';
+import classNames from './index.module.css';
 
 const LocationPicker: FC<LocationPickerTypeProps> = ({ name, label }) => {
   return (
@@ -22,7 +24,7 @@ const LocationPicker: FC<LocationPickerTypeProps> = ({ name, label }) => {
           <PlacesAutocomplete value={field.value} onChange={handleChange} onSelect={handleSelect}>
             {({ getInputProps, suggestions, loading, getSuggestionItemProps }) => (
               <div className={classNames.wrapper}>
-                <span className={classNames.label}>{label}</span>
+                <FormLabel label={label} />
                 <input
                   {...getInputProps({ className: classNames.input })}
                   name={name}

@@ -38,15 +38,10 @@ const StepWizard: FC<StepWizardPropsType> = ({ editMode = false }) => {
     <div>
       <Tabs>
         {STEPS.map(({ name, url }, index) => (
-          <TabPanel
-            key={name}
-            name={`${index + 1}. ${name}`}
-            disabled={false}
-            value={url}
-            isActive={false}
-          />
+          <TabPanel key={name} name={`${index + 1}. ${name}`} disabled={false} isActive={false} />
         ))}
       </Tabs>
+      {STEPS[0].component}
     </div>
   );
 };

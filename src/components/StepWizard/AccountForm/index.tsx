@@ -1,13 +1,14 @@
+import { FormikValues } from 'formik';
 import React, { FC } from 'react';
-import FormLayout from '../FormLayout';
+
+import Yup from '../../../yup';
 import AvatarPicker from '../../ui/AvatarPicker';
 import InputField from '../../ui/InputField';
-import Yup from '../../../yup';
-import { FormikValues } from 'formik';
+import FormLayout from '../FormLayout';
 
 const AccountForm: FC<AccountFormPropsType> = ({ initialValues }) => {
   const validationSchema = Yup.object({
-    avatar: Yup.mixed().notRequired().fileSize(2),
+    avatar: Yup.mixed().notRequired().fileSizeInMb(),
     username: Yup.string().required('required field').uniqueUsername(),
     password: Yup.string().required('required field'),
     passwordRepeat: Yup.string()

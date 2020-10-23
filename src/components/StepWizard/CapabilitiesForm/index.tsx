@@ -1,12 +1,13 @@
+import { FormikValues } from 'formik';
 import React, { FC } from 'react';
 import * as Yup from 'yup';
+
 import { SkillOptionType } from '../../../types';
-import FormLayout from '../FormLayout';
-import MySelect from '../../ui/SelectField';
-import TextArea from '../../ui/TextArea';
 import Checkbox from '../../ui/CheckBox';
 import FieldError from '../../ui/FieldError';
-import { FormikValues } from 'formik';
+import MySelect from '../../ui/SelectField';
+import TextArea from '../../ui/TextArea';
+import FormLayout from '../FormLayout';
 
 const MAX_LENGTH_OF_TEXTAREA = 300;
 

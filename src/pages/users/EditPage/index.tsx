@@ -1,15 +1,17 @@
-import React, { useEffect } from 'react';
-import PageLayout from '../../../components/PageLayout';
-import { useParams } from 'react-router-dom';
-import StepWizard from '../../../components/StepWizard';
-import { UrlParamTypes } from '../../../types';
-import { getUser } from '../../../db';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
+
+import PageLayout from '../../../components/PageLayout';
+import StepWizard from '../../../components/StepWizard/index_old';
+import { getUser } from '../../../db';
 import { submitForm } from '../../../redux/stepWizardReducer';
+import { UrlParamTypes } from '../../../types';
 
 const UserEditPage = () => {
   const { id } = useParams<UrlParamTypes>();
   const dispatch = useDispatch();
+  const [isUserExhists, setIsUserExhists] = useState();
 
   useEffect(() => {
     getUser(id).then(

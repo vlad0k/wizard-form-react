@@ -1,12 +1,13 @@
 import React, { FC, useEffect, useState } from 'react';
-import classNames from './index.module.css';
-import Button from '../../ui/Button';
-import { ButtonAppearance } from '../../../types';
-import closeIcon from '../../../assets/icons/close.png';
-import { StateType } from '../../../redux/store';
-import { deleteFormState, getFormState } from '../../../localStorage';
 import { useDispatch } from 'react-redux';
+
+import closeIcon from '../../../assets/icons/close.png';
+import { deleteFormState, getFormState } from '../../../localStorage';
 import { loadSavedForm } from '../../../redux/stepWizardReducer';
+import { StateType } from '../../../redux/store';
+import { ButtonAppearance } from '../../../types';
+import Button from '../../ui/Button';
+import classNames from './index.module.css';
 
 const RestoreUnsaved: FC = () => {
   const [savedFormState, setSavedFormState] = useState<StateType | undefined>(undefined);

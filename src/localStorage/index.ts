@@ -5,6 +5,7 @@ export const saveFormState = (formState: object) => {
   localStorage.setItem(FORM_STATE_KEY, formStateString);
 };
 
+//TODO comment next pull request
 export const getFormState = (): object => {
   const formState = localStorage.getItem(FORM_STATE_KEY);
   return formState ? JSON.parse(formState) : undefined;

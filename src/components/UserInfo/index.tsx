@@ -61,7 +61,7 @@ const generatePageTemplate = ({
     ],
   },
 ];
-
+//TODO rewrite on component
 const UserInfo: FC<UserPagePropsType> = ({ user }) => {
   const { avatar, id } = user;
   return (

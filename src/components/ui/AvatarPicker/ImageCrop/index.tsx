@@ -7,7 +7,7 @@ import PageHeader from '../../PageHeader';
 import classNames from './index.module.css';
 
 const ImageCrop: FC<ImageCropPropsType> = ({ image, setField = () => {}, close = () => {} }) => {
-  const [result, setResult] = useState<File>(image);
+  const [resultCanvas, setResultCanvas] = useState<HTMLCanvasElement>();
   const imageRef = createRef<HTMLImageElement>();
 
   useEffect(() => {
@@ -17,18 +17,22 @@ const ImageCrop: FC<ImageCropPropsType> = ({ image, setField = () => {}, close =
     const cropper = new Cropper(imageRef.current, {
       aspectRatio: 1,
       crop: () => {
-        cropper.getCroppedCanvas().toBlob((blob) => {
-          if (blob) {
-            const avatar = new File([blob], 'avatar.png');
-            setResult(avatar);
-          }
-        });
+        setResultCanvas(cropper.getCroppedCanvas());
       },
     });
   }, [imageRef]);
 
   const doneButtonHandler = () => {
-    setField(result);
+    if (!resultCanvas) {
+      setField(image);
+    } else {
+      resultCanvas.toBlob((blob) => {
+        if (blob) {
+          const avatar = new File([blob], 'avatar.png');
+          setField(avatar);
+        }
+      });
+    }
     close();
   };
 

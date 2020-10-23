@@ -1,13 +1,14 @@
+import { FormikValues } from 'formik';
 import React, { FC } from 'react';
-import FormLayout from '../FormLayout';
-import InputField from '../../ui/InputField';
 import * as Yup from 'yup';
+
 import ageValidator from '../../../utils/dateYearSubstract';
 import DatePicker from '../../ui/DatePicker';
+import FieldError from '../../ui/FieldError';
+import InputField from '../../ui/InputField';
 import LocationPicker from '../../ui/LocationPicker';
 import RadioGroup from '../../ui/RadioGroup';
-import FieldError from '../../ui/FieldError';
-import { FormikValues } from 'formik';
+import FormLayout from '../FormLayout';
 
 const ProfileForm: FC<ProfileFormPropsType> = ({ initialValues }) => {
   const validationSchema = Yup.object({

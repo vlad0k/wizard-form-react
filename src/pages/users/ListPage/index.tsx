@@ -1,6 +1,7 @@
 import React from 'react';
-import UsersList from '../../../components/UsersList';
+
 import PageLayout from '../../../components/PageLayout';
+import UsersList from '../../../components/UsersList';
 
 const ListOfUsersPage = () => (
   <PageLayout name={'List of users'}>

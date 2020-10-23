@@ -1,10 +1,11 @@
 import React from 'react';
-import classNames from './index.module.css';
-import PageLayout from '../../components/PageLayout';
 import { useDispatch } from 'react-redux';
+
+import PageLayout from '../../components/PageLayout';
+import Search from '../../components/Search';
 import Button from '../../components/ui/Button';
 import { generateUsers } from '../../redux/usersListReducer';
-import Search from '../../components/Search';
+import classNames from './index.module.css';
 
 const IndexPage = () => {
   const dispatch = useDispatch();

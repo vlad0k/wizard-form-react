@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import classNames from './index.module.css';
-import Button from '../ui/Button';
-import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+
 import { StateType } from '../../redux/store';
-import Table from './Table';
-import Preloader from '../ui/Preloader';
 import { importUsers, selectPage } from '../../redux/usersListReducer';
 import { UsersFetchStatus, UserType } from '../../types';
+import Button from '../ui/Button';
 import Paginator from '../ui/Pagination';
+import Preloader from '../ui/Preloader';
+import classNames from './index.module.css';
+import Table from './Table';
 
 const PORTION_SIZE = 10;
 

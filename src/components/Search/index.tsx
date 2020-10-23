@@ -30,6 +30,7 @@ const Search: FC = () => {
         onFocus={() => setIsResultsShow(true)}
         onBlur={() => setTimeout(() => setIsResultsShow(false), 500)}
       />
+      {/*TODO убрать setTimeout 500 next pull request*/}
       {isResultsShow && value !== '' && (
         <ul className={classNames.resultsList}>
           {foundUsers.length === 0 && (
@@ -37,8 +38,8 @@ const Search: FC = () => {
               <span>-- no users found --</span>
             </li>
           )}
-          {foundUsers.map(({ id, username, firstname, lastname, avatar = undefined }) => (
-            <li className={classNames.result}>
+          {foundUsers.map(({ id, username, firstname, lastname, avatar }) => (
+            <li key={id} className={classNames.result}>
               <Link to={`/users/${id}`}>
                 <Avatar imageFile={avatar} size={AvatarSize.small} />
                 <div className={classNames.name}>

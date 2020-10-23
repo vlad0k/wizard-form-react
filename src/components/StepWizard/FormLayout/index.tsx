@@ -1,14 +1,15 @@
-import React, { FC, ReactNode } from 'react';
-import classNames from './index.module.css';
 import { Form, Formik, FormikHelpers, FormikValues } from 'formik';
-import { nextStep, resetForm, submitForm } from '../../../redux/stepWizardReducer';
+import React, { FC, ReactNode } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { StateType } from '../../../redux/store';
+import { useParams } from 'react-router-dom';
 import { ObjectSchema } from 'yup';
+
+import { deleteFormState, saveFormState } from '../../../localStorage';
+import { nextStep, resetForm, submitForm } from '../../../redux/stepWizardReducer';
+import { StateType } from '../../../redux/store';
 import { addUser, updateUser } from '../../../redux/usersListReducer';
 import NavigationButtons from '../NavigationButtons';
-import { deleteFormState, saveFormState } from '../../../localStorage';
-import { useParams } from 'react-router-dom';
+import classNames from './index.module.css';
 
 const FormLayout: FC<FormLayoutPropsType> = ({ children, initialValues, validationSchema }) => {
   const { id } = useParams();
@@ -27,7 +28,6 @@ const FormLayout: FC<FormLayoutPropsType> = ({ children, initialValues, validati
       dispatch(submitForm(values));
       dispatch(nextStep());
       saveFormState({ ...form, ...values });
-      values.avatar && localStorage.setItem('avatar', URL.createObjectURL(values.avatar));
       if (currentStep === numberOfSteps - 1) {
         dispatch(addUser({ ...form, ...values }));
         dispatch(resetForm());

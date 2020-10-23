@@ -6,6 +6,7 @@ import { AvatarSize } from '../../../types';
 import classNames from './index.module.css';
 
 const Avatar = ({ imageFile, imageSrc, size = AvatarSize.default }: AvatarProp) => {
+  //TODO: ensure that file is image
   const image = imageFile ? URL.createObjectURL(imageFile) : imageSrc;
   return (
     <div

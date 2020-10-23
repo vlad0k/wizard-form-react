@@ -1,8 +1,9 @@
-import React from 'react';
-import classNames from './index.module.css';
 import { Field, FieldProps } from 'formik';
+import React from 'react';
+
 import FieldError from '../FieldError';
 import FormLabel from '../FormLabel';
+import classNames from './index.module.css';
 
 type TextAreaPropsType = {
   name: string;

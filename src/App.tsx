@@ -1,18 +1,16 @@
-import React from 'react';
 import './App.css';
-import ReactNotification from 'react-notifications-component';
 import 'react-notifications-component/dist/theme.css';
 
+import React from 'react';
+import ReactNotification from 'react-notifications-component';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-import './db';
-
 import Header from './components/Header';
-import AddUserPage from './pages/users/AddPage';
-import ListOfUsersPage from './pages/users/ListPage';
-import UserInfoPage from './pages/users/InfoPage';
-import UserEditPage from './pages/users/EditPage';
 import IndexPage from './pages/IndexPage';
+import AddUserPage from './pages/users/AddPage';
+import UserEditPage from './pages/users/EditPage';
+import UserInfoPage from './pages/users/InfoPage';
+import ListOfUsersPage from './pages/users/ListPage';
 
 function App() {
   return (
@@ -32,7 +30,7 @@ function App() {
         <Route path="/users/:id" exact>
           <UserInfoPage />
         </Route>
-        <Route path="/edit/:id" exact>
+        <Route path="/edit/:id">
           <UserEditPage />
         </Route>
       </Router>

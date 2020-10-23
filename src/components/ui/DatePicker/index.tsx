@@ -1,12 +1,14 @@
-import React from 'react';
-import classNames from './index.module.css';
 import 'react-datepicker/dist/react-datepicker.css';
 import './calenar.css';
-import { Field, FieldProps } from 'formik';
-import Calendar from 'react-datepicker';
-import FieldError from '../FieldError';
+
 import cn from 'classnames';
+import { Field, FieldProps } from 'formik';
+import React from 'react';
+import Calendar from 'react-datepicker';
+
 import calendarIcon from '../../../assets/icons/calendar.svg';
+import FieldError from '../FieldError';
+import classNames from './index.module.css';
 
 type DatePickerProps = {
   name: string;

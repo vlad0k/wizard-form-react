@@ -1,6 +1,7 @@
-import React, { FC } from 'react';
-import classNames from './index.module.css';
 import { Field, FieldProps } from 'formik';
+import React, { FC } from 'react';
+
+import classNames from './index.module.css';
 
 const Checkbox: FC<CheckboxPropsType> = ({ name, label, value }) => {
   return (

@@ -25,7 +25,6 @@ const AvatarPicker = ({ name }: AvatarPickerProps) => {
       <Field name={name}>
         {({ field: { name, value }, form: { setFieldValue, setFieldTouched } }: FieldProps) => {
           const setField = (file: File) => {
-            console.log(file);
             setFieldValue(name, file);
             setFieldTouched(name);
           };
@@ -44,7 +43,7 @@ const AvatarPicker = ({ name }: AvatarPickerProps) => {
                 <ImageCrop image={image} setField={setField} close={() => setImage(undefined)} />
               )}
 
-              <DropZone handleChange={handleChange} name={name}>
+              <DropZone handleChange={handleChange}>
                 <div className={classNames.addUserPhoto}>
                   <Avatar imageFile={value} />
                   <div className={cn(classNames.label, { [classNames.pressed]: isPressed })}>

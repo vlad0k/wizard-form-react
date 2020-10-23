@@ -1,13 +1,10 @@
-import React, { FC, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { useRouteMatch } from 'react-router-dom';
 
-import { initiateStepWizard, selectStep } from '../../redux/stepWizardReducer';
-import { StateType } from '../../redux/store';
 import AccountForm from './AccountForm';
 import CapabilitiesForm from './CapabilitiesForm';
 import ContactsForm from './ContactsForm';
 import ProfileForm from './ProfileForm';
-import RestoreUnsaved from './RestoreUnsaved';
 import TabPanel from './TabPanel';
 import Tabs from './Tabs';
 
@@ -35,42 +32,25 @@ const STEPS = [
   },
 ];
 
-const StepWizard: FC<StepWizardPropsType> = ({ editMode = false }) => {
-  const { currentStep, form } = useSelector(({ stepWizard: { currentStep, form } }: StateType) => ({
-    currentStep,
-    form,
-  }));
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(initiateStepWizard(STEPS.length, editMode));
-  }, [dispatch, editMode]);
+const StepWizard = () => {
+  const match = useRouteMatch();
 
   return (
     <div>
       <Tabs>
-        {STEPS.map(({ name }, index) => (
+        {STEPS.map(({ name, url }, index) => (
           <TabPanel
             key={name}
             name={`${index + 1}. ${name}`}
-            active={currentStep === index}
-            selectStep={() => dispatch(selectStep(index))}
-            disabled={currentStep < index}
-            editMode={editMode}
+            active={match.url === url}
+            disabled={false}
+            editMode={true}
+            to={url}
           />
         ))}
       </Tabs>
-      <div>
-        {!editMode && currentStep === 0 && <RestoreUnsaved />}
-        {STEPS.map(({ component: Component }) => <Component initialValues={form} />)[currentStep]}
-      </div>
     </div>
   );
-};
-
-type StepWizardPropsType = {
-  editMode?: boolean;
 };
 
 export default StepWizard;

@@ -1,6 +1,7 @@
 import React from "react";
-import classNames from "./index.module.css";
 import { NavLink as ReactRouterNavLink } from "react-router-dom";
+
+import classNames from "./index.module.css";
 
 const NavLink = ({ to, name, icon }: NavLinkProps) => {
   return (

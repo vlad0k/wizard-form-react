@@ -1,11 +1,12 @@
-import React from 'react';
 import { FieldArrayRenderProps } from 'formik';
-import classNames from './index.module.css';
-import Button from '../../ui/Button';
-import minusIcon from '../../../assets/icons/minus.svg';
+import React from 'react';
+
 import addIcon from '../../../assets/icons/add.svg';
+import minusIcon from '../../../assets/icons/minus.svg';
 import { ButtonAppearance } from '../../../types';
+import Button from '../../ui/Button';
 import PhoneInput from '../../ui/PhoneInput';
+import classNames from './index.module.css';
 
 const MAX_NUMBER_OF_PHONE_INPUTS = 3;
 

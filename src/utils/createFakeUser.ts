@@ -1,4 +1,5 @@
 import { FormikValues } from 'formik';
+
 import {
   HOBBIES_CHECKBOX_GROUP,
   SKILLS_SELECT_OPTIONS,

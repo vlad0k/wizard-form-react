@@ -18,7 +18,7 @@ const DropZone: FC<DropZonePropsType> = ({ handleChange, children }) => {
 };
 
 type DropZonePropsType = {
-  handleChange: (photo: File) => {};
+  handleChange: (photo: File) => void;
   children: ReactNode;
 };
 

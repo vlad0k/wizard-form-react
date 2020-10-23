@@ -2,22 +2,19 @@ import { FormikValues } from 'formik';
 import { OptionTypeBase, ValueType } from 'react-select';
 import { Action } from 'redux';
 import { ThunkAction } from 'redux-thunk';
+
+import { UserType } from '../types';
 import { StateType } from './store';
 
-const BACK_BUTTON_HANDLE = 'form/BACK_BUTTON_HANDLE';
 const SELECT_STEP = 'form/SELECT_STEP';
 const SUBMIT_STEP = 'form/SUBMIT_STEP';
 const SET_NUMBER_OF_STEPS = 'form/SET_NUMBER_OF_STEPS';
-const PREVIOS_STEP = 'form/PREVIOS_STEP';
+const PREVIOUS_STEP = 'form/PREVIOUS_STEP';
 const NEXT_STEP = 'form/NEXT_STEP';
 const RESET_FORM = 'form/RESET_FORM';
 const EDIT_USER = 'form/EDIT_USER';
 const LOAD_SAVED_FORM = 'form/LOAD_SAVED_FORM';
 const INITIATE_STEP_WIZARD = 'form/INITIATE_STEP_WIZARD';
-
-interface BackButonAction {
-  type: typeof BACK_BUTTON_HANDLE;
-}
 
 interface SelectStepAction {
   type: typeof SELECT_STEP;
@@ -29,8 +26,8 @@ interface SetNumberOfStepsAction {
   numberOfSteps: number;
 }
 
-interface PreviosStepAction {
-  type: typeof PREVIOS_STEP;
+interface PreviousStepAction {
+  type: typeof PREVIOUS_STEP;
 }
 
 interface NextStepAction {
@@ -60,16 +57,16 @@ interface InitiateStepWizardAction {
   type: typeof INITIATE_STEP_WIZARD;
   numberOfSteps: number;
   isEditMode: boolean;
+  currentStep: number;
 }
 
 type AddFormActionsType =
-  | BackButonAction
   | SelectStepAction
   | ResetFormAction
   | SubmitStepAction
   | EditUserAction
   | SetNumberOfStepsAction
-  | PreviosStepAction
+  | PreviousStepAction
   | NextStepAction
   | LoadSavedFormAction
   | InitiateStepWizardAction;
@@ -105,13 +102,6 @@ const initialState = {
 
 const stepWizardReducer = (state = initialState, action: AddFormActionsType) => {
   switch (action.type) {
-    case BACK_BUTTON_HANDLE: {
-      return {
-        ...state,
-        currentStep: state.currentStep > 0 ? state.currentStep - 1 : 0,
-      };
-    }
-
     case SELECT_STEP: {
       return {
         ...state,
@@ -136,7 +126,7 @@ const stepWizardReducer = (state = initialState, action: AddFormActionsType) => 
       };
     }
 
-    case PREVIOS_STEP: {
+    case PREVIOUS_STEP: {
       return {
         ...state,
         currentStep: state.currentStep === 0 ? 0 : state.currentStep - 1,
@@ -195,16 +185,14 @@ const stepWizardReducer = (state = initialState, action: AddFormActionsType) => 
 
 export default stepWizardReducer;
 
-export const backButtonHanle = (): BackButonAction => ({ type: BACK_BUTTON_HANDLE });
-
 export const selectStep = (step: number): SelectStepAction => ({ type: SELECT_STEP, step });
 
 export const submitForm = (values: FormikValues): SubmitStepAction => ({
   type: SUBMIT_STEP,
   values,
 });
-export const previosStep = (): PreviosStepAction => ({
-  type: PREVIOS_STEP,
+export const PreviousStep = (): PreviousStepAction => ({
+  type: PREVIOUS_STEP,
 });
 
 export const nextStep = (): NextStepAction => ({
@@ -224,10 +212,12 @@ export const loadSavedForm = (values: FormikValues): LoadSavedFormAction => ({
 export const resetForm = (): ResetFormAction => ({ type: RESET_FORM });
 
 export const initiateStepWizard = (
+  currentStep: number,
   numberOfSteps: number,
   isEditMode: boolean,
 ): InitiateStepWizardAction => ({
   type: INITIATE_STEP_WIZARD,
+  currentStep,
   numberOfSteps,
   isEditMode,
 });

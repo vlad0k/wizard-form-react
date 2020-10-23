@@ -1,6 +1,7 @@
-import React, { FC } from 'react';
-import classNames from './index.module.css';
 import cn from 'classnames';
+import React, { FC } from 'react';
+
+import classNames from './index.module.css';
 
 const Pagination: FC<PaginationPropsType> = ({ value, numberOfPages, selectPage = () => {} }) => {
   const pages = new Array(numberOfPages).fill(null).map((element, index) => index + 1);

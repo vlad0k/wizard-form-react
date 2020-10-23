@@ -1,8 +1,9 @@
-import React, { FC } from 'react';
-import classNames from './index.module.css';
 import { Field } from 'formik';
+import React, { FC } from 'react';
+
 import { RadioOptionType } from '../../../types';
 import FormLabel from '../FormLabel';
+import classNames from './index.module.css';
 
 const RadioGroup: FC<RadioGroupPropsType> = ({ name, options, label }) => {
   return (

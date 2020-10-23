@@ -1,9 +1,10 @@
-import React from 'react';
-import classNames from './index.module.css';
-import ReactSelect, { ValueType, OptionsType, OptionTypeBase } from 'react-select';
 import { Field, FieldProps } from 'formik';
+import React from 'react';
+import ReactSelect, { OptionsType, OptionTypeBase,ValueType } from 'react-select';
+
 import FieldError from '../FieldError';
 import FormLabel from '../FormLabel';
+import classNames from './index.module.css';
 
 const customStyles = {
   option: (provided: any, state: any) => ({

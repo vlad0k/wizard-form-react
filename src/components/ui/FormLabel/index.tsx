@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+
 import classNames from './index.module.css';
 
 const FormLabel: FC<FormLabelPropsType> = ({ label }) => {

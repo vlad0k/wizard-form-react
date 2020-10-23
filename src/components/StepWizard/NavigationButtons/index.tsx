@@ -1,10 +1,11 @@
 import React, { FC } from 'react';
-import classNames from './index.module.css';
-import Button from '../../ui/Button';
-import { ButtonAppearance } from '../../../types';
 import { useDispatch, useSelector } from 'react-redux';
-import { previosStep } from '../../../redux/stepWizardReducer';
+
+import { PreviousStep } from '../../../redux/stepWizardReducer';
 import { StateType } from '../../../redux/store';
+import { ButtonAppearance } from '../../../types';
+import Button from '../../ui/Button';
+import classNames from './index.module.css';
 
 const NavigationButtons: FC<NavigationButtonsPropsType> = () => {
   const { currentStep, numberOfSteps, isEditMode } = useSelector(
@@ -17,7 +18,7 @@ const NavigationButtons: FC<NavigationButtonsPropsType> = () => {
   const dispatch = useDispatch();
 
   const backButtonHandler = () => {
-    dispatch(previosStep());
+    dispatch(PreviousStep());
   };
 
   return (

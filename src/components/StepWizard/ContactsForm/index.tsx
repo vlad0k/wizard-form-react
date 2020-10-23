@@ -1,12 +1,13 @@
-import React, { FC } from 'react';
-import * as Yup from 'yup';
-import FormLayout from '../FormLayout';
-import InputField from '../../ui/InputField';
-import SelectField from '../../ui/SelectField';
 import { FieldArray, FormikValues } from 'formik';
-import PhoneInputs from '../PhoneInputs';
+import React, { FC } from 'react';
 import { OptionsType, OptionTypeBase } from 'react-select';
+import * as Yup from 'yup';
+
+import InputField from '../../ui/InputField';
 import PhoneInput from '../../ui/PhoneInput';
+import SelectField from '../../ui/SelectField';
+import FormLayout from '../FormLayout';
+import PhoneInputs from '../PhoneInputs';
 
 export const LANGUAGE_SELECT_OPTIONS: OptionsType<OptionTypeBase> = [
   { value: 'en', label: 'English' },

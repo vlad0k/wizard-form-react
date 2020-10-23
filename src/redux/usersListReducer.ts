@@ -1,15 +1,19 @@
-import { UsersFetchStatus, UserType } from '../types';
+import { IndexableType } from 'dexie';
+import { FormikValues } from 'formik';
+import { store } from 'react-notifications-component';
+import { Dispatch } from 'redux';
+
 import db, {
   addUser as addUserToDb,
   deleteAllUsers,
   getUsers,
   updateUser as updateUserToDb,
 } from '../db';
-import { IndexableType } from 'dexie';
-import { Dispatch } from 'redux';
-import { FormikValues } from 'formik';
+import { UsersFetchStatus, UserType } from '../types';
 import createFakeUser from '../utils/createFakeUser';
-import { store } from 'react-notifications-component';
+import { createNotification } from '../utils/notifications';
+
+const NUMBER_OF_FAKES = 50;
 
 const IMPORT_USERS = 'users/IMPORT_USERS';
 const DELETE_USER = 'users/DELETE_USER';
@@ -120,37 +124,14 @@ export const updateUser = (id: number, values: FormikValues) => (dispatch: Dispa
       dispatch(importUsersActionCreator(users));
       const user = users.find((user) => id === user.id);
       const username = user && user.username;
-      store.addNotification({
-        title: 'Saved',
-        message: `@${username} was updated`,
-        type: 'success',
-        insert: 'top',
-        container: 'bottom-right',
-        animationIn: ['animate__animated', 'animate__fadeIn'],
-        animationOut: ['animate__animated', 'animate__fadeOut'],
-        dismiss: {
-          duration: 3000,
-        },
-      });
+      createNotification({ title: 'Saved', message: `@${username} was updated`, type: 'success' });
     });
   });
 };
 
-//TODO rewrite function to import a bunch of users
+//TODO rewrite function to import a bunch of users on promises NOT AWAIT
 export const generateUsers = () => (dispatch: Dispatch) => {
-  const NUMBER_OF_FAKES = 50;
-  store.addNotification({
-    title: 'Generating fake users...',
-    message: ' ',
-    type: 'warning',
-    insert: 'top',
-    container: 'bottom-right',
-    animationIn: ['animate__animated', 'animate__fadeIn'],
-    animationOut: ['animate__animated', 'animate__fadeOut'],
-    dismiss: {
-      duration: 3000,
-    },
-  });
+  createNotification({ message: 'Generating fake users...' });
   dispatch(usersFetchStatus(UsersFetchStatus.isFetching));
   deleteAllUsers();
   for (let i = 1; i <= NUMBER_OF_FAKES; i++) {
@@ -162,17 +143,10 @@ export const generateUsers = () => (dispatch: Dispatch) => {
       const users = await getUsers();
       dispatch(importUsersActionCreator(users));
       if (i === NUMBER_OF_FAKES) {
-        store.addNotification({
+        createNotification({
           title: 'Success',
           message: 'Fake users were generated',
           type: 'success',
-          insert: 'top',
-          container: 'bottom-right',
-          animationIn: ['animate__animated', 'animate__fadeIn'],
-          animationOut: ['animate__animated', 'animate__fadeOut'],
-          dismiss: {
-            duration: 3000,
-          },
         });
         dispatch(usersFetchStatus(UsersFetchStatus.fetched));
       }

@@ -1,9 +1,9 @@
 import { useFormikContext } from 'formik';
+import { resolve } from 'path';
 import React, { FC } from 'react';
-import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory, useRouteMatch } from 'react-router-dom';
 
-import { PreviousStep } from '../../../redux/stepWizardReducer';
+import { PreviousStep, submitForm } from '../../../redux/stepWizardReducer';
 import { ButtonAppearance } from '../../../types';
 import Button from '../../ui/Button';
 import classNames from './index.module.css';
@@ -14,23 +14,30 @@ const NavigationButtons: FC<NavigationButtonsPropsType> = ({
   isEditMode = false,
   isFinish = false,
 }) => {
-  const dispatch = useDispatch();
-
-  const backButtonHandler = () => {
-    dispatch(PreviousStep());
+  const history = useHistory();
+  const match = useRouteMatch();
+  const { validateForm, submitForm } = useFormikContext();
+  const forwardButtonHandler = () => {
+    validateForm()
+      .then((errors) => {
+        if (!Object.keys(errors).length) {
+          return submitForm();
+        }
+        return new Promise((resolve, reject) => reject());
+      })
+      .then(() => (nextUrl ? history.push(nextUrl) : history.push('/users')));
   };
-  const { values, submitForm } = useFormikContext();
 
   return (
     <>
       {!isEditMode ? (
         <div className={classNames.buttons}>
-          {isFinish && <Button appearance={ButtonAppearance.finish}>Finish</Button>}
-          {nextUrl && (
-            <Link to={nextUrl}>
-              <Button>Forward</Button>
-            </Link>
+          {isFinish && (
+            <Button onClick={forwardButtonHandler} appearance={ButtonAppearance.finish}>
+              Finish
+            </Button>
           )}
+          {nextUrl && <Button onClick={forwardButtonHandler}>Forward</Button>}
           {prevUrl && (
             <Link to={prevUrl}>
               <Button appearance={ButtonAppearance.secondary} type="button">
@@ -51,7 +58,7 @@ const NavigationButtons: FC<NavigationButtonsPropsType> = ({
 type NavigationButtonsPropsType = {
   nextUrl?: string;
   prevUrl?: string;
-  isEditMode?: string;
+  isEditMode?: boolean;
   isFinish?: boolean;
 };
 

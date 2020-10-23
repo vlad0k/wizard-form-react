@@ -46,6 +46,7 @@ const CapabilitiesForm: FC<CapabilitiesFormPropsType> = ({
   nextUrl,
   prevUrl,
   isFinish = false,
+  isEditMode = false,
 }) => {
   const validationSchema = Yup.object({
     skills: Yup.array()
@@ -54,7 +55,12 @@ const CapabilitiesForm: FC<CapabilitiesFormPropsType> = ({
   });
 
   return (
-    <FormLayout initialValues={initialValues} validationSchema={validationSchema}>
+    <FormLayout
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      isFinish={isFinish}
+      isEditMode={isEditMode}
+    >
       <div>
         <MySelect name="skills" options={SKILLS_SELECT_OPTIONS} label="Skills" isMulti />
         <TextArea
@@ -69,7 +75,12 @@ const CapabilitiesForm: FC<CapabilitiesFormPropsType> = ({
           <Checkbox key={value} name="hobbies" value={value} label={label} />
         ))}
         <FieldError name="hobbies" />
-        <NavigationButtons prevUrl={prevUrl} nextUrl={nextUrl} isFinish={isFinish} />
+        <NavigationButtons
+          prevUrl={prevUrl}
+          nextUrl={nextUrl}
+          isFinish={isFinish}
+          isEditMode={isEditMode}
+        />
       </div>
     </FormLayout>
   );
@@ -82,4 +93,5 @@ type CapabilitiesFormPropsType = {
   nextUrl?: string;
   prevUrl?: string;
   isFinish?: boolean;
+  isEditMode?: boolean;
 };

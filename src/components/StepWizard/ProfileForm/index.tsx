@@ -16,6 +16,7 @@ const ProfileForm: FC<ProfileFormPropsType> = ({
   nextUrl,
   prevUrl,
   isFinish = false,
+  isEditMode = false,
 }) => {
   const validationSchema = Yup.object({
     firstname: Yup.string().required('required field'),
@@ -29,7 +30,11 @@ const ProfileForm: FC<ProfileFormPropsType> = ({
   });
 
   return (
-    <FormLayout initialValues={initialValues} validationSchema={validationSchema}>
+    <FormLayout
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      isEditMode={isEditMode}
+    >
       <div>
         <InputField name="firstname" label="First Name" />
         <InputField name="lastname" label="Last Name" />
@@ -47,7 +52,12 @@ const ProfileForm: FC<ProfileFormPropsType> = ({
           ]}
         />
         <FieldError name="gender" />
-        <NavigationButtons prevUrl={prevUrl} nextUrl={nextUrl} isFinish={isFinish} />
+        <NavigationButtons
+          prevUrl={prevUrl}
+          nextUrl={nextUrl}
+          isFinish={isFinish}
+          isEditMode={isEditMode}
+        />
       </div>
     </FormLayout>
   );
@@ -58,6 +68,7 @@ type ProfileFormPropsType = {
   nextUrl?: string;
   prevUrl?: string;
   isFinish?: boolean;
+  isEditMode?: boolean;
 };
 
 export default ProfileForm;

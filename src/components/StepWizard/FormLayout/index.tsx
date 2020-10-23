@@ -1,7 +1,7 @@
 import { Form, Formik, FormikHelpers, FormikValues } from 'formik';
 import React, { FC, ReactNode } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { ObjectSchema } from 'yup';
 
 import { deleteFormState, saveFormState } from '../../../localStorage';
@@ -11,24 +11,30 @@ import { addUser, updateUser } from '../../../redux/usersListReducer';
 import NavigationButtons from '../NavigationButtons';
 import classNames from './index.module.css';
 
-const FormLayout: FC<FormLayoutPropsType> = ({ children, initialValues, validationSchema }) => {
+const FormLayout: FC<FormLayoutPropsType> = ({
+  children,
+  initialValues,
+  validationSchema,
+  isFinish = false,
+  isEditMode = false,
+}) => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { currentStep, numberOfSteps, form, isEditMode } = useSelector(
+  const { form } = useSelector(
     ({ stepWizard: { currentStep, numberOfSteps, form, isEditMode } }: StateType) => ({
       currentStep,
       numberOfSteps,
       form,
-      isEditMode,
     }),
   );
 
+  console.log(isEditMode);
   const formSubmitHandler = (values: FormikValues, formikHelpers: FormikHelpers<FormikValues>) => {
     if (!isEditMode) {
       dispatch(submitForm(values));
       dispatch(nextStep());
       saveFormState({ ...form, ...values });
-      if (currentStep === numberOfSteps - 1) {
+      if (isFinish) {
         dispatch(addUser({ ...form, ...values }));
         dispatch(resetForm());
         deleteFormState();
@@ -64,4 +70,6 @@ type FormLayoutPropsType = {
   children: ReactNode;
   initialValues: FormikValues;
   validationSchema: ObjectSchema;
+  isFinish?: boolean;
+  isEditMode?: boolean;
 };

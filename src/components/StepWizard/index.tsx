@@ -59,6 +59,7 @@ const StepWizard: FC<StepWizardPropsType> = ({ editMode = false }) => {
                 nextUrl={nextUrl}
                 prevUrl={prevUrl}
                 isFinish={index + 1 === STEPS.length}
+                isEditMode={editMode}
               />
             </Route>
           );

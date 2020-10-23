@@ -12,6 +12,7 @@ const AccountForm: FC<AccountFormPropsType> = ({
   nextUrl,
   prevUrl,
   isFinish = false,
+  isEditMode = false,
 }) => {
   const validationSchema = Yup.object({
     avatar: Yup.mixed().notRequired().fileSizeInMb(),
@@ -25,6 +26,7 @@ const AccountForm: FC<AccountFormPropsType> = ({
     <FormLayout
       initialValues={{ ...initialValues, passwordRepeat: initialValues.password }}
       validationSchema={validationSchema}
+      isEditMode={isEditMode}
     >
       <div>
         <AvatarPicker name="avatar" />
@@ -33,7 +35,12 @@ const AccountForm: FC<AccountFormPropsType> = ({
         <InputField name="username" label="User Name" />
         <InputField name="password" label="Password" type="password" />
         <InputField name="passwordRepeat" label="Repeat Password" type="password" />
-        <NavigationButtons prevUrl={prevUrl} nextUrl={nextUrl} isFinish={isFinish} />
+        <NavigationButtons
+          prevUrl={prevUrl}
+          nextUrl={nextUrl}
+          isFinish={isFinish}
+          isEditMode={isEditMode}
+        />
       </div>
     </FormLayout>
   );
@@ -46,4 +53,5 @@ type AccountFormPropsType = {
   nextUrl?: string;
   prevUrl?: string;
   isFinish?: boolean;
+  isEditMode?: boolean;
 };

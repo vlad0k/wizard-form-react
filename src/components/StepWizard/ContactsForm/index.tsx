@@ -42,6 +42,7 @@ const ContactsForm: FC<ContactsFormPropsType> = ({
   nextUrl,
   prevUrl,
   isFinish = false,
+  isEditMode = false,
 }) => {
   const validationSchema = Yup.object({
     phoneNumbers: Yup.array().of(Yup.string()),
@@ -50,7 +51,11 @@ const ContactsForm: FC<ContactsFormPropsType> = ({
   });
 
   return (
-    <FormLayout initialValues={initialValues} validationSchema={validationSchema}>
+    <FormLayout
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      isEditMode={isEditMode}
+    >
       <div>
         <InputField name="company" label="Company" />
         <InputField name="github" label="GitHub Link" />
@@ -61,7 +66,12 @@ const ContactsForm: FC<ContactsFormPropsType> = ({
       <div>
         <PhoneInput name="fax" label="Fax" />
         <FieldArray name="phoneNumbers">{PhoneInputs}</FieldArray>
-        <NavigationButtons prevUrl={prevUrl} nextUrl={nextUrl} isFinish={isFinish} />
+        <NavigationButtons
+          prevUrl={prevUrl}
+          nextUrl={nextUrl}
+          isFinish={isFinish}
+          isEditMode={isEditMode}
+        />
       </div>
     </FormLayout>
   );
@@ -74,4 +84,5 @@ type ContactsFormPropsType = {
   nextUrl?: string;
   prevUrl?: string;
   isFinish?: boolean;
+  isEditMode?: boolean;
 };

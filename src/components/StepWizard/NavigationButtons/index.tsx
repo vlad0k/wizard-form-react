@@ -21,9 +21,10 @@ const NavigationButtons: FC<NavigationButtonsPropsType> = ({
         if (!Object.keys(errors).length) {
           return submitForm();
         }
+        // TODO fix promise usage
         return new Promise((resolve, reject) => reject());
       })
-      .then(() => (nextUrl ? history.push(nextUrl) : history.push('/users')));
+      .then(() => history.push(nextUrl ? nextUrl : '/users'));
   };
 
   return (

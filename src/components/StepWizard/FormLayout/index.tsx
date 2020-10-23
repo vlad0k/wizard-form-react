@@ -27,7 +27,6 @@ const FormLayout: FC<FormLayoutPropsType> = ({
     }),
   );
 
-  console.log(isEditMode);
   const formSubmitHandler = (values: FormikValues, formikHelpers: FormikHelpers<FormikValues>) => {
     if (!isEditMode) {
       dispatch(submitForm(values));

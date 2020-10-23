@@ -47,7 +47,9 @@ const StepWizard: FC<StepWizardPropsType> = ({ editMode = false }) => {
       </Tabs>
       <Switch>
         {STEPS.map(({ component: Component, url }, index) => {
-          const nextUrl = index + 1 !== STEPS.length ? match.url + '/' + STEPS[index + 1].url : '';
+          const isFinish = index + 1 === STEPS.length;
+
+          const nextUrl = !isFinish ? match.url + '/' + STEPS[index + 1].url : '';
           const prevUrl = index !== 0 ? match.url + '/' + STEPS[index - 1].url : '';
 
           return (
@@ -56,7 +58,7 @@ const StepWizard: FC<StepWizardPropsType> = ({ editMode = false }) => {
                 initialValues={form}
                 nextUrl={nextUrl}
                 prevUrl={prevUrl}
-                isFinish={index + 1 === STEPS.length}
+                isFinish={isFinish}
                 isEditMode={editMode}
               />
             </Route>

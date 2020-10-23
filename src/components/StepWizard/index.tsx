@@ -1,4 +1,3 @@
-import { Form } from 'formik';
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
@@ -7,7 +6,6 @@ import { StateType } from '../../redux/store';
 import AccountForm from './AccountForm';
 import CapabilitiesForm from './CapabilitiesForm';
 import ContactsForm from './ContactsForm';
-import NavigationButtons from './NavigationButtons';
 import ProfileForm from './ProfileForm';
 import TabPanel from './TabPanel';
 import Tabs from './Tabs';

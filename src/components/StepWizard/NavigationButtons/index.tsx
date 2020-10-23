@@ -1,9 +1,7 @@
 import { useFormikContext } from 'formik';
-import { resolve } from 'path';
 import React, { FC } from 'react';
 import { Link, useHistory, useRouteMatch } from 'react-router-dom';
 
-import { PreviousStep, submitForm } from '../../../redux/stepWizardReducer';
 import { ButtonAppearance } from '../../../types';
 import Button from '../../ui/Button';
 import classNames from './index.module.css';

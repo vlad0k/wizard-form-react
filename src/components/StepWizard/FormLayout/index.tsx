@@ -1,14 +1,13 @@
 import { Form, Formik, FormikHelpers, FormikValues } from 'formik';
 import React, { FC, ReactNode } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { ObjectSchema } from 'yup';
 
 import { deleteFormState, saveFormState } from '../../../localStorage';
 import { nextStep, resetForm, submitForm } from '../../../redux/stepWizardReducer';
 import { StateType } from '../../../redux/store';
 import { addUser, updateUser } from '../../../redux/usersListReducer';
-import NavigationButtons from '../NavigationButtons';
 import classNames from './index.module.css';
 
 const FormLayout: FC<FormLayoutPropsType> = ({

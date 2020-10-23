@@ -5,8 +5,14 @@ import Yup from '../../../yup';
 import AvatarPicker from '../../ui/AvatarPicker';
 import InputField from '../../ui/InputField';
 import FormLayout from '../FormLayout';
+import NavigationButtons from '../NavigationButtons';
 
-const AccountForm: FC<AccountFormPropsType> = ({ initialValues }) => {
+const AccountForm: FC<AccountFormPropsType> = ({
+  initialValues,
+  nextUrl,
+  prevUrl,
+  isFinish = false,
+}) => {
   const validationSchema = Yup.object({
     avatar: Yup.mixed().notRequired().fileSizeInMb(),
     username: Yup.string().required('required field').uniqueUsername(),
@@ -27,6 +33,7 @@ const AccountForm: FC<AccountFormPropsType> = ({ initialValues }) => {
         <InputField name="username" label="User Name" />
         <InputField name="password" label="Password" type="password" />
         <InputField name="passwordRepeat" label="Repeat Password" type="password" />
+        <NavigationButtons prevUrl={prevUrl} nextUrl={nextUrl} isFinish={isFinish} />
       </div>
     </FormLayout>
   );
@@ -36,4 +43,7 @@ export default AccountForm;
 
 type AccountFormPropsType = {
   initialValues: FormikValues;
+  nextUrl?: string;
+  prevUrl?: string;
+  isFinish?: boolean;
 };

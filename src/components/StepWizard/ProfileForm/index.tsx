@@ -9,8 +9,14 @@ import InputField from '../../ui/InputField';
 import LocationPicker from '../../ui/LocationPicker';
 import RadioGroup from '../../ui/RadioGroup';
 import FormLayout from '../FormLayout';
+import NavigationButtons from '../NavigationButtons';
 
-const ProfileForm: FC<ProfileFormPropsType> = ({ initialValues }) => {
+const ProfileForm: FC<ProfileFormPropsType> = ({
+  initialValues,
+  nextUrl,
+  prevUrl,
+  isFinish = false,
+}) => {
   const validationSchema = Yup.object({
     firstname: Yup.string().required('required field'),
     lastname: Yup.string().required('required field'),
@@ -41,6 +47,7 @@ const ProfileForm: FC<ProfileFormPropsType> = ({ initialValues }) => {
           ]}
         />
         <FieldError name="gender" />
+        <NavigationButtons prevUrl={prevUrl} nextUrl={nextUrl} isFinish={isFinish} />
       </div>
     </FormLayout>
   );
@@ -48,6 +55,9 @@ const ProfileForm: FC<ProfileFormPropsType> = ({ initialValues }) => {
 
 type ProfileFormPropsType = {
   initialValues: FormikValues;
+  nextUrl?: string;
+  prevUrl?: string;
+  isFinish?: boolean;
 };
 
 export default ProfileForm;

@@ -7,6 +7,7 @@ import InputField from '../../ui/InputField';
 import PhoneInput from '../../ui/PhoneInput';
 import SelectField from '../../ui/SelectField';
 import FormLayout from '../FormLayout';
+import NavigationButtons from '../NavigationButtons';
 import PhoneInputs from '../PhoneInputs';
 
 export const LANGUAGE_SELECT_OPTIONS: OptionsType<OptionTypeBase> = [
@@ -36,7 +37,12 @@ export const LANGUAGE_SELECT_OPTIONS: OptionsType<OptionTypeBase> = [
   { value: 'ko', label: 'Korean' },
 ];
 
-const ContactsForm: FC<ContactsFormPropsType> = ({ initialValues }) => {
+const ContactsForm: FC<ContactsFormPropsType> = ({
+  initialValues,
+  nextUrl,
+  prevUrl,
+  isFinish = false,
+}) => {
   const validationSchema = Yup.object({
     phoneNumbers: Yup.array().of(Yup.string()),
     company: Yup.string().required('required field'),
@@ -55,6 +61,7 @@ const ContactsForm: FC<ContactsFormPropsType> = ({ initialValues }) => {
       <div>
         <PhoneInput name="fax" label="Fax" />
         <FieldArray name="phoneNumbers">{PhoneInputs}</FieldArray>
+        <NavigationButtons prevUrl={prevUrl} nextUrl={nextUrl} isFinish={isFinish} />
       </div>
     </FormLayout>
   );
@@ -64,4 +71,7 @@ export default ContactsForm;
 
 type ContactsFormPropsType = {
   initialValues: FormikValues;
+  nextUrl?: string;
+  prevUrl?: string;
+  isFinish?: boolean;
 };

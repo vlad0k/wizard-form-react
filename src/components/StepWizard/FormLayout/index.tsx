@@ -50,9 +50,6 @@ const FormLayout: FC<FormLayoutPropsType> = ({ children, initialValues, validati
           return (
             <Form className={classNames.form}>
               <div className={classNames.columns}>{children}</div>
-              <div>
-                <NavigationButtons />
-              </div>
             </Form>
           );
         }}

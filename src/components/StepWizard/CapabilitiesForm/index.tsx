@@ -8,6 +8,7 @@ import FieldError from '../../ui/FieldError';
 import MySelect from '../../ui/SelectField';
 import TextArea from '../../ui/TextArea';
 import FormLayout from '../FormLayout';
+import NavigationButtons from '../NavigationButtons';
 
 const MAX_LENGTH_OF_TEXTAREA = 300;
 
@@ -40,7 +41,12 @@ export const HOBBIES_CHECKBOX_GROUP = [
   { value: 'nohobbie', label: 'WTF is “hobbies”???' },
 ];
 
-const CapabilitiesForm: FC<CapabilitiesFormPropsType> = ({ initialValues }) => {
+const CapabilitiesForm: FC<CapabilitiesFormPropsType> = ({
+  initialValues,
+  nextUrl,
+  prevUrl,
+  isFinish = false,
+}) => {
   const validationSchema = Yup.object({
     skills: Yup.array()
       .of(Yup.string().required('required field'))
@@ -63,6 +69,7 @@ const CapabilitiesForm: FC<CapabilitiesFormPropsType> = ({ initialValues }) => {
           <Checkbox key={value} name="hobbies" value={value} label={label} />
         ))}
         <FieldError name="hobbies" />
+        <NavigationButtons prevUrl={prevUrl} nextUrl={nextUrl} isFinish={isFinish} />
       </div>
     </FormLayout>
   );
@@ -72,4 +79,7 @@ export default CapabilitiesForm;
 
 type CapabilitiesFormPropsType = {
   initialValues: FormikValues;
+  nextUrl?: string;
+  prevUrl?: string;
+  isFinish?: boolean;
 };

@@ -7,7 +7,6 @@ import InputField from '../../ui/InputField';
 import PhoneInput from '../../ui/PhoneInput';
 import SelectField from '../../ui/SelectField';
 import FormLayout from '../FormLayout';
-import NavigationButtons from '../NavigationButtons';
 import PhoneInputs from '../PhoneInputs';
 
 export const LANGUAGE_SELECT_OPTIONS: OptionsType<OptionTypeBase> = [

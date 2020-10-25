@@ -9,7 +9,6 @@ import InputField from '../../ui/InputField';
 import LocationPicker from '../../ui/LocationPicker';
 import RadioGroup from '../../ui/RadioGroup';
 import FormLayout from '../FormLayout';
-import NavigationButtons from '../NavigationButtons';
 
 const ProfileForm: FC<ProfileFormPropsType> = ({
   initialValues,

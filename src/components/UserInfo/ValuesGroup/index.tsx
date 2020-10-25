@@ -1,23 +1,21 @@
 import React, { FC } from 'react';
-import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import editIcon from '../../../assets/icons/Edit.svg';
-import { selectStep } from '../../../redux/stepWizardReducer';
 import { ButtonAppearance } from '../../../types';
 import Button from '../../ui/Button';
 import ValuesList from '../ValuesList';
 import classNames from './index.module.css';
 
+const LINKS = ['account', 'profile', 'contacts', 'capabilities'];
+
 const ValuesGroup: FC<ValuesGroupPropsType> = ({ groupName, values, id, index }) => {
-  const dispatch = useDispatch();
-  const path = ['account', 'profile', 'contacts', 'capabilities'];
   return (
     <div key={groupName} className={classNames.group}>
       <span className={classNames.groupKey}>
         {groupName}
-        <Link to={`/edit/${id}#${path[index]}`}>
-          <Button onClick={() => dispatch(selectStep(index))} appearance={ButtonAppearance.text}>
+        <Link to={`/edit/${id}#${LINKS[index]}`}>
+          <Button appearance={ButtonAppearance.text}>
             <img src={editIcon} alt="edit" />
           </Button>
         </Link>

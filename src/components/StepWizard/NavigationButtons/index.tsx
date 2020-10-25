@@ -1,6 +1,6 @@
 import { useFormikContext } from 'formik';
 import React, { FC } from 'react';
-import { Link, useHistory, useRouteMatch } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import { ButtonAppearance } from '../../../types';
 import Button from '../../ui/Button';
@@ -13,7 +13,6 @@ const NavigationButtons: FC<NavigationButtonsPropsType> = ({
   isFinish = false,
 }) => {
   const history = useHistory();
-  const match = useRouteMatch();
   const { validateForm, submitForm } = useFormikContext();
   const forwardButtonHandler = () => {
     validateForm()

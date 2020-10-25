@@ -8,7 +8,6 @@ import FieldError from '../../ui/FieldError';
 import MySelect from '../../ui/SelectField';
 import TextArea from '../../ui/TextArea';
 import FormLayout from '../FormLayout';
-import NavigationButtons from '../NavigationButtons';
 
 const MAX_LENGTH_OF_TEXTAREA = 300;
 

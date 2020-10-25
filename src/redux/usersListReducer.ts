@@ -1,6 +1,5 @@
 import { IndexableType } from 'dexie';
 import { FormikValues } from 'formik';
-import { store } from 'react-notifications-component';
 import { Dispatch } from 'redux';
 
 import db, {

@@ -1,15 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import {
-  HashRouter,
-  Redirect,
-  Route,
-  Switch,
-  useHistory,
-  useLocation,
-  useRouteMatch,
-} from 'react-router-dom';
-import { HashLink as Link } from 'react-router-hash-link';
+import { Redirect, useLocation } from 'react-router-dom';
 
 import { StateType } from '../../redux/store';
 import { getHashParam } from '../../utils/hashRouteUtils';
@@ -18,6 +9,7 @@ import CapabilitiesForm from './CapabilitiesForm';
 import ContactsForm from './ContactsForm';
 import NavigationButtons from './NavigationButtons';
 import ProfileForm from './ProfileForm';
+import RestoreUnsaved from './RestoreUnsaved';
 import TabPanel from './TabPanel';
 import Tabs from './Tabs';
 
@@ -72,6 +64,7 @@ const StepWizard: FC<StepWizardPropsType> = ({ editMode = false }) => {
           />
         ))}
       </Tabs>
+      {getHashParam(hash) === STEPS[0].url && !editMode && <RestoreUnsaved />}
       {
         STEPS.map(({ component: Component }, index) => {
           const isFinish = index + 1 === STEPS.length;

@@ -21,6 +21,6 @@
   background: var(--primary-color);
 }
 
-.visited {
+.disabled {
   color: var(--action-text-color);
 }

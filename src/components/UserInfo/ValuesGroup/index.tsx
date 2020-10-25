@@ -11,11 +11,12 @@ import classNames from './index.module.css';
 
 const ValuesGroup: FC<ValuesGroupPropsType> = ({ groupName, values, id, index }) => {
   const dispatch = useDispatch();
+  const path = ['account', 'profile', 'contacts', 'capabilities'];
   return (
     <div key={groupName} className={classNames.group}>
       <span className={classNames.groupKey}>
         {groupName}
-        <Link to={`/edit/${id}`}>
+        <Link to={`/edit/${id}#${path[index]}`}>
           <Button onClick={() => dispatch(selectStep(index))} appearance={ButtonAppearance.text}>
             <img src={editIcon} alt="edit" />
           </Button>

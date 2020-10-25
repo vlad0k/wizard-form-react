@@ -1,5 +1,5 @@
 import { FormikValues } from 'formik';
-import React, { FC } from 'react';
+import React, { FC, ReactNode } from 'react';
 import * as Yup from 'yup';
 
 import ageValidator from '../../../utils/dateYearSubstract';
@@ -13,10 +13,9 @@ import NavigationButtons from '../NavigationButtons';
 
 const ProfileForm: FC<ProfileFormPropsType> = ({
   initialValues,
-  nextUrl,
-  prevUrl,
   isFinish = false,
   isEditMode = false,
+  navButtons,
 }) => {
   const validationSchema = Yup.object({
     firstname: Yup.string().required('required field'),
@@ -52,12 +51,7 @@ const ProfileForm: FC<ProfileFormPropsType> = ({
           ]}
         />
         <FieldError name="gender" />
-        <NavigationButtons
-          prevUrl={prevUrl}
-          nextUrl={nextUrl}
-          isFinish={isFinish}
-          isEditMode={isEditMode}
-        />
+        {navButtons}
       </div>
     </FormLayout>
   );
@@ -65,10 +59,9 @@ const ProfileForm: FC<ProfileFormPropsType> = ({
 
 type ProfileFormPropsType = {
   initialValues: FormikValues;
-  nextUrl?: string;
-  prevUrl?: string;
   isFinish?: boolean;
   isEditMode?: boolean;
+  navButtons: ReactNode;
 };
 
 export default ProfileForm;

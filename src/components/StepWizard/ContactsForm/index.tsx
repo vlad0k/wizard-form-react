@@ -1,5 +1,5 @@
 import { FieldArray, FormikValues } from 'formik';
-import React, { FC } from 'react';
+import React, { FC, ReactNode } from 'react';
 import { OptionsType, OptionTypeBase } from 'react-select';
 import * as Yup from 'yup';
 
@@ -39,10 +39,9 @@ export const LANGUAGE_SELECT_OPTIONS: OptionsType<OptionTypeBase> = [
 
 const ContactsForm: FC<ContactsFormPropsType> = ({
   initialValues,
-  nextUrl,
-  prevUrl,
   isFinish = false,
   isEditMode = false,
+  navButtons,
 }) => {
   const validationSchema = Yup.object({
     phoneNumbers: Yup.array().of(Yup.string()),
@@ -66,12 +65,7 @@ const ContactsForm: FC<ContactsFormPropsType> = ({
       <div>
         <PhoneInput name="fax" label="Fax" />
         <FieldArray name="phoneNumbers">{PhoneInputs}</FieldArray>
-        <NavigationButtons
-          prevUrl={prevUrl}
-          nextUrl={nextUrl}
-          isFinish={isFinish}
-          isEditMode={isEditMode}
-        />
+        {navButtons}
       </div>
     </FormLayout>
   );
@@ -81,8 +75,7 @@ export default ContactsForm;
 
 type ContactsFormPropsType = {
   initialValues: FormikValues;
-  nextUrl?: string;
-  prevUrl?: string;
   isFinish?: boolean;
   isEditMode?: boolean;
+  navButtons: ReactNode;
 };

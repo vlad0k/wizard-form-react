@@ -1,5 +1,5 @@
 import { FormikValues } from 'formik';
-import React, { FC } from 'react';
+import React, { FC, ReactNode } from 'react';
 import * as Yup from 'yup';
 
 import { SkillOptionType } from '../../../types';
@@ -43,10 +43,9 @@ export const HOBBIES_CHECKBOX_GROUP = [
 
 const CapabilitiesForm: FC<CapabilitiesFormPropsType> = ({
   initialValues,
-  nextUrl,
-  prevUrl,
   isFinish = false,
   isEditMode = false,
+  navButtons,
 }) => {
   const validationSchema = Yup.object({
     skills: Yup.array()
@@ -75,12 +74,7 @@ const CapabilitiesForm: FC<CapabilitiesFormPropsType> = ({
           <Checkbox key={value} name="hobbies" value={value} label={label} />
         ))}
         <FieldError name="hobbies" />
-        <NavigationButtons
-          prevUrl={prevUrl}
-          nextUrl={nextUrl}
-          isFinish={isFinish}
-          isEditMode={isEditMode}
-        />
+        {navButtons}
       </div>
     </FormLayout>
   );
@@ -90,8 +84,7 @@ export default CapabilitiesForm;
 
 type CapabilitiesFormPropsType = {
   initialValues: FormikValues;
-  nextUrl?: string;
-  prevUrl?: string;
   isFinish?: boolean;
   isEditMode?: boolean;
+  navButtons: ReactNode;
 };

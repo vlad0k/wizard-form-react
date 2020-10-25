@@ -1,19 +1,15 @@
 import { FormikValues } from 'formik';
-import React, { FC } from 'react';
+import React, { FC, ReactNode } from 'react';
 
 import Yup from '../../../yup';
 import AvatarPicker from '../../ui/AvatarPicker';
 import InputField from '../../ui/InputField';
 import FormLayout from '../FormLayout';
-import NavigationButtons from '../NavigationButtons';
-import RestoreUnsaved from '../RestoreUnsaved';
 
 const AccountForm: FC<AccountFormPropsType> = ({
   initialValues,
-  nextUrl,
-  prevUrl,
-  isFinish = false,
   isEditMode = false,
+  navButtons,
 }) => {
   const validationSchema = Yup.object({
     avatar: Yup.mixed().notRequired().fileSizeInMb(),
@@ -36,12 +32,7 @@ const AccountForm: FC<AccountFormPropsType> = ({
         <InputField name="username" label="User Name" />
         <InputField name="password" label="Password" type="password" />
         <InputField name="passwordRepeat" label="Repeat Password" type="password" />
-        <NavigationButtons
-          prevUrl={prevUrl}
-          nextUrl={nextUrl}
-          isFinish={isFinish}
-          isEditMode={isEditMode}
-        />
+        {navButtons}
       </div>
     </FormLayout>
   );
@@ -51,8 +42,7 @@ export default AccountForm;
 
 type AccountFormPropsType = {
   initialValues: FormikValues;
-  nextUrl?: string;
-  prevUrl?: string;
   isFinish?: boolean;
   isEditMode?: boolean;
+  navButtons: ReactNode;
 };

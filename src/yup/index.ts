@@ -7,7 +7,14 @@ import { getUsers } from '../db';
 Yup.addMethod<StringSchema>(Yup.string, 'uniqueUsername', function () {
   return this.test('uniqueUsername', "you can't use this username", async (value) => {
     const users = await getUsers();
-    return !users.map((user) => user.username).includes(value);
+    return !users.map(({ user }) => user.username).includes(value);
+  });
+});
+
+Yup.addMethod<StringSchema>(Yup.string, 'uniqueEmail', function () {
+  return this.test('uniqueEmail', 'user with this email has already registered', async (value) => {
+    const users = await getUsers();
+    return !users.map((user) => user.email).includes(value);
   });
 });
 
@@ -20,6 +27,7 @@ Yup.addMethod<MixedSchema>(Yup.mixed, 'fileSizeInMb', function (sizeInMb: number
 declare module 'yup' {
   interface StringSchema {
     uniqueUsername: () => StringSchema<string | null | undefined>;
+    uniqueEmail: () => StringSchema<string | null | undefined>;
   }
 
   // @ts-ignore

@@ -8,7 +8,6 @@ import FieldError from '../../ui/FieldError';
 import InputField from '../../ui/InputField';
 import LocationPicker from '../../ui/LocationPicker';
 import RadioGroup from '../../ui/RadioGroup';
-import FormLayout from '../FormLayout';
 
 const ProfileForm: FC = () => (
   <>

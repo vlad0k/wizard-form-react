@@ -36,7 +36,7 @@ const STEPS = [
     validationSchema: Yup.object({
       firstname: Yup.string().required('required field'),
       lastname: Yup.string().required('required field'),
-      email: Yup.string().required('required field').email('incorrect email format'),
+      email: Yup.string().required('required field').email('incorrect email format').uniqueEmail(),
       birthdate: Yup.date()
         .notRequired()
         .max(ageValidator(18), 'You should be 18 years old')

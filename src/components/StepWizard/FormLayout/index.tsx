@@ -5,7 +5,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import { ObjectSchema } from 'yup';
 
 import { deleteFormState, saveFormState } from '../../../localStorage';
-import { nextStep, resetForm, submitForm } from '../../../redux/stepWizardReducer';
+import { resetForm, submitForm } from '../../../redux/stepWizardReducer';
 import { StateType } from '../../../redux/store';
 import { addUser, updateUser } from '../../../redux/usersListReducer';
 import NavigationButtons from '../NavigationButtons';
@@ -16,29 +16,23 @@ const FormLayout: FC<FormLayoutPropsType> = ({
   initialValues,
   isFinish = false,
   isEditMode = false,
-  prevUrl = '',
-  nextUrl = '',
+  nextStep = () => {},
+  prevStep = () => {},
   validationSchema = {},
 }) => {
   const { id } = useParams();
   const history = useHistory();
   const dispatch = useDispatch();
-  const { form } = useSelector(
-    ({ stepWizard: { currentStep, numberOfSteps, form, isEditMode } }: StateType) => ({
-      currentStep,
-      numberOfSteps,
-      form,
-    }),
-  );
+  const { form } = useSelector(({ stepWizard: { form } }: StateType) => ({
+    form,
+  }));
 
   const formSubmitHandler = (values: FormikValues) => {
-    console.log('+');
     if (!isEditMode) {
       if (!isFinish) {
         dispatch(submitForm(values));
-        dispatch(nextStep());
         saveFormState({ ...form, ...values });
-        history.push(nextUrl);
+        nextStep();
       } else {
         dispatch(addUser({ ...form, ...values }));
         dispatch(resetForm());
@@ -62,7 +56,7 @@ const FormLayout: FC<FormLayoutPropsType> = ({
           return (
             <Form className={classNames.form}>
               <div className={classNames.columns}>{children}</div>
-              <NavigationButtons prevUrl={prevUrl} isFinish={isFinish} isEditMode={isEditMode} />
+              <NavigationButtons prevStep={prevStep} isFinish={isFinish} isEditMode={isEditMode} />
             </Form>
           );
         }}
@@ -78,7 +72,7 @@ type FormLayoutPropsType = {
   initialValues: FormikValues;
   isEditMode?: boolean;
   isFinish?: boolean;
-  nextUrl?: string;
-  prevUrl?: string;
+  nextStep?: () => void;
+  prevStep?: () => void;
   validationSchema?: ObjectSchema;
 };

@@ -6,9 +6,9 @@ import Button from '../../ui/Button';
 import classNames from './index.module.css';
 
 const NavigationButtons: FC<NavigationButtonsPropsType> = ({
-  prevUrl,
   isEditMode = false,
   isFinish = false,
+  prevStep = () => {},
 }) => (
   <>
     {!isEditMode ? (
@@ -18,13 +18,9 @@ const NavigationButtons: FC<NavigationButtonsPropsType> = ({
         ) : (
           <Button>Forward</Button>
         )}
-        {prevUrl && (
-          <Link to={prevUrl}>
-            <Button appearance={ButtonAppearance.secondary} type="button">
-              Back
-            </Button>
-          </Link>
-        )}
+        <Button onClick={prevStep} appearance={ButtonAppearance.secondary} type="button">
+          Back
+        </Button>
       </div>
     ) : (
       <div className={classNames.buttons}>
@@ -38,6 +34,7 @@ type NavigationButtonsPropsType = {
   prevUrl?: string;
   isEditMode?: boolean;
   isFinish?: boolean;
+  prevStep: () => void;
 };
 
 export default NavigationButtons;

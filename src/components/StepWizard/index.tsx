@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Redirect, useLocation } from 'react-router-dom';
+import { Redirect, useHistory, useLocation } from 'react-router-dom';
 
 import { StateType } from '../../redux/store';
 import ageValidator from '../../utils/dateYearSubstract';
@@ -76,17 +76,31 @@ const getCurrentStepByHash = (hash: string) => {
 const StepWizard: FC<StepWizardPropsType> = ({ editMode = false }) => {
   const form = useSelector((state: StateType) => state.stepWizard.form);
   const { pathname, hash } = useLocation();
-  const [currentStep, setCurrentStep] = useState(getCurrentStepByHash(hash));
-
-  useEffect(() => {
-    setCurrentStep(getCurrentStepByHash(hash));
-  }, [hash]);
+  const history = useHistory();
+  const [currentStep, setCurrentStep] = useState(0);
 
   const createTabUrl = (index: number = 0) => pathname + '#' + STEPS[index].url;
+  useEffect(() => {
+    editMode ? setCurrentStep(getCurrentStepByHash(hash)) : history.push(createTabUrl(currentStep));
+  }, [hash]);
+
+  const nextStep = (nextUrl: string) => {
+    if (nextUrl) {
+      setCurrentStep((prev) => prev + 1);
+      history.push(nextUrl);
+    }
+  };
+
+  const prevStep = (prevUrl: string) => {
+    if (prevUrl) {
+      setCurrentStep((prev) => prev - 1);
+      history.push(prevUrl);
+    }
+  };
 
   return (
     <div>
-      {!getHashParam(hash) && <Redirect to={createTabUrl()} />}
+      {!getHashParam(hash) && <Redirect to={createTabUrl(currentStep)} />}
       <Tabs>
         {STEPS.map(({ name, url }, index) => (
           <TabPanel
@@ -107,8 +121,8 @@ const StepWizard: FC<StepWizardPropsType> = ({ editMode = false }) => {
               initialValues={{ ...form, passwordRepeat: form.password }}
               isFinish={isFinish}
               isEditMode={editMode}
-              prevUrl={index > 0 ? createTabUrl(index - 1) : ''}
-              nextUrl={!isFinish ? createTabUrl(index + 1) : ''}
+              nextStep={() => nextStep(!isFinish ? createTabUrl(index + 1) : '')}
+              prevStep={() => prevStep(index > 0 ? createTabUrl(index - 1) : '')}
               validationSchema={validationSchema}
             >
               {component}

@@ -7,7 +7,7 @@ import { getUsers } from '../db';
 Yup.addMethod<StringSchema>(Yup.string, 'uniqueUsername', function () {
   return this.test('uniqueUsername', "you can't use this username", async (value) => {
     const users = await getUsers();
-    return !users.map(({ user }) => user.username).includes(value);
+    return !users.map((user) => user.username).includes(value);
   });
 });
 

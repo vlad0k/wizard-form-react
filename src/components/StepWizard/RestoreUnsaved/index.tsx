@@ -11,6 +11,7 @@ import classNames from './index.module.css';
 
 const RestoreUnsaved: FC = () => {
   //TODO Fix restore in profileForm
+  //  Форма отображает вопрос о восстановлении если я перешел на вторую табу и вернулся на первую. Отоюражение восстановления должно быть только если форма пустая
   const [savedFormState, setSavedFormState] = useState<StateType | undefined>(undefined);
 
   const dispatch = useDispatch();

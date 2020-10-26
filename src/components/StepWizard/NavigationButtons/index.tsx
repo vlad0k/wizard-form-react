@@ -7,35 +7,19 @@ import Button from '../../ui/Button';
 import classNames from './index.module.css';
 
 const NavigationButtons: FC<NavigationButtonsPropsType> = ({
-  nextUrl,
   prevUrl,
   isEditMode = false,
   isFinish = false,
 }) => {
-  const history = useHistory();
-  const { validateForm, submitForm } = useFormikContext();
-  const forwardButtonHandler = () => {
-    validateForm()
-      .then((errors) => {
-        if (!Object.keys(errors).length) {
-          return submitForm();
-        }
-        // TODO fix promise usage
-        return new Promise((resolve, reject) => reject());
-      })
-      .then(() => history.push(nextUrl ? nextUrl : '/users'));
-  };
-
   return (
     <>
       {!isEditMode ? (
         <div className={classNames.buttons}>
-          {isFinish && (
-            <Button onClick={forwardButtonHandler} appearance={ButtonAppearance.finish}>
-              Finish
-            </Button>
+          {isFinish ? (
+            <Button appearance={ButtonAppearance.finish}>Finish</Button>
+          ) : (
+            <Button>Forward</Button>
           )}
-          {nextUrl && <Button onClick={forwardButtonHandler}>Forward</Button>}
           {prevUrl && (
             <Link to={prevUrl}>
               <Button appearance={ButtonAppearance.secondary} type="button">
@@ -54,7 +38,6 @@ const NavigationButtons: FC<NavigationButtonsPropsType> = ({
 };
 
 type NavigationButtonsPropsType = {
-  nextUrl?: string;
   prevUrl?: string;
   isEditMode?: boolean;
   isFinish?: boolean;

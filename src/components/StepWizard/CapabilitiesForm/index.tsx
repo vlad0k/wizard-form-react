@@ -1,13 +1,10 @@
-import { FormikValues } from 'formik';
 import React, { FC, ReactNode } from 'react';
-import * as Yup from 'yup';
 
 import { SkillOptionType } from '../../../types';
 import Checkbox from '../../ui/CheckBox';
 import FieldError from '../../ui/FieldError';
 import MySelect from '../../ui/SelectField';
 import TextArea from '../../ui/TextArea';
-import FormLayout from '../FormLayout';
 
 const MAX_LENGTH_OF_TEXTAREA = 300;
 
@@ -40,50 +37,20 @@ export const HOBBIES_CHECKBOX_GROUP = [
   { value: 'nohobbie', label: 'WTF is “hobbies”???' },
 ];
 
-const CapabilitiesForm: FC<CapabilitiesFormPropsType> = ({
-  initialValues,
-  isFinish = false,
-  isEditMode = false,
-  navButtons,
-}) => {
-  const validationSchema = Yup.object({
-    skills: Yup.array()
-      .of(Yup.string().required('required field'))
-      .min(3, ({ min }) => `you should have al least ${min} skills`),
-  });
-
-  return (
-    <FormLayout
-      initialValues={initialValues}
-      validationSchema={validationSchema}
-      isFinish={isFinish}
-      isEditMode={isEditMode}
-    >
-      <div>
-        <MySelect name="skills" options={SKILLS_SELECT_OPTIONS} label="Skills" isMulti />
-        <TextArea
-          name="additionalInfo"
-          label="Additional Info"
-          maxlength={MAX_LENGTH_OF_TEXTAREA}
-        />
-      </div>
-      <div role="group">
-        <span>Hobbies:</span>
-        {HOBBIES_CHECKBOX_GROUP.map(({ value, label }) => (
-          <Checkbox key={value} name="hobbies" value={value} label={label} />
-        ))}
-        <FieldError name="hobbies" />
-        {navButtons}
-      </div>
-    </FormLayout>
-  );
-};
+const CapabilitiesForm: FC = () => (
+  <>
+    <div>
+      <MySelect name="skills" options={SKILLS_SELECT_OPTIONS} label="Skills" isMulti />
+      <TextArea name="additionalInfo" label="Additional Info" maxlength={MAX_LENGTH_OF_TEXTAREA} />
+    </div>
+    <div role="group">
+      <span>Hobbies:</span>
+      {HOBBIES_CHECKBOX_GROUP.map(({ value, label }) => (
+        <Checkbox key={value} name="hobbies" value={value} label={label} />
+      ))}
+      <FieldError name="hobbies" />
+    </div>
+  </>
+);
 
 export default CapabilitiesForm;
-
-type CapabilitiesFormPropsType = {
-  initialValues: FormikValues;
-  isFinish?: boolean;
-  isEditMode?: boolean;
-  navButtons: ReactNode;
-};

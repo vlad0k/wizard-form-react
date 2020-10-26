@@ -3,11 +3,13 @@ import { useSelector } from 'react-redux';
 import { Redirect, useLocation } from 'react-router-dom';
 
 import { StateType } from '../../redux/store';
+import ageValidator from '../../utils/dateYearSubstract';
 import { getHashParam } from '../../utils/hashRouteUtils';
+import Yup from '../../yup';
 import AccountForm from './AccountForm';
 import CapabilitiesForm from './CapabilitiesForm';
 import ContactsForm from './ContactsForm';
-import NavigationButtons from './NavigationButtons';
+import FormLayout from './FormLayout';
 import ProfileForm from './ProfileForm';
 import RestoreUnsaved from './RestoreUnsaved';
 import TabPanel from './TabPanel';
@@ -17,23 +19,51 @@ const STEPS = [
   {
     name: 'Account',
     url: 'account',
-    component: AccountForm,
+    component: <AccountForm />,
+    validationSchema: Yup.object({
+      avatar: Yup.mixed().notRequired().fileSizeInMb(),
+      username: Yup.string().required('required field').uniqueUsername(),
+      password: Yup.string().required('required field'),
+      passwordRepeat: Yup.string()
+        .oneOf([Yup.ref('password'), ''], "passwords don't match")
+        .required('required field'),
+    }),
   },
   {
     name: 'Profile',
     url: 'profile',
-    component: ProfileForm,
+    component: <ProfileForm />,
+    validationSchema: Yup.object({
+      firstname: Yup.string().required('required field'),
+      lastname: Yup.string().required('required field'),
+      email: Yup.string().required('required field').email('incorrect email format'),
+      birthdate: Yup.date()
+        .notRequired()
+        .max(ageValidator(18), 'You should be 18 years old')
+        .nullable(),
+      gender: Yup.string().nullable().required('please, choose your gender'),
+    }),
   },
 
   {
     name: 'Contacts',
     url: 'contacts',
-    component: ContactsForm,
+    component: <ContactsForm />,
+    validationSchema: Yup.object({
+      phoneNumbers: Yup.array().of(Yup.string()),
+      company: Yup.string().required('required field'),
+      mainLang: Yup.object().required('required field').nullable(),
+    }),
   },
   {
     name: 'Capabilities',
     url: 'capabilities',
-    component: CapabilitiesForm,
+    component: <CapabilitiesForm />,
+    validationSchema: Yup.object({
+      skills: Yup.array()
+        .of(Yup.string().required('required field'))
+        .min(3, ({ min }) => `you should have al least ${min} skills`),
+    }),
   },
 ];
 
@@ -51,9 +81,11 @@ const StepWizard: FC<StepWizardPropsType> = ({ editMode = false }) => {
     setCurrentStep(getCurrentStepByHash(hash));
   }, [hash]);
 
+  const createTabUrl = (index: number = 0) => pathname + '#' + STEPS[index].url;
+
   return (
     <div>
-      {!getHashParam(hash) && <Redirect to={pathname + '#' + STEPS[0].url} />}
+      {!getHashParam(hash) && <Redirect to={createTabUrl()} />}
       <Tabs>
         {STEPS.map(({ name, url }, index) => (
           <TabPanel
@@ -66,23 +98,20 @@ const StepWizard: FC<StepWizardPropsType> = ({ editMode = false }) => {
       </Tabs>
       {getHashParam(hash) === STEPS[0].url && !editMode && <RestoreUnsaved />}
       {
-        STEPS.map(({ component: Component }, index) => {
+        STEPS.map(({ component, url, validationSchema }, index) => {
           const isFinish = index + 1 === STEPS.length;
           return (
-            <Component
-              key={index}
-              initialValues={form}
-              isEditMode={editMode}
+            <FormLayout
+              key={url}
+              initialValues={{ ...form, passwordRepeat: form.password }}
               isFinish={isFinish}
-              navButtons={
-                <NavigationButtons
-                  nextUrl={!isFinish ? `${pathname}#${STEPS[index + 1].url}` : ''}
-                  prevUrl={index !== 0 ? `${pathname}#${STEPS[index - 1].url}` : ''}
-                  isFinish={isFinish}
-                  isEditMode={editMode}
-                />
-              }
-            />
+              isEditMode={editMode}
+              prevUrl={index > 0 ? createTabUrl(index - 1) : ''}
+              nextUrl={!isFinish ? createTabUrl(index + 1) : ''}
+              validationSchema={validationSchema}
+            >
+              {component}
+            </FormLayout>
           );
         })[currentStep]
       }

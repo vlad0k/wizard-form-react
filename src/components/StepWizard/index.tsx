@@ -62,7 +62,8 @@ const STEPS = [
     validationSchema: Yup.object({
       skills: Yup.array()
         .of(Yup.string().required('required field'))
-        .min(3, ({ min }) => `you should have al least ${min} skills`),
+        .min(3, ({ min }) => `you should have al least ${min} skills`)
+        .nullable(),
     }),
   },
 ];

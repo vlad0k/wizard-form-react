@@ -81,7 +81,9 @@ const StepWizard: FC<StepWizardPropsType> = ({ editMode = false }) => {
 
   const createTabUrl = (index: number = 0) => pathname + '#' + STEPS[index].url;
   useEffect(() => {
-    editMode ? setCurrentStep(getCurrentStepByHash(hash)) : history.push(createTabUrl(currentStep));
+    editMode || getCurrentStepByHash(hash) < currentStep
+      ? setCurrentStep(getCurrentStepByHash(hash))
+      : history.push(createTabUrl(currentStep));
   }, [hash]);
 
   const nextStep = (nextUrl: string) => {

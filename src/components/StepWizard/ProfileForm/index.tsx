@@ -17,7 +17,7 @@ const ProfileForm: FC = () => (
       <DatePicker name="birthdate" />
     </div>
     <div>
-      <InputField name="email" label="Email" />
+      <InputField name="email" type="email" label="Email" />
       <LocationPicker name="address" label="Address" />
       <RadioGroup
         label="Gender"

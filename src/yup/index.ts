@@ -1,18 +1,17 @@
-/*eslint no-redeclare: 0 */
 import * as Yup from 'yup';
 import { MixedSchema, StringSchema } from 'yup';
 
-import { checkUniqueEmail, checkUniqueUsername, getUsers } from '../db';
+import { checkUniqueValue } from '../db';
 
 Yup.addMethod<StringSchema>(Yup.string, 'uniqueUsername', function () {
   return this.test('uniqueUsername', "you can't use this username", async (value) => {
-    return await checkUniqueUsername(value ? value : '');
+    return await checkUniqueValue(value ? value : '', 'username');
   });
 });
 
 Yup.addMethod<StringSchema>(Yup.string, 'uniqueEmail', function () {
   return this.test('uniqueEmail', 'user with this email has already registered', async (value) => {
-    return await checkUniqueEmail(value ? value : '');
+    return await checkUniqueValue(value ? value : '', 'email');
   });
 });
 

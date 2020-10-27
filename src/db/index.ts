@@ -59,12 +59,7 @@ export const searchUsers = async (search: string) => {
   );
 };
 
-export const checkUniqueUsername = async (username: string | null = '') => {
+export const checkUniqueValue = async (value: string | null = '', valueName: string) => {
   const users = await getUsers();
-  return users.find((user) => user.username === username) ? false : true;
-};
-
-export const checkUniqueEmail = async (email: string | null = '') => {
-  const users = await getUsers();
-  return users.find((user) => user.email === email) ? false : true;
+  return users.find((user) => user[valueName] === value) ? false : true;
 };

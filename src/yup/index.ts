@@ -2,19 +2,17 @@
 import * as Yup from 'yup';
 import { MixedSchema, StringSchema } from 'yup';
 
-import { getUsers } from '../db';
+import { checkUniqueEmail, checkUniqueUsername, getUsers } from '../db';
 
 Yup.addMethod<StringSchema>(Yup.string, 'uniqueUsername', function () {
   return this.test('uniqueUsername', "you can't use this username", async (value) => {
-    const users = await getUsers();
-    return !users.map((user) => user.username).includes(value);
+    return await checkUniqueUsername(value ? value : '');
   });
 });
 
 Yup.addMethod<StringSchema>(Yup.string, 'uniqueEmail', function () {
   return this.test('uniqueEmail', 'user with this email has already registered', async (value) => {
-    const users = await getUsers();
-    return !users.map((user) => user.email).includes(value);
+    return await checkUniqueEmail(value ? value : '');
   });
 });
 

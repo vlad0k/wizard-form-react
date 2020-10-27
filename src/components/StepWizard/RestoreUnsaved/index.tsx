@@ -26,7 +26,7 @@ const RestoreUnsaved: FC = () => {
     dispatch(
       loadSavedForm({
         ...savedFormState,
-        avatar: undefined,
+        avatar: null,
         birthDate: savedFormState.birthDate ? new Date(savedFormState.birthDate) : new Date(),
       }),
     );

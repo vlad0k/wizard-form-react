@@ -21,7 +21,7 @@ const STEPS = [
     url: 'account',
     component: <AccountForm />,
     validationSchema: Yup.object({
-      avatar: Yup.mixed().notRequired().fileSizeInMb(),
+      avatar: Yup.mixed().notRequired().fileSizeInMb().nullable(),
       username: Yup.string().required('required field').uniqueUsername(),
       password: Yup.string().required('required field'),
       passwordRepeat: Yup.string()

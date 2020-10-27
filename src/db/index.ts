@@ -58,3 +58,13 @@ export const searchUsers = async (search: string) => {
       checkSubstring(firstname, search) || checkSubstring(lastname, search),
   );
 };
+
+export const checkUniqueUsername = async (username: string | null = '') => {
+  const users = await getUsers();
+  return users.find((user) => user.username === username) ? false : true;
+};
+
+export const checkUniqueEmail = async (email: string | null = '') => {
+  const users = await getUsers();
+  return users.find((user) => user.email === email) ? false : true;
+};

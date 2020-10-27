@@ -3,7 +3,6 @@ import { OptionTypeBase, ValueType } from 'react-select';
 import { Action } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 
-import { UserType } from '../types';
 import { StateType } from './store';
 
 const SELECT_STEP = 'form/SELECT_STEP';

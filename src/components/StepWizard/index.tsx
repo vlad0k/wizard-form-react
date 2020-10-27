@@ -20,6 +20,8 @@ import RestoreUnsaved from './RestoreUnsaved';
 import TabPanel from './TabPanel';
 import Tabs from './Tabs';
 
+const REQUIRED_FIELD_MESSAGE = 'required field';
+
 const STEPS = [
   {
     name: 'Account',
@@ -27,11 +29,11 @@ const STEPS = [
     component: <AccountForm />,
     validationSchema: Yup.object({
       avatar: Yup.mixed().notRequired().fileSizeInMb().nullable(),
-      username: Yup.string().required('required field').uniqueUsername(),
-      password: Yup.string().required('required field'),
+      username: Yup.string().required(REQUIRED_FIELD_MESSAGE).uniqueUsername(),
+      password: Yup.string().required(REQUIRED_FIELD_MESSAGE),
       passwordRepeat: Yup.string()
         .oneOf([Yup.ref('password'), ''], "passwords don't match")
-        .required('required field'),
+        .required(REQUIRED_FIELD_MESSAGE),
     }),
   },
   {
@@ -39,11 +41,14 @@ const STEPS = [
     url: 'profile',
     component: <ProfileForm />,
     validationSchema: Yup.object({
-      firstname: Yup.string().required('required field'),
-      lastname: Yup.string().required('required field'),
-      email: Yup.string().required('required field').email('incorrect email format').uniqueEmail(),
+      firstname: Yup.string().required(REQUIRED_FIELD_MESSAGE),
+      lastname: Yup.string().required(REQUIRED_FIELD_MESSAGE),
+      email: Yup.string()
+        .required(REQUIRED_FIELD_MESSAGE)
+        .email('incorrect email format')
+        .uniqueEmail(),
       birthdate: Yup.date()
-        .notRequired()
+        .required(REQUIRED_FIELD_MESSAGE)
         .max(ageValidator(18), 'You should be 18 years old')
         .nullable(),
       gender: Yup.string().nullable().required('please, choose your gender'),
@@ -56,8 +61,8 @@ const STEPS = [
     component: <ContactsForm />,
     validationSchema: Yup.object({
       phoneNumbers: Yup.array().of(Yup.string()),
-      company: Yup.string().required('required field'),
-      mainLang: Yup.object().required('required field').nullable(),
+      company: Yup.string().required(REQUIRED_FIELD_MESSAGE),
+      mainLang: Yup.object().required(REQUIRED_FIELD_MESSAGE).nullable(),
     }),
   },
   {
@@ -66,7 +71,7 @@ const STEPS = [
     component: <CapabilitiesForm />,
     validationSchema: Yup.object({
       skills: Yup.array()
-        .of(Yup.string().required('required field'))
+        .of(Yup.string().required(REQUIRED_FIELD_MESSAGE))
         .min(3, ({ min }) => `you should have al least ${min} skills`)
         .nullable(),
     }),

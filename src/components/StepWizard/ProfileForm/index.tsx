@@ -1,8 +1,5 @@
-import { FormikValues } from 'formik';
-import React, { FC, ReactNode } from 'react';
-import * as Yup from 'yup';
+import React, { FC } from 'react';
 
-import ageValidator from '../../../utils/dateYearSubstract';
 import DatePicker from '../../ui/DatePicker';
 import FieldError from '../../ui/FieldError';
 import InputField from '../../ui/InputField';

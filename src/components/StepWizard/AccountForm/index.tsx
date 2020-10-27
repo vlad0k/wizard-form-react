@@ -1,5 +1,4 @@
-import { FormikValues } from 'formik';
-import React, { FC, ReactNode } from 'react';
+import React, { FC } from 'react';
 
 import AvatarPicker from '../../ui/AvatarPicker';
 import InputField from '../../ui/InputField';

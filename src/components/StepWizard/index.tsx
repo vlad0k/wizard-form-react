@@ -1,15 +1,20 @@
+import { Form, Formik, FormikValues } from 'formik';
 import React, { FC, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { Redirect, useHistory, useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Redirect, useHistory, useLocation, useParams } from 'react-router-dom';
 
+import { deleteFormState, saveFormState } from '../../localStorage';
+import { resetForm, submitForm } from '../../redux/stepWizardReducer';
 import { StateType } from '../../redux/store';
+import { addUser, updateUser } from '../../redux/usersListReducer';
 import ageValidator from '../../utils/dateYearSubstract';
 import { getHashParam } from '../../utils/hashRouteUtils';
 import Yup from '../../yup';
 import AccountForm from './AccountForm';
 import CapabilitiesForm from './CapabilitiesForm';
 import ContactsForm from './ContactsForm';
-import FormLayout from './FormLayout';
+import classNames from './index.module.css';
+import NavigationButtons from './NavigationButtons';
 import ProfileForm from './ProfileForm';
 import RestoreUnsaved from './RestoreUnsaved';
 import TabPanel from './TabPanel';
@@ -74,10 +79,14 @@ const getCurrentStepByHash = (hash: string) => {
 };
 
 const StepWizard: FC<StepWizardPropsType> = ({ editMode = false }) => {
-  const form = useSelector((state: StateType) => state.stepWizard.form);
   const { pathname, hash } = useLocation();
+  const { id } = useParams();
   const history = useHistory();
+
   const [currentStep, setCurrentStep] = useState(0);
+
+  const form = useSelector((state: StateType) => state.stepWizard.form);
+  const dispatch = useDispatch();
 
   const createTabUrl = (index: number = 0) => pathname + '#' + STEPS[index].url;
   useEffect(() => {
@@ -86,10 +95,21 @@ const StepWizard: FC<StepWizardPropsType> = ({ editMode = false }) => {
       : history.push(createTabUrl(currentStep));
   }, [hash]);
 
-  const nextStep = (nextUrl: string) => {
-    if (nextUrl) {
-      setCurrentStep((prev) => prev + 1);
-      history.push(nextUrl);
+  const nextStep = (values: FormikValues, nextUrl: string, isFinish: boolean = false) => {
+    if (!editMode) {
+      if (!isFinish) {
+        dispatch(submitForm(values));
+        saveFormState({ ...form, ...values });
+        setCurrentStep((prev) => prev + 1);
+        history.push(nextUrl);
+      } else {
+        dispatch(addUser({ ...form, ...values }));
+        dispatch(resetForm());
+        deleteFormState();
+        history.push('/users');
+      }
+    } else {
+      dispatch(updateUser(+id, { ...form, ...values }));
     }
   };
 
@@ -117,18 +137,27 @@ const StepWizard: FC<StepWizardPropsType> = ({ editMode = false }) => {
       {
         STEPS.map(({ component, url, validationSchema }, index) => {
           const isFinish = index + 1 === STEPS.length;
+          const nextUrl = !isFinish ? createTabUrl(index + 1) : '';
+          const prevUrl = index > 0 ? createTabUrl(index - 1) : '';
           return (
-            <FormLayout
-              key={url}
-              initialValues={{ ...form, passwordRepeat: form.password }}
-              isFinish={isFinish}
-              isEditMode={editMode}
-              nextStep={() => nextStep(!isFinish ? createTabUrl(index + 1) : '')}
-              prevStep={() => prevStep(index > 0 ? createTabUrl(index - 1) : '')}
-              validationSchema={validationSchema}
-            >
-              {component}
-            </FormLayout>
+            <div key={url} className={classNames.formWrapper}>
+              <Formik
+                initialValues={{ ...form, passwordRepeat: form.password }}
+                onSubmit={(values) => nextStep(values, nextUrl, isFinish)}
+                validationSchema={validationSchema}
+                enableReinitialize
+              >
+                <Form className={classNames.form}>
+                  <div className={classNames.columns}>{component}</div>
+
+                  <NavigationButtons
+                    prevStep={() => prevStep(prevUrl)}
+                    isFinish={isFinish}
+                    isEditMode={editMode}
+                  />
+                </Form>
+              </Formik>
+            </div>
           );
         })[currentStep]
       }

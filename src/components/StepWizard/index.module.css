@@ -1,0 +1,13 @@
+.columns {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-around;
+}
+
+.form {
+  padding-top: 65px;
+  position: relative;
+  width: 970px;
+  height: 476px;
+  background: var(--background-color);
+}

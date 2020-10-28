@@ -24,7 +24,6 @@ const ProfileForm: FC = () => (
           { value: 'female', label: 'Female' },
         ]}
       />
-      <FieldError name="gender" />
     </div>
   </>
 );

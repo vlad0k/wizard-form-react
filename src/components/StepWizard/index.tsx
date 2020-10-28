@@ -89,13 +89,14 @@ const StepWizard: FC<StepWizardPropsType> = ({ editMode = false }) => {
   const history = useHistory();
 
   const [currentStep, setCurrentStep] = useState(0);
+  const [visitedSteps, setVisitedSteps] = useState([0]);
 
   const form = useSelector((state: StateType) => state.stepWizard.form);
   const dispatch = useDispatch();
 
   const createTabUrl = (index: number = 0) => pathname + '#' + STEPS[index].url;
   useEffect(() => {
-    editMode || getCurrentStepByHash(hash) < currentStep
+    editMode || visitedSteps.includes(getCurrentStepByHash(hash))
       ? setCurrentStep(getCurrentStepByHash(hash))
       : history.push(createTabUrl(currentStep));
   }, [hash]);
@@ -105,7 +106,12 @@ const StepWizard: FC<StepWizardPropsType> = ({ editMode = false }) => {
       if (!isFinish) {
         dispatch(submitForm(values));
         saveFormState({ ...form, ...values });
-        setCurrentStep((prev) => prev + 1);
+        setVisitedSteps((prevSteps) => {
+          const nextStep = currentStep + 1;
+          const newVisiteSteps = [...prevSteps, nextStep];
+          setCurrentStep(nextStep);
+          return newVisiteSteps;
+        });
         history.push(nextUrl);
       } else {
         dispatch(addUser({ ...form, ...values }));
@@ -133,7 +139,7 @@ const StepWizard: FC<StepWizardPropsType> = ({ editMode = false }) => {
           <TabPanel
             key={url}
             name={`${index + 1} ${name}`}
-            disabled={!editMode && index > currentStep}
+            disabled={!editMode && !visitedSteps.includes(index)}
             url={url}
           />
         ))}

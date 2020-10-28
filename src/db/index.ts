@@ -59,7 +59,10 @@ export const searchUsers = async (search: string) => {
   );
 };
 
-export const checkUniqueValue = async (value: string | null = '', valueName: string) => {
+export const checkUniqueValue = async (
+  value: string | null = '',
+  valueName: 'email' | 'username',
+) => {
   const users = await getUsers();
   return users.find((user) => user[valueName] === value) ? false : true;
 };

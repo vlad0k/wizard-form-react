@@ -159,6 +159,7 @@ const StepWizard: FC<StepWizardPropsType> = ({ editMode = false }) => {
                     prevStep={() => prevStep(prevUrl)}
                     isFinish={isFinish}
                     isEditMode={editMode}
+                    isFirstStep={prevUrl ? false : true}
                   />
                 </Form>
               </Formik>

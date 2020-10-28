@@ -9,6 +9,7 @@ const NavigationButtons: FC<NavigationButtonsPropsType> = ({
   isEditMode = false,
   isFinish = false,
   prevStep = () => {},
+  isFirstStep = false,
 }) => (
   <>
     {!isEditMode ? (
@@ -18,9 +19,11 @@ const NavigationButtons: FC<NavigationButtonsPropsType> = ({
         ) : (
           <Button>Forward</Button>
         )}
-        <Button onClick={prevStep} appearance={ButtonAppearance.secondary} type="button">
-          Back
-        </Button>
+        {!isFirstStep && (
+          <Button onClick={prevStep} appearance={ButtonAppearance.secondary} type="button">
+            Back
+          </Button>
+        )}
       </div>
     ) : (
       <div className={classNames.buttons}>
@@ -34,6 +37,7 @@ type NavigationButtonsPropsType = {
   prevUrl?: string;
   isEditMode?: boolean;
   isFinish?: boolean;
+  isFirstStep?: boolean;
   prevStep: () => void;
 };
 

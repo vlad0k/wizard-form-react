@@ -63,7 +63,7 @@ const SelectField = ({ name, isMulti, options, label }: SelectPropsType) => {
           };
 
           const clearButtonHandler = () => {
-            setFieldValue(name, null);
+            setFieldValue(name, []);
           };
 
           return (

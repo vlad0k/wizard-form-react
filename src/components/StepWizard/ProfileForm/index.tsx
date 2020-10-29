@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 
 import DatePicker from '../../ui/DatePicker';
-import FieldError from '../../ui/FieldError';
 import InputField from '../../ui/InputField';
 import LocationPicker from '../../ui/LocationPicker';
 import RadioGroup from '../../ui/RadioGroup';

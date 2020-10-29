@@ -20,11 +20,12 @@ const RestoreUnsaved: FC = () => {
   }, []);
 
   const continueButtonHandler = () => {
+    const birthdate = savedFormState.birthdate && new Date(savedFormState.birthdate);
     dispatch(
       loadSavedForm({
         ...savedFormState,
         avatar: null,
-        birthdate: new Date(savedFormState.birthdate),
+        birthdate,
       }),
     );
     deleteFormState();

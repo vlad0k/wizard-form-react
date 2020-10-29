@@ -75,17 +75,23 @@ export const searchUsers = async (search: string) => {
   );
 };
 
-export const checkUniqueValue = async (
-  value: string | null = '',
-  valueName: 'email' | 'username',
-  skipId: number = NaN,
-) => {
+export const checkUniqueValue = async ({
+  value = '',
+  valueName,
+  currentUserId = NaN,
+}: CheckUniqueValueArgs) => {
   manualSlowing();
-  const valueToSkip = !Number.isNaN(skipId) ? (await getUser(skipId))[valueName] : '';
+  const valueToSkip = !Number.isNaN(currentUserId) ? (await getUser(currentUserId))[valueName] : '';
   const users = await getUsers();
   return users.find((user) => user[valueName] === value)
     ? valueToSkip
       ? value === valueToSkip
       : false
     : true;
+};
+
+type CheckUniqueValueArgs = {
+  value?: string | null;
+  valueName: 'email' | 'username';
+  currentUserId?: number;
 };

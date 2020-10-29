@@ -6,8 +6,10 @@ import Button from '../../Button';
 import PageHeader from '../../PageHeader';
 import classNames from './index.module.css';
 
-const MIN_CROPPER_WIDTH = 150;
-const MIN_CROPPER_HEIGHT = 150;
+const SQUARE_CROPPER_SIZE = 150;
+
+const MIN_CROPPER_WIDTH = SQUARE_CROPPER_SIZE;
+const MIN_CROPPER_HEIGHT = SQUARE_CROPPER_SIZE;
 
 const ImageCrop: FC<ImageCropPropsType> = ({ image, setField = () => {}, close = () => {} }) => {
   const [resultCanvas, setResultCanvas] = useState<HTMLCanvasElement>();

@@ -105,8 +105,7 @@ const StepWizard: FC<StepWizardPropsType> = ({ editMode = false }) => {
       : history.push(createTabUrl(currentStep));
   }, [hash, currentStep, visitedSteps]);
 
-  const nextStep = (values: FormikValues, stepNumber: number, isFinish: boolean = false) => {
-    const nextUrl = !isFinish ? createTabUrl(stepNumber + 1) : '';
+  const nextStep = ({ values, stepNumber, isFinish = false }: NextStepParams) => {
     if (!editMode) {
       if (!isFinish) {
         dispatch(submitForm(values));
@@ -118,7 +117,7 @@ const StepWizard: FC<StepWizardPropsType> = ({ editMode = false }) => {
           return newVisiteSteps;
         });
         setShowRestoreMessage(false);
-        history.push(nextUrl);
+        history.push(createTabUrl(stepNumber + 1));
       } else {
         dispatch(addUser({ ...form, ...values }));
         dispatch(resetForm());
@@ -130,11 +129,10 @@ const StepWizard: FC<StepWizardPropsType> = ({ editMode = false }) => {
     }
   };
 
-  const prevStep = (isFirstStep: boolean, stepNumber: number) => {
-    const prevUrl = !isFirstStep ? createTabUrl(stepNumber - 1) : '';
-    if (prevUrl) {
+  const prevStep = (stepNumber: number) => {
+    if (stepNumber > 0) {
       setCurrentStep((prev) => prev - 1);
-      history.push(prevUrl);
+      history.push(createTabUrl(stepNumber - 1));
     }
   };
 
@@ -161,7 +159,7 @@ const StepWizard: FC<StepWizardPropsType> = ({ editMode = false }) => {
             <div key={url} className={classNames.formWrapper}>
               <Formik
                 initialValues={{ ...form, passwordRepeat: form.password }}
-                onSubmit={(values) => nextStep(values, index, isFinish)}
+                onSubmit={(values) => nextStep({ values, stepNumber: index, isFinish })}
                 validationSchema={validationSchema(editMode, id)}
                 enableReinitialize
                 validateOnChange={false}
@@ -171,7 +169,7 @@ const StepWizard: FC<StepWizardPropsType> = ({ editMode = false }) => {
                   <div className={classNames.columns}>{component}</div>
 
                   <NavigationButtons
-                    prevStep={() => prevStep(isFirstStep, index)}
+                    prevStep={() => prevStep(index)}
                     isFinish={isFinish}
                     isEditMode={editMode}
                     isFirstStep={isFirstStep}
@@ -188,6 +186,12 @@ const StepWizard: FC<StepWizardPropsType> = ({ editMode = false }) => {
 
 type StepWizardPropsType = {
   editMode?: boolean;
+};
+
+type NextStepParams = {
+  values: FormikValues;
+  stepNumber: number;
+  isFinish: boolean;
 };
 
 export default StepWizard;

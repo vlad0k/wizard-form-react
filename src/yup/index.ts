@@ -3,21 +3,23 @@ import { MixedSchema, StringSchema } from 'yup';
 
 import { checkUniqueValue } from '../db';
 
-Yup.addMethod<StringSchema>(Yup.string, 'uniqueUsername', function (editMode, skipId) {
+Yup.addMethod<StringSchema>(Yup.string, 'uniqueUsername', function (editMode, currentUserId) {
   return this.test('uniqueUsername', "you can't use this username", async (value) => {
-    const validated = await checkUniqueValue(
-      value ? value : '',
-      'username',
-      editMode ? skipId : NaN,
-    );
-    return validated;
+    return await checkUniqueValue({
+      value,
+      valueName: 'username',
+      currentUserId: editMode && currentUserId,
+    });
   });
 });
 
-Yup.addMethod<StringSchema>(Yup.string, 'uniqueEmail', function (editMode, skipId) {
+Yup.addMethod<StringSchema>(Yup.string, 'uniqueEmail', function (editMode, currentUserId) {
   return this.test('uniqueEmail', 'user with this email has already registered', async (value) => {
-    const validated = await checkUniqueValue(value ? value : '', 'email', editMode ? skipId : NaN);
-    return validated;
+    return await checkUniqueValue({
+      value,
+      valueName: 'email',
+      currentUserId: editMode && currentUserId,
+    });
   });
 });
 
@@ -29,8 +31,14 @@ Yup.addMethod<MixedSchema>(Yup.mixed, 'fileSizeInMb', function (sizeInMb: number
 
 declare module 'yup' {
   interface StringSchema {
-    uniqueUsername: (editMode: boolean, skipId: number) => StringSchema<string | null | undefined>;
-    uniqueEmail: (editMode: boolean, skipId: number) => StringSchema<string | null | undefined>;
+    uniqueUsername: (
+      editMode: boolean,
+      currentUserId: number,
+    ) => StringSchema<string | null | undefined>;
+    uniqueEmail: (
+      editMode: boolean,
+      currentUserId: number,
+    ) => StringSchema<string | null | undefined>;
   }
 
   // @ts-ignore

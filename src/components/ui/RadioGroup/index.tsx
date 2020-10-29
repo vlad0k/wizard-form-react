@@ -19,7 +19,7 @@ const RadioGroup: FC<RadioGroupPropsType> = ({ name, options, label }) => {
           </label>
         ))}
       </div>
-      <FieldError name="gender" />
+      <FieldError name={name} />
     </div>
   );
 };

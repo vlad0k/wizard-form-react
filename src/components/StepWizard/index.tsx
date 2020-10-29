@@ -27,53 +27,57 @@ const STEPS = [
     name: 'Account',
     url: 'account',
     component: <AccountForm />,
-    validationSchema: Yup.object({
-      avatar: Yup.mixed().notRequired().fileSizeInMb().nullable(),
-      username: Yup.string().required(REQUIRED_FIELD_MESSAGE).uniqueUsername(),
-      password: Yup.string().required(REQUIRED_FIELD_MESSAGE),
-      passwordRepeat: Yup.string()
-        .oneOf([Yup.ref('password'), ''], "passwords don't match")
-        .required(REQUIRED_FIELD_MESSAGE),
-    }),
+    validationSchema: (editMode: boolean = false, skipId: number) =>
+      Yup.object({
+        avatar: Yup.mixed().notRequired().fileSizeInMb().nullable(),
+        username: Yup.string().required(REQUIRED_FIELD_MESSAGE).uniqueUsername(editMode, skipId),
+        password: Yup.string().required(REQUIRED_FIELD_MESSAGE),
+        passwordRepeat: Yup.string()
+          .oneOf([Yup.ref('password'), ''], "passwords don't match")
+          .required(REQUIRED_FIELD_MESSAGE),
+      }),
   },
   {
     name: 'Profile',
     url: 'profile',
     component: <ProfileForm />,
-    validationSchema: Yup.object({
-      firstname: Yup.string().required(REQUIRED_FIELD_MESSAGE),
-      lastname: Yup.string().required(REQUIRED_FIELD_MESSAGE),
-      email: Yup.string()
-        .required(REQUIRED_FIELD_MESSAGE)
-        .email('incorrect email format')
-        .uniqueEmail(),
-      birthdate: Yup.date()
-        .required(REQUIRED_FIELD_MESSAGE)
-        .max(ageValidator(18), 'You should be 18 years old')
-        .nullable(),
-      gender: Yup.string().nullable().required('please, choose your gender'),
-    }),
+    validationSchema: (editMode: boolean = false, skipId: number) =>
+      Yup.object({
+        firstname: Yup.string().required(REQUIRED_FIELD_MESSAGE),
+        lastname: Yup.string().required(REQUIRED_FIELD_MESSAGE),
+        email: Yup.string()
+          .required(REQUIRED_FIELD_MESSAGE)
+          .email('incorrect email format')
+          .uniqueEmail(editMode, skipId),
+        birthdate: Yup.date()
+          .required(REQUIRED_FIELD_MESSAGE)
+          .max(ageValidator(18), 'You should be 18 years old')
+          .nullable(),
+        gender: Yup.string().nullable().required('please, choose your gender'),
+      }),
   },
 
   {
     name: 'Contacts',
     url: 'contacts',
     component: <ContactsForm />,
-    validationSchema: Yup.object({
-      phoneNumbers: Yup.array().of(Yup.string()),
-      company: Yup.string().required(REQUIRED_FIELD_MESSAGE),
-      mainLang: Yup.object().required(REQUIRED_FIELD_MESSAGE).nullable(),
-    }),
+    validationSchema: () =>
+      Yup.object({
+        phoneNumbers: Yup.array().of(Yup.string()),
+        company: Yup.string().required(REQUIRED_FIELD_MESSAGE),
+        mainLang: Yup.object().required(REQUIRED_FIELD_MESSAGE).nullable(),
+      }),
   },
   {
     name: 'Capabilities',
     url: 'capabilities',
     component: <CapabilitiesForm />,
-    validationSchema: Yup.object({
-      skills: Yup.array()
-        .of(Yup.string().required(REQUIRED_FIELD_MESSAGE))
-        .min(3, ({ min }) => `you should have al least ${min} skills`),
-    }),
+    validationSchema: () =>
+      Yup.object({
+        skills: Yup.array()
+          .of(Yup.string().required(REQUIRED_FIELD_MESSAGE))
+          .min(3, ({ min }) => `you should have al least ${min} skills`),
+      }),
   },
 ];
 
@@ -89,6 +93,7 @@ const StepWizard: FC<StepWizardPropsType> = ({ editMode = false }) => {
 
   const [currentStep, setCurrentStep] = useState(0);
   const [visitedSteps, setVisitedSteps] = useState([0]);
+  const [showRestoreMessage, setShowRestoreMessage] = useState(!editMode);
 
   const form = useSelector((state: StateType) => state.stepWizard.form);
   const dispatch = useDispatch();
@@ -98,9 +103,10 @@ const StepWizard: FC<StepWizardPropsType> = ({ editMode = false }) => {
     editMode || visitedSteps.includes(getCurrentStepByHash(hash))
       ? setCurrentStep(getCurrentStepByHash(hash))
       : history.push(createTabUrl(currentStep));
-  }, [hash]);
+  }, [hash, currentStep, visitedSteps]);
 
-  const nextStep = (values: FormikValues, nextUrl: string, isFinish: boolean = false) => {
+  const nextStep = (values: FormikValues, stepNumber: number, isFinish: boolean = false) => {
+    const nextUrl = !isFinish ? createTabUrl(stepNumber + 1) : '';
     if (!editMode) {
       if (!isFinish) {
         dispatch(submitForm(values));
@@ -111,6 +117,7 @@ const StepWizard: FC<StepWizardPropsType> = ({ editMode = false }) => {
           setCurrentStep(nextStep);
           return newVisiteSteps;
         });
+        setShowRestoreMessage(false);
         history.push(nextUrl);
       } else {
         dispatch(addUser({ ...form, ...values }));
@@ -123,7 +130,8 @@ const StepWizard: FC<StepWizardPropsType> = ({ editMode = false }) => {
     }
   };
 
-  const prevStep = (prevUrl: string) => {
+  const prevStep = (isFirstStep: boolean, stepNumber: number) => {
+    const prevUrl = !isFirstStep ? createTabUrl(stepNumber - 1) : '';
     if (prevUrl) {
       setCurrentStep((prev) => prev - 1);
       history.push(prevUrl);
@@ -143,28 +151,30 @@ const StepWizard: FC<StepWizardPropsType> = ({ editMode = false }) => {
           />
         ))}
       </Tabs>
-      {getHashParam(hash) === STEPS[0].url && !editMode && <RestoreUnsaved />}
+      {showRestoreMessage && <RestoreUnsaved />}
       {
         STEPS.map(({ component, url, validationSchema }, index) => {
           const isFinish = index + 1 === STEPS.length;
-          const nextUrl = !isFinish ? createTabUrl(index + 1) : '';
-          const prevUrl = index > 0 ? createTabUrl(index - 1) : '';
+          const isFirstStep = index === 0;
+
           return (
             <div key={url} className={classNames.formWrapper}>
               <Formik
                 initialValues={{ ...form, passwordRepeat: form.password }}
-                onSubmit={(values) => nextStep(values, nextUrl, isFinish)}
-                validationSchema={validationSchema}
+                onSubmit={(values) => nextStep(values, index, isFinish)}
+                validationSchema={validationSchema(editMode, id)}
                 enableReinitialize
+                validateOnChange={false}
+                validateOnBlur={false}
               >
                 <Form className={classNames.form}>
                   <div className={classNames.columns}>{component}</div>
 
                   <NavigationButtons
-                    prevStep={() => prevStep(prevUrl)}
+                    prevStep={() => prevStep(isFirstStep, index)}
                     isFinish={isFinish}
                     isEditMode={editMode}
-                    isFirstStep={prevUrl ? false : true}
+                    isFirstStep={isFirstStep}
                   />
                 </Form>
               </Formik>

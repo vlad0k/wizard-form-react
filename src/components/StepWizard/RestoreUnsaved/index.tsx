@@ -10,8 +10,6 @@ import Button from '../../ui/Button';
 import classNames from './index.module.css';
 
 const RestoreUnsaved: FC = () => {
-  //TODO Fix restore in profileForm
-  //  Форма отображает вопрос о восстановлении если я перешел на вторую табу и вернулся на первую. Отоюражение восстановления должно быть только если форма пустая
   const [savedFormState, setSavedFormState] = useState<StateType | undefined>(undefined);
 
   const dispatch = useDispatch();
@@ -22,12 +20,11 @@ const RestoreUnsaved: FC = () => {
   }, []);
 
   const continueButtonHandler = () => {
-    console.log(savedFormState.birthDate);
     dispatch(
       loadSavedForm({
         ...savedFormState,
         avatar: null,
-        birthDate: savedFormState.birthDate ? new Date(savedFormState.birthDate) : new Date(),
+        birthdate: new Date(savedFormState.birthdate),
       }),
     );
     deleteFormState();

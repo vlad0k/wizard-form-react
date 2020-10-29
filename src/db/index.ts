@@ -41,9 +41,12 @@ export const updateUser = async (id: number, values: FormikValues) => {
   await db.table(USERS_TABLE_NAME).put({ ...values, id, updatedAt: new Date() });
 };
 
-export const addUser = async (user: FormikValues) => {
+export const addUser = (user: FormikValues) => {
   manualSlowing();
-  db.table(USERS_TABLE_NAME).add({ ...user, updatedAt: new Date() });
+  return db
+    .table(USERS_TABLE_NAME)
+    .add({ ...user, updatedAt: new Date() })
+    .then((id) => getUser(id));
 };
 
 // TODO comment проверить пропсы на уровне src/db/index

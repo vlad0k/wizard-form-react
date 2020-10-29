@@ -18,6 +18,7 @@ const IMPORT_USERS = 'users/IMPORT_USERS';
 const DELETE_USER = 'users/DELETE_USER';
 const IS_FETCHING = 'users/IS_FETCHING';
 const SELECT_PAGE = 'users/SELECT_PAGE';
+const ADD_USER = 'users/ADD_USER';
 
 interface ImportUsersAction {
   type: typeof IMPORT_USERS;
@@ -38,7 +39,17 @@ interface SelectPage {
   page: number;
 }
 
-type ActionType = ImportUsersAction | DeleteUserAction | IsFetchingAction | SelectPage;
+interface AddUserAction {
+  type: typeof ADD_USER;
+  user: UserType;
+}
+
+type ActionType =
+  | ImportUsersAction
+  | DeleteUserAction
+  | IsFetchingAction
+  | SelectPage
+  | AddUserAction;
 
 const initialState = {
   users: [] as UserType[],
@@ -70,6 +81,13 @@ const usersReducer = (state = initialState, action: ActionType) => {
       };
     }
 
+    case ADD_USER: {
+      return {
+        ...state,
+        users: [...state.users, action.user],
+      };
+    }
+
     default: {
       return state;
     }
@@ -81,6 +99,11 @@ export default usersReducer;
 export const importUsersActionCreator = (users: UserType[]): ImportUsersAction => ({
   type: IMPORT_USERS,
   users,
+});
+
+export const addUserActionCreator = (user: UserType): AddUserAction => ({
+  type: ADD_USER,
+  user,
 });
 
 export const deleteUserActionCreator = (): DeleteUserAction => ({ type: DELETE_USER });
@@ -104,8 +127,9 @@ export const importUsers = () => async (dispatch: Dispatch) => {
 };
 
 export const addUser = (user: UserType) => (dispatch: Dispatch) => {
-  addUserToDb(user);
-  getUsers().then((users: UserType[]) => dispatch(importUsersActionCreator(users)));
+  return addUserToDb(user).then((user) => {
+    dispatch(addUserActionCreator(user));
+  });
 };
 
 export const deleteUser = (id: IndexableType) => (dispatch: Dispatch) => {

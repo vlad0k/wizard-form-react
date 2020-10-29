@@ -2,6 +2,8 @@ import { Form, Formik, FormikValues } from 'formik';
 import React, { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useHistory, useLocation, useParams } from 'react-router-dom';
+import { ActionCreator } from 'redux';
+import { ThunkDispatch } from 'redux-thunk';
 
 import { deleteFormState, saveFormState } from '../../localStorage';
 import { resetForm, submitForm } from '../../redux/stepWizardReducer';
@@ -119,10 +121,13 @@ const StepWizard: FC<StepWizardPropsType> = ({ editMode = false }) => {
         setShowRestoreMessage(false);
         history.push(createTabUrl(stepNumber + 1));
       } else {
-        dispatch(addUser({ ...form, ...values }));
-        dispatch(resetForm());
-        deleteFormState();
-        history.push('/users');
+        //TODO type for dispatch
+        //@ts-ignore
+        dispatch(addUser({ ...form, ...values })).then(() => {
+          dispatch(resetForm());
+          deleteFormState();
+          history.push('/users');
+        });
       }
     } else {
       dispatch(updateUser(+id, { ...form, ...values }));

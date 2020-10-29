@@ -72,7 +72,9 @@ const Table: FC<TablePropsType> = ({ users, stripped = false }) => {
                   <span>{username}</span>
                 </td>
                 <td>{company}</td>
-                <td>{phoneNumbers[0] ? phoneNumbers[0] : email}</td>
+
+                {console.log(phoneNumbers)}
+                <td>{phoneNumbers || phoneNumbers[0] ? phoneNumbers[0] : email}</td>
                 <td>{moment(updatedAt).fromNow()}</td>
                 {isDeteling !== id && (
                   <>

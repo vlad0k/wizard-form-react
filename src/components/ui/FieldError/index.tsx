@@ -5,8 +5,10 @@ import classNames from './index.module.css';
 
 const FieldError: FC<FieldErrorProps> = ({ name }) => {
   return (
-    <div className={classNames.error}>
-      <ErrorMessage name={name} />
+    <div className={classNames.errorContainer}>
+      <div className={classNames.error}>
+        <ErrorMessage name={name} />
+      </div>
     </div>
   );
 };

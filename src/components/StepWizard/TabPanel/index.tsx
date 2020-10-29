@@ -1,24 +1,24 @@
 import cn from 'classnames';
 import React, { FC } from 'react';
 import { useLocation } from 'react-router-dom';
-import { NavTab } from 'react-router-tabs';
+import { HashLink as Link } from 'react-router-hash-link';
 
+import { getHashParam } from '../../../utils/hashRouteUtils';
 import classNames from './index.module.css';
 
-const TabPanel: FC<TopTabProps> = ({ name, disabled = false, editMode = false, to }) => {
-  const { pathname } = useLocation();
-  const isActive = pathname.split('/').pop() === to;
+const TabPanel: FC<TopTabProps> = ({ name, disabled = false, url, onSelect = () => {} }) => {
+  const { hash, pathname } = useLocation();
+  const currentUrl = getHashParam(hash);
 
   const tabClassName = cn(classNames.tab, {
-    [classNames.active]: isActive,
-    [classNames.visited]: editMode,
-    [classNames.visited]: disabled && !editMode,
+    [classNames.active]: url === currentUrl,
+    [classNames.disabled]: disabled,
   });
 
   return (
-    <NavTab to={to} className={tabClassName}>
+    <Link to={`${pathname}#${url}`} onClick={onSelect} className={tabClassName}>
       {name}
-    </NavTab>
+    </Link>
   );
 };
 
@@ -27,6 +27,6 @@ export default TabPanel;
 type TopTabProps = {
   name: string;
   disabled: boolean;
-  editMode?: boolean;
-  to: string;
+  url: string;
+  onSelect?: () => void;
 };

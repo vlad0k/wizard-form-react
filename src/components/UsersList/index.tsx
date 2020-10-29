@@ -14,12 +14,12 @@ import Table from './Table';
 const PORTION_SIZE = 10;
 
 const createPortion = (users: UserType[], page: number) => {
-  const portionValue = users.slice(PORTION_SIZE * (page - 1), PORTION_SIZE * page);
-  return portionValue;
+  return users.slice(PORTION_SIZE * (page - 1), PORTION_SIZE * page);
 };
 
 const UsersList = () => {
   const [portion, setPortion] = useState<UserType[]>([]);
+  //TODO store selected page in local state
   const { usersFetchStatus, users, page } = useSelector((state: StateType) => state.users);
   const dispatch = useDispatch();
 

@@ -6,6 +6,11 @@ import Button from '../../Button';
 import PageHeader from '../../PageHeader';
 import classNames from './index.module.css';
 
+const SQUARE_CROPPER_SIZE = 150;
+
+const MIN_CROPPER_WIDTH = SQUARE_CROPPER_SIZE;
+const MIN_CROPPER_HEIGHT = SQUARE_CROPPER_SIZE;
+
 const ImageCrop: FC<ImageCropPropsType> = ({ image, setField = () => {}, close = () => {} }) => {
   const [resultCanvas, setResultCanvas] = useState<HTMLCanvasElement>();
   const imageRef = createRef<HTMLImageElement>();
@@ -18,6 +23,21 @@ const ImageCrop: FC<ImageCropPropsType> = ({ image, setField = () => {}, close =
       aspectRatio: 1,
       crop: () => {
         setResultCanvas(cropper.getCroppedCanvas());
+      },
+      cropmove: (event) => {
+        const data = cropper.getData();
+
+        if (data.width < MIN_CROPPER_WIDTH) {
+          event.preventDefault();
+          data.width = MIN_CROPPER_WIDTH;
+          cropper.setData(data);
+        }
+
+        if (data.height < MIN_CROPPER_HEIGHT) {
+          event.preventDefault();
+          data.height = MIN_CROPPER_HEIGHT;
+          cropper.setData(data);
+        }
       },
     });
   }, [imageRef]);

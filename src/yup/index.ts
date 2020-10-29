@@ -1,13 +1,25 @@
-/*eslint no-redeclare: 0 */
 import * as Yup from 'yup';
 import { MixedSchema, StringSchema } from 'yup';
 
-import { getUsers } from '../db';
+import { checkUniqueValue } from '../db';
 
-Yup.addMethod<StringSchema>(Yup.string, 'uniqueUsername', function () {
+Yup.addMethod<StringSchema>(Yup.string, 'uniqueUsername', function (editMode, currentUserId) {
   return this.test('uniqueUsername', "you can't use this username", async (value) => {
-    const users = await getUsers();
-    return !users.map((user) => user.username).includes(value);
+    return await checkUniqueValue({
+      value,
+      valueName: 'username',
+      currentUserId: editMode && currentUserId,
+    });
+  });
+});
+
+Yup.addMethod<StringSchema>(Yup.string, 'uniqueEmail', function (editMode, currentUserId) {
+  return this.test('uniqueEmail', 'user with this email has already registered', async (value) => {
+    return await checkUniqueValue({
+      value,
+      valueName: 'email',
+      currentUserId: editMode && currentUserId,
+    });
   });
 });
 
@@ -19,7 +31,14 @@ Yup.addMethod<MixedSchema>(Yup.mixed, 'fileSizeInMb', function (sizeInMb: number
 
 declare module 'yup' {
   interface StringSchema {
-    uniqueUsername: () => StringSchema<string | null | undefined>;
+    uniqueUsername: (
+      editMode: boolean,
+      currentUserId: number,
+    ) => StringSchema<string | null | undefined>;
+    uniqueEmail: (
+      editMode: boolean,
+      currentUserId: number,
+    ) => StringSchema<string | null | undefined>;
   }
 
   // @ts-ignore

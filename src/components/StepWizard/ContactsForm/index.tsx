@@ -1,12 +1,10 @@
-import { FieldArray, FormikValues } from 'formik';
+import { FieldArray } from 'formik';
 import React, { FC } from 'react';
 import { OptionsType, OptionTypeBase } from 'react-select';
-import * as Yup from 'yup';
 
 import InputField from '../../ui/InputField';
 import PhoneInput from '../../ui/PhoneInput';
 import SelectField from '../../ui/SelectField';
-import FormLayout from '../FormLayout';
 import PhoneInputs from '../PhoneInputs';
 
 export const LANGUAGE_SELECT_OPTIONS: OptionsType<OptionTypeBase> = [
@@ -36,32 +34,20 @@ export const LANGUAGE_SELECT_OPTIONS: OptionsType<OptionTypeBase> = [
   { value: 'ko', label: 'Korean' },
 ];
 
-const ContactsForm: FC<ContactsFormPropsType> = ({ initialValues }) => {
-  const validationSchema = Yup.object({
-    phoneNumbers: Yup.array().of(Yup.string()),
-    company: Yup.string().required('required field'),
-    mainLang: Yup.object().required('required field').nullable(),
-  });
+const ContactsForm: FC = () => (
+  <>
+    <div>
+      <InputField name="company" label="Company" />
+      <InputField name="github" label="GitHub Link" />
+      <InputField name="facebook" label="Facebook Link" />
+      <SelectField name="mainLang" options={LANGUAGE_SELECT_OPTIONS} label="Main Language" />
+    </div>
 
-  return (
-    <FormLayout initialValues={initialValues} validationSchema={validationSchema}>
-      <div>
-        <InputField name="company" label="Company" />
-        <InputField name="github" label="GitHub Link" />
-        <InputField name="facebook" label="Facebook Link" />
-        <SelectField name="mainLang" options={LANGUAGE_SELECT_OPTIONS} label="Main Language" />
-      </div>
-
-      <div>
-        <PhoneInput name="fax" label="Fax" />
-        <FieldArray name="phoneNumbers">{PhoneInputs}</FieldArray>
-      </div>
-    </FormLayout>
-  );
-};
+    <div>
+      <PhoneInput name="fax" label="Fax" />
+      <FieldArray name="phoneNumbers">{PhoneInputs}</FieldArray>
+    </div>
+  </>
+);
 
 export default ContactsForm;
-
-type ContactsFormPropsType = {
-  initialValues: FormikValues;
-};

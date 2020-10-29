@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
@@ -11,7 +11,6 @@ import { UrlParamTypes } from '../../../types';
 const UserEditPage = () => {
   const { id } = useParams<UrlParamTypes>();
   const dispatch = useDispatch();
-  const [isUserExhists, setIsUserExhists] = useState();
 
   useEffect(() => {
     getUser(id).then(

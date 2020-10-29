@@ -1,6 +1,8 @@
+import { FormikValues } from 'formik';
+
 const FORM_STATE_KEY = 'formState';
 
-export const saveFormState = (formState: object) => {
+export const saveFormState = async (formState: FormikValues) => {
   const formStateString = JSON.stringify(formState);
   localStorage.setItem(FORM_STATE_KEY, formStateString);
 };
@@ -8,7 +10,7 @@ export const saveFormState = (formState: object) => {
 //TODO comment next pull request
 export const getFormState = (): object => {
   const formState = localStorage.getItem(FORM_STATE_KEY);
-  return formState ? JSON.parse(formState) : undefined;
+  return formState && JSON.parse(formState);
 };
 
 export const deleteFormState = () => {

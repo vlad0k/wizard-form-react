@@ -1,3 +1,13 @@
 .wrapper {
   padding-bottom: 24px;
 }
+
+.selectContainer {
+  position: relative;
+}
+
+.clearButton {
+  position: absolute;
+  right: -26px;
+  top: 14px;
+}

@@ -1,7 +1,10 @@
 import { Field, FieldProps } from 'formik';
 import React from 'react';
-import ReactSelect, { OptionsType, OptionTypeBase,ValueType } from 'react-select';
+import ReactSelect, { OptionsType, OptionTypeBase, ValueType } from 'react-select';
 
+import deleteIcon from '../../../assets/icons/Close.svg';
+import { ButtonAppearance } from '../../../types';
+import Button from '../Button';
 import FieldError from '../FieldError';
 import FormLabel from '../FormLabel';
 import classNames from './index.module.css';
@@ -59,14 +62,31 @@ const SelectField = ({ name, isMulti, options, label }: SelectPropsType) => {
             setFieldValue(name, selected);
           };
 
+          const clearButtonHandler = () => {
+            setFieldValue(name, []);
+          };
+
           return (
-            <ReactSelect
-              options={options}
-              value={value}
-              onChange={selectChangeHandler}
-              styles={customStyles}
-              isMulti={isMulti}
-            />
+            <div className={classNames.selectContainer}>
+              <ReactSelect
+                options={options}
+                value={value}
+                onChange={selectChangeHandler}
+                styles={customStyles}
+                isMulti={isMulti}
+              />
+              {isMulti && value !== null && value.length > 0 && (
+                <div className={classNames.clearButton}>
+                  <Button
+                    onClick={clearButtonHandler}
+                    appearance={ButtonAppearance.text}
+                    type={'button'}
+                  >
+                    <img src={deleteIcon} alt={'remove all selected'} />
+                  </Button>
+                </div>
+              )}
+            </div>
           );
         }}
       </Field>

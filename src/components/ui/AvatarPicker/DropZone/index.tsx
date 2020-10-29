@@ -11,7 +11,7 @@ const DropZone: FC<DropZonePropsType> = ({ handleChange, children }) => {
   return (
     <div {...getRootProps()} className={classNames.dropZone}>
       {children}
-      <input {...getInputProps()} />
+      <input {...getInputProps()} accept="image/x-png,image/jpeg" />
       <span className={classNames.dropMessage}>drop avatar image here</span>
     </div>
   );

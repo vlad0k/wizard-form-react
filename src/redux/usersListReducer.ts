@@ -19,6 +19,7 @@ const DELETE_USER = 'users/DELETE_USER';
 const IS_FETCHING = 'users/IS_FETCHING';
 const SELECT_PAGE = 'users/SELECT_PAGE';
 const ADD_USER = 'users/ADD_USER';
+const UPDATE_ADD_USER_PENDING = 'user/UPDATE_ADD_USER_PENDING';
 
 interface ImportUsersAction {
   type: typeof IMPORT_USERS;
@@ -44,16 +45,23 @@ interface AddUserAction {
   user: UserType;
 }
 
+interface UpdateUserPengingAction {
+  type: typeof UPDATE_ADD_USER_PENDING;
+  pending: boolean;
+}
+
 type ActionType =
   | ImportUsersAction
   | DeleteUserAction
   | IsFetchingAction
   | SelectPage
-  | AddUserAction;
+  | AddUserAction
+  | UpdateUserPengingAction;
 
 const initialState = {
   users: [] as UserType[],
   usersFetchStatus: UsersFetchStatus.unfetched as UsersFetchStatus,
+  addUserPending: false,
   page: 1,
 };
 
@@ -85,6 +93,14 @@ const usersReducer = (state = initialState, action: ActionType) => {
       return {
         ...state,
         users: [...state.users, action.user],
+        addUserPending: false,
+      };
+    }
+
+    case UPDATE_ADD_USER_PENDING: {
+      return {
+        ...state,
+        addUserPending: action.pending,
       };
     }
 
@@ -104,6 +120,11 @@ export const importUsersActionCreator = (users: UserType[]): ImportUsersAction =
 export const addUserActionCreator = (user: UserType): AddUserAction => ({
   type: ADD_USER,
   user,
+});
+
+export const updateAddUserPenging = (pending: boolean): UpdateUserPengingAction => ({
+  type: UPDATE_ADD_USER_PENDING,
+  pending,
 });
 
 export const deleteUserActionCreator = (): DeleteUserAction => ({ type: DELETE_USER });
@@ -127,9 +148,21 @@ export const importUsers = () => async (dispatch: Dispatch) => {
 };
 
 export const addUser = (user: UserType) => (dispatch: Dispatch) => {
-  return addUserToDb(user).then((user) => {
-    dispatch(addUserActionCreator(user));
-  });
+  dispatch(updateAddUserPenging(true));
+  return addUserToDb(user)
+    .then((user) => {
+      createNotification({
+        message: `${user.username} added to db`,
+      });
+      dispatch(addUserActionCreator(user));
+    })
+    .catch((msg) => {
+      dispatch(updateAddUserPenging(false));
+      createNotification({ message: msg, type: 'danger' });
+      return new Promise((resolve, reject) => {
+        reject();
+      });
+    });
 };
 
 export const deleteUser = (id: IndexableType) => (dispatch: Dispatch) => {

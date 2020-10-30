@@ -2,7 +2,7 @@ import { Form, Formik, FormikValues } from 'formik';
 import React, { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useHistory, useLocation, useParams } from 'react-router-dom';
-import { ActionCreator } from 'redux';
+import { ActionCreator, AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 
 import { deleteFormState, saveFormState } from '../../localStorage';
@@ -11,6 +11,7 @@ import { StateType } from '../../redux/store';
 import { addUser, updateUser } from '../../redux/usersListReducer';
 import ageValidator from '../../utils/dateYearSubstract';
 import { getHashParam } from '../../utils/hashRouteUtils';
+import { createNotification } from '../../utils/notifications';
 import Yup from '../../yup';
 import AccountForm from './AccountForm';
 import CapabilitiesForm from './CapabilitiesForm';
@@ -98,7 +99,7 @@ const StepWizard: FC<StepWizardPropsType> = ({ editMode = false }) => {
   const [showRestoreMessage, setShowRestoreMessage] = useState(!editMode);
 
   const form = useSelector((state: StateType) => state.stepWizard.form);
-  const dispatch = useDispatch();
+  const dispatch: ThunkDispatch<StateType, void, AnyAction> = useDispatch();
 
   const createTabUrl = (index: number = 0) => pathname + '#' + STEPS[index].url;
   useEffect(() => {
@@ -121,13 +122,14 @@ const StepWizard: FC<StepWizardPropsType> = ({ editMode = false }) => {
         setShowRestoreMessage(false);
         history.push(createTabUrl(stepNumber + 1));
       } else {
-        //TODO type for dispatch
-        //@ts-ignore
-        dispatch(addUser({ ...form, ...values })).then(() => {
-          dispatch(resetForm());
-          deleteFormState();
-          history.push('/users');
-        });
+        dispatch(addUser({ ...form, ...values })).then(
+          () => {
+            dispatch(resetForm());
+            deleteFormState();
+            history.push('/users');
+          },
+          () => {},
+        );
       }
     } else {
       dispatch(updateUser(+id, { ...form, ...values }));

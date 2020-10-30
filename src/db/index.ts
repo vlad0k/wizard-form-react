@@ -1,9 +1,11 @@
+import { rejects } from 'assert';
 import Dexie, { IndexableType } from 'dexie';
 import { FormikValues } from 'formik';
 
 import { UserType } from '../types';
 
 const USERS_TABLE_NAME = 'users';
+const REQUEST_TIMEOUT_SEC = 20;
 
 const manualSlowing = () => {
   let result = '';
@@ -42,11 +44,16 @@ export const updateUser = async (id: number, values: FormikValues) => {
 };
 
 export const addUser = (user: FormikValues) => {
-  manualSlowing();
-  return db
-    .table(USERS_TABLE_NAME)
-    .add({ ...user, updatedAt: new Date() })
-    .then((id) => getUser(id));
+  const addUserPromise = new Promise<UserType>((resolve, reject) => {
+    setTimeout(() => reject('Request timeout'), REQUEST_TIMEOUT_SEC * 1000);
+    db.table(USERS_TABLE_NAME)
+      .add({ ...user, updatedAt: new Date() })
+      .then(
+        (id) => resolve(getUser(id)),
+        () => reject('User was not added to db'),
+      );
+  });
+  return addUserPromise;
 };
 
 // TODO comment проверить пропсы на уровне src/db/index

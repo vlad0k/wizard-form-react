@@ -21,7 +21,7 @@ export type UserType = {
   gender: 'male' | 'female' | undefined | null;
   github: string;
   hobbies: string[];
-  id: number | string;
+  id: number;
   lastname: string;
   mainLang: OptionTypeBase;
   password: string;

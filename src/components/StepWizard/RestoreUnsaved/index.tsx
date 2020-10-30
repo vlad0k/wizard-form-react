@@ -6,10 +6,11 @@ import { deleteFormState, getFormState } from '../../../localStorage';
 import { loadSavedForm } from '../../../redux/stepWizardReducer';
 import { StateType } from '../../../redux/store';
 import { ButtonAppearance } from '../../../types';
-import base64ToFile from '../../../utils/base64ToFile';
+import base64ToFile from '../../../utils/convertBase64ToFile';
 import Button from '../../ui/Button';
 import classNames from './index.module.css';
 
+// TODO empty object instead of undefined and destructing
 const RestoreUnsaved: FC = () => {
   const [savedFormState, setSavedFormState] = useState<StateType | undefined>(undefined);
 

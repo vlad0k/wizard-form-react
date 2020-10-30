@@ -78,7 +78,6 @@ const usersReducer = (state = initialState, action: ActionType) => {
       return {
         ...state,
         users: [...state.users, action.user],
-        addUserPending: false,
       };
     }
 
@@ -135,13 +134,13 @@ export const addUser = (user: UserType) => (dispatch: Dispatch) => {
         message: `@${user.username} added to db`,
         type: 'success',
       });
-      dispatch(addUserActionCreator(user));
     })
     .catch((msg) => {
       dispatch(updateAddUserPenging(false));
       createNotification({ message: msg, type: 'danger' });
       return Promise.reject();
-    });
+    })
+    .finally(() => dispatch(addUserActionCreator(user)));
 };
 
 export const deleteUser = (id: IndexableType) => (dispatch: Dispatch) => {
@@ -165,27 +164,34 @@ export const updateUser = (id: number, values: FormikValues) => (dispatch: Dispa
 };
 
 //TODO rewrite function to import a bunch of users on promises NOT AWAIT
+
 export const generateUsers = () => (dispatch: Dispatch) => {
   createNotification({ message: 'Generating fake users...' });
   dispatch(usersFetchStatus(UsersFetchStatus.isFetching));
-  deleteAllUsers();
-  for (let i = 1; i <= NUMBER_OF_FAKES; i++) {
-    let fake = createFakeUser();
-    const fetchAvatar = async () => {
-      const response = await fetch(fake.avatar);
-      const blob = await response.blob();
-      await addUserToDb({ ...fake, avatar: new File([blob], 'avatar', { type: 'image/jpg' }) });
-      const users = await getUsers();
-      dispatch(importUsersActionCreator(users));
-      if (i === NUMBER_OF_FAKES) {
-        createNotification({
-          title: 'Success',
-          message: 'Fake users were generated',
-          type: 'success',
-        });
-        dispatch(usersFetchStatus(UsersFetchStatus.fetched));
-      }
-    };
-    fetchAvatar();
-  }
+  const newUsers = [];
 };
+
+// export const generateUsers = () => (dispatch: Dispatch) => {
+//   createNotification({ message: 'Generating fake users...' });
+//   dispatch(usersFetchStatus(UsersFetchStatus.isFetching));
+//   deleteAllUsers();
+//   for (let i = 1; i <= NUMBER_OF_FAKES; i++) {
+//     let fake = createFakeUser();
+//     const fetchAvatar = async () => {
+//       const response = await fetch(fake.avatar);
+//       const blob = await response.blob();
+//       await addUserToDb({ ...fake, avatar: new File([blob], 'avatar', { type: 'image/jpg' }) });
+//       const users = await getUsers();
+//       dispatch(importUsersActionCreator(users));
+//       if (i === NUMBER_OF_FAKES) {
+//         createNotification({
+//           title: 'Success',
+//           message: 'Fake users were generated',
+//           type: 'success',
+//         });
+//         dispatch(usersFetchStatus(UsersFetchStatus.fetched));
+//       }
+//     };
+//     fetchAvatar();
+//   }
+// };

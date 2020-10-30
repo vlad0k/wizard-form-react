@@ -122,14 +122,11 @@ const StepWizard: FC<StepWizardPropsType> = ({ editMode = false }) => {
         setShowRestoreMessage(false);
         history.push(createTabUrl(stepNumber + 1));
       } else {
-        dispatch(addUser({ ...form, ...values })).then(
-          () => {
-            dispatch(resetForm());
-            deleteFormState();
-            history.push('/users');
-          },
-          () => {},
-        );
+        dispatch(addUser({ ...form, ...values })).then(() => {
+          dispatch(resetForm());
+          deleteFormState();
+          history.push('/users');
+        });
       }
     } else {
       dispatch(updateUser(+id, { ...form, ...values }));

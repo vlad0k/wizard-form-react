@@ -24,11 +24,11 @@ const Table: FC<TablePropsType> = ({ users, stripped = false }) => {
 
   const deleteUserButtonHandler = (id: number | string) => {
     setIsDeteling(id);
-    //TODO remove event listener from func
+    //TODO remove event listener from func read best practices
     document.addEventListener('click', userDeleteMode);
   };
 
-  const approveDeleteButtonHandler = (id: IndexableType) => {
+  const approveDeleteButtonHandler = (id: number) => {
     dispatch(deleteUser(id));
     document.removeEventListener('click', userDeleteMode);
   };
@@ -37,7 +37,7 @@ const Table: FC<TablePropsType> = ({ users, stripped = false }) => {
     <table className={cn(classNames.table, { [classNames.stripped]: stripped })} cellSpacing={0}>
       <thead>
         <tr>
-          <th colSpan={2} />
+          <th />
           <th>name</th>
           <th>company</th>
           <th>contacts</th>
@@ -55,7 +55,7 @@ const Table: FC<TablePropsType> = ({ users, stripped = false }) => {
             company,
             email,
             avatar,
-            phoneNumbers,
+            phoneNumbers: [phoneNumber] = [''],
             updatedAt,
           }: UserType) => {
             return (
@@ -72,8 +72,7 @@ const Table: FC<TablePropsType> = ({ users, stripped = false }) => {
                   <span>{username}</span>
                 </td>
                 <td>{company}</td>
-
-                <td>{phoneNumbers || phoneNumbers[0] ? phoneNumbers[0] : email}</td>
+                <td>{phoneNumber || email}</td>
                 <td>{moment(updatedAt).fromNow()}</td>
                 {isDeteling !== id && (
                   <>

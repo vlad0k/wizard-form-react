@@ -16,7 +16,7 @@ const TabPanel: FC<TopTabProps> = ({ name, disabled = false, url, onSelect = () 
   });
 
   return (
-    <Link to={`${pathname}#${url}`} onClick={onSelect} className={tabClassName}>
+    <Link to={!disabled ? `${pathname}#${url}` : '#'} onClick={onSelect} className={tabClassName}>
       {name}
     </Link>
   );

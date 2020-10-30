@@ -40,7 +40,13 @@ export const HOBBIES_CHECKBOX_GROUP = [
 const CapabilitiesForm: FC = () => (
   <>
     <div>
-      <MySelect name="skills" options={SKILLS_SELECT_OPTIONS} label="Skills" isMulti />
+      <MySelect
+        name="skills"
+        options={SKILLS_SELECT_OPTIONS}
+        label="Skills"
+        isMulti
+        isRequiredField
+      />
       <TextArea name="additionalInfo" label="Additional Info" maxlength={MAX_LENGTH_OF_TEXTAREA} />
     </div>
     <div role="group">

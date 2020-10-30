@@ -7,7 +7,7 @@ import FieldError from '../FieldError';
 import FormLabel from '../FormLabel';
 import classNames from './index.module.css';
 
-const PhoneInput: FC<PhoneInputPropsType> = ({ name, label }) => {
+const PhoneInput: FC<PhoneInputPropsType> = ({ name, label, isRequiredField = false }) => {
   return (
     <div className={classNames.wrapper}>
       <Field name={name}>
@@ -17,19 +17,20 @@ const PhoneInput: FC<PhoneInputPropsType> = ({ name, label }) => {
           return (
             <>
               <div>
-                <FormLabel label={label} />
-                <InputMask
-                  className={cn(classNames.input, {
-                    [classNames.errorField]: isError,
-                    [classNames.noError]: !isError,
-                  })}
-                  mask="+38 (999) 999 99 99"
-                  value={value}
-                  onChange={onChange}
-                  onBlur={onBlur}
-                >
-                  {(inputProps: InputMask) => <input {...inputProps} name={name} type="tel" />}
-                </InputMask>
+                <FormLabel label={label} isRequiredField={isRequiredField}>
+                  <InputMask
+                    className={cn(classNames.input, {
+                      [classNames.errorField]: isError,
+                      [classNames.noError]: !isError,
+                    })}
+                    mask="+38 (999) 999 99 99"
+                    value={value}
+                    onChange={onChange}
+                    onBlur={onBlur}
+                  >
+                    {(inputProps: InputMask) => <input {...inputProps} name={name} type="tel" />}
+                  </InputMask>
+                </FormLabel>
               </div>
               <FieldError name={name} />
             </>
@@ -45,4 +46,5 @@ export default PhoneInput;
 type PhoneInputPropsType = {
   name: string;
   label?: string;
+  isRequiredField?: boolean;
 };

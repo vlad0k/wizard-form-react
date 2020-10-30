@@ -9,9 +9,9 @@ const AccountForm: FC = () => (
       <AvatarPicker name="avatar" />
     </div>
     <div>
-      <InputField name="username" label="User Name" />
-      <InputField name="password" label="Password" type="password" />
-      <InputField name="passwordRepeat" label="Repeat Password" type="password" />
+      <InputField name="username" label="User Name" isRequiredField />
+      <InputField name="password" label="Password" type="password" isRequiredField />
+      <InputField name="passwordRepeat" label="Repeat Password" type="password" isRequiredField />
     </div>
   </>
 );

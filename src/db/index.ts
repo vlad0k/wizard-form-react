@@ -4,6 +4,7 @@ import { FormikValues } from 'formik';
 import { UserType } from '../types';
 
 const USERS_TABLE_NAME = 'users';
+const REQUEST_TIMEOUT_SEC = 5;
 
 const manualSlowing = () => {
   let result = '';
@@ -24,12 +25,10 @@ db.open();
 export default db;
 
 export const getUsers = async () => {
-  manualSlowing();
   return await db.table(USERS_TABLE_NAME).toArray();
 };
 
 export const getUser = async (id: IndexableType): Promise<UserType> => {
-  manualSlowing();
   const users = await db.table(USERS_TABLE_NAME).toArray();
   const user = users.find((user) => +user.id === +id);
   return user || {};
@@ -37,31 +36,34 @@ export const getUser = async (id: IndexableType): Promise<UserType> => {
 
 export const updateUser = async (id: number, values: FormikValues) => {
   //TODO filter values
-  manualSlowing();
-  await db.table(USERS_TABLE_NAME).put({ ...values, id, updatedAt: new Date() });
+  return await db.table(USERS_TABLE_NAME).put({ ...values, id, updatedAt: new Date() });
 };
 
-export const addUser = async (user: FormikValues) => {
-  manualSlowing();
-  db.table(USERS_TABLE_NAME).add({ ...user, updatedAt: new Date() });
+export const addUser = (user: FormikValues) => {
+  return new Promise<UserType>((resolve, reject) => {
+    setTimeout(() => reject('Request timeout'), REQUEST_TIMEOUT_SEC * 1000);
+    db.table(USERS_TABLE_NAME)
+      .add({ ...user, updatedAt: new Date() })
+      .then(
+        (id) => resolve(getUser(id)),
+        () => reject('User was not added to db'),
+      );
+  });
 };
 
 // TODO comment проверить пропсы на уровне src/db/index
 //  id => integer?
 //  user data => filter required fields
-export const deleteUser = async (id: IndexableType) => {
+export const deleteUser = async (id: number) => {
   //TODO id validation and old id unexhisting user
-  manualSlowing();
-  db.table(USERS_TABLE_NAME).delete(+id);
+  db.table(USERS_TABLE_NAME).delete(id);
 };
 
 export const deleteAllUsers = async () => {
-  manualSlowing();
   db.table(USERS_TABLE_NAME).clear();
 };
 
 export const searchUsers = async (search: string) => {
-  manualSlowing();
   if (!search) {
     return [];
   }

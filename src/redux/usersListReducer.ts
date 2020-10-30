@@ -17,7 +17,8 @@ const NUMBER_OF_FAKES = 50;
 const IMPORT_USERS = 'users/IMPORT_USERS';
 const DELETE_USER = 'users/DELETE_USER';
 const IS_FETCHING = 'users/IS_FETCHING';
-const SELECT_PAGE = 'users/SELECT_PAGE';
+const ADD_USER = 'users/ADD_USER';
+const UPDATE_ADD_USER_PENDING = 'user/UPDATE_ADD_USER_PENDING';
 
 interface ImportUsersAction {
   type: typeof IMPORT_USERS;
@@ -33,17 +34,27 @@ interface DeleteUserAction {
   type: typeof DELETE_USER;
 }
 
-interface SelectPage {
-  type: typeof SELECT_PAGE;
-  page: number;
+interface AddUserAction {
+  type: typeof ADD_USER;
+  user: UserType;
 }
 
-type ActionType = ImportUsersAction | DeleteUserAction | IsFetchingAction | SelectPage;
+interface UpdateUserPengingAction {
+  type: typeof UPDATE_ADD_USER_PENDING;
+  pending: boolean;
+}
+
+type ActionType =
+  | ImportUsersAction
+  | DeleteUserAction
+  | IsFetchingAction
+  | AddUserAction
+  | UpdateUserPengingAction;
 
 const initialState = {
   users: [] as UserType[],
   usersFetchStatus: UsersFetchStatus.unfetched as UsersFetchStatus,
-  page: 1,
+  addUserPending: false,
 };
 
 const usersReducer = (state = initialState, action: ActionType) => {
@@ -63,10 +74,18 @@ const usersReducer = (state = initialState, action: ActionType) => {
       };
     }
 
-    case SELECT_PAGE: {
+    case ADD_USER: {
       return {
         ...state,
-        page: action.page,
+        users: [...state.users, action.user],
+        addUserPending: false,
+      };
+    }
+
+    case UPDATE_ADD_USER_PENDING: {
+      return {
+        ...state,
+        addUserPending: action.pending,
       };
     }
 
@@ -83,16 +102,21 @@ export const importUsersActionCreator = (users: UserType[]): ImportUsersAction =
   users,
 });
 
+export const addUserActionCreator = (user: UserType): AddUserAction => ({
+  type: ADD_USER,
+  user,
+});
+
+export const updateAddUserPenging = (pending: boolean): UpdateUserPengingAction => ({
+  type: UPDATE_ADD_USER_PENDING,
+  pending,
+});
+
 export const deleteUserActionCreator = (): DeleteUserAction => ({ type: DELETE_USER });
 
 export const usersFetchStatus = (usersFetchStatus: UsersFetchStatus): IsFetchingAction => ({
   type: IS_FETCHING,
   usersFetchStatus,
-});
-
-export const selectPage = (page: number): SelectPage => ({
-  type: SELECT_PAGE,
-  page,
 });
 
 export const importUsers = () => async (dispatch: Dispatch) => {
@@ -104,8 +128,20 @@ export const importUsers = () => async (dispatch: Dispatch) => {
 };
 
 export const addUser = (user: UserType) => (dispatch: Dispatch) => {
-  addUserToDb(user);
-  getUsers().then((users: UserType[]) => dispatch(importUsersActionCreator(users)));
+  dispatch(updateAddUserPenging(true));
+  return addUserToDb(user)
+    .then((user) => {
+      createNotification({
+        message: `@${user.username} added to db`,
+        type: 'success',
+      });
+      dispatch(addUserActionCreator(user));
+    })
+    .catch((msg) => {
+      dispatch(updateAddUserPenging(false));
+      createNotification({ message: msg, type: 'danger' });
+      return Promise.reject();
+    });
 };
 
 export const deleteUser = (id: IndexableType) => (dispatch: Dispatch) => {
@@ -138,7 +174,7 @@ export const generateUsers = () => (dispatch: Dispatch) => {
     const fetchAvatar = async () => {
       const response = await fetch(fake.avatar);
       const blob = await response.blob();
-      await addUserToDb({ ...fake, avatar: new File([blob], 'avatar.jpeg') });
+      await addUserToDb({ ...fake, avatar: new File([blob], 'avatar', { type: 'image/jpg' }) });
       const users = await getUsers();
       dispatch(importUsersActionCreator(users));
       if (i === NUMBER_OF_FAKES) {

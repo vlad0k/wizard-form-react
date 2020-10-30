@@ -1,5 +1,5 @@
 import { Field, FieldProps } from 'formik';
-import React from 'react';
+import React, { FC } from 'react';
 import ReactSelect, { OptionsType, OptionTypeBase, ValueType } from 'react-select';
 
 import deleteIcon from '../../../assets/icons/Close.svg';
@@ -45,54 +45,62 @@ const customStyles = {
   }),
 };
 
+const SelectField: FC<SelectPropsType> = ({
+  name,
+  isMulti,
+  options,
+  label,
+  isRequiredField = false,
+}) => {
+  return (
+    <div className={classNames.wrapper}>
+      <FormLabel label={label} isRequiredField={isRequiredField}>
+        <Field name={name}>
+          {({ field: { name, value }, form: { setFieldValue } }: FieldProps) => {
+            const selectChangeHandler = (selected: ValueType<OptionTypeBase>) => {
+              setFieldValue(name, selected);
+            };
+
+            const clearButtonHandler = () => {
+              setFieldValue(name, []);
+            };
+
+            return (
+              <div className={classNames.selectContainer}>
+                <ReactSelect
+                  options={options}
+                  value={value}
+                  onChange={selectChangeHandler}
+                  styles={customStyles}
+                  isMulti={isMulti}
+                />
+                {isMulti && value !== null && value.length > 0 && (
+                  <div className={classNames.clearButton}>
+                    <Button
+                      onClick={clearButtonHandler}
+                      appearance={ButtonAppearance.text}
+                      type={'button'}
+                    >
+                      <img src={deleteIcon} alt={'remove all selected'} />
+                    </Button>
+                  </div>
+                )}
+              </div>
+            );
+          }}
+        </Field>
+      </FormLabel>
+      <FieldError name={name} />
+    </div>
+  );
+};
+
 type SelectPropsType = {
   name: string;
   isMulti?: boolean;
   options: OptionsType<OptionTypeBase>;
   label?: string;
-};
-
-const SelectField = ({ name, isMulti, options, label }: SelectPropsType) => {
-  return (
-    <div className={classNames.wrapper}>
-      <FormLabel label={label} />
-      <Field name={name}>
-        {({ field: { name, value }, form: { setFieldValue } }: FieldProps) => {
-          const selectChangeHandler = (selected: ValueType<OptionTypeBase>) => {
-            setFieldValue(name, selected);
-          };
-
-          const clearButtonHandler = () => {
-            setFieldValue(name, []);
-          };
-
-          return (
-            <div className={classNames.selectContainer}>
-              <ReactSelect
-                options={options}
-                value={value}
-                onChange={selectChangeHandler}
-                styles={customStyles}
-                isMulti={isMulti}
-              />
-              {isMulti && value !== null && value.length > 0 && (
-                <div className={classNames.clearButton}>
-                  <Button
-                    onClick={clearButtonHandler}
-                    appearance={ButtonAppearance.text}
-                    type={'button'}
-                  >
-                    <img src={deleteIcon} alt={'remove all selected'} />
-                  </Button>
-                </div>
-              )}
-            </div>
-          );
-        }}
-      </Field>
-      <FieldError name={name} />
-    </div>
-  );
+  isRequiredField?: boolean;
 };
 
 export default SelectField;

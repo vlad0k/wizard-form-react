@@ -5,9 +5,10 @@ import noPhotoIcon from '../../../assets/icons/empty-avatar.svg';
 import { AvatarSize } from '../../../types';
 import classNames from './index.module.css';
 
+const isFileImage = ({ type }: File) => type.split('/')[0] === 'image';
+
 const Avatar = ({ imageFile, imageSrc, size = AvatarSize.default }: AvatarProp) => {
-  //TODO: ensure that file is image
-  const image = imageFile ? URL.createObjectURL(imageFile) : imageSrc;
+  const image = imageFile && isFileImage ? URL.createObjectURL(imageFile) : imageSrc;
   return (
     <div
       className={cn(classNames.avatar, classNames[size], {

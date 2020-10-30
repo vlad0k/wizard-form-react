@@ -10,6 +10,16 @@
   right: 100px;
 }
 
-.buttons * {
+.buttons > * {
   margin-left: 150px;
+}
+
+.finishWrapper {
+  position: relative;
+}
+
+.finishWrapper img {
+  position: absolute;
+  top: 12px;
+  right: -20px;
 }

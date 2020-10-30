@@ -3,20 +3,17 @@ import './calenar.css';
 
 import cn from 'classnames';
 import { Field, FieldProps } from 'formik';
-import React from 'react';
+import React, { FC } from 'react';
 import Calendar from 'react-datepicker';
 
 import calendarIcon from '../../../assets/icons/calendar.svg';
 import FieldError from '../FieldError';
+import FormLabel from '../FormLabel';
 import classNames from './index.module.css';
 
-type DatePickerProps = {
-  name: string;
-};
-
-const DatePicker = ({ name }: DatePickerProps) => {
+const DatePicker: FC<DatePickerPropsType> = ({ name, label, isRequiredField = false }) => {
   return (
-    <>
+    <FormLabel label={label} isRequiredField={isRequiredField}>
       <Field name={name}>
         {({ field: { value }, form: { setFieldValue, errors, touched } }: FieldProps) => {
           const calendarChangeHandler = (date: Date) => {
@@ -24,7 +21,6 @@ const DatePicker = ({ name }: DatePickerProps) => {
           };
           return (
             <div className={classNames.wrapper}>
-              <span className={classNames.label}>Birth Date</span>
               <Calendar
                 selected={value}
                 onChange={calendarChangeHandler}
@@ -40,8 +36,14 @@ const DatePicker = ({ name }: DatePickerProps) => {
         }}
       </Field>
       <FieldError name={name} />
-    </>
+    </FormLabel>
   );
+};
+
+type DatePickerPropsType = {
+  name: string;
+  label?: string;
+  isRequiredField?: boolean;
 };
 
 export default DatePicker;

@@ -37,10 +37,15 @@ export const LANGUAGE_SELECT_OPTIONS: OptionsType<OptionTypeBase> = [
 const ContactsForm: FC = () => (
   <>
     <div>
-      <InputField name="company" label="Company" />
+      <InputField name="company" label="Company" isRequiredField />
       <InputField name="github" label="GitHub Link" />
       <InputField name="facebook" label="Facebook Link" />
-      <SelectField name="mainLang" options={LANGUAGE_SELECT_OPTIONS} label="Main Language" />
+      <SelectField
+        name="mainLang"
+        options={LANGUAGE_SELECT_OPTIONS}
+        label="Main Language"
+        isRequiredField
+      />
     </div>
 
     <div>

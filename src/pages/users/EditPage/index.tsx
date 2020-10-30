@@ -8,6 +8,8 @@ import { getUser } from '../../../db';
 import { submitForm } from '../../../redux/stepWizardReducer';
 import { UrlParamTypes } from '../../../types';
 
+//TODO Fix empty no user by id case
+
 const UserEditPage = () => {
   const { id } = useParams<UrlParamTypes>();
   const dispatch = useDispatch();

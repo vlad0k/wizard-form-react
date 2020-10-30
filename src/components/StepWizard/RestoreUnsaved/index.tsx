@@ -6,6 +6,7 @@ import { deleteFormState, getFormState } from '../../../localStorage';
 import { loadSavedForm } from '../../../redux/stepWizardReducer';
 import { StateType } from '../../../redux/store';
 import { ButtonAppearance } from '../../../types';
+import base64ToFile from '../../../utils/base64ToFile';
 import Button from '../../ui/Button';
 import classNames from './index.module.css';
 
@@ -25,6 +26,7 @@ const RestoreUnsaved: FC = () => {
       loadSavedForm({
         ...savedFormState,
         birthdate,
+        avatar: savedFormState.avatar ? base64ToFile(savedFormState.avatar) : null,
       }),
     );
     deleteFormState();

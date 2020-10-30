@@ -8,12 +8,12 @@ import RadioGroup from '../../ui/RadioGroup';
 const ProfileForm: FC = () => (
   <>
     <div>
-      <InputField name="firstname" label="First Name" />
-      <InputField name="lastname" label="Last Name" />
-      <DatePicker name="birthdate" />
+      <InputField name="firstname" label="First Name" isRequiredField />
+      <InputField name="lastname" label="Last Name" isRequiredField />
+      <DatePicker name="birthdate" label="Birth Date" isRequiredField />
     </div>
     <div>
-      <InputField name="email" type="email" label="Email" />
+      <InputField name="email" type="email" label="Email" isRequiredField />
       <LocationPicker name="address" label="Address" />
       <RadioGroup
         label="Gender"
@@ -22,6 +22,7 @@ const ProfileForm: FC = () => (
           { value: 'male', label: 'Male' },
           { value: 'female', label: 'Female' },
         ]}
+        isRequiredField
       />
     </div>
   </>

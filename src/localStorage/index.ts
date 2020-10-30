@@ -2,6 +2,7 @@ import { FormikValues } from 'formik';
 
 const FORM_STATE_KEY = 'formState';
 
+//TODO save avatar to localstorage
 export const saveFormState = async (formState: FormikValues) => {
   const formStateString = JSON.stringify(formState);
   localStorage.setItem(FORM_STATE_KEY, formStateString);

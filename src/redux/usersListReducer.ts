@@ -160,9 +160,7 @@ export const addUser = (user: UserType) => (dispatch: Dispatch) => {
     .catch((msg) => {
       dispatch(updateAddUserPenging(false));
       createNotification({ message: msg, type: 'danger' });
-      return new Promise((resolve, reject) => {
-        reject();
-      });
+      return Promise.reject();
     });
 };
 

@@ -48,7 +48,7 @@ const ImageCrop: FC<ImageCropPropsType> = ({ image, setField = () => {}, close =
     } else {
       resultCanvas.toBlob((blob) => {
         if (blob) {
-          const avatar = new File([blob], 'avatar.png');
+          const avatar = new File([blob], 'avatar', { type: 'image/jpg' });
           setField(avatar);
         }
       });

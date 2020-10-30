@@ -1,7 +1,7 @@
 .textarea {
   display: block;
   resize: none;
-  width: 100%;
+  width: 300px;
   height: 130px;
   background: #ffffff;
   border: 1px solid #c1cfe0;

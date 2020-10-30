@@ -152,7 +152,8 @@ export const addUser = (user: UserType) => (dispatch: Dispatch) => {
   return addUserToDb(user)
     .then((user) => {
       createNotification({
-        message: `${user.username} added to db`,
+        message: `@${user.username} added to db`,
+        type: 'success',
       });
       dispatch(addUserActionCreator(user));
     })
@@ -195,7 +196,7 @@ export const generateUsers = () => (dispatch: Dispatch) => {
     const fetchAvatar = async () => {
       const response = await fetch(fake.avatar);
       const blob = await response.blob();
-      await addUserToDb({ ...fake, avatar: new File([blob], 'avatar.jpeg') });
+      await addUserToDb({ ...fake, avatar: new File([blob], 'avatar', { type: 'image/jpg' }) });
       const users = await getUsers();
       dispatch(importUsersActionCreator(users));
       if (i === NUMBER_OF_FAKES) {

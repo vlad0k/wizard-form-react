@@ -6,7 +6,7 @@ import PlacesAutocomplete from 'react-places-autocomplete';
 import FormLabel from '../FormLabel';
 import classNames from './index.module.css';
 
-const LocationPicker: FC<LocationPickerTypeProps> = ({ name, label }) => {
+const LocationPicker: FC<LocationPickerTypeProps> = ({ name, label, isRequiredField = false }) => {
   return (
     <Field name={name}>
       {({ field, form }: FieldProps) => {
@@ -24,13 +24,13 @@ const LocationPicker: FC<LocationPickerTypeProps> = ({ name, label }) => {
           <PlacesAutocomplete value={field.value} onChange={handleChange} onSelect={handleSelect}>
             {({ getInputProps, suggestions, loading, getSuggestionItemProps }) => (
               <div className={classNames.wrapper}>
-                <FormLabel label={label} />
-                <input
-                  {...getInputProps({ className: classNames.input })}
-                  name={name}
-                  onBlur={field.onBlur}
-                />
-
+                <FormLabel label={label} isRequiredField={isRequiredField}>
+                  <input
+                    {...getInputProps({ className: classNames.input })}
+                    name={name}
+                    onBlur={field.onBlur}
+                  />
+                </FormLabel>
                 {suggestions.length !== 0 && (
                   <div className={classNames.dropdown}>
                     {suggestions.map((suggestion, index) => {
@@ -63,4 +63,5 @@ export default LocationPicker;
 type LocationPickerTypeProps = {
   name: string;
   label: string;
+  isRequiredField?: boolean;
 };

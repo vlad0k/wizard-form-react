@@ -1,4 +1,3 @@
-import { rejects } from 'assert';
 import Dexie, { IndexableType } from 'dexie';
 import { FormikValues } from 'formik';
 
@@ -40,7 +39,7 @@ export const getUser = async (id: IndexableType): Promise<UserType> => {
 export const updateUser = async (id: number, values: FormikValues) => {
   //TODO filter values
   manualSlowing();
-  await db.table(USERS_TABLE_NAME).put({ ...values, id, updatedAt: new Date() });
+  return await db.table(USERS_TABLE_NAME).put({ ...values, id, updatedAt: new Date() });
 };
 
 export const addUser = (user: FormikValues) => {

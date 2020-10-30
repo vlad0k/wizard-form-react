@@ -7,3 +7,13 @@
   color: var(--form-label-color);
   padding-bottom: 4px;
 }
+
+.labelContainer {
+  display: flex;
+  justify-content: space-between;
+  padding-right: 4px;
+}
+
+.wrapper {
+  display: inline-block;
+}

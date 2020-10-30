@@ -9,35 +9,43 @@ import FieldError from '../FieldError';
 import FormLabel from '../FormLabel';
 import classNames from './index.module.css';
 
-const InputField = ({ name, label, type = 'text' }: InputFieldPropsType) => {
+const InputField = ({
+  name,
+  label,
+  type = 'text',
+  isRequiredField = false,
+}: InputFieldPropsType) => {
   const [inputType, setInputType] = useState<string>(type);
   const passwordVisibilityButtonHandler = () =>
     setInputType((prev) => (prev === 'password' ? 'text' : 'password'));
   return (
     <label className={classNames.inputField}>
-      <FormLabel label={label} />
-      <div className={classNames.inputWrapper}>
-        <Field name={name} id={name}>
-          {({ field, form }: FieldProps) => (
-            <input
-              {...field}
-              type={inputType}
-              className={
-                form.errors[name] && form.touched[name] ? classNames.errorField : classNames.noError
-              }
-            />
+      <FormLabel label={label} isRequiredField={isRequiredField}>
+        <div className={classNames.inputWrapper}>
+          <Field name={name} id={name}>
+            {({ field, form }: FieldProps) => (
+              <input
+                {...field}
+                type={inputType}
+                className={
+                  form.errors[name] && form.touched[name]
+                    ? classNames.errorField
+                    : classNames.noError
+                }
+              />
+            )}
+          </Field>
+          {type === 'password' && (
+            <Button
+              appearance={ButtonAppearance.text}
+              onClick={passwordVisibilityButtonHandler}
+              type="button"
+            >
+              <img src={inputType === 'password' ? visibilityIcon : visibilityOffIcon} alt="" />
+            </Button>
           )}
-        </Field>
-        {type === 'password' && (
-          <Button
-            appearance={ButtonAppearance.text}
-            onClick={passwordVisibilityButtonHandler}
-            type="button"
-          >
-            <img src={inputType === 'password' ? visibilityIcon : visibilityOffIcon} alt="" />
-          </Button>
-        )}
-      </div>
+        </div>
+      </FormLabel>
 
       <FieldError name={name} />
     </label>
@@ -50,4 +58,5 @@ type InputFieldPropsType = {
   name: string;
   label: string;
   type?: 'text' | 'password' | 'email';
+  isRequiredField?: boolean;
 };

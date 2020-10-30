@@ -54,9 +54,9 @@ export const addUser = (user: FormikValues) => {
 // TODO comment проверить пропсы на уровне src/db/index
 //  id => integer?
 //  user data => filter required fields
-export const deleteUser = async (id: IndexableType) => {
+export const deleteUser = async (id: number) => {
   //TODO id validation and old id unexhisting user
-  db.table(USERS_TABLE_NAME).delete(+id);
+  db.table(USERS_TABLE_NAME).delete(id);
 };
 
 export const deleteAllUsers = async () => {

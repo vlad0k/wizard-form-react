@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { StateType } from '../../redux/store';
-import { importUsers, selectPage } from '../../redux/usersListReducer';
+import { importUsers } from '../../redux/usersListReducer';
 import { UsersFetchStatus, UserType } from '../../types';
 import Button from '../ui/Button';
 import Paginator from '../ui/Pagination';
@@ -19,8 +19,8 @@ const createPortion = (users: UserType[], page: number) => {
 
 const UsersList = () => {
   const [portion, setPortion] = useState<UserType[]>([]);
-  //TODO store selected page in local state
-  const { usersFetchStatus, users, page } = useSelector((state: StateType) => state.users);
+  const [page, setPage] = useState(1);
+  const { usersFetchStatus, users } = useSelector((state: StateType) => state.users);
   const dispatch = useDispatch();
 
   const numberOFPages = Math.ceil(users.length / PORTION_SIZE);
@@ -34,7 +34,7 @@ const UsersList = () => {
     setPortion(portionValue);
   }, [page, users]);
 
-  const selectPageHandler = (page: number) => dispatch(selectPage(page));
+  const selectPageHandler = (page: number) => setPage(page);
 
   return (
     <div>

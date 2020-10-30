@@ -17,7 +17,6 @@ const NUMBER_OF_FAKES = 50;
 const IMPORT_USERS = 'users/IMPORT_USERS';
 const DELETE_USER = 'users/DELETE_USER';
 const IS_FETCHING = 'users/IS_FETCHING';
-const SELECT_PAGE = 'users/SELECT_PAGE';
 const ADD_USER = 'users/ADD_USER';
 const UPDATE_ADD_USER_PENDING = 'user/UPDATE_ADD_USER_PENDING';
 
@@ -35,11 +34,6 @@ interface DeleteUserAction {
   type: typeof DELETE_USER;
 }
 
-interface SelectPage {
-  type: typeof SELECT_PAGE;
-  page: number;
-}
-
 interface AddUserAction {
   type: typeof ADD_USER;
   user: UserType;
@@ -54,7 +48,6 @@ type ActionType =
   | ImportUsersAction
   | DeleteUserAction
   | IsFetchingAction
-  | SelectPage
   | AddUserAction
   | UpdateUserPengingAction;
 
@@ -62,7 +55,6 @@ const initialState = {
   users: [] as UserType[],
   usersFetchStatus: UsersFetchStatus.unfetched as UsersFetchStatus,
   addUserPending: false,
-  page: 1,
 };
 
 const usersReducer = (state = initialState, action: ActionType) => {
@@ -79,13 +71,6 @@ const usersReducer = (state = initialState, action: ActionType) => {
       return {
         ...state,
         usersFetchStatus: action.usersFetchStatus,
-      };
-    }
-
-    case SELECT_PAGE: {
-      return {
-        ...state,
-        page: action.page,
       };
     }
 
@@ -132,11 +117,6 @@ export const deleteUserActionCreator = (): DeleteUserAction => ({ type: DELETE_U
 export const usersFetchStatus = (usersFetchStatus: UsersFetchStatus): IsFetchingAction => ({
   type: IS_FETCHING,
   usersFetchStatus,
-});
-
-export const selectPage = (page: number): SelectPage => ({
-  type: SELECT_PAGE,
-  page,
 });
 
 export const importUsers = () => async (dispatch: Dispatch) => {

@@ -5,9 +5,9 @@ const FORM_STATE_KEY = 'formState';
 export const saveFormState = async (formState: FormikValues) => {
   var reader = new FileReader();
   formState.avatar && reader.readAsDataURL(formState.avatar);
-  localStorage.setItem(FORM_STATE_KEY, JSON.stringify({ formState }));
+  localStorage.setItem(FORM_STATE_KEY, JSON.stringify(formState));
   reader.onloadend = () =>
-    localStorage.setItem(FORM_STATE_KEY, JSON.stringify({ formState, avatar: reader.result }));
+    localStorage.setItem(FORM_STATE_KEY, JSON.stringify({ ...formState, avatar: reader.result }));
 };
 
 //TODO comment next pull request

@@ -35,27 +35,27 @@ export const getUser = async (id: IndexableType): Promise<UserType> => {
 };
 
 export const updateUser = async (id: number, values: FormikValues) => {
-  //TODO filter values
+  //TODO filter values last priority
   return await db.table(USERS_TABLE_NAME).put({ ...values, id, updatedAt: new Date() });
 };
 
 export const addUser = (user: FormikValues) => {
   return new Promise<UserType>((resolve, reject) => {
-    setTimeout(() => reject('Request timeout'), REQUEST_TIMEOUT_SEC * 1000);
-    db.table(USERS_TABLE_NAME)
-      .add({ ...user, updatedAt: new Date() })
-      .then(
-        (id) => resolve(getUser(id)),
-        () => reject('User was not added to db'),
-      );
+    setTimeout(() => reject('Request timeout'), REQUEST_TIMEOUT_SEC * 1000); // reject long request
+
+    setTimeout(() => {
+      db.table(USERS_TABLE_NAME)
+        .add({ ...user, updatedAt: new Date() })
+        .then(
+          (id) => resolve(getUser(id)),
+          () => reject('User was not added to db'),
+        );
+    }, 2000);
   });
 };
 
-// TODO comment проверить пропсы на уровне src/db/index
-//  id => integer?
-//  user data => filter required fields
 export const deleteUser = async (id: number) => {
-  //TODO id validation and old id unexhisting user
+  //TODO id validation and old id unexhisting user lowes priority
   db.table(USERS_TABLE_NAME).delete(id);
 };
 

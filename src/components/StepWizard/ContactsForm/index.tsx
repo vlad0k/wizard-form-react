@@ -6,7 +6,7 @@ import InputField from '../../ui/InputField';
 import PhoneInput from '../../ui/PhoneInput';
 import SelectField from '../../ui/SelectField';
 import PhoneInputs from '../PhoneInputs';
-
+// TODO save only value and export options as contant
 export const LANGUAGE_SELECT_OPTIONS: OptionsType<OptionTypeBase> = [
   { value: 'en', label: 'English' },
   { value: 'fr', label: 'French' },

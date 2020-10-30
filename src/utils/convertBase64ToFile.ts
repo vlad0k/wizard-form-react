@@ -1,4 +1,4 @@
-const base64ToFile = (dataURI: string) => {
+const convertBase64ToFile = (dataURI: string) => {
   const byteString = atob(dataURI.split(',')[1]);
   const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
   const ab = new ArrayBuffer(byteString.length);
@@ -9,4 +9,4 @@ const base64ToFile = (dataURI: string) => {
   return new File([ab], 'avatar', { type: mimeString });
 };
 
-export default base64ToFile;
+export default convertBase64ToFile;

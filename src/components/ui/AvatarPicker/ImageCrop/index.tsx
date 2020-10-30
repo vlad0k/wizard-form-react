@@ -47,9 +47,9 @@ const ImageCrop: FC<ImageCropPropsType> = ({ image, setField = () => {}, close =
       setField(image);
     } else {
       resultCanvas.toBlob((blob) => {
+        //TODO Create file extention helper
         if (blob) {
-          const avatar = new File([blob], 'avatar', { type: 'image/jpg' });
-          setField(avatar);
+          setField(new File([blob], 'avatar', { type: blob.type }));
         }
       });
     }

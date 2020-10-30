@@ -3,7 +3,7 @@ import React, { FC, ReactNode } from 'react';
 import { SkillOptionType } from '../../../types';
 import Checkbox from '../../ui/CheckBox';
 import FieldError from '../../ui/FieldError';
-import MySelect from '../../ui/SelectField';
+import SelectField from '../../ui/SelectField';
 import TextArea from '../../ui/TextArea';
 
 const MAX_LENGTH_OF_TEXTAREA = 300;
@@ -40,7 +40,7 @@ export const HOBBIES_CHECKBOX_GROUP = [
 const CapabilitiesForm: FC = () => (
   <>
     <div>
-      <MySelect
+      <SelectField
         name="skills"
         options={SKILLS_SELECT_OPTIONS}
         label="Skills"

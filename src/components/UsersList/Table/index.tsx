@@ -24,7 +24,6 @@ const Table: FC<TablePropsType> = ({ users, stripped = false }) => {
 
   const deleteUserButtonHandler = (id: number | string) => {
     setIsDeteling(id);
-    //TODO remove event listener from func read best practices
     document.addEventListener('click', userDeleteMode);
   };
 
@@ -34,8 +33,9 @@ const Table: FC<TablePropsType> = ({ users, stripped = false }) => {
   };
 
   useEffect(() => {
-    // Remove event listener on componentWillUnmount
-    return () => document.removeEventListener('click', userDeleteMode);
+    return () => {
+      document.removeEventListener('click', userDeleteMode);
+    };
   }, []);
 
   return (
@@ -70,7 +70,7 @@ const Table: FC<TablePropsType> = ({ users, stripped = false }) => {
                 </td>
                 <td>
                   <div>
-                    <Link to={`/users/${id}`}>
+                    <Link to={`/user/${id}`}>
                       {firstname} {lastname}
                     </Link>
                   </div>

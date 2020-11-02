@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import clearIcon from '../../../assets/icons/Close.svg';
+import GenerateUsers from '../../../components/GenerateUsers';
 import PageLayout from '../../../components/PageLayout';
 import Search from '../../../components/Search';
 import Button from '../../../components/ui/Button';
@@ -10,7 +12,7 @@ import UsersList from '../../../components/UsersList';
 import classNames from '../../../components/UsersList/index.module.css';
 import { StateType } from '../../../redux/store';
 import { importUsers } from '../../../redux/usersListReducer';
-import { UsersFetchStatus, UserType } from '../../../types';
+import { ButtonAppearance, UsersFetchStatus, UserType } from '../../../types';
 
 const ListOfUsersPage = () => {
   const { users, usersFetchStatus } = useSelector((state: StateType) => state.users);
@@ -57,6 +59,8 @@ const ListOfUsersPage = () => {
           <span>No users found :(</span>
         </div>
       )}
+
+      <GenerateUsers />
     </PageLayout>
   );
 };

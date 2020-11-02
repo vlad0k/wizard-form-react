@@ -2,10 +2,10 @@ import React, { FC } from 'react';
 
 import classNames from './index.module.css';
 
-const ValuesList: FC<ValuesListPropsType> = ({ list }) => (
+const ValuesList: FC<ValuesListPropsType> = ({ list }, index) => (
   <ul className={classNames.valuesList}>
     {list.map((listItem) => (
-      <li key={listItem}>{listItem}</li>
+      <li key={index}>{listItem}</li>
     ))}
   </ul>
 );

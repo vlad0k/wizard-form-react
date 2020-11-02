@@ -12,6 +12,7 @@
   color: white;
   padding: 12px 24px;
   cursor: pointer;
+  transition: 0.2s;
 }
 
 .primary {
@@ -45,4 +46,8 @@
   font-weight: bold;
   color: #ff8989;
   background: none;
+}
+
+.disabled {
+  opacity: 0.2;
 }

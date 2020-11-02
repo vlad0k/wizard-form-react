@@ -1,6 +1,5 @@
 import { IndexableType } from 'dexie';
 import { FormikValues } from 'formik';
-import { useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
 
 import db, {
@@ -173,38 +172,33 @@ export const generateUsers = () => (dispatch: Dispatch, getState: () => StateTyp
   }
   createNotification({ message: 'Generating fake users...' });
   dispatch(usersFetchStatus(UsersFetchStatus.isFetching));
-  const newUsers: FormikValues[] = [];
+  const newUsers: FormikValues[] = new Array(NUMBER_OF_FAKES)
+    .fill(null)
+    .map(() => createFakeUser());
 
-  const createFakes = () => {
-    const fake = createFakeUser();
-    fetch(fake.avatar)
-      .then(
-        async (response) => {
-          const blob = await response.blob();
-          const ext = getFileExtentionFromMime(blob.type);
-          return new File([blob], 'avatar' + ext, { type: blob.type });
-        },
-        () => null,
-      )
-      .then((avatar) => {
-        newUsers.push({ ...fake, avatar });
-        if (newUsers.length === NUMBER_OF_FAKES) {
-          deleteAllUsers()
-            .then(() => addUsersBulk(newUsers))
-            .then((users) => {
-              dispatch(importUsersActionCreator(users));
-              dispatch(usersFetchStatus(UsersFetchStatus.fetched));
-              createNotification({
-                title: 'Success',
-                message: 'Fake users were generated',
-                type: 'success',
-              });
-            });
-        } else {
-          createFakes();
-        }
+  const avatarFetchPromises = newUsers.map(({ avatar }) => {
+    return fetch(avatar).then(
+      async (response) => {
+        const blob = await response.blob();
+        const ext = getFileExtentionFromMime(blob.type);
+        return new File([blob], 'avatar' + ext, { type: blob.type });
+      },
+      () => null,
+    );
+  });
+
+  Promise.all([...avatarFetchPromises])
+    .then(async (avatars) => {
+      await deleteAllUsers();
+      return addUsersBulk(newUsers.map((user, index) => ({ ...user, avatar: avatars[index] })));
+    })
+    .then((users) => {
+      dispatch(importUsersActionCreator(users));
+      dispatch(usersFetchStatus(UsersFetchStatus.fetched));
+      createNotification({
+        title: 'Success',
+        message: 'Fake users were generated',
+        type: 'success',
       });
-  };
-
-  createFakes();
+    });
 };

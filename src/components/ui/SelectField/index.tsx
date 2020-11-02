@@ -58,7 +58,14 @@ const SelectField: FC<SelectPropsType> = ({
         <Field name={name}>
           {({ field: { name, value }, form: { setFieldValue } }: FieldProps) => {
             const selectChangeHandler = (selected: ValueType<OptionTypeBase>) => {
-              setFieldValue(name, selected);
+              if (Array.isArray(selected)) {
+                setFieldValue(
+                  name,
+                  selected.map(({ value }) => value),
+                );
+              } else if (selected && 'value' in selected) {
+                setFieldValue(name, selected.value);
+              }
             };
 
             const clearButtonHandler = () => {
@@ -69,7 +76,7 @@ const SelectField: FC<SelectPropsType> = ({
               <div className={classNames.selectContainer}>
                 <ReactSelect
                   options={options}
-                  value={value}
+                  value={options.find((option) => option.value === value)}
                   onChange={selectChangeHandler}
                   styles={customStyles}
                   isMulti={isMulti}

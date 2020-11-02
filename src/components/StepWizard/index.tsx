@@ -68,7 +68,7 @@ const STEPS = [
       Yup.object({
         phoneNumbers: Yup.array().of(Yup.string()),
         company: Yup.string().required(REQUIRED_FIELD_MESSAGE),
-        mainLang: Yup.object().required(REQUIRED_FIELD_MESSAGE).nullable(),
+        mainLang: Yup.string().required(REQUIRED_FIELD_MESSAGE).nullable(),
       }),
   },
   {

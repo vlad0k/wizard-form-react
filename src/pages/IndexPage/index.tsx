@@ -16,7 +16,6 @@ const IndexPage = () => {
 
   return (
     <PageLayout name="Search Users">
-      <Search />
       <div className={classNames.generate}>
         <Button onClick={generateButtonHandler}>Generate Users</Button>
       </div>

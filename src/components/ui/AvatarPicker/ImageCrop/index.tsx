@@ -2,6 +2,7 @@ import Cropper from 'cropperjs';
 import React, { createRef, FC, useEffect, useState } from 'react';
 
 import { ButtonAppearance } from '../../../../types';
+import getFileExtentionFromMime from '../../../../utils/getFileExtentionFromMime';
 import Button from '../../Button';
 import PageHeader from '../../PageHeader';
 import classNames from './index.module.css';
@@ -47,9 +48,9 @@ const ImageCrop: FC<ImageCropPropsType> = ({ image, setField = () => {}, close =
       setField(image);
     } else {
       resultCanvas.toBlob((blob) => {
-        //TODO Create file extention helper
         if (blob) {
-          setField(new File([blob], 'avatar', { type: blob.type }));
+          const extention = getFileExtentionFromMime(blob.type);
+          setField(new File([blob], 'avatar' + extention, { type: blob.type }));
         }
       });
     }

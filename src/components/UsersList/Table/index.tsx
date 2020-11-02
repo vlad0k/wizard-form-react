@@ -1,7 +1,7 @@
 import cn from 'classnames';
 import { IndexableType } from 'dexie';
 import moment from 'moment';
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -32,6 +32,11 @@ const Table: FC<TablePropsType> = ({ users, stripped = false }) => {
     dispatch(deleteUser(id));
     document.removeEventListener('click', userDeleteMode);
   };
+
+  useEffect(() => {
+    // Remove event listener on componentWillUnmount
+    return () => document.removeEventListener('click', userDeleteMode);
+  }, []);
 
   return (
     <table className={cn(classNames.table, { [classNames.stripped]: stripped })} cellSpacing={0}>

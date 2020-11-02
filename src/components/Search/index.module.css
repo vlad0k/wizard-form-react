@@ -19,50 +19,8 @@
   outline: none;
 }
 
-.resultsList {
-  list-style: none;
+.clearButtonWrapper {
   position: absolute;
-  top: 100%;
-  padding: 0;
-  margin: 0;
-  max-height: 30vh;
-  overflow-y: scroll;
-  background-color: white;
-  border-radius: 10px;
-  border: 4px solid var(--primary-color);
-}
-
-.result {
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  width: 285px;
-  padding: 4px;
-  color: var(--primary-text-color);
-}
-
-.noResult {
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.result a {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  color: var(--primary-text-color);
-}
-
-.name {
-  font-weight: bolder;
-  padding-left: 4px;
-}
-
-.username {
-  font-weight: normal;
-}
-.result:hover {
-  background-color: var(--select-color);
+  right: 16px;
+  top: 20px;
 }

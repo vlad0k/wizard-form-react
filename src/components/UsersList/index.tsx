@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -17,13 +17,13 @@ const createPortion = (users: UserType[], page: number) => {
   return users.slice(PORTION_SIZE * (page - 1), PORTION_SIZE * page);
 };
 
-const UsersList = () => {
+const UsersList: FC<UsersListPropsType> = ({ users }) => {
   const [portion, setPortion] = useState<UserType[]>([]);
   const [page, setPage] = useState(1);
-  const { usersFetchStatus, users } = useSelector((state: StateType) => state.users);
-  const dispatch = useDispatch();
+  const { usersFetchStatus } = useSelector((state: StateType) => state.users);
 
   const numberOFPages = Math.ceil(users.length / PORTION_SIZE);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(importUsers());
@@ -35,14 +35,9 @@ const UsersList = () => {
   }, [page, users]);
 
   const selectPageHandler = (page: number) => setPage(page);
-
+  console.log(users);
   return (
     <div>
-      {usersFetchStatus === UsersFetchStatus.isFetching && (
-        <div className={classNames.preloader}>
-          <Preloader />
-        </div>
-      )}
       {usersFetchStatus !== UsersFetchStatus.isFetching && <Table users={portion} stripped />}
 
       {numberOFPages > 1 && (
@@ -52,16 +47,12 @@ const UsersList = () => {
           selectPage={selectPageHandler}
         />
       )}
-      {users.length === 0 && usersFetchStatus === UsersFetchStatus.fetched && (
-        <div className={classNames.empty}>
-          <span>No users here :(</span>
-          <Link to="/new">
-            <Button>Create new user</Button>
-          </Link>
-        </div>
-      )}
     </div>
   );
+};
+
+type UsersListPropsType = {
+  users: UserType[];
 };
 
 export default UsersList;

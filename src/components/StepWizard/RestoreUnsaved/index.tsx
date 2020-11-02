@@ -10,9 +10,8 @@ import base64ToFile from '../../../utils/convertBase64ToFile';
 import Button from '../../ui/Button';
 import classNames from './index.module.css';
 
-// TODO empty object instead of undefined and destructing
 const RestoreUnsaved: FC = () => {
-  const [savedFormState, setSavedFormState] = useState<StateType | undefined>(undefined);
+  const [savedFormState, setSavedFormState] = useState<StateType | {}>({});
 
   const dispatch = useDispatch();
 
@@ -31,17 +30,17 @@ const RestoreUnsaved: FC = () => {
       }),
     );
     deleteFormState();
-    setSavedFormState(undefined);
+    setSavedFormState({});
   };
 
   const closeButtonHandler = () => {
     deleteFormState();
-    setSavedFormState(undefined);
+    setSavedFormState({});
   };
 
   return (
     <>
-      {savedFormState && (
+      {Object.keys(savedFormState).length !== 0 && (
         <div className={classNames.wrapper}>
           <div className={classNames.container}>
             You have an unsaved user data. Do you want to complete it?

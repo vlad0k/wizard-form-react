@@ -13,7 +13,6 @@ import Table from './Table';
 const PORTION_SIZE = 10;
 
 const createPortion = (users: UserType[], page: number) => {
-  console.log(users, page);
   return users.slice(PORTION_SIZE * (page - 1), PORTION_SIZE * page);
 };
 

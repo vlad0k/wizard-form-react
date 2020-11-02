@@ -45,7 +45,6 @@ const createFakeUser = (): FormikValues => {
     ),
     username: faker.internet.userName(),
   };
-  console.log(newUser);
   return newUser;
 };
 

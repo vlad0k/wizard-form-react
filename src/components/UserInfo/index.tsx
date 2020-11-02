@@ -33,7 +33,6 @@ const UserInfo: FC<UserPagePropsType> = ({ user }) => {
     return skillLabel ? skillLabel.label : '';
   });
 
-  console.log(hobbies);
   return (
     <div className={classNames.userPage}>
       <Avatar imageFile={avatar} size={AvatarSize.large} />

@@ -37,8 +37,6 @@ const UsersList: FC<UsersListPropsType> = ({ users }) => {
 
   const selectPageHandler = (page: number) => history.push(`/users?page=${page}`);
 
-  console.log(search, page < 1 || page > numberOFPages, numberOFPages);
-
   return (
     <div>
       {numberOFPages > 1 && (page < 1 || page > numberOFPages) && <Redirect to="/users?page=1" />}

@@ -3,7 +3,7 @@ import 'react-notifications-component/dist/theme.css';
 
 import React from 'react';
 import ReactNotification from 'react-notifications-component';
-import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Header from './components/Header';
 import AddUserPage from './pages/users/AddPage';
@@ -17,9 +17,6 @@ function App() {
       <Router>
         <Header />
         <ReactNotification />
-        <Route path="/" exact>
-          <Redirect to="/users" />
-        </Route>
         <Route path="/new">
           <AddUserPage />
         </Route>

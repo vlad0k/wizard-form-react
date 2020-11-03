@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 
 import App from './App';
 import store from './redux/store';
-import { register } from './serviceWorker';
+import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -17,4 +17,4 @@ ReactDOM.render(
   document.getElementById('root'),
 );
 
-register();
+serviceWorker.register();

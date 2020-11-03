@@ -23,3 +23,7 @@
 .groupElements span:last-child {
   color: var(--form-label-color);
 }
+
+.groupKey button {
+  margin-left: 8px;
+}

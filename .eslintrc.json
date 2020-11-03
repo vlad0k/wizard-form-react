@@ -19,11 +19,11 @@
         "simple-import-sort"
     ],
     "rules": {
-        "sort-imports": "off",
-        "import/order": "off",
         "react/prop-types": 0,
-        "simple-import-sort/sort": "error",
         "no-unused-vars": "off",
-        "@typescript-eslint/no-use-before-define": "off"
+        "@typescript-eslint/no-use-before-define": "off",
+        "sort-imports": "off",
+        "simple-import-sort/sort": "error"
     }
+
 }

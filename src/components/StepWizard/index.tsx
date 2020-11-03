@@ -2,7 +2,7 @@ import { Form, Formik, FormikValues } from 'formik';
 import React, { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useHistory, useLocation, useParams } from 'react-router-dom';
-import { ActionCreator, AnyAction } from 'redux';
+import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 
 import { deleteFormState, saveFormState } from '../../localStorage';
@@ -11,7 +11,6 @@ import { StateType } from '../../redux/store';
 import { addUser, updateUser } from '../../redux/usersListReducer';
 import ageValidator from '../../utils/dateYearSubstract';
 import { getHashParam } from '../../utils/hashRouteUtils';
-import { createNotification } from '../../utils/notifications';
 import Yup from '../../yup';
 import AccountForm from './AccountForm';
 import CapabilitiesForm from './CapabilitiesForm';
@@ -68,7 +67,7 @@ const STEPS = [
       Yup.object({
         phoneNumbers: Yup.array().of(Yup.string()),
         company: Yup.string().required(REQUIRED_FIELD_MESSAGE),
-        mainLang: Yup.object().required(REQUIRED_FIELD_MESSAGE).nullable(),
+        mainLang: Yup.string().required(REQUIRED_FIELD_MESSAGE).nullable(),
       }),
   },
   {

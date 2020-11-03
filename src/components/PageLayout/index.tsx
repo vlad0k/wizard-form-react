@@ -4,15 +4,27 @@ import { Link } from 'react-router-dom';
 import PageHeader from '../ui/PageHeader';
 import classNames from './index.module.css';
 
-const PageLayout = ({ name, children, backLink, backLabel }: PageLayoutPropType) => {
+const PageLayout = ({
+  name,
+  children,
+  backLink,
+  backLabel,
+  rightComponent,
+}: PageLayoutPropType) => {
   return (
-    <>
+    <div>
       <div className={classNames.topContainer}>
-        <div>{backLink && <Link to={backLink}>{`< ${backLabel}`}</Link>}</div>
-        <PageHeader>{name}</PageHeader>
+        <div className={classNames.linkWrapper}>
+          {backLink && <Link to={backLink}>{`< ${backLabel}`}</Link>}
+        </div>
+        <div className={classNames.headerWrapper}>
+          <PageHeader>{name}</PageHeader>
+        </div>
+
+        <div className={classNames.rightComponentWrapper}>{rightComponent}</div>
       </div>
       {children}
-    </>
+    </div>
   );
 };
 
@@ -23,4 +35,5 @@ type PageLayoutPropType = {
   children: ReactNode;
   backLink?: string;
   backLabel?: string;
+  rightComponent?: ReactNode;
 };

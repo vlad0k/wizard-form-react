@@ -11,8 +11,8 @@ export const saveFormState = async (formState: FormikValues) => {
 };
 
 export const getFormState = (): FormikValues => {
-  const formState = localStorage.getItem('j');
-  return formState && JSON.parse(formState);
+  const formState = localStorage.getItem(FORM_STATE_KEY);
+  return formState ? JSON.parse(formState) : {};
 };
 
 export const deleteFormState = () => {

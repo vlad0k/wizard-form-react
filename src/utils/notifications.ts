@@ -11,7 +11,7 @@ export const createNotification = ({
   title,
   message,
   type = 'warning',
-  durationInMS = 3000,
+  durationInMS = 1500,
 }: CreateNotificationParamsType) =>
   store.addNotification({
     title,

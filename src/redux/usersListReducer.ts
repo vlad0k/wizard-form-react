@@ -4,12 +4,14 @@ import { Dispatch } from 'redux';
 
 import db, {
   addUser as addUserToDb,
+  addUsersBulk,
   deleteAllUsers,
   getUsers,
   updateUser as updateUserToDb,
 } from '../db';
 import { UsersFetchStatus, UserType } from '../types';
 import createFakeUser from '../utils/createFakeUser';
+import getFileExtentionFromMime from '../utils/getFileExtentionFromMime';
 import { createNotification } from '../utils/notifications';
 
 const NUMBER_OF_FAKES = 50;
@@ -163,35 +165,36 @@ export const updateUser = (id: number, values: FormikValues) => (dispatch: Dispa
   });
 };
 
-//TODO rewrite function to import a bunch of users on promises NOT AWAIT
-
 export const generateUsers = () => (dispatch: Dispatch) => {
   createNotification({ message: 'Generating fake users...' });
   dispatch(usersFetchStatus(UsersFetchStatus.isFetching));
-  const newUsers = [];
-};
+  const newUsers: FormikValues[] = new Array(NUMBER_OF_FAKES)
+    .fill(null)
+    .map(() => createFakeUser());
 
-// export const generateUsers = () => (dispatch: Dispatch) => {
-//   createNotification({ message: 'Generating fake users...' });
-//   dispatch(usersFetchStatus(UsersFetchStatus.isFetching));
-//   deleteAllUsers();
-//   for (let i = 1; i <= NUMBER_OF_FAKES; i++) {
-//     let fake = createFakeUser();
-//     const fetchAvatar = async () => {
-//       const response = await fetch(fake.avatar);
-//       const blob = await response.blob();
-//       await addUserToDb({ ...fake, avatar: new File([blob], 'avatar', { type: 'image/jpg' }) });
-//       const users = await getUsers();
-//       dispatch(importUsersActionCreator(users));
-//       if (i === NUMBER_OF_FAKES) {
-//         createNotification({
-//           title: 'Success',
-//           message: 'Fake users were generated',
-//           type: 'success',
-//         });
-//         dispatch(usersFetchStatus(UsersFetchStatus.fetched));
-//       }
-//     };
-//     fetchAvatar();
-//   }
-// };
+  const avatarFetchPromises = newUsers.map(({ avatar }) => {
+    return fetch(avatar).then(
+      async (response) => {
+        const blob = await response.blob();
+        const ext = getFileExtentionFromMime(blob.type);
+        return new File([blob], 'avatar' + ext, { type: blob.type });
+      },
+      () => null,
+    );
+  });
+
+  Promise.all([...avatarFetchPromises])
+    .then((avatars) => deleteAllUsers().then(() => avatars))
+    .then((avatars) =>
+      addUsersBulk(newUsers.map((user, index) => ({ ...user, avatar: avatars[index] }))),
+    )
+    .then((users) => {
+      dispatch(importUsersActionCreator(users));
+      dispatch(usersFetchStatus(UsersFetchStatus.fetched));
+      createNotification({
+        title: 'Success',
+        message: 'Fake users were generated',
+        type: 'success',
+      });
+    });
+};

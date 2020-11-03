@@ -6,22 +6,17 @@ import ReactNotification from 'react-notifications-component';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Header from './components/Header';
-import IndexPage from './pages/IndexPage';
 import AddUserPage from './pages/users/AddPage';
 import UserEditPage from './pages/users/EditPage';
 import UserInfoPage from './pages/users/InfoPage';
 import ListOfUsersPage from './pages/users/ListPage';
 
-//TODO FIX Import sort
 function App() {
   return (
     <div className="App">
       <Router>
         <Header />
         <ReactNotification />
-        <Route path="/" exact>
-          <IndexPage />
-        </Route>
         <Route path="/new">
           <AddUserPage />
         </Route>

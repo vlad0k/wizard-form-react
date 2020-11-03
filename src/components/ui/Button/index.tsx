@@ -9,8 +9,13 @@ const Button = ({
   children,
   type = 'submit',
   onClick,
+  disabled = false,
 }: ButtonProps) => (
-  <button className={cn(classNames.button, classNames[appearance])} type={type} onClick={onClick}>
+  <button
+    className={cn(classNames.button, classNames[appearance], { [classNames.disabled]: disabled })}
+    type={type}
+    onClick={disabled ? () => {} : onClick}
+  >
     {children}
   </button>
 );
@@ -21,4 +26,5 @@ type ButtonProps = {
   appearance?: ButtonAppearance;
   type?: 'submit' | 'button' | 'reset';
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => any;
+  disabled?: boolean;
 };

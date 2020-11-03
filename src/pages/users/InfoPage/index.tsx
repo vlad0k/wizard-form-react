@@ -7,18 +7,14 @@ import { getUser } from '../../../db';
 import { UrlParamTypes, UserType } from '../../../types';
 
 const UserInfoPage = () => {
-  const [user, setUser] = useState<UserType | {}>({});
+  const [user, setUser] = useState<UserType>();
   const { id } = useParams<UrlParamTypes>();
   useEffect(() => {
     getUser(id).then((user) => setUser(user));
   }, [id]);
   return (
-    <PageLayout
-      name={'username' in user ? user.username : ''}
-      backLink="/users"
-      backLabel="Users List"
-    >
-      <UserInfo user={user} />
+    <PageLayout name={user ? user.username : id} backLink="/users" backLabel="Users List">
+      {user ? <UserInfo user={user} /> : `No user with id ${id}`}
     </PageLayout>
   );
 };

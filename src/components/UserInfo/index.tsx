@@ -15,7 +15,7 @@ const getSkillsLabels = (skills: string[] = []) => {
 };
 
 const UserInfo: FC<UserPagePropsType> = ({ user }) => {
-  if (Object.keys(user).length === 0 || !('avatar' in user)) {
+  if (!user) {
     return <div>No such user</div>;
   }
 
@@ -72,6 +72,6 @@ const UserInfo: FC<UserPagePropsType> = ({ user }) => {
   );
 };
 type UserPagePropsType = {
-  user: UserType | {};
+  user: UserType;
 };
 export default UserInfo;

@@ -19,7 +19,7 @@ export const getUsers = async () => await db.table(USERS_TABLE_NAME).toArray();
 export const getUser = async (id: IndexableType): Promise<UserType> => {
   const users = await db.table(USERS_TABLE_NAME).toArray();
   const user = users.find((user) => +user.id === +id);
-  return user || {};
+  return user;
 };
 
 export const updateUser = async (id: number, values: FormikValues) => {

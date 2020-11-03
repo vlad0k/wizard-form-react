@@ -6,9 +6,6 @@ import { ButtonAppearance } from '../../../types';
 import Button from '../../ui/Button';
 import classNames from './index.module.css';
 
-//TODO переделать на section InfoSection
-// ValuesLit тоже переименовать
-
 const InfoSection: FC<ValuesGroupPropsType> = ({ id, name, linkHash, children }) => {
   return (
     <div className={classNames.group}>
@@ -17,7 +14,7 @@ const InfoSection: FC<ValuesGroupPropsType> = ({ id, name, linkHash, children })
         <Link to={`/edit/${id}#${linkHash}`}>
           {/*TODO Hover Animation*/}
           <Button appearance={ButtonAppearance.text}>
-            <img src={editIcon} alt="edit" />
+            <img className={classNames.buttonImage} src={editIcon} alt="edit" />
           </Button>
         </Link>
       </span>

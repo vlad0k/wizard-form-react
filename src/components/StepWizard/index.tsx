@@ -55,7 +55,7 @@ const getCurrentStepByHash = (hash: string) => {
   return index === -1 ? 0 : index;
 };
 
-const StepWizard: FC<StepWizardPropsType> = ({ editMode = false }) => {
+const StepWizard: FC<StepWizardPropsType> = ({ initialValues, editMode = false }) => {
   const { pathname, hash } = useLocation();
   const { id } = useParams();
   const history = useHistory();
@@ -128,7 +128,11 @@ const StepWizard: FC<StepWizardPropsType> = ({ editMode = false }) => {
           return (
             <div key={url} className={classNames.formWrapper}>
               <Formik
-                initialValues={{ ...form, passwordRepeat: form.password }}
+                initialValues={
+                  initialValues
+                    ? { ...form, ...initialValues, passwordRepeat: form.password }
+                    : { ...form, passwordRepeat: form.password }
+                }
                 onSubmit={(values) => nextStep({ values, stepNumber: index, isFinish })}
                 validationSchema={validationSchema(editMode, id)}
                 enableReinitialize
@@ -155,6 +159,7 @@ const StepWizard: FC<StepWizardPropsType> = ({ editMode = false }) => {
 };
 
 type StepWizardPropsType = {
+  initialValues?: FormikValues;
   editMode?: boolean;
 };
 

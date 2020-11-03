@@ -22,11 +22,12 @@ const customStyles = {
     backgroundColor: 'white',
     display: 'block',
     width: 284,
-    padding: '4px 8px',
+    padding: '6px 0',
     borderWidth: 1,
     borderColor: 'var(--secondary-color)',
     borderStyle: 'solid',
     fontWeight: 500,
+    fontSize: 14,
   }),
   indicatorsContainer: () => ({
     display: 'none',
@@ -42,6 +43,9 @@ const customStyles = {
   }),
   multiValueLabel: () => ({
     color: 'var(--action-text-color)',
+  }),
+  valueContainer: () => ({
+    padding: '2px 4px ',
   }),
 };
 

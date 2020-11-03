@@ -6,15 +6,6 @@ import { UserType } from '../types';
 const USERS_TABLE_NAME = 'users';
 const REQUEST_TIMEOUT_SEC = 5;
 
-const manualSlowing = () => {
-  let result = '';
-  let i = 0;
-  do {
-    i = i + 1;
-    result = result + i;
-  } while (i < 10000);
-};
-
 const db = new Dexie('WizardFormAppDB');
 
 db.version(12).stores({
@@ -86,7 +77,6 @@ export const checkUniqueValue = async ({
   valueName,
   currentUserId = NaN,
 }: CheckUniqueValueArgs) => {
-  manualSlowing();
   const valueToSkip = !Number.isNaN(currentUserId) ? (await getUser(currentUserId))[valueName] : '';
   const users = await getUsers();
   return users.find((user) => user[valueName] === value)

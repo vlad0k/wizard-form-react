@@ -9,7 +9,7 @@ import classNames from './index.module.css';
 //TODO переделать на section InfoSection
 // ValuesLit тоже переименовать
 
-const ValuesGroup: FC<ValuesGroupPropsType> = ({ id, name, linkHash, children }) => {
+const InfoSection: FC<ValuesGroupPropsType> = ({ id, name, linkHash, children }) => {
   return (
     <div className={classNames.group}>
       <span className={classNames.groupKey}>
@@ -26,7 +26,7 @@ const ValuesGroup: FC<ValuesGroupPropsType> = ({ id, name, linkHash, children })
   );
 };
 
-export default ValuesGroup;
+export default InfoSection;
 
 type ValuesGroupPropsType = {
   id: number;

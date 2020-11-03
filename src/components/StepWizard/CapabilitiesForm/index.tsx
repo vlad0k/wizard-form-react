@@ -1,6 +1,11 @@
 import React, { FC } from 'react';
 
-import { HOBBIES_CHECKBOX_GROUP, SKILLS_SELECT_OPTIONS } from '../../../formOptions';
+import {
+  HOBBIES_CHECKBOX_GROUP,
+  REQUIRED_FIELD_MESSAGE,
+  SKILLS_SELECT_OPTIONS,
+} from '../../../formOptions';
+import Yup from '../../../yup';
 import Checkbox from '../../ui/CheckBox';
 import FieldError from '../../ui/FieldError';
 import SelectField from '../../ui/SelectField';
@@ -29,5 +34,12 @@ const CapabilitiesForm: FC = () => (
     </div>
   </>
 );
+
+export const validationSchema = () =>
+  Yup.object({
+    skills: Yup.array()
+      .of(Yup.string().required(REQUIRED_FIELD_MESSAGE))
+      .min(3, ({ min }) => `you should have al least ${min} skills`),
+  });
 
 export default CapabilitiesForm;

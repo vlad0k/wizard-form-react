@@ -15,7 +15,7 @@ const GenerateUsers = () => {
 
   const disabled = usersFetchStatus === UsersFetchStatus.isFetching;
 
-  const generateButtonHandler = () => !disabled && dispatch(generateUsers());
+  const generateButtonHandler = () => dispatch(generateUsers());
 
   return (
     <div className={classNames.generateButtonWrapper}>

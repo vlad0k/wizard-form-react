@@ -12,7 +12,7 @@ const PageLayout = ({
   rightComponent,
 }: PageLayoutPropType) => {
   return (
-    <>
+    <div>
       <div className={classNames.topContainer}>
         <div className={classNames.linkWrapper}>
           {backLink && <Link to={backLink}>{`< ${backLabel}`}</Link>}
@@ -24,7 +24,7 @@ const PageLayout = ({
         <div className={classNames.rightComponentWrapper}>{rightComponent}</div>
       </div>
       {children}
-    </>
+    </div>
   );
 };
 

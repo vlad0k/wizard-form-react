@@ -13,7 +13,6 @@ import { UsersFetchStatus, UserType } from '../types';
 import createFakeUser from '../utils/createFakeUser';
 import getFileExtentionFromMime from '../utils/getFileExtentionFromMime';
 import { createNotification } from '../utils/notifications';
-import { StateType } from './store';
 
 const NUMBER_OF_FAKES = 50;
 
@@ -166,10 +165,7 @@ export const updateUser = (id: number, values: FormikValues) => (dispatch: Dispa
   });
 };
 
-export const generateUsers = () => (dispatch: Dispatch, getState: () => StateType) => {
-  if (getState().users.usersFetchStatus === UsersFetchStatus.isFetching) {
-    return;
-  }
+export const generateUsers = () => (dispatch: Dispatch) => {
   createNotification({ message: 'Generating fake users...' });
   dispatch(usersFetchStatus(UsersFetchStatus.isFetching));
   const newUsers: FormikValues[] = new Array(NUMBER_OF_FAKES)
@@ -188,10 +184,10 @@ export const generateUsers = () => (dispatch: Dispatch, getState: () => StateTyp
   });
 
   Promise.all([...avatarFetchPromises])
-    .then(async (avatars) => {
-      await deleteAllUsers();
-      return addUsersBulk(newUsers.map((user, index) => ({ ...user, avatar: avatars[index] })));
-    })
+    .then((avatars) => deleteAllUsers().then(() => avatars))
+    .then((avatars) =>
+      addUsersBulk(newUsers.map((user, index) => ({ ...user, avatar: avatars[index] }))),
+    )
     .then((users) => {
       dispatch(importUsersActionCreator(users));
       dispatch(usersFetchStatus(UsersFetchStatus.fetched));

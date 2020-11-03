@@ -16,6 +16,13 @@ const Search: FC<SeatchPropsType> = ({ searchValue = '', onChange }) => {
         onChange={(event: ChangeEvent<HTMLInputElement>) => onChange(event.target.value)}
         placeholder="Search"
       />
+      <div className={classNames.clearButtonWrapper}>
+        {searchValue && (
+          <Button appearance={ButtonAppearance.text} onClick={clearButtonHandler}>
+            <img src={clearIcon} alt="clear search" />
+          </Button>
+        )}
+      </div>
     </div>
   );
 };

@@ -11,23 +11,22 @@ import UserEditPage from './pages/users/EditPage';
 import UserInfoPage from './pages/users/InfoPage';
 import ListOfUsersPage from './pages/users/ListPage';
 
-//TODO FIX Import sort
 function App() {
   return (
     <div className="App">
       <Router>
         <Header />
         <ReactNotification />
+        <Route path="/" exact>
+          <Redirect to="/users" />
+        </Route>
         <Route path="/new">
           <AddUserPage />
         </Route>
-        <Route path="/users">
-          <Redirect to="/users/1" />
-        </Route>
-        <Route path="/users/:page">
+        <Route path="/users" exact>
           <ListOfUsersPage />
         </Route>
-        <Route path="/user/:id" exact>
+        <Route path="/users/:id" exact>
           <UserInfoPage />
         </Route>
         <Route path="/edit/:id">

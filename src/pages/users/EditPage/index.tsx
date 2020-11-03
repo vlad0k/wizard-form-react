@@ -12,7 +12,7 @@ const UserEditPage = () => {
   const { id } = useParams<UrlParamTypes>();
   const dispatch = useDispatch();
   const [isExhistingUser, setIsExhistingUser] = useState(false);
-
+  //TODO переделать на передачу в stepwizard
   useEffect(() => {
     getUser(id).then((user) => {
       if (Object.keys(user).length === 0) {

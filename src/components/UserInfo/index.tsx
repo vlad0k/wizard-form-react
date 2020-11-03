@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
 import { SKILLS_SELECT_OPTIONS } from '../../formOptions';
-import { AvatarSize, ButtonAppearance, UserType } from '../../types';
+import { AvatarSize, UserType } from '../../types';
 import Avatar from '../ui/Avatar';
 import classNames from './index.module.css';
 import ValuesGroup from './ValuesGroup';
@@ -11,6 +11,7 @@ const UserInfo: FC<UserPagePropsType> = ({ user }) => {
   if (Object.keys(user).length === 0 || !('avatar' in user)) {
     return <div>No such user</div>;
   }
+
   const {
     avatar,
     id,
@@ -28,9 +29,10 @@ const UserInfo: FC<UserPagePropsType> = ({ user }) => {
     skills,
   } = user;
 
+  //TODO make throungh function and foreach
   const skillsList = skills.map((skill) => {
-    const skillLabel = SKILLS_SELECT_OPTIONS.find(({ value }) => skill === value);
-    return skillLabel ? skillLabel.label : '';
+    const { label } = SKILLS_SELECT_OPTIONS.find(({ value }) => skill === value) || { label: '' };
+    return label;
   });
 
   return (
@@ -43,6 +45,7 @@ const UserInfo: FC<UserPagePropsType> = ({ user }) => {
             <span>Username</span>
             <span>{username}</span>
           </div>
+          {/* TODO make component value (isArray) , name*/}
           <div className={classNames.groupElements}>
             <span>Password</span>
             <span>********</span>

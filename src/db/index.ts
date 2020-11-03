@@ -42,10 +42,8 @@ export const addUser = (user: FormikValues) => {
 
     db.table(USERS_TABLE_NAME)
       .add({ ...user, updatedAt: new Date() })
-      .then(
-        (id) => resolve(getUser(id)),
-        () => reject('User was not added to db'),
-      );
+      .then((id) => resolve(getUser(id)))
+      .catch(() => reject('User was not added to db'));
   });
 };
 
@@ -57,10 +55,8 @@ export const addUsersBulk = (users: FormikValues[]) => {
 
     db.table(USERS_TABLE_NAME)
       .bulkAdd(usersBulk)
-      .then(
-        () => resolve(getUsers()),
-        () => reject('Users were not added to db'),
-      );
+      .then(() => resolve(getUsers()))
+      .catch(() => reject('Users were not added to db'));
   });
 };
 

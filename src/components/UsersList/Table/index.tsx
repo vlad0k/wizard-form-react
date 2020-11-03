@@ -70,7 +70,7 @@ const Table: FC<TablePropsType> = ({ users, stripped = false }) => {
                 </td>
                 <td>
                   <div>
-                    <Link to={`/user/${id}`}>
+                    <Link to={`/users/${id}`}>
                       {firstname} {lastname}
                     </Link>
                   </div>

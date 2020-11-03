@@ -14,7 +14,7 @@ const Button = ({
   <button
     className={cn(classNames.button, classNames[appearance], { [classNames.disabled]: disabled })}
     type={type}
-    onClick={onClick}
+    onClick={disabled ? () => {} : onClick}
   >
     {children}
   </button>

@@ -1,7 +1,6 @@
-import React, { FC, ReactNode } from 'react';
+import React, { FC } from 'react';
 
 import { HOBBIES_CHECKBOX_GROUP, SKILLS_SELECT_OPTIONS } from '../../../formOptions';
-import { SkillOptionType } from '../../../types';
 import Checkbox from '../../ui/CheckBox';
 import FieldError from '../../ui/FieldError';
 import SelectField from '../../ui/SelectField';

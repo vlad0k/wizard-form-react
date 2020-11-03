@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import clearIcon from '../../../assets/icons/Close.svg';
 import GenerateUsers from '../../../components/GenerateUsers';
 import PageLayout from '../../../components/PageLayout';
 import Search from '../../../components/Search';
@@ -11,8 +10,7 @@ import Preloader from '../../../components/ui/Preloader';
 import UsersList from '../../../components/UsersList';
 import classNames from '../../../components/UsersList/index.module.css';
 import { StateType } from '../../../redux/store';
-import { importUsers } from '../../../redux/usersListReducer';
-import { ButtonAppearance, UsersFetchStatus, UserType } from '../../../types';
+import { UsersFetchStatus, UserType } from '../../../types';
 
 const ListOfUsersPage = () => {
   const { users, usersFetchStatus } = useSelector((state: StateType) => state.users);
@@ -20,14 +18,14 @@ const ListOfUsersPage = () => {
   const [listOfUsers, setListOfUsers] = useState(users);
 
   useEffect(() => {
-    setListOfUsers(
-      !searchValue
-        ? users
-        : users.filter(
-            ({ firstname, lastname }: UserType) =>
-              firstname.includes(searchValue) || firstname.includes(searchValue),
-          ),
-    );
+    if (!searchValue) {
+      setListOfUsers(users);
+    } else {
+      const searchResult = users.filter(({ firstname, lastname }: UserType) =>
+        `${firstname.toLowerCase()} ${lastname.toLowerCase()}`.includes(searchValue.toLowerCase()),
+      );
+      setListOfUsers(searchResult);
+    }
   }, [users, searchValue]);
 
   return (

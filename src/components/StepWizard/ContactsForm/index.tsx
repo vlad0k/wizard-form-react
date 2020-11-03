@@ -1,6 +1,5 @@
 import { FieldArray } from 'formik';
 import React, { FC } from 'react';
-import { OptionsType, OptionTypeBase } from 'react-select';
 
 import { LANGUAGE_SELECT_OPTIONS } from '../../../formOptions';
 import InputField from '../../ui/InputField';

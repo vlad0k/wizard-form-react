@@ -6,7 +6,8 @@ import { ButtonAppearance } from '../../../types';
 import Button from '../../ui/Button';
 import classNames from './index.module.css';
 
-const LINKS = ['account', 'profile', 'contacts', 'capabilities'];
+//TODO переделать на section InfoSection
+// ValuesLit тоже переименовать
 
 const ValuesGroup: FC<ValuesGroupPropsType> = ({ id, name, linkHash, children }) => {
   return (

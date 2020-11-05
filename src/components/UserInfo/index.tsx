@@ -4,11 +4,18 @@ import { SKILLS_SELECT_OPTIONS } from '../../formOptions';
 import { AvatarSize, UserType } from '../../types';
 import Avatar from '../ui/Avatar';
 import classNames from './index.module.css';
-import ValuesGroup from './ValuesGroup';
-import ValuesList from './ValuesList';
+import InfoItem from './InfoItem';
+import InfoSection from './InfoSection';
+
+const getSkillsLabels = (skills: string[] = []) => {
+  return skills.map((skill) => {
+    const { label } = SKILLS_SELECT_OPTIONS.find(({ value }) => skill === value) || { label: '' };
+    return label;
+  });
+};
 
 const UserInfo: FC<UserPagePropsType> = ({ user }) => {
-  if (Object.keys(user).length === 0 || !('avatar' in user)) {
+  if (!user) {
     return <div>No such user</div>;
   }
 
@@ -29,92 +36,42 @@ const UserInfo: FC<UserPagePropsType> = ({ user }) => {
     skills,
   } = user;
 
-  //TODO make throungh function and foreach
-  const skillsList = skills.map((skill) => {
-    const { label } = SKILLS_SELECT_OPTIONS.find(({ value }) => skill === value) || { label: '' };
-    return label;
-  });
+  const skillsList = getSkillsLabels(skills);
 
   return (
     <div className={classNames.userPage}>
       <Avatar imageFile={avatar} size={AvatarSize.large} />
 
       <div>
-        <ValuesGroup id={id} name={'Account'} linkHash={'account'}>
-          <div className={classNames.groupElements}>
-            <span>Username</span>
-            <span>{username}</span>
-          </div>
-          {/* TODO make component value (isArray) , name*/}
-          <div className={classNames.groupElements}>
-            <span>Password</span>
-            <span>********</span>
-          </div>
-        </ValuesGroup>
+        <InfoSection id={id} name={'Account'} linkHash={'account'}>
+          <InfoItem name="Username" value={username} />
+          <InfoItem name="Password" value="********" />
+        </InfoSection>
 
-        <ValuesGroup id={id} name={'Personal'} linkHash={'profile'}>
-          <div className={classNames.groupElements}>
-            <span>First Name</span>
-            <span>{firstname}</span>
-          </div>
-          <div className={classNames.groupElements}>
-            <span>Last Name</span>
-            <span>{lastname}</span>
-          </div>
-          <div className={classNames.groupElements}>
-            <span>Birth Date</span>
-            <span>{birthdate && birthdate.toLocaleDateString()}</span>
-          </div>
-          <div className={classNames.groupElements}>
-            <span>Email</span>
-            <span>{email}</span>
-          </div>
-          <div className={classNames.groupElements}>
-            <span>Address</span>
-            <span>{address}</span>
-          </div>
-        </ValuesGroup>
+        <InfoSection id={id} name={'Personal'} linkHash={'profile'}>
+          <InfoItem name="First Name" value={firstname} />
+          <InfoItem name="Last Name" value={lastname} />
+          <InfoItem name="Birth Date" value={birthdate && birthdate.toLocaleDateString()} />
+          <InfoItem name="Email" value={email} />
+          <InfoItem name="Address" value={address} />
+        </InfoSection>
 
-        <ValuesGroup id={id} name={'Contacts'} linkHash={'contacts'}>
-          <div className={classNames.groupElements}>
-            <span>Company</span>
-            <span>{company}</span>
-          </div>
-          <div className={classNames.groupElements}>
-            <span>Fax</span>
-            <span>{fax}</span>
-          </div>
-          <div className={classNames.groupElements}>
-            <span>Facebook Link</span>
-            <span>{facebook}</span>
-          </div>
-          <div className={classNames.groupElements}>
-            <span>Phone</span>
-            <span>
-              <ValuesList list={phoneNumbers} />
-            </span>
-          </div>
-        </ValuesGroup>
+        <InfoSection id={id} name={'Contacts'} linkHash={'contacts'}>
+          <InfoItem name="Company" value={company} />
+          <InfoItem name="Fax" value={fax} />
+          <InfoItem name="Facebook Link" value={facebook} />
+          <InfoItem name="Phone" value={phoneNumbers} />
+        </InfoSection>
 
-        <ValuesGroup id={id} name={'Capabilities'} linkHash={'capabilities'}>
-          <div className={classNames.groupElements}>
-            <span>Skills</span>
-            <span>
-              <ValuesList list={skillsList} />
-            </span>
-          </div>
-          <div className={classNames.groupElements}>
-            <span>Hobbies</span>
-            <span>
-              <ValuesList list={hobbies} />
-            </span>
-          </div>
-        </ValuesGroup>
+        <InfoSection id={id} name={'Capabilities'} linkHash={'capabilities'}>
+          <InfoItem name="Skills" value={skillsList} />
+          <InfoItem name="Hobbies" value={hobbies} />
+        </InfoSection>
       </div>
     </div>
   );
 };
 type UserPagePropsType = {
-  user: UserType | {};
+  user: UserType;
 };
 export default UserInfo;

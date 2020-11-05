@@ -9,77 +9,44 @@ import { deleteFormState, saveFormState } from '../../localStorage';
 import { resetForm, submitForm } from '../../redux/stepWizardReducer';
 import { StateType } from '../../redux/store';
 import { addUser, updateUser } from '../../redux/usersListReducer';
-import ageValidator from '../../utils/dateYearSubstract';
 import { getHashParam } from '../../utils/hashRouteUtils';
-import Yup from '../../yup';
-import AccountForm from './AccountForm';
-import CapabilitiesForm from './CapabilitiesForm';
-import ContactsForm from './ContactsForm';
+import AccountForm, { validationSchema as accountValidationSchema } from './AccountForm';
+import CapabilitiesForm, {
+  validationSchema as capabilitiesValidationSchema,
+} from './CapabilitiesForm';
+import ContactsForm, { validationSchema as contactsValidationSchema } from './ContactsForm';
 import classNames from './index.module.css';
 import NavigationButtons from './NavigationButtons';
-import ProfileForm from './ProfileForm';
+import ProfileForm, { validationSchema as profileValidationSchema } from './ProfileForm';
 import RestoreUnsaved from './RestoreUnsaved';
 import TabPanel from './TabPanel';
 import Tabs from './Tabs';
-
-const REQUIRED_FIELD_MESSAGE = 'required field';
 
 const STEPS = [
   {
     name: 'Account',
     url: 'account',
     component: <AccountForm />,
-    validationSchema: (editMode: boolean = false, skipId: number) =>
-      Yup.object({
-        avatar: Yup.mixed().notRequired().fileSizeInMb().nullable(),
-        username: Yup.string().required(REQUIRED_FIELD_MESSAGE).uniqueUsername(editMode, skipId),
-        password: Yup.string().required(REQUIRED_FIELD_MESSAGE),
-        passwordRepeat: Yup.string()
-          .oneOf([Yup.ref('password'), ''], "passwords don't match")
-          .required(REQUIRED_FIELD_MESSAGE),
-      }),
+    validationSchema: accountValidationSchema,
   },
   {
     name: 'Profile',
     url: 'profile',
     component: <ProfileForm />,
-    validationSchema: (editMode: boolean = false, skipId: number) =>
-      Yup.object({
-        firstname: Yup.string().required(REQUIRED_FIELD_MESSAGE),
-        lastname: Yup.string().required(REQUIRED_FIELD_MESSAGE),
-        email: Yup.string()
-          .required(REQUIRED_FIELD_MESSAGE)
-          .email('incorrect email format')
-          .uniqueEmail(editMode, skipId),
-        birthdate: Yup.date()
-          .required(REQUIRED_FIELD_MESSAGE)
-          .max(ageValidator(18), 'You should be 18 years old')
-          .nullable(),
-        gender: Yup.string().nullable().required('please, choose your gender'),
-      }),
+    validationSchema: profileValidationSchema,
   },
 
   {
     name: 'Contacts',
     url: 'contacts',
     component: <ContactsForm />,
-    validationSchema: () =>
-      Yup.object({
-        phoneNumbers: Yup.array().of(Yup.string()),
-        company: Yup.string().required(REQUIRED_FIELD_MESSAGE),
-        mainLang: Yup.string().required(REQUIRED_FIELD_MESSAGE).nullable(),
-      }),
+    validationSchema: contactsValidationSchema,
   },
   {
     name: 'Capabilities',
     url: 'capabilities',
     component: <CapabilitiesForm />,
-    validationSchema: () =>
-      Yup.object({
-        skills: Yup.array()
-          .of(Yup.string().required(REQUIRED_FIELD_MESSAGE))
-          .min(3, ({ min }) => `you should have al least ${min} skills`),
-      }),
+    validationSchema: capabilitiesValidationSchema,
   },
 ];
 
@@ -88,7 +55,7 @@ const getCurrentStepByHash = (hash: string) => {
   return index === -1 ? 0 : index;
 };
 
-const StepWizard: FC<StepWizardPropsType> = ({ editMode = false }) => {
+const StepWizard: FC<StepWizardPropsType> = ({ initialValues, editMode = false }) => {
   const { pathname, hash } = useLocation();
   const { id } = useParams();
   const history = useHistory();
@@ -161,7 +128,11 @@ const StepWizard: FC<StepWizardPropsType> = ({ editMode = false }) => {
           return (
             <div key={url} className={classNames.formWrapper}>
               <Formik
-                initialValues={{ ...form, passwordRepeat: form.password }}
+                initialValues={
+                  initialValues
+                    ? { ...form, ...initialValues, passwordRepeat: form.password }
+                    : { ...form, passwordRepeat: form.password }
+                }
                 onSubmit={(values) => nextStep({ values, stepNumber: index, isFinish })}
                 validationSchema={validationSchema(editMode, id)}
                 enableReinitialize
@@ -188,6 +159,7 @@ const StepWizard: FC<StepWizardPropsType> = ({ editMode = false }) => {
 };
 
 type StepWizardPropsType = {
+  initialValues?: FormikValues;
   editMode?: boolean;
 };
 

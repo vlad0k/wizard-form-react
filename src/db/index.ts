@@ -6,15 +6,6 @@ import { UserType } from '../types';
 const USERS_TABLE_NAME = 'users';
 const REQUEST_TIMEOUT_SEC = 5;
 
-const manualSlowing = () => {
-  let result = '';
-  let i = 0;
-  do {
-    i = i + 1;
-    result = result + i;
-  } while (i < 10000);
-};
-
 const db = new Dexie('WizardFormAppDB');
 
 db.version(12).stores({
@@ -28,7 +19,7 @@ export const getUsers = async () => await db.table(USERS_TABLE_NAME).toArray();
 export const getUser = async (id: IndexableType): Promise<UserType> => {
   const users = await db.table(USERS_TABLE_NAME).toArray();
   const user = users.find((user) => +user.id === +id);
-  return user || {};
+  return user;
 };
 
 export const updateUser = async (id: number, values: FormikValues) => {
@@ -86,7 +77,6 @@ export const checkUniqueValue = async ({
   valueName,
   currentUserId = NaN,
 }: CheckUniqueValueArgs) => {
-  manualSlowing();
   const valueToSkip = !Number.isNaN(currentUserId) ? (await getUser(currentUserId))[valueName] : '';
   const users = await getUsers();
   return users.find((user) => user[valueName] === value)

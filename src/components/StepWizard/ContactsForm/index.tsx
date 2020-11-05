@@ -1,7 +1,8 @@
 import { FieldArray } from 'formik';
 import React, { FC } from 'react';
 
-import { LANGUAGE_SELECT_OPTIONS } from '../../../formOptions';
+import { LANGUAGE_SELECT_OPTIONS, REQUIRED_FIELD_MESSAGE } from '../../../formOptions';
+import Yup from '../../../yup';
 import InputField from '../../ui/InputField';
 import PhoneInput from '../../ui/PhoneInput';
 import SelectField from '../../ui/SelectField';
@@ -27,5 +28,12 @@ const ContactsForm: FC = () => (
     </div>
   </>
 );
+
+export const validationSchema = () =>
+  Yup.object({
+    phoneNumbers: Yup.array().of(Yup.string()),
+    company: Yup.string().required(REQUIRED_FIELD_MESSAGE),
+    mainLang: Yup.string().required(REQUIRED_FIELD_MESSAGE).nullable(),
+  });
 
 export default ContactsForm;

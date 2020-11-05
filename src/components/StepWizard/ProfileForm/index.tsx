@@ -1,5 +1,8 @@
 import React, { FC } from 'react';
 
+import { REQUIRED_FIELD_MESSAGE } from '../../../formOptions';
+import ageValidator from '../../../utils/dateYearSubstract';
+import Yup from '../../../yup';
 import DatePicker from '../../ui/DatePicker';
 import InputField from '../../ui/InputField';
 import LocationPicker from '../../ui/LocationPicker';
@@ -27,5 +30,20 @@ const ProfileForm: FC = () => (
     </div>
   </>
 );
+
+export const validationSchema = (editMode: boolean = false, skipId: number) =>
+  Yup.object({
+    firstname: Yup.string().required(REQUIRED_FIELD_MESSAGE),
+    lastname: Yup.string().required(REQUIRED_FIELD_MESSAGE),
+    email: Yup.string()
+      .required(REQUIRED_FIELD_MESSAGE)
+      .email('incorrect email format')
+      .uniqueEmail(editMode, skipId),
+    birthdate: Yup.date()
+      .required(REQUIRED_FIELD_MESSAGE)
+      .max(ageValidator(18), 'You should be 18 years old')
+      .nullable(),
+    gender: Yup.string().nullable().required('please, choose your gender'),
+  });
 
 export default ProfileForm;

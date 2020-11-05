@@ -57,3 +57,5 @@ export const HOBBIES_CHECKBOX_GROUP = [
   { value: 'guitar', label: 'Guitar, guitar and guitar again. I’m fall in love with it.' },
   { value: 'nohobbie', label: 'WTF is “hobbies”???' },
 ];
+
+export const REQUIRED_FIELD_MESSAGE = 'required field';
